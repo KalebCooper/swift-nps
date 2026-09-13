@@ -7,7 +7,7 @@ Swift package foundation for the National Park Service Data API.
 ## Status
 
 Unreleased scaffolding only. The two product modules, test support, documentation catalogs,
-verification scripts and workflows are present. There is no public API yet.
+verification scripts, workflows, and demo shell are present. There is no public API yet.
 Parks and every other endpoint group, authentication, response models, and request execution
 are not yet built. The tests check package wiring and resource loading, not NPS behavior.
 
@@ -25,7 +25,10 @@ import SwiftNPSDataModels
 
 ## Example
 
-A runnable demo is not yet included. The import example above is the available usage.
+Open `Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` for an iOS 26 SwiftUI shell.
+It links both products through a local package reference and displays the package status.
+It makes no network requests and requires no API key. Close the standalone package window
+before building the demo to avoid duplicate local-package resolution in Xcode.
 
 ## Products
 

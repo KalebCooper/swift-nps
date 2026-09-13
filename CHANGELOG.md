@@ -10,4 +10,4 @@ All notable changes are documented here. This project follows
 
 - SwiftNPSData and SwiftNPSDataModels module foundations, with no public API or NPS operations.
 - Shared test resources and checks for resource loading and HTTP test dependency wiring.
-- Documentation catalogs, verification scripts, and platform workflows.
+- Documentation catalogs, verification scripts, platform workflows, and an iOS demo shell.
