@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
-- SwiftNPSData and SwiftNPSDataModels module foundations, with no public API or NPS operations.
-- Shared test resources and checks for resource loading and HTTP test dependency wiring.
-- Documentation catalogs, verification scripts, platform workflows, and an iOS demo shell.
+- Parks lookup by one validated park code through NPSDataClient, ParkRequest, and Endpoint.
+- Explicit API-key configuration using the X-Api-Key header, with typed service and transport errors.
+- Codable park details and collection envelopes that preserve provider strings and optional values.
+- Inspectable, Hashable requests and validated endpoints supporting consumer-defined responses.
+- Recorded Acadia, Yellowstone, empty-result, and missing-key responses with offline behavior tests.
+- Documentation catalogs, verification scripts, platform workflows, and an interactive iOS parks demo.

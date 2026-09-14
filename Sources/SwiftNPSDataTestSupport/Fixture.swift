@@ -1,27 +1,31 @@
 import Foundation
 
-/// A bundled resource used to verify the test resource layout.
-///
-/// No NPS response has been recorded. Replace the instructions case with recorded JSON cases
-/// when the first service operation is implemented, documenting each exact path and query.
+/// A real NPS response recorded on September 13, 2026.
 package enum Fixture: String, CaseIterable, Sendable {
-  /// The fixture recording instructions, not an API response.
-  case instructions = "README"
+  /// GET /api/v1/parks?parkCode=acad&limit=1&start=0 without authentication; HTTP 403.
+  case apiKeyMissing = "api-key-missing"
 
-  /// Reads the bundled resource.
+  /// GET /api/v1/parks?parkCode=acad&limit=1&start=0; HTTP 200.
+  case parksAcadia = "parks-acad"
+
+  /// GET /api/v1/parks?parkCode=zzzz&limit=1&start=0; HTTP 200 with no matches.
+  case parksEmpty = "parks-empty"
+
+  /// GET /api/v1/parks?parkCode=yell&limit=1&start=0; HTTP 200.
+  case parksYellowstone = "parks-yell"
+
+  /// Reads the recorded JSON response; see Fixtures/README.md for lossless escaping.
   package func data() throws -> Data {
     guard
       let url = Bundle.module.url(
-        forResource: rawValue, withExtension: "md", subdirectory: "Fixtures")
-    else {
-      throw FixtureFailure.missing(name: rawValue)
-    }
+        forResource: rawValue, withExtension: "json", subdirectory: "Fixtures")
+    else { throw FixtureFailure.missing(name: rawValue) }
     return try Data(contentsOf: url)
   }
 }
 
-/// Why a bundled resource could not be read.
+/// Why a recorded response could not be read.
 package enum FixtureFailure: Error, Hashable, Sendable {
-  /// The resource is absent from the bundle.
+  /// The named resource is absent from the bundle.
   case missing(name: String)
 }

@@ -2,8 +2,7 @@
 
 import PackageDescription
 
-// Keep models independent of networking. The SDK dependency graph is ready for service operations,
-// while both products currently contain only module scaffolding.
+// Keep park models and request descriptions independent of the SDK's networking dependencies.
 let package = Package(
   name: "swift-nps",
   platforms: [
