@@ -2,14 +2,16 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Look up parks by code through the National Park Service Data API.
+Find and browse parks through the National Park Service Data API.
 
 ## Status
 
-Released as 0.1.0. A parks lookup is available through an everyday client method, a reusable typed
-request, and a transport-independent endpoint. All three preserve the NPS collection envelope.
-The package includes required API-key configuration, typed responses and errors, and offline
-tests backed by recorded NPS responses. Other endpoint groups are not implemented.
+Released as 0.1.0; the following parks expansion is unreleased. Parks queries support multiple park
+codes, state codes, text search, sorting, and pagination. Lazy `parkPages` and `parks` sequences
+provide complete pages or individual parks using swifty-networking 1.1.0. Reusable typed requests
+and transport-independent endpoints remain available for single-page execution. The package
+includes required API-key configuration, typed failures, and recorded-response tests.
+Other endpoint groups are not implemented.
 
 NPS destination data does not imply live campsite booking availability or reservation support.
 This package provides no freshness, ordering, completeness, or availability guarantees.
@@ -50,6 +52,46 @@ Client operations throw `NPSDataError`, preserving recognized gateway errors and
 metadata, or the underlying transport, decoding, status, or cancellation failure.
 NPS rate limits vary; HTTP 429 is returned without automatic retry.
 
+For a filtered search, use the same query with either lazy sequence:
+
+```swift
+let query = try ParkQuery(
+  limit: 20, searchText: "history", sort: [.relevanceScore(.descending)],
+  stateCodes: [StateCode("ME"), StateCode("MA")])
+
+for try await page in client.parkPages(query: query) {
+  print("Received \(page.data.count) of \(page.total) parks")
+}
+
+for try await park in client.parks(query: query) {
+  print(park.fullName)
+}
+```
+
+Each loop above starts its own traversal. Construction sends nothing. Pages fetch on demand;
+individual parks drain the current page before fetching another. Breaking a loop prevents later
+requests. `ParkQuery` explicitly defaults to `limit=50` and `start=0`, with both overridable.
+Code filters preserve caller order and case. Empty filter arrays omit the filter; empty sorting
+uses NPS's full-name default. Search text is encoded without trimming. Sort by full name, park code,
+or relevance in either direction; relevance cannot be combined with other sort criteria.
+
+Reuse an inspectable query request for pages, parks, or just one page:
+
+```swift
+let request = ParkRequest.parks(query: query)
+let pages = client.parkPages(for: request)
+let parks = client.parks(for: request)
+let onePage = try await client.value(for: request)
+let samePage = try await client.send(.parks(query: query))
+```
+
+Pagination advances by the returned item count and stops when that range reaches the reported
+total. Empty pages terminate only at or beyond the total. Invalid numeric metadata, an unexpected
+offset, contradictory counts, or overflow throws `NPSDataError.pagination` before yielding the
+affected page. Earlier results do not imply completion. Results can change between requests;
+the sequences do not deduplicate or promise a stable snapshot. A request created with
+`init(endpoint:)`, or the legacy single-code factory, declares no continuation and yields one page.
+
 On non-Apple platforms, create `NPSDataClient(configuration:transport:)` with an explicit
 `NPSDataConfiguration(apiKey:)` and an HTTPCore transport. Request and endpoint values also
 work with a custom executor, including consumer-defined response models through
@@ -67,8 +109,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated parks client and typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Park models, validated codes, requests, and endpoints. | None. |
+| `SwiftNPSData` | Authenticated parks queries, lazy page and park sequences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Park models, validated queries, continuation rules, requests, and endpoints. | None. |
 
 ## Requirements
 

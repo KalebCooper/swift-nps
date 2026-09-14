@@ -69,4 +69,39 @@ extension Endpoint where Response == ParksResponse {
     }
     return endpoint
   }
+
+  /// Describes one parks page with filters, text search, sorting, and explicit pagination.
+  /// - Parameter query: Validated options, encoded without changing their values or order.
+  /// - Returns: One endpoint returning the complete ``ParksResponse`` envelope.
+  public static func parks(query: ParkQuery) -> Self {
+    var items = ["limit=\(query.limit)"]
+    if !query.parkCodes.isEmpty {
+      items.append("parkCode=" + query.parkCodes.map(\.rawValue).joined(separator: ","))
+    }
+    if let text = query.searchText { items.append("q=" + encode(text)) }
+    if !query.sort.isEmpty {
+      items.append("sort=" + query.sort.map(\.queryValue).joined(separator: ","))
+    }
+    items.append("start=\(query.start)")
+    if !query.stateCodes.isEmpty {
+      items.append("stateCode=" + query.stateCodes.map(\.rawValue).joined(separator: ","))
+    }
+    guard let endpoint = Self(path: "/parks?" + items.joined(separator: "&")) else {
+      preconditionFailure(
+        "Validated query values and percent-encoded text form a relative endpoint.")
+    }
+    return endpoint
+  }
+
+  private static func encode(_ value: String) -> String {
+    value.utf8.map { byte in
+      if (48...57).contains(byte) || (65...90).contains(byte) || (97...122).contains(byte)
+        || [45, 46, 95, 126].contains(byte)
+      {
+        return String(UnicodeScalar(byte))
+      }
+      let hex = String(byte, radix: 16, uppercase: true)
+      return "%" + (hex.count == 1 ? "0" : "") + hex
+    }.joined()
+  }
 }

@@ -15,6 +15,12 @@ public enum NPSDataError: Error {
   /// The rejected credential is deliberately not attached to the error.
   case invalidAPIKey
 
+  /// Pagination metadata cannot safely establish progress or completion.
+  ///
+  /// The failing page is not yielded and iteration ends. Earlier pages remain valid results,
+  /// but their presence does not imply that every matching park was fetched.
+  case pagination(ParkPaginationError)
+
   /// The service returned a recognized error envelope.
   ///
   /// The HTTP failure retains the original body, status, and headers, including rate-limit

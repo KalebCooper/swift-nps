@@ -1,6 +1,6 @@
 # ``SwiftNPSData``
 
-Look up parks through the National Park Service Data API.
+Find and browse parks through the National Park Service Data API.
 
 ## Overview
 
@@ -39,6 +39,50 @@ All three return ``/SwiftNPSDataModels/ParksResponse``. The string-valued pagina
 and result order are preserved. An unknown code can return an empty data array. No first result
 is selected, no next page is fetched, and no retries or redirects are performed.
 
+### Queries and lazy pagination
+
+Use one validated ``/SwiftNPSDataModels/ParkQuery`` across page iteration, individual park
+iteration, and single-page requests:
+
+```swift
+let query = try ParkQuery(
+  limit: 20, searchText: "history", sort: [.relevanceScore(.descending)],
+  stateCodes: [StateCode("ME"), StateCode("MA")])
+
+for try await page in client.parkPages(query: query) {
+  print("Received \(page.data.count) of \(page.total) parks")
+}
+
+for try await park in client.parks(query: query) {
+  print(park.fullName)
+}
+
+let request = ParkRequest.parks(query: query)
+let pages = client.parkPages(for: request)
+let parks = client.parks(for: request)
+let onePage = try await client.value(for: request)
+let samePage = try await client.send(.parks(query: query))
+```
+
+Each loop starts an independent traversal. ``ParkPageSequence`` uses swifty-networking 1.1.0
+pagination to fetch one page per read. ``ParkSequence`` drains that page before fetching another.
+Construction performs no I/O, no pages are prefetched, and breaking iteration sends no later request.
+Cancellation is checked before requests and when reading buffered parks. Any failure ends the
+iterator; later reads return nil.
+
+Queries explicitly default to `limit=50` and `start=0`, with both overridable. Pagination advances
+by the number of returned parks, retaining filters, sorting, and authentication. A returned range
+ending at the reported total completes iteration. An empty page is terminal only at or beyond
+the total. Metadata strings remain unchanged in each page.
+
+Unusable metadata, an unexpected offset, contradictory counts, or overflow throws
+``NPSDataError/pagination(_:)`` before yielding the affected page. Previously yielded results do
+not imply completion. Data can change between requests; neither sequence deduplicates, reorders,
+or promises a stable snapshot.
+
+A request made with `init(endpoint:)` or the existing single-code factory declares no continuation.
+It yields only its one page even when the provider reports more results.
+
 ### Authentication and failures
 
 [NPS requires an API key](https://www.nps.gov/subjects/developer/guides.htm).
@@ -73,3 +117,8 @@ The package makes no freshness or completeness guarantee.
 ### Errors
 
 - ``NPSDataError``
+
+### Pagination
+
+- ``ParkPageSequence``
+- ``ParkSequence``

@@ -11,6 +11,8 @@ public struct ParkRequest<Response>: Hashable, Sendable {
   public enum Resolution: Hashable, Sendable {
     /// Send one endpoint and decode the response body as `Response`.
     case endpoint(Endpoint<Response>)
+    /// Send a parks query; a paginating executor can derive the next query from its response.
+    case parks(ParkQuery)
   }
 
   /// The operation a custom executor interprets.
@@ -21,6 +23,10 @@ public struct ParkRequest<Response>: Hashable, Sendable {
   public init(endpoint: Endpoint<Response>) {
     self.resolution = .endpoint(endpoint)
   }
+
+  private init(resolution: Resolution) {
+    self.resolution = resolution
+  }
 }
 
 extension ParkRequest where Response == ParksResponse {
@@ -29,5 +35,15 @@ extension ParkRequest where Response == ParksResponse {
   /// - Returns: A reusable request for ``ParksResponse``.
   public static func parks(parkCode: ParkCode) -> Self {
     Self(endpoint: .parks(parkCode: parkCode))
+  }
+
+  /// Describes a parks query usable for one page or lazy iteration.
+  ///
+  /// A custom executor sends ``Endpoint/parks(query:)`` and uses ``ParkQuery/next(after:)``
+  /// when more pages are desired. No request is sent during construction.
+  /// - Parameter query: Validated query options.
+  /// - Returns: An inspectable request whose individual response is ``ParksResponse``.
+  public static func parks(query: ParkQuery) -> Self {
+    Self(resolution: .parks(query))
   }
 }
