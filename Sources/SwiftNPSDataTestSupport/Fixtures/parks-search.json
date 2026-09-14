@@ -1,0 +1,1416 @@
+{
+  "total": "21",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "E4C7784E-66A0-4D44-87D0-3E072F5FEF43",
+      "url": "https://www.nps.gov/adam/index.htm",
+      "fullName": "Adams National Historical Park",
+      "parkCode": "adam",
+      "description": "From the sweet little farm at the foot of Penn\u2019s Hill to the gentleman\u2019s country estate at Peace field, Adams National Historical Park is the story of \u201cheroes, statesmen, philosophers\u2026and learned women\u201d whose ideas and actions helped to transform thirteen disparate colonies into one united nation.",
+      "latitude": "42.2553961",
+      "longitude": "-71.01160356",
+      "latLong": "lat:42.2553961, long:-71.01160356",
+      "activities": [
+        {
+          "id": "B33DC9B6-0B7D-4322-BAD7-A13A34C584A3",
+          "name": "Guided Tours"
+        },
+        {
+          "id": "A0631906-9672-4583-91DE-113B93DB6B6E",
+          "name": "Self-Guided Tours - Walking"
+        },
+        {
+          "id": "B204DE60-5A24-43DD-8902-C81625A09A74",
+          "name": "Living History"
+        },
+        {
+          "id": "28880A5B-3D29-41AC-BD8B-24743E7A070F",
+          "name": "First Person Interpretation"
+        },
+        {
+          "id": "DF4A35E0-7983-4A3E-BC47-F37B872B0F25",
+          "name": "Junior Ranger Program"
+        },
+        {
+          "id": "0C0D142F-06B5-4BE1-8B44-491B90F93DEB",
+          "name": "Park Film"
+        },
+        {
+          "id": "24380E3F-AD9D-4E38-BF13-C8EEB21893E7",
+          "name": "Shopping"
+        },
+        {
+          "id": "467DC8B8-0B7D-436D-A026-80A22358F615",
+          "name": "Bookstore and Park Store"
+        }
+      ],
+      "topics": [
+        {
+          "id": "F3883A66-A7CB-461B-868E-1B5932224B25",
+          "name": "American Revolution"
+        },
+        {
+          "id": "D10852A3-443C-4743-A5FA-6DD6D2A054B3",
+          "name": "Birthplace"
+        },
+        {
+          "id": "7F12224B-217A-4B07-A4A2-636B1CE7F221",
+          "name": "Colonization and Settlement"
+        },
+        {
+          "id": "F669BC40-BDC4-41C0-9ACE-B2CD25373045",
+          "name": "Presidents"
+        },
+        {
+          "id": "27BF8807-54EA-4A3D-B073-AA7AA361CD7E",
+          "name": "Wars and Conflicts"
+        },
+        {
+          "id": "990E22A2-20D8-4CC2-8E6C-D2DF165BCDA5",
+          "name": "American Revolutionary War"
+        },
+        {
+          "id": "A8E54356-20CD-490E-B34D-AC6A430E6F47",
+          "name": "Civil War"
+        },
+        {
+          "id": "7DA81DAB-5045-4953-9C20-36590AD9FA95",
+          "name": "Women's History"
+        }
+      ],
+      "states": "MA",
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "617-770-1175",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "ADAM_Visitor_Center@nps.gov"
+          }
+        ]
+      },
+      "entranceFees": [
+        {
+          "cost": "15.00",
+          "description": "Entrance into the historic homes at Adams National Historical Park requires an entrance pass. Entrance passes cost $15 per person. Children under the age of 16 are free. If you have an America the Beautiful Interagency Pass, you do not need to pay the entrance fee. Guided tours must be reserved in-person on the day of your visit at the park\u2019s visitor center.",
+          "title": "Entrance - Per Person"
+        }
+      ],
+      "entrancePasses": [
+        {
+          "cost": "45.00",
+          "description": "Adams National Historical Park has a digital annual pass available for purchase on Recreation.gov.  This pass is good for 12 months following the purchase of the pass. Reservations for guided tours are still required, but the digital annual pass will ensure the passholder free entry into the park. Passes are not required to visit the park grounds. The pass costs $45.",
+          "title": "Annual Entrance - Park"
+        }
+      ],
+      "fees": [],
+      "directionsInfo": "Traveling on U.S. Interstate 93, take exit 7 - Route 3 South to Braintree and Cape Cod. Take the first exit off Route 3 south - exit 42. Follow signs toward Quincy Center. Continue straight on Burgin Parkway through seven traffic lights. At the eighth traffic light, turn right onto Dimmock Street. After one block, turn right onto Hancock Street. The National Park Service Visitor Center, located at 1250 Hancock Street, is on your left. Validated parking is in the Presidents Place garage, 44 Saville Avenue.",
+      "directionsUrl": "http://www.nps.gov/adam/planyourvisit/directions.htm",
+      "operatingHours": [
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "9:00AM - 5:00PM",
+                "monday": "Closed",
+                "thursday": "9:00AM - 5:00PM",
+                "sunday": "9:00AM - 5:00PM",
+                "tuesday": "Closed",
+                "friday": "9:00AM - 5:00PM",
+                "saturday": "9:00AM - 5:00PM"
+              },
+              "startDate": "2026-05-01",
+              "name": "2026 Tour Season",
+              "endDate": "2026-10-31"
+            }
+          ],
+          "description": "The historic homes are closed for the winter season. The historic homes are expected to reopen in late spring/early summer.",
+          "standardHours": {
+            "wednesday": "Closed",
+            "monday": "Closed",
+            "thursday": "Closed",
+            "sunday": "Closed",
+            "tuesday": "Closed",
+            "friday": "Closed",
+            "saturday": "Closed"
+          },
+          "name": "Historic Homes"
+        },
+        {
+          "exceptions": [],
+          "description": "The park grounds are open daily sunrise to sunset.",
+          "standardHours": {
+            "wednesday": "Sunrise to Sunset",
+            "monday": "Sunrise to Sunset",
+            "thursday": "Sunrise to Sunset",
+            "sunday": "Sunrise to Sunset",
+            "tuesday": "Sunrise to Sunset",
+            "friday": "Sunrise to Sunset",
+            "saturday": "Sunrise to Sunset"
+          },
+          "name": "Park Grounds"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "02169",
+          "city": "Quincy",
+          "stateCode": "MA",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "1250 Hancock St.",
+          "type": "Physical",
+          "line3": "",
+          "line2": ""
+        },
+        {
+          "postalCode": "02169",
+          "city": "Quincy",
+          "stateCode": "MA",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "135 Adams Street",
+          "type": "Mailing",
+          "line3": "",
+          "line2": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo",
+          "title": "The John and John Quincy Adams Birthplaces",
+          "altText": "The Birthplaces of Presidents John Adams (right) and John Quincy Adams (left)",
+          "caption": "The Birthplaces of John and John Quincy Adams sit right next to each other on Franklin Street.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/889E1412-09CD-086C-0BA3855C6E9FF9D3.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "The Birthplace of John Adams",
+          "altText": "A New England \"salt-box\" style home with wooden siding and trim.",
+          "caption": "The house where John Adams was born in 1735.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/8924E149-9BB4-37D2-710F245F8D1345FD.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "The Birthplace of John Quincy Adams",
+          "altText": "A New England \"salt-box\" style house with light gray siding and a beige door.",
+          "caption": "The house where President John Quincy Adams was born in 1767.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/8942542D-B88C-8E75-525D5D8E60126209.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "Old House at Peace field",
+          "altText": "A view of Old House at Peace field",
+          "caption": "Old House at Peace field, where four generations of the Adams family lived from 1788 to 1927.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/3C7C780E-1DD8-B71B-0B18B8DB9F39704F.jpg"
+        },
+        {
+          "credit": "NPS Photo / Betty Brown",
+          "title": "The Paneled Room",
+          "altText": "The Paneled Room located inside Old House at Peace field.",
+          "caption": "The Paneled Room greets everyone who enters Old House at Peace field.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/3C7C7945-1DD8-B71B-0BE14B48DD78B777.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "The Stone Library",
+          "altText": "The Stone Library located outside Old House at Peace field.",
+          "caption": "The Stone Library houses up to 14,000 books belonging to the Adams family.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/3C7C7A77-1DD8-B71B-0BDA92321AD899C5.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "Inside the Stone Library",
+          "altText": "A dark room with tiled floor, filled with chairs and desks, with books lining the walls.",
+          "caption": "A view into the Stone Library",
+          "url": "https://www.nps.gov/common/uploads/structured_data/B40B7435-9820-F37A-541DCBFC93C5BBDF.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "The Gardens Located at Old House at Peace field",
+          "altText": "The gardens located at Old House at Peace field.",
+          "caption": "The gardens located by Old House at Peace field bloom in every color you can imagine.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/3C7C7D4E-1DD8-B71B-0B48B5CDE41703D7.jpg"
+        }
+      ],
+      "weatherInfo": "Be prepared for hot, humid weather during the summer months. The historic homes are not air conditioned. While the visitor center remains open all year, the historic homes are generally closed from approximately November 1 through April 30. Winters in New England often feature low temperatures and snowy/icy conditions. Please exercise caution when visiting the park. The Visitor Center may close during inclement weather.",
+      "name": "Adams",
+      "designation": "National Historical Park",
+      "multimedia": [],
+      "relevanceScore": 9.226259
+    },
+    {
+      "id": "81F81EBD-0FE7-4811-88EF-AB071E737D97",
+      "url": "https://www.nps.gov/bost/index.htm",
+      "fullName": "Boston National Historical Park",
+      "parkCode": "bost",
+      "description": "Discover how one city could be the Cradle of Liberty, site of the first major battle of American Revolution, and home to many who espoused that freedom can be extended to all.",
+      "latitude": "42.36957407",
+      "longitude": "-71.05536763",
+      "latLong": "lat:42.36957407, long:-71.05536763",
+      "activities": [
+        {
+          "id": "AE42B46C-E4B7-4889-A122-08FE180371AE",
+          "name": "Fishing"
+        },
+        {
+          "id": "B33DC9B6-0B7D-4322-BAD7-A13A34C584A3",
+          "name": "Guided Tours"
+        },
+        {
+          "id": "A0631906-9672-4583-91DE-113B93DB6B6E",
+          "name": "Self-Guided Tours - Walking"
+        },
+        {
+          "id": "DF4A35E0-7983-4A3E-BC47-F37B872B0F25",
+          "name": "Junior Ranger Program"
+        },
+        {
+          "id": "C8F98B28-3C10-41AE-AA99-092B3B398C43",
+          "name": "Museum Exhibits"
+        }
+      ],
+      "topics": [
+        {
+          "id": "F3883A66-A7CB-461B-868E-1B5932224B25",
+          "name": "American Revolution"
+        },
+        {
+          "id": "14FA9FF3-7D86-4406-9A6D-BE9032A1C578",
+          "name": "Laborer and Worker"
+        },
+        {
+          "id": "4C9D4777-A9DA-47D1-A0B9-F4A3C98BC1B3",
+          "name": "Maritime"
+        },
+        {
+          "id": "7424754D-EB8B-4608-A69A-50D44992931B",
+          "name": "Maritime - Military"
+        },
+        {
+          "id": "3B0D607D-9933-425A-BFA0-21529AC4734C",
+          "name": "Military"
+        },
+        {
+          "id": "E411F474-A530-4804-9D23-1D94C78B41E4",
+          "name": "Infantry and Militia"
+        },
+        {
+          "id": "7A9F5EB5-4AE3-4A16-AFF0-E1F9FF2F8B32",
+          "name": "US Navy"
+        },
+        {
+          "id": "6A3658B4-FB6E-4E23-A63A-9AEF11988831",
+          "name": "Battlefields"
+        },
+        {
+          "id": "BEB7E470-13B2-4E00-84B2-0402D98DAF69",
+          "name": "Monuments and Memorials"
+        },
+        {
+          "id": "40C0866A-3890-41A4-84CA-5935DEE181AE",
+          "name": "Social Movements"
+        },
+        {
+          "id": "5CCB14BC-2AC4-45CE-B786-54A065DA1B60",
+          "name": "Abolition Movement"
+        },
+        {
+          "id": "DA1E6678-D60D-4E66-96A5-78183342673B",
+          "name": "Voting Rights and Suffrage"
+        },
+        {
+          "id": "27BF8807-54EA-4A3D-B073-AA7AA361CD7E",
+          "name": "Wars and Conflicts"
+        },
+        {
+          "id": "990E22A2-20D8-4CC2-8E6C-D2DF165BCDA5",
+          "name": "American Revolutionary War"
+        },
+        {
+          "id": "74869FAE-8DFD-4454-847F-11FDDB679F94",
+          "name": "World War II"
+        },
+        {
+          "id": "7DA81DAB-5045-4953-9C20-36590AD9FA95",
+          "name": "Women's History"
+        },
+        {
+          "id": "4DC11D06-00F1-4A01-81D0-89CCCCE4FF50",
+          "name": "Climate Change"
+        }
+      ],
+      "states": "MA",
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "6172425601",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "bost_rangers@nps.gov"
+          }
+        ]
+      },
+      "entranceFees": [],
+      "entrancePasses": [],
+      "fees": [],
+      "directionsInfo": "Visitor Centers are located at Historic Faneuil Hall, 1 Faneuil Hall Sq, and the Charlestown Navy Yard, Building 5. The Bunker Hill Museum is located at 43 Monument Square, Charlestown. Go to the Directions page for more detailed information.",
+      "directionsUrl": "http://www.nps.gov/bost/planyourvisit/directions.htm",
+      "operatingHours": [
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "1:00PM - 4:00PM",
+                "monday": "Closed",
+                "thursday": "1:00PM - 4:00PM",
+                "sunday": "1:00PM - 4:00PM",
+                "tuesday": "Closed",
+                "friday": "1:00PM - 4:00PM",
+                "saturday": "1:00PM - 4:00PM"
+              },
+              "startDate": "2026-10-13",
+              "name": "Off-Season Hours",
+              "endDate": "2027-05-28"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 5:00PM",
+                "monday": "10:00AM - 5:00PM",
+                "thursday": "10:00AM - 5:00PM",
+                "sunday": "10:00AM - 5:00PM",
+                "tuesday": "10:00AM - 5:00PM",
+                "friday": "10:00AM - 5:00PM",
+                "saturday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2027-05-31",
+              "name": "Memorial Day",
+              "endDate": "2027-05-31"
+            }
+          ],
+          "description": "Only 25 people are allowed in the Monument at a time. Last climb is 30 minutes before closure.\n\nBe advised: The Monument may close for climbing due to weather conditions and/or other safety considerations.",
+          "standardHours": {
+            "wednesday": "10:00AM - 5:00PM",
+            "monday": "Closed",
+            "thursday": "10:00AM - 5:00PM",
+            "sunday": "10:00AM - 5:00PM",
+            "tuesday": "Closed",
+            "friday": "10:00AM - 5:00PM",
+            "saturday": "10:00AM - 5:00PM"
+          },
+          "name": "Bunker Hill Monument"
+        },
+        {
+          "exceptions": [],
+          "description": "Dorchester Heights marks the site of George Washington's first Revolutionary War victory. The park grounds are open to the public daily.",
+          "standardHours": {
+            "wednesday": "unknown",
+            "monday": "unknown",
+            "thursday": "unknown",
+            "sunday": "unknown",
+            "tuesday": "unknown",
+            "friday": "unknown",
+            "saturday": "unknown"
+          },
+          "name": "Dorchester Heights"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 4:15PM",
+                "monday": "Closed",
+                "thursday": "10:00AM - 4:15PM",
+                "sunday": "10:00AM - 4:15PM",
+                "tuesday": "10:00AM - 4:15PM",
+                "friday": "10:00AM - 4:15PM",
+                "saturday": "10:00AM - 4:15PM"
+              },
+              "startDate": "2027-01-01",
+              "name": "Winter Hours",
+              "endDate": "2027-03-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 5:15PM",
+                "monday": "10:00AM - 5:15PM",
+                "thursday": "10:00AM - 5:15PM",
+                "sunday": "10:00AM - 5:15PM",
+                "tuesday": "10:00AM - 5:15PM",
+                "friday": "10:00AM - 5:15PM",
+                "saturday": "10:00AM - 5:15PM"
+              },
+              "startDate": "2026-04-15",
+              "name": "Summer Hours",
+              "endDate": "2026-10-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-24",
+              "name": "Christmas Eve",
+              "endDate": "2026-12-24"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            }
+          ],
+          "description": "The Paul Revere House is a Boston National Historical Park partner site operated by the Paul Revere Memorial Association.",
+          "standardHours": {
+            "wednesday": "10:00AM - 4:15PM",
+            "monday": "10:00AM - 4:15PM",
+            "thursday": "10:00AM - 4:15PM",
+            "sunday": "10:00AM - 4:15PM",
+            "tuesday": "10:00AM - 4:15PM",
+            "friday": "10:00AM - 4:15PM",
+            "saturday": "10:00AM - 4:15PM"
+          },
+          "name": "Paul Revere House"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "Winter",
+              "endDate": "2027-02-28"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 5:00PM",
+                "monday": "Closed",
+                "thursday": "10:00AM - 5:00PM",
+                "sunday": "12:30PM - 5:00PM",
+                "tuesday": "10:00AM - 5:00PM",
+                "friday": "10:00AM - 5:00PM",
+                "saturday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2027-03-01",
+              "name": "Spring",
+              "endDate": "2027-05-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 5:00PM",
+                "monday": "Closed",
+                "thursday": "10:00AM - 5:00PM",
+                "sunday": "12:30PM - 5:00PM",
+                "tuesday": "10:00AM - 5:00PM",
+                "friday": "10:00AM - 5:00PM",
+                "saturday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2026-09-03",
+              "name": "Fall",
+              "endDate": "2026-12-31"
+            },
+            {
+              "exceptionHours": {
+                "monday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2027-09-07",
+              "name": "Labor Day",
+              "endDate": "2027-09-07"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 2:00PM",
+                "monday": "10:00AM - 2:00PM",
+                "thursday": "10:00AM - 2:00PM",
+                "sunday": "10:00AM - 2:00PM",
+                "tuesday": "10:00AM - 2:00PM",
+                "friday": "10:00AM - 2:00PM",
+                "saturday": "10:00AM - 2:00PM"
+              },
+              "startDate": "2026-12-24",
+              "name": "Christmas Eve",
+              "endDate": "2026-12-24"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Years Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 2:00PM",
+                "monday": "10:00AM - 2:00PM",
+                "thursday": "10:00AM - 2:00PM",
+                "sunday": "10:00AM - 2:00PM",
+                "tuesday": "10:00AM - 2:00PM",
+                "friday": "10:00AM - 2:00PM",
+                "saturday": "10:00AM - 2:00PM"
+              },
+              "startDate": "2026-12-31",
+              "name": "New Year's Eve",
+              "endDate": "2026-12-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "monday": "10:00AM - 4:00PM"
+              },
+              "startDate": "2027-01-18",
+              "name": "Martin Luther King, Jr. Day",
+              "endDate": "2027-01-18"
+            },
+            {
+              "exceptionHours": {
+                "monday": "10:00AM - 4:00PM"
+              },
+              "startDate": "2027-02-15",
+              "name": "Washington's Birthday",
+              "endDate": "2027-02-15"
+            },
+            {
+              "exceptionHours": {
+                "monday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2027-05-31",
+              "name": "Memorial Day",
+              "endDate": "2027-05-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 5:00PM",
+                "monday": "10:00AM - 5:00PM",
+                "thursday": "10:00AM - 5:00PM",
+                "sunday": "10:00AM - 5:00PM",
+                "tuesday": "10:00AM - 5:00PM",
+                "friday": "10:00AM - 5:00PM",
+                "saturday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2027-06-19",
+              "name": "Juneteenth",
+              "endDate": "2027-06-19"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 5:00PM",
+                "monday": "10:00AM - 5:00PM",
+                "thursday": "10:00AM - 5:00PM",
+                "sunday": "10:00AM - 5:00PM",
+                "tuesday": "10:00AM - 5:00PM",
+                "friday": "10:00AM - 5:00PM",
+                "saturday": "10:00AM - 5:00PM"
+              },
+              "startDate": "2027-07-04",
+              "name": "Independence Day",
+              "endDate": "2027-07-04"
+            }
+          ],
+          "description": "Old North is a Boston National Historical Park partner site operated by Old North Illuminated.",
+          "standardHours": {
+            "wednesday": "10:00AM - 5:00PM",
+            "monday": "10:00AM - 5:00PM",
+            "thursday": "10:00AM - 5:00PM",
+            "sunday": "11:30AM - 5:00PM",
+            "tuesday": "10:00AM - 5:00PM",
+            "friday": "10:00AM - 6:00PM",
+            "saturday": "10:00AM - 5:00PM"
+          },
+          "name": "Old North Church"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 6:00PM",
+                "monday": "10:00AM - 6:00PM",
+                "thursday": "10:00AM - 6:00PM",
+                "sunday": "10:00AM - 6:00PM",
+                "tuesday": "10:00AM - 6:00PM",
+                "friday": "10:00AM - 6:00PM",
+                "saturday": "10:00AM - 6:00PM"
+              },
+              "startDate": "2027-06-13",
+              "name": "Summer",
+              "endDate": "2027-07-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-24",
+              "name": "Christmas Eve",
+              "endDate": "2026-12-24"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "Closed New Year's Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-07-04",
+              "name": "Closed Independence Day",
+              "endDate": "2027-07-04"
+            }
+          ],
+          "description": "The Old State House is a Boston National Historical Park partner site operated by Revolutionary Spaces.\n\nFor more visitor information, please visit the Revolutionary Spaces website.",
+          "standardHours": {
+            "wednesday": "10:00AM - 5:00PM",
+            "monday": "10:00AM - 5:00PM",
+            "thursday": "10:00AM - 5:00PM",
+            "sunday": "10:00AM - 5:00PM",
+            "tuesday": "10:00AM - 5:00PM",
+            "friday": "10:00AM - 5:00PM",
+            "saturday": "10:00AM - 5:00PM"
+          },
+          "name": "Old State House"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 6:00PM",
+                "monday": "10:00AM - 6:00PM",
+                "thursday": "10:00AM - 6:00PM",
+                "sunday": "10:00AM - 6:00PM",
+                "tuesday": "10:00AM - 6:00PM",
+                "friday": "10:00AM - 6:00PM",
+                "saturday": "10:00AM - 6:00PM"
+              },
+              "startDate": "2027-06-13",
+              "name": "Summer",
+              "endDate": "2027-07-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-24",
+              "name": "Christmas Eve",
+              "endDate": "2026-12-24"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            }
+          ],
+          "description": "The Old South Meeting House is a Boston National Historical Park partner site operated by Revolutionary Spaces.\n\nFor more visitor information, please visit the Revolutionary Spaces website.",
+          "standardHours": {
+            "wednesday": "10:00AM - 5:00PM",
+            "monday": "10:00AM - 5:00PM",
+            "thursday": "10:00AM - 5:00PM",
+            "sunday": "10:00AM - 5:00PM",
+            "tuesday": "10:00AM - 5:00PM",
+            "friday": "10:00AM - 5:00PM",
+            "saturday": "10:00AM - 5:00PM"
+          },
+          "name": "Old South Meeting House"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 4:30PM",
+                "monday": "Closed",
+                "thursday": "10:00AM - 4:30PM",
+                "sunday": "10:00AM - 4:30PM",
+                "tuesday": "Closed",
+                "friday": "10:00AM - 4:30PM",
+                "saturday": "10:00AM - 4:30PM"
+              },
+              "startDate": "2026-10-13",
+              "name": "Off-Season Hours",
+              "endDate": "2027-05-28"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 4:30PM",
+                "monday": "10:00AM - 4:30PM",
+                "thursday": "10:00AM - 4:30PM",
+                "sunday": "10:00AM - 4:30PM",
+                "tuesday": "10:00AM - 4:30PM",
+                "friday": "10:00AM - 4:30PM",
+                "saturday": "10:00AM - 4:30PM"
+              },
+              "startDate": "2027-02-15",
+              "name": "Presidents' Day (Washington's Birthday)",
+              "endDate": "2027-02-15"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 4:30PM",
+                "monday": "10:00AM - 4:30PM",
+                "thursday": "10:00AM - 4:30PM",
+                "sunday": "10:00AM - 4:30PM",
+                "tuesday": "10:00AM - 4:30PM",
+                "friday": "10:00AM - 4:30PM",
+                "saturday": "10:00AM - 4:30PM"
+              },
+              "startDate": "2027-05-31",
+              "name": "Memorial Day",
+              "endDate": "2027-05-31"
+            }
+          ],
+          "description": "The Great Hall is operated as a historic site by the National Park Service in partnership with the City of Boston. Faneuil Hall is owned and managed by the City of Boston. The Great Hall is closed to public visitation when City-permitted events are scheduled.\n\nVisitors can find maps and other visiting materials in the Great Hall.",
+          "standardHours": {
+            "wednesday": "10:00AM - 4:30PM",
+            "monday": "Closed",
+            "thursday": "10:00AM - 4:30PM",
+            "sunday": "10:00AM - 4:30PM",
+            "tuesday": "10:00AM - 4:30PM",
+            "friday": "10:00AM - 4:30PM",
+            "saturday": "10:00AM - 4:30PM"
+          },
+          "name": "The Great Hall of Faneuil Hall"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 6:00PM",
+                "monday": "Closed",
+                "thursday": "10:00AM - 6:00PM",
+                "sunday": "10:00AM - 6:00PM",
+                "tuesday": "Closed",
+                "friday": "10:00AM - 6:00PM",
+                "saturday": "10:00AM - 6:00PM"
+              },
+              "startDate": "2027-05-01",
+              "name": "Summer Hours",
+              "endDate": "2027-09-01"
+            },
+            {
+              "exceptionHours": {
+                "monday": "10:00AM - 6:00PM"
+              },
+              "startDate": "2027-09-07",
+              "name": "Labor Day",
+              "endDate": "2027-09-07"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-18",
+              "name": "Martin Luther King Jr.'s Birthday",
+              "endDate": "2027-01-18"
+            }
+          ],
+          "description": "USS CONSTITUTION is the oldest commissioned ship in the United States Navy. Naval officers and crew still serve aboard the ship. The Navy operates the ship as a historic site in cooperation with the National Park Service.",
+          "standardHours": {
+            "wednesday": "10:00AM - 4:00PM",
+            "monday": "Closed",
+            "thursday": "10:00AM - 4:00PM",
+            "sunday": "10:00AM - 4:00PM",
+            "tuesday": "Closed",
+            "friday": "10:00AM - 4:00PM",
+            "saturday": "10:00AM - 4:00PM"
+          },
+          "name": "USS Constitution"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "9:00AM - 6:00PM",
+                "monday": "9:00AM - 6:00PM",
+                "thursday": "9:00AM - 6:00PM",
+                "sunday": "9:00AM - 6:00PM",
+                "tuesday": "9:00AM - 6:00PM",
+                "friday": "9:00AM - 6:00PM",
+                "saturday": "9:00AM - 6:00PM"
+              },
+              "startDate": "2026-05-01",
+              "name": "Summer Hours",
+              "endDate": "2026-10-31"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-26",
+              "name": "Thanksgiving Day",
+              "endDate": "2026-11-26"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 2:00PM",
+                "monday": "10:00AM - 2:00PM",
+                "thursday": "10:00AM - 2:00PM",
+                "sunday": "10:00AM - 2:00PM",
+                "tuesday": "10:00AM - 2:00PM",
+                "friday": "10:00AM - 2:00PM",
+                "saturday": "10:00AM - 2:00PM"
+              },
+              "startDate": "2026-12-24",
+              "name": "Christmas Eve",
+              "endDate": "2026-12-24"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-12-25",
+              "name": "Christmas Day",
+              "endDate": "2026-12-25"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "New Year's Day",
+              "endDate": "2027-01-01"
+            }
+          ],
+          "description": "USS Constitution Museum collects, preserves, and interprets the stories of \"Old Ironsides.\" The museum is a partner of Boston National Historical Park located in the Charlestown Navy Yard.",
+          "standardHours": {
+            "wednesday": "10:00AM - 5:00PM",
+            "monday": "10:00AM - 5:00PM",
+            "thursday": "10:00AM - 5:00PM",
+            "sunday": "10:00AM - 5:00PM",
+            "tuesday": "10:00AM - 5:00PM",
+            "friday": "10:00AM - 5:00PM",
+            "saturday": "10:00AM - 5:00PM"
+          },
+          "name": "USS Constitution Museum"
+        },
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-12",
+              "name": "Off-season",
+              "endDate": "2027-05-28"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "10:00AM - 4:30PM",
+                "monday": "10:00AM - 4:30PM",
+                "thursday": "10:00AM - 4:30PM",
+                "sunday": "10:00AM - 4:30PM",
+                "tuesday": "10:00AM - 4:30PM",
+                "friday": "10:00AM - 4:30PM",
+                "saturday": "10:00AM - 4:30PM"
+              },
+              "startDate": "2027-05-31",
+              "name": "Memorial Day",
+              "endDate": "2027-05-31"
+            }
+          ],
+          "description": "USS CASSIN YOUNG is a Fletcher Class destroyer docked in the Charlestown Navy Yard. Park staff operate the ship seasonally. Weather conditions may alter hours without advanced notice.",
+          "standardHours": {
+            "wednesday": "10:00AM - 4:30PM",
+            "monday": "Closed",
+            "thursday": "10:00AM - 4:30PM",
+            "sunday": "10:00AM - 4:30PM",
+            "tuesday": "10:00AM - 4:30PM",
+            "friday": "10:00AM - 4:30PM",
+            "saturday": "10:00AM - 4:30PM"
+          },
+          "name": "USS Cassin Young"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "02129",
+          "city": "Charlestown",
+          "stateCode": "MA",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Boston National Historical Park",
+          "type": "Physical",
+          "line3": "",
+          "line2": "21 Second Ave"
+        },
+        {
+          "postalCode": "02129",
+          "city": "Charlestown",
+          "stateCode": "MA",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Boston National Historical Park",
+          "type": "Mailing",
+          "line3": "",
+          "line2": "21 Second Ave"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo",
+          "title": "Town Meetings at Faneuil Hall",
+          "altText": "A desk with paper and two sets of quills frame a person in colonial wear standing in the aisle.",
+          "caption": "During the summer, the park hosts Town Meeting programs in Faneuil Hall. These interactive programs allow visitors to participate in lively debate on a topic once debated in the Great Hall.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/5699C1F0-9F3C-683E-1536A6E5F830C009.jpg"
+        },
+        {
+          "credit": "Boston National Historical Park",
+          "title": "Rainbow over Faneuil Hall",
+          "altText": "Rainbow over Faneuil Hall",
+          "caption": "Rare image of rainbow was captured over Faneuil Hall",
+          "url": "https://www.nps.gov/common/uploads/structured_data/96AD2B27-1DD8-B71B-0B2B3FC8BCA9B4BC.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "Charlestown Navy Yard",
+          "altText": "View of the Navy Yard from the harbor showing the USS Constution, USS Cassin Young and Bunker Hill",
+          "caption": "Established as one of the country's first naval shipyards, the Charlestown Navy Yard witnessed 174 years of shipbuilding. Today, it is home to USS CONSTITUTION and USS CASSIN YOUNG (DD-793).",
+          "url": "https://www.nps.gov/common/uploads/structured_data/96D87235-1DD8-B71B-0B747DE0CE309802.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "Bunker Hill Monument 250",
+          "altText": "A tall white obelisk stands amongst leafy trees. Two colonial American flags hang from its windows",
+          "caption": "The Bunker Hill Monument with a flag display for the 250th anniversary of the Battle of Bunker Hill.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/340E7169-C461-1667-96D73043CD75B185.jpg"
+        },
+        {
+          "credit": "Arlan Fonseca",
+          "title": "Bunker Hill Lodge",
+          "altText": "A white granite building next to the Bunker Hill Monument",
+          "caption": "Opened in 1902, the Bunker Hill Lodge has served as a gateway to the Bunker Hill Monument.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/34611790-9F54-D8D9-58168DF7586C7396.jpg"
+        },
+        {
+          "credit": "Arlan Fonseca",
+          "title": "Faneuil Hall",
+          "altText": "A four-story rectangular meeting house with arched windows and a cupola.",
+          "caption": "As the historic town meeting space, Faneuil Hall has been home to celebrations and commemorations, as well as debates and protests.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/550A09DA-AE2E-8A18-F763CD76D4D82565.jpg"
+        },
+        {
+          "credit": "Arlan Fonseca.",
+          "title": "Freedom Trail Medallion",
+          "altText": "Three double brick lines in the ground meet at a medallion for the Freedom Trail.",
+          "caption": "2.5 miles in length, the Freedom Trail weaves through downtown Boston and Charlestown, highlighting significant historical landmarks.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/5528F0BA-91A6-30C9-1BD42AC73211983A.jpg"
+        },
+        {
+          "credit": "Arlan Fonseca",
+          "title": "Paul Revere and Old North Church",
+          "altText": "Statue of Paul Revere on horseback, with the white steeple of Old North in the background",
+          "caption": "Learn about Paul Revere's midnight ride with historic sites in the North End of Boston.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/5548D3EA-EC86-E367-CD9D7464DE87DF15.jpg"
+        },
+        {
+          "credit": "NPS Photo / P. Boyce",
+          "title": "Dorchester Heights Monument",
+          "altText": "A white marble steeple-looking tower stands amongst trees in a community park.",
+          "caption": "Dedicated on March 17, 1902, this Georgian Revival Style tower commemorates the fortification of Dorchester Heights during the Revolutionary War, which led to the British evacuation of the city.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/556EF58E-DA91-707D-D034AEC5CAB030FE.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "USS Constitution",
+          "altText": "A three-masted ship sits in still water as the sun sets over Boston Harbor.",
+          "caption": "America's \"Ship of State,\" USS CONSTITUTION, calls the Charlestown Navy Yard its home.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/559F873F-0566-A77B-5F1ECD3712B829F2.png"
+        },
+        {
+          "credit": "Matt Teuten",
+          "title": "USS Cassin Young (DD-793)",
+          "altText": "A gray naval destroyer sits next to a dock. It has \"793\" on the side and colorful signal flags.",
+          "caption": "USS CASSIN YOUNG (DD-793) served during World War II and the Cold War. Today, it lives at the Charlestown Navy Yard as a museum ship.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/56C85712-CDFA-5315-CAFEECD51C16A055.jpg"
+        },
+        {
+          "credit": "Arlan Fonseca",
+          "title": "Old South Meeting House",
+          "altText": "Looking up at a brick meeting house with a tall white steeple.",
+          "caption": "The Old South Meeting House is home to the famous debates that lead to the destruction of the tea in 1773. Today, Revolutionary Spaces stewards this site and the Old State House down the street.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/56F91FFC-F976-1214-BA7434CB861FDF71.jpg"
+        }
+      ],
+      "weatherInfo": "Temperatures range from warm, humid summer days to cold New England winter days. Wear comfortable sportswear in season, with comfortable walking shoes.",
+      "name": "Boston",
+      "designation": "National Historical Park",
+      "multimedia": [
+        {
+          "title": "Exploring the Freedom Trail",
+          "id": "5A5E1A5B-C544-48CC-BDA7-687B179CEADF",
+          "type": "multimedia/video",
+          "url": "https://www.nps.gov/media/video/view.htm?id=5A5E1A5B-C544-48CC-BDA7-687B179CEADF"
+        }
+      ],
+      "relevanceScore": 9.226259
+    }
+  ]
+}

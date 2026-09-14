@@ -8,8 +8,20 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// GET /api/v1/parks?parkCode=acad&limit=1&start=0; HTTP 200.
   case parksAcadia = "parks-acad"
 
+  /// GET /api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=2; HTTP 200.
+  case parksBeyond = "parks-beyond"
+
   /// GET /api/v1/parks?parkCode=zzzz&limit=1&start=0; HTTP 200 with no matches.
   case parksEmpty = "parks-empty"
+
+  /// GET /api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=0; HTTP 200.
+  case parksPageFirst = "parks-page-first"
+
+  /// GET /api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1; HTTP 200.
+  case parksPageLast = "parks-page-last"
+
+  /// GET /api/v1/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA; HTTP 200.
+  case parksSearch = "parks-search"
 
   /// GET /api/v1/parks?parkCode=yell&limit=1&start=0; HTTP 200.
   case parksYellowstone = "parks-yell"

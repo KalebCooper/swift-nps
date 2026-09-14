@@ -91,6 +91,8 @@ struct ContentView: View {
       switch error {
       case .invalidAPIKey:
         message = "Enter an API key without spaces or line breaks."
+      case .pagination:
+        message = "NPS returned inconsistent page information. Try again."
       case .service(_, let response):
         message =
           response.statusCode == 429

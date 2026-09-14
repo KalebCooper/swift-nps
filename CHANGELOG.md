@@ -6,6 +6,17 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+### Added
+
+- Parks queries with multiple park and state codes, text search, sorting, and explicit pagination.
+- Lazy parkPages and parks sequences backed by swifty-networking pagination, with reusable requests.
+- Typed pagination failures for unusable metadata, contradictory counts, and nonprogressing offsets.
+- Recorded multi-page and state-filtered search responses and query documentation.
+
+### Changed
+
+- Raise the swifty-networking dependency minimum to 1.1.0.
+
 ## [0.1.0] - 2026-09-13
 
 ### Added
