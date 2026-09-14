@@ -100,7 +100,8 @@ work with a custom executor, including consumer-defined response models through
 ## Example
 
 Open `Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` for an iOS 26 SwiftUI demo.
-Enter your API key in the secure field, enter a park code, then tap **Look up park**.
+Enter your API key, optionally filter by park/state codes or search text, then tap **Search parks**.
+Use **Load more** to request the next page or **Cancel** to stop an in-flight request.
 The demo shows loading, results, empty results, and failures. It keeps the key in memory and
 does not save it. Close the standalone package window before building the demo to avoid
 duplicate local-package resolution in Xcode.

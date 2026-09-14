@@ -11,7 +11,7 @@ All notable changes are documented here. This project follows
 - Parks queries with multiple park and state codes, text search, sorting, and explicit pagination.
 - Lazy parkPages and parks sequences backed by swifty-networking pagination, with reusable requests.
 - Typed pagination failures for unusable metadata, contradictory counts, and nonprogressing offsets.
-- Recorded multi-page and state-filtered search responses and query documentation.
+- Recorded multi-page and state-filtered search responses, query documentation, and a paginated demo.
 
 ### Changed
 
