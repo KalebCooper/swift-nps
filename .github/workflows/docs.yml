@@ -24,8 +24,7 @@ jobs:
     # six-hour default. The ceiling is meant to be that job's slowest green run on `main` under its
     # current definition, rounded up to the next five minutes and then tripled. `Scripts/verify.sh`
     # holds the rule that every job has one.
-    # Provisional: this repository has no green run yet, so the ceiling is swifty-networking's for
-    # the matching job. Replace it with this job's own figure once it has green runs.
+    # The first green run took 1m58s; round up to the next five minutes and triple it.
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
@@ -147,8 +146,7 @@ jobs:
     # Only main publishes. A workflow_dispatch on any other ref builds and stops, so an experiment
     # cannot overwrite the live site.
     if: github.ref == 'refs/heads/main'
-    # Provisional, from swifty-networking's matching job; replace it once this job has green runs.
-    # The job is a single action call.
+    # The first green run took 10s; round up to the next five minutes and triple it.
     timeout-minutes: 15
     environment:
       name: github-pages

@@ -6,7 +6,7 @@ Look up parks by code through the National Park Service Data API.
 
 ## Status
 
-Unreleased. A parks lookup is available through an everyday client method, a reusable typed
+Released as 0.1.0. A parks lookup is available through an everyday client method, a reusable typed
 request, and a transport-independent endpoint. All three preserve the NPS collection envelope.
 The package includes required API-key configuration, typed responses and errors, and offline
 tests backed by recorded NPS responses. Other endpoint groups are not implemented.
@@ -80,9 +80,13 @@ duplicate local-package resolution in Xcode.
 
 ## Installation
 
-No release has been published. For local development, add this checkout as a local Swift package
-and select either product. The repository location is
-[KalebCooper/swift-nps](https://github.com/KalebCooper/swift-nps).
+Add the package dependency and select either product:
+
+```swift
+.package(url: "https://github.com/KalebCooper/swift-nps.git", from: "0.1.0")
+```
+
+The repository is [KalebCooper/swift-nps](https://github.com/KalebCooper/swift-nps).
 
 ## License
 
