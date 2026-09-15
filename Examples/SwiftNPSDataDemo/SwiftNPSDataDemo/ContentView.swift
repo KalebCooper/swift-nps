@@ -92,7 +92,7 @@ struct ContentView: View {
         }
         guard !Task.isCancelled else { throw .transport(.cancelled) }
         let following: ParkQuery?
-        do {
+        do throws(ParkPaginationError) {
           following = try query.next(after: page)
         } catch {
           throw .pagination(error)
