@@ -7,7 +7,7 @@ Thanks for your interest. Contributions are welcome; every change to the public 
 
 1. Fork and clone the repository.
 2. Open the package directory in Xcode 26 or later.
-3. Build and run tests on the `swift-nps` scheme (⌘U), or `swift test` from the command line.
+3. Build and run tests on Xcode's generated `swift-nps-Package` scheme (⌘U), or `swift test` from the command line.
 
 ## Guidelines
 
