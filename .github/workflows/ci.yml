@@ -45,12 +45,14 @@ jobs:
       # here. The trait is on, matching the Linux lane's first run: this is the lane that proves the
       # SDK dependencies compile with the AsyncHTTPClient transport on Android, and that the test resources
       # bundled with the test support target load there. `Module+URLSession.swift` compiles out
-      # under `#if canImport(Darwin)`.
+      # under `#if canImport(Darwin)`. Cold-boot the cached AVD because snapshots can retain
+      # `sys.boot_completed=1` while Android services are not ready after a runner-image update.
       - name: Build and test on an Android emulator
         uses: skiptools/swift-android-action@2044b79660f201ccef8cbce62877e4ec5409f9c8 # v2.9.5
         with:
-          swift-version: '6.3.3'
+          android-emulator-options: -no-snapshot -no-window -noaudio -no-boot-anim
           swift-build-flags: --traits HTTPPortable
+          swift-version: '6.3.3'
 
   apple:
     name: Build & Test (iOS Simulator)
