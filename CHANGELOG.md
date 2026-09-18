@@ -6,6 +6,8 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+## [0.2.0] - 2026-09-17
+
 ### Added
 
 - Parks queries with multiple park and state codes, text search, sorting, and explicit pagination.
@@ -28,5 +30,6 @@ All notable changes are documented here. This project follows
 - Recorded Acadia, Yellowstone, empty-result, and missing-key responses with offline behavior tests.
 - Documentation catalogs, verification scripts, platform workflows, and an interactive iOS parks demo.
 
-[Unreleased]: https://github.com/KalebCooper/swift-nps/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/KalebCooper/swift-nps/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/KalebCooper/swift-nps/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/KalebCooper/swift-nps/releases/tag/0.1.0
