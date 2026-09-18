@@ -108,7 +108,9 @@ work with a custom executor, which sends `NPSCollectionResolution.endpoint` and 
 ## Example
 
 Open `Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` for an iOS 26 SwiftUI demo.
-Enter your API key, optionally filter by park/state codes or search text, then tap **Search parks**.
+Choose a group (parks, alerts, visitor centers, campgrounds, things to do, or amenities), enter
+your API key, optionally filter by park/state codes (except amenities) or search text, then tap
+the group's **Search** button.
 Use **Load more** to request the next page or **Cancel** to stop an in-flight request.
 The demo shows loading, results, empty results, and failures. It keeps the key in memory and
 does not save it. Close the standalone package window before building the demo to avoid

@@ -4,14 +4,14 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var apiKey = ""
+  @State private var group = DemoGroup.parks
   @State private var isLoading = false
   @State private var loadTask: Task<Void, Never>?
-  @State private var message = "Enter your private NPS API key to search parks."
-  @State private var nextQuery: ParkQuery?
-  @State private var pageIterator: NPSPageSequence<Park>.Iterator?
+  @State private var message = "Enter your private NPS API key to search."
   @State private var pageSize = 1
+  @State private var pager: (any ResultPaging)?
   @State private var parkCodes = "acad,yell"
-  @State private var parks: [Park] = []
+  @State private var rows: [ResultRow] = []
   @State private var searchText = ""
   @State private var stateCodes = ""
 
@@ -19,28 +19,37 @@ struct ContentView: View {
     NavigationStack {
       Form {
         Section("Search") {
+          Picker("Group", selection: $group) {
+            ForEach(DemoGroup.allCases) { group in
+              Text(group.rawValue).tag(group)
+            }
+          }
+          .pickerStyle(.menu)
+          .onChange(of: group) { reset() }
           SecureField("NPS API key", text: $apiKey)
             .textContentType(.password)
             .textInputAutocapitalization(.never)
             .autocorrectionDisabled()
-          TextField("Park codes, separated by commas", text: $parkCodes)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-          TextField("State codes, separated by commas", text: $stateCodes)
-            .textInputAutocapitalization(.characters)
-            .autocorrectionDisabled()
+          if group.filtersByCode {
+            TextField("Park codes, separated by commas", text: $parkCodes)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+            TextField("State codes, separated by commas", text: $stateCodes)
+              .textInputAutocapitalization(.characters)
+              .autocorrectionDisabled()
+          }
           TextField("Search text", text: $searchText)
-          Stepper("Parks per page: \(pageSize)", value: $pageSize, in: 1...50)
-          Button("Search parks", action: search)
+          Stepper("Results per page: \(pageSize)", value: $pageSize, in: 1...50)
+          Button("Search \(group.noun)", action: search)
             .disabled(apiKey.isEmpty)
         }
         .disabled(isLoading)
 
         Section {
           if isLoading {
-            ProgressView("Loading parks")
+            ProgressView("Loading \(group.noun)")
             Button("Cancel") { loadTask?.cancel() }
-          } else if pageIterator != nil {
+          } else if pager != nil {
             Button("Load more", action: loadNextPage)
           }
           Text(message)
@@ -48,20 +57,21 @@ struct ContentView: View {
         }
 
         // Offsets preserve repeated provider records when results change between pages.
-        ForEach(Array(parks.enumerated()), id: \.offset) { _, park in
-          Section(park.fullName) {
-            LabeledContent("Park code", value: park.parkCode)
-            if let states = park.states {
-              LabeledContent("States", value: states)
-            }
-            if let description = park.description {
-              Text(description)
+        ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+          VStack(alignment: .leading) {
+            Text(row.title)
+            if let parkCode = row.parkCode {
+              Text(parkCode)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .accessibilityLabel("Park code \(parkCode)")
             }
           }
         }
 
         Section {
-          Text("Results are sorted by full name. Load more fetches one page at a time.")
+          Text(sortDescription)
+          Text("Load more fetches one page at a time.")
           Text(
             "Your key stays in memory and is sent only to the NPS API. It is not saved by this demo."
           )
@@ -69,16 +79,27 @@ struct ContentView: View {
         }
         .font(.footnote)
       }
-      .navigationTitle("NPS parks")
+      .navigationTitle("NPS \(group.noun)")
       .onDisappear { loadTask?.cancel() }
     }
   }
 
+  private var sortDescription: String {
+    switch group {
+    // NPS rejects things to do sort fields other than relevance with HTTP 400.
+    case .alerts, .amenities, .thingsToDo:
+      "Results are in the order NPS returns them."
+    case .campgrounds, .visitorCenters:
+      "Results are sorted by name."
+    case .parks:
+      "Results are sorted by full name."
+    }
+  }
+
   private func loadNextPage() {
-    guard !isLoading, var iterator = pageIterator, let query = nextQuery else { return }
+    guard !isLoading, var current = pager else { return }
     isLoading = true
-    nextQuery = nil
-    pageIterator = nil
+    pager = nil
     message = "Loading the next page."
     loadTask = Task {
       defer {
@@ -86,25 +107,17 @@ struct ContentView: View {
         loadTask = nil
       }
       do throws(NPSDataError) {
-        guard let page = try await iterator.next() else {
+        guard let page = try await current.nextPage() else {
           message = "All reported results have been loaded."
           return
         }
-        guard !Task.isCancelled else { throw .transport(.cancelled) }
-        let following: ParkQuery?
-        do throws(NPSPaginationError) {
-          following = try query.next(after: page)
-        } catch {
-          throw .pagination(error)
-        }
-        parks.append(contentsOf: page.data)
-        nextQuery = following
-        pageIterator = following == nil ? nil : iterator
+        rows.append(contentsOf: page.rows)
+        pager = page.hasMore ? current : nil
         message =
-          parks.isEmpty
-          ? "No parks matched this search."
-          : "Showing \(parks.count) of \(page.total) matching parks."
-        if following == nil, !parks.isEmpty {
+          rows.isEmpty
+          ? "No \(group.noun) matched this search."
+          : "Showing \(rows.count) of \(page.total) matching \(group.noun)."
+        if !page.hasMore, !rows.isEmpty {
           message += " All reported results are loaded."
         }
       } catch {
@@ -113,30 +126,86 @@ struct ContentView: View {
     }
   }
 
+  private func makePager(client: NPSDataClient) throws -> any ResultPaging {
+    let text = searchText.isEmpty ? nil : searchText
+    switch group {
+    case .alerts:
+      let query = try AlertQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return DemoPager(pages: client.alertPages(query: query), query: query) {
+        ResultRow(parkCode: $0.parkCode, title: $0.title)
+      }
+    case .amenities:
+      let query = try AmenityQuery(limit: pageSize, searchText: text)
+      return DemoPager(pages: client.amenityPages(query: query), query: query) {
+        ResultRow(parkCode: nil, title: $0.name)
+      }
+    case .campgrounds:
+      let query = try CampgroundQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
+        stateCodes: parsedStateCodes())
+      return DemoPager(pages: client.campgroundPages(query: query), query: query) {
+        ResultRow(parkCode: $0.parkCode, title: $0.name)
+      }
+    case .parks:
+      let query = try ParkQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.ascending("fullName")],
+        stateCodes: parsedStateCodes())
+      return DemoPager(pages: client.parkPages(query: query), query: query) {
+        ResultRow(parkCode: $0.parkCode, title: $0.fullName)
+      }
+    case .thingsToDo:
+      let query = try ThingToDoQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return DemoPager(pages: client.thingToDoPages(query: query), query: query) { thing in
+        // A thing to do can belong to several parks, so it lists every related park code.
+        let codes = (thing.relatedParks ?? []).compactMap(\.parkCode)
+        return ResultRow(
+          parkCode: codes.isEmpty ? nil : codes.joined(separator: ", "), title: thing.title)
+      }
+    case .visitorCenters:
+      let query = try VisitorCenterQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
+        stateCodes: parsedStateCodes())
+      return DemoPager(pages: client.visitorCenterPages(query: query), query: query) {
+        ResultRow(parkCode: $0.parkCode, title: $0.name)
+      }
+    }
+  }
+
+  private func parsedParkCodes() throws -> [ParkCode] {
+    parkCodes.isEmpty
+      ? []
+      : try parkCodes.split(separator: ",", omittingEmptySubsequences: false).map {
+        try ParkCode(String($0))
+      }
+  }
+
+  private func parsedStateCodes() throws -> [StateCode] {
+    stateCodes.isEmpty
+      ? []
+      : try stateCodes.split(separator: ",", omittingEmptySubsequences: false).map {
+        try StateCode(String($0))
+      }
+  }
+
+  // The picker is disabled while loading, so switching groups never races an in-flight page.
+  private func reset() {
+    pager = nil
+    rows = []
+    message = "Enter your private NPS API key to search."
+  }
+
   private func search() {
     guard !isLoading else { return }
-    nextQuery = nil
-    pageIterator = nil
-    parks = []
+    pager = nil
+    rows = []
     do {
-      let codes =
-        parkCodes.isEmpty
-        ? []
-        : try parkCodes.split(separator: ",", omittingEmptySubsequences: false).map {
-          try ParkCode(String($0))
-        }
-      let states =
-        stateCodes.isEmpty
-        ? []
-        : try stateCodes.split(separator: ",", omittingEmptySubsequences: false).map {
-          try StateCode(String($0))
-        }
-      let query = try ParkQuery(
-        limit: pageSize, parkCodes: codes, searchText: searchText.isEmpty ? nil : searchText,
-        sort: [.ascending("fullName")], stateCodes: states)
       let client = try NPSDataClient(apiKey: apiKey)
-      nextQuery = query
-      pageIterator = client.parkPages(query: query).makeAsyncIterator()
+      pager = try makePager(client: client)
       loadNextPage()
     } catch let error as NPSDataError {
       show(error)
@@ -160,9 +229,9 @@ struct ContentView: View {
     case .transport(.cancelled):
       message = "Search cancelled."
     case .transport:
-      message = "Parks could not be loaded. Check your connection and search again."
+      message = "\(group.rawValue) could not be loaded. Check your connection and search again."
     }
-    if !parks.isEmpty {
+    if !rows.isEmpty {
       message += " Earlier results remain visible and may be incomplete."
     }
   }
