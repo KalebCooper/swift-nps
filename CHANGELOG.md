@@ -17,6 +17,10 @@ All notable changes are documented here. This project follows
 - Campgrounds: Campground, CampgroundQuery, Endpoint.campgrounds(query:),
   NPSDataRequest.campgrounds(query:), and the lazy NPSDataClient.campgroundPages(query:) and
   campgrounds(query:), with recorded campgrounds responses.
+- Things to do: ThingToDo, ThingToDoQuery, NPSIdentifier, Endpoint.thingsToDo(query:),
+  NPSDataRequest.thingsToDo(query:), and the lazy NPSDataClient.thingToDoPages(query:) and
+  thingsToDo(query:), with recorded things to do responses. NPSIdentifier validates identifier
+  filters, which are sent as `id`.
 - Visitor centers: VisitorCenter, VisitorCenterQuery, Endpoint.visitorCenters(query:),
   NPSDataRequest.visitorCenters(query:), and the lazy NPSDataClient.visitorCenterPages(query:) and
   visitorCenters(query:), with recorded visitor centers responses. Visitor center images and
@@ -40,6 +44,7 @@ All notable changes are documented here. This project follows
 - Rename Park.EntranceFee to NPSFee, shared by park entrance fees and passes and campground fees.
 - Rename Park.EmailAddress to NPSEmailAddress, shared by parks and visitor centers.
 - Rename Park.Multimedia to NPSMultimedia, shared by parks and visitor centers.
+- Rename Park.NamedItem to NPSNamedItem, shared by park and things to do activities and topics.
 - Rename Park.OperatingHours to NPSOperatingHours, shared by parks and visitor centers.
 - Rename Park.OperatingHoursException to NPSOperatingHoursException, shared by parks and visitor
   centers.

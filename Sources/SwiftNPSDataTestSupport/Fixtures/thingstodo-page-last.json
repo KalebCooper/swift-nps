@@ -1,0 +1,104 @@
+{
+  "total": "89",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "4B233E13-4DDF-4A74-B6F1-2F5FCBDE143C",
+      "url": "https://www.nps.gov/thingstodo/birding-with-the-champlain-society.htm",
+      "title": "Birding \"with\" the Champlain Society",
+      "shortDescription": "In the early 1880's members if the Champlain Society documented bird species breeding on Mount Desert Island. Follow along the same trails they took and observe what birds we find in those places. Are they the same, or different?",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/6FF0A15A-07C0-FF30-29A27C722D45EBAE.jpg",
+          "credit": "NPS Photo",
+          "altText": "a group of young men pose in front of a tree",
+          "title": "Champlain Society",
+          "description": "",
+          "caption": "Champlain Society group photo in 1881",
+          "crops": [
+            {
+              "aspectRatio": "1.78",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/6FF0A15A-07C0-FF30-29A27C722D45EBAE.jpg"
+            },
+            {
+              "aspectRatio": "1",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/6FF0A15A-07C0-FF30-29A27C722D45EBAE.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ME",
+          "parkCode": "acad",
+          "designation": "National Park",
+          "fullName": "Acadia National Park",
+          "url": "https://www.nps.gov/acad/index.htm",
+          "name": "Acadia"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "birds",
+        "research",
+        "science legacy",
+        "schoodic institute",
+        "birding",
+        "citizen science",
+        "history",
+        "hiking"
+      ],
+      "latitude": "",
+      "longitude": "",
+      "geometryPoiId": "",
+      "amenities": [],
+      "location": "",
+      "seasonDescription": "",
+      "accessibilityInformation": "Birding with the Champlain Society covers a large variety of trails with varying difficulties. Doing research on <a href=\"https://www.nps.gov/acad/planyourvisit/hiking.htm\">Acadia's Hiking trails</a> and using a hiking trail map of Acadia National Park will help you decide if any of these trails are right for you.",
+      "isReservationRequired": "false",
+      "ageDescription": "",
+      "petsDescription": "Dogs must be on a leash no longer than 6 feet.",
+      "timeOfDayDescription": "",
+      "feeDescription": "Although this activity is free, a\u00a0<a href=\"https://www.nps.gov/acad/planyourvisit/fees.htm\">park entrance pass</a>\u00a0is required for all areas of the park from May 1 through October 31.",
+      "age": "",
+      "arePetsPermittedWithRestrictions": "true",
+      "activities": [
+        {
+          "id": "5A2C91D1-50EC-4B24-8BED-A2E11A1892DF",
+          "name": "Birdwatching"
+        }
+      ],
+      "activityDescription": "Hike along the same trails that the Champlain Society took in the 1880's. Pull out your binoculars and discover what birds call these trails home. Compare these sightings with the birds the Champlain Society found 140 years ago.",
+      "locationDescription": "",
+      "doFeesApply": "false",
+      "longDescription": "<p>There is a long history of people watching and listening to birds on Mount Desert Island. Stories passed down through generations, specimens preserved in natural history collections, and carefully archived records present a baseline against which we can document the changes occuring in bird populations and their habitat in Acadia National Park and the surrounding region.</p> <p>In the early 1880s, members of the Champlain Society, a group of student naturalists, compiled\u00a0<a href=\"https://irma.nps.gov/DataStore/Reference/Profile/2180227\">a list of 97 species found on Mount Desert Island</a>\u00a0during the summer months. In the case of warblers and other migratory songbirds, they were documenting breeding or nesting birds. Are these same species breeding in the same locations 140 years later? This is an outstanding question that YOU can help us answer.</p>",
+      "reservationDescription": "",
+      "season": [
+        "Spring",
+        "Summer",
+        "Fall"
+      ],
+      "topics": [
+        {
+          "id": "0D00073E-18C3-46E5-8727-2F87B112DDC6",
+          "name": "Animals"
+        },
+        {
+          "id": "957EF2BD-AC6C-4B7B-BD9A-87593ADC6691",
+          "name": "Birds"
+        }
+      ],
+      "durationDescription": "",
+      "arePetsPermitted": "true",
+      "timeOfDay": [
+        "Day",
+        "Dawn",
+        "Dusk"
+      ],
+      "duration": "",
+      "credit": "",
+      "relevanceScore": 1.0
+    }
+  ]
+}

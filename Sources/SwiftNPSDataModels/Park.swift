@@ -22,17 +22,8 @@ public struct Park: Codable, Hashable, Sendable {
     public let url: String?
   }
 
-  /// An activity or topic with a provider identifier.
-  public struct NamedItem: Codable, Hashable, Sendable {
-    /// The identifier, including values unknown to this package.
-    public let id: String?
-
-    /// The provider's display name.
-    public let name: String?
-  }
-
   /// Activities identified by NPS.
-  public let activities: [NamedItem]?
+  public let activities: [NPSNamedItem]?
 
   /// Physical and mailing addresses.
   public let addresses: [NPSAddress]?
@@ -95,7 +86,7 @@ public struct Park: Codable, Hashable, Sendable {
   public let states: String?
 
   /// Topics identified by NPS.
-  public let topics: [NamedItem]?
+  public let topics: [NPSNamedItem]?
 
   /// The park's public website URL text.
   public let url: String?

@@ -20,8 +20,8 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, campgrounds, parks, and visitor centers are the implemented endpoint groups. They are built
-on a generic collection core that executes any offset-paginated NPS collection the same way.
+Alerts, campgrounds, parks, things to do, and visitor centers are the implemented endpoint groups.
+They are built on a generic collection core that executes any offset-paginated NPS collection the same way.
 
 ### Collection execution
 
@@ -128,6 +128,28 @@ let anotherPage = try await client.send(.parks(parkCode: code))
 An unknown code can return an empty data array. No first result is selected, no next page is
 fetched, and no retries or redirects are performed.
 
+### Things to Do
+
+``NPSDataClient/thingsToDo(query:)`` and ``NPSDataClient/thingToDoPages(query:)`` search
+`/thingstodo` by identifiers, park codes, state codes, text, and sorting. Each page is
+`NPSCollection<ThingToDo>`. NPS documents `relevanceScore` as the only sort field and answers
+other fields, such as `title`, with HTTP 400, which the client reports as an ``NPSDataError``
+without retrying:
+
+```swift
+let query = try ThingToDoQuery(
+  parkCodes: [ParkCode("acad")], searchText: "hike", sort: [.descending("relevanceScore")])
+for try await thing in client.thingsToDo(query: query) {
+  print(thing.title, thing.duration ?? "")
+}
+let request = NPSDataRequest.thingsToDo(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.thingsToDo(query: query))
+```
+
+Reservation, fee, and season fields are published descriptions, not live availability or a
+booking service.
+
 ### Visitor Centers
 
 ``NPSDataClient/visitorCenters(query:)`` and ``NPSDataClient/visitorCenterPages(query:)`` search
@@ -203,6 +225,11 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/parks(for:)``
 - ``NPSDataClient/parkPages(for:)``
 - ``NPSDataClient/parks(parkCode:)``
+
+### Things to Do
+
+- ``NPSDataClient/thingsToDo(query:)``
+- ``NPSDataClient/thingToDoPages(query:)``
 
 ### Visitor Centers
 

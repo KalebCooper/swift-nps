@@ -13,10 +13,13 @@ available for single-page execution. Alerts queries support multiple park codes,
 search, and pagination through lazy `alertPages` and `alerts` sequences; NPS documents no alerts
 sorting. Campgrounds queries support park codes, state codes, text search, sorting, and pagination
 through lazy `campgroundPages` and `campgrounds` sequences; published site counts and fees are not
-live availability. Visitor centers queries support park codes, state codes, text search, sorting,
-and pagination through lazy `visitorCenterPages` and `visitorCenters` sequences. The package includes
-required API-key configuration, typed failures, and recorded-response tests. Other endpoint groups
-are not implemented.
+live availability. Things to do queries support identifiers, park codes, state codes, text search,
+sorting, and pagination through lazy `thingToDoPages` and `thingsToDo` sequences; NPS documents only
+`relevanceScore` as a things to do sort field and rejects others with HTTP 400. Visitor centers
+queries support park codes, state codes, text search, sorting, and pagination through lazy
+`visitorCenterPages` and `visitorCenters` sequences. The package includes required API-key
+configuration, typed failures, and recorded-response tests. Other endpoint groups are not
+implemented.
 
 NPS destination data does not imply live campsite booking availability or reservation support.
 This package provides no freshness, ordering, completeness, or availability guarantees.
@@ -111,8 +114,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, campgrounds, parks, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, campground, park, visitor center, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, campgrounds, parks, things to do, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, campground, park, thing to do, visitor center, and shared detail models. | None. |
 
 ## Requirements
 

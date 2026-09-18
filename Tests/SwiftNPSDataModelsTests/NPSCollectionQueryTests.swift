@@ -90,6 +90,30 @@ struct NPSCollectionQueryTests {
     #expect(try ParkQuery(start: 2).next(after: beyond) == nil)
   }
 
+  @Test("Recorded things to do pages advance without changing query options")
+  func recordedThingsToDoPagesAdvanceWithoutChangingQueryOptions() throws {
+    let first = try JSONDecoder().decode(
+      NPSCollection<ThingToDo>.self, from: Fixture.thingsToDoPageFirst.data())
+    let last = try JSONDecoder().decode(
+      NPSCollection<ThingToDo>.self, from: Fixture.thingsToDoPageLast.data())
+    let empty = try JSONDecoder().decode(
+      NPSCollection<ThingToDo>.self, from: Fixture.thingsToDoEmpty.data())
+    let query = try ThingToDoQuery(
+      identifiers: [NPSIdentifier("C54D2783-6F50-4E03-9010-FCDA5C31EE91")], limit: 1,
+      parkCodes: [ParkCode("acad")], searchText: "bike", sort: [.descending("relevanceScore")],
+      stateCodes: [StateCode("ME")])
+    let following = try #require(try query.next(after: first))
+    #expect(following.start == 1)
+    #expect(following.limit == 1)
+    #expect(following.identifiers == query.identifiers)
+    #expect(following.parkCodes == query.parkCodes)
+    #expect(following.searchText == "bike")
+    #expect(following.sort == [.descending("relevanceScore")])
+    #expect(following.stateCodes == query.stateCodes)
+    #expect(try following.next(after: last)?.start == 2)
+    #expect(try ThingToDoQuery(limit: 1).next(after: empty) == nil)
+  }
+
   @Test("Recorded visitor center pages advance without changing query options")
   func recordedVisitorCenterPagesAdvanceWithoutChangingQueryOptions() throws {
     let first = try JSONDecoder().decode(

@@ -1,0 +1,107 @@
+{
+  "total": "89",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "C54D2783-6F50-4E03-9010-FCDA5C31EE91",
+      "url": "https://www.nps.gov/thingstodo/bike-carriage-roads.htm",
+      "title": "Bike Carriage Roads",
+      "shortDescription": "Winding through the heart of the park, the\u00a045 miles of historic carriage roads\u00a0have crushed rock surfaces perfect for miles of bicycling.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/BAEBFEB5-9A86-4910-87CA94CA57BEB6C0.jpg",
+          "credit": "NPS Photo/Kent Miller",
+          "altText": "Two people with bicycles looking over a ledge on a bridge",
+          "title": "Duck Brook Carriage Road",
+          "description": "",
+          "caption": "Bicyclists can enjoy 45 miles of carriage roads across the park",
+          "crops": [
+            {
+              "aspectRatio": "1.78",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/BAEBFEB5-9A86-4910-87CA94CA57BEB6C0.jpg"
+            },
+            {
+              "aspectRatio": "1",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/BAEBFEB5-9A86-4910-87CA94CA57BEB6C0.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ME",
+          "parkCode": "acad",
+          "designation": "National Park",
+          "fullName": "Acadia National Park",
+          "url": "https://www.nps.gov/acad/index.htm",
+          "name": "Acadia"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Acadia National Park",
+        "carriage roads",
+        "biking",
+        "bicycling",
+        "mount desert island",
+        "East Side",
+        "island explorer",
+        "Landscape Architecture",
+        "Landscape design",
+        "Roads"
+      ],
+      "latitude": "",
+      "longitude": "",
+      "geometryPoiId": "",
+      "amenities": [],
+      "location": "Carriage Roads (throughout Acadia National Park)",
+      "seasonDescription": "",
+      "accessibilityInformation": "Carriage roads are mostly accessible. The packed gravel is a more even surface for bicycles suited to be more accessible. Wheelchairs are permitted on carriage roads.",
+      "isReservationRequired": "false",
+      "ageDescription": "",
+      "petsDescription": "Dogs must be on a leash no longer than six feet. Bicycling with your dog is not recommended for safety reasons.",
+      "timeOfDayDescription": "",
+      "feeDescription": "Although this activity is free, a\u00a0<a href=\"https://www.nps.gov/acad/planyourvisit/fees.htm\">park entrance pass</a>\u00a0is required for all areas.",
+      "age": "",
+      "arePetsPermittedWithRestrictions": "true",
+      "activities": [
+        {
+          "id": "7CE6E935-F839-4FEC-A63E-052B1DEF39D2",
+          "name": "Biking"
+        }
+      ],
+      "activityDescription": "",
+      "locationDescription": "",
+      "doFeesApply": "false",
+      "longDescription": "<p>Winding through the heart of the park, the\u00a0<a href=\"https://nps.gov/acad/planyourvisit/carriage-roads.htm\">carriage roads</a>\u00a0have crushed rock surfaces perfect for miles of bicycling. Forty-five miles of rustic carriage roads, weave around the mountains and valleys of Acadia National Park and under and over 17 historic carriage road bridges. Constructed from 1913 to 1940 and lovingly maintaned by park staff and Friends of Acacia volunteers, these roads provide sweeping vistas and close-up views of the landscape away from car traffic.<br /> <br /> Visitors can either bring their own bicycles or rent bicycles from local outfitters. Use a <a href=\"https://www.nps.gov/acad/planyourvisit/images/ACAD_Carriage-Road-Map_revised-Apr-2019_Page_2_2.jpg\">carriage road\u00a0map</a>\u00a0for orientation and distances between intersections. Intersection numbers are labeled on the historic wooden directional posts.</p> <h2>Rules and Safety Advisories</h2> <p>Before venturing out, review the expectations for carriage road etiquette:</p> <ul> <li>Cyclists share the carriage roads with horses and pedestrians. Everyone yields to horses and bicyclists yield to everyone.</li> <li>Class 1 E-bikes are permitted on carriage roads. Class 2 and 3 are not allowed.</li> <li>No bicycle may exceed 20 mph on the carriage roads.</li> <li>Bicycling is not permitted on hiking trails or on privately owned carriage roads.</li> <li>During winter where carriage roads are groomed for skiing, bicycles are not permitted.</li> <li>In the spring, carriage roads often close to all traffic during mud season, typically March and April. Please respect all posted signs and notices. To stay updated on temporary closures, visit\u00a0<a href=\"http://go.nps.gov/AcadiaAlerts\">http://go.nps.gov/AcadiaAlerts</a>.</li> </ul> <h2>About the Carriage Roads</h2> <p>The carriage roads and bridges are a gift of philanthropist John D. Rockefeller Jr. and family who paid for and oversaw the design of their construction. Many of the workers who built the carriage roads were talented local masons who honed their craft over generations and Italian immigrants. Rockefeller\u2019s interest in road building grew naturally from his father\u2019s. John D. Rockefeller Sr., the founder of Standard Oil, had built and landscaped carriage roads on his Ohio and New York estates. From his father the junior Rockefeller learned many techniques that he applied to building his Mount Desert Island carriage roads. His love of road building ensured a state-of-the-art system that separated horse and carriage (and now foot and bicycle traffic) from vehicles traffic.\u00a0<br /> <br /> Rockefeller participated in the construction process. He walked areas staked out for road alignment and observed work in progress. He knew the laborers by name and used experts to design the bridges and engineer the roads. Throughout it all, he paid rapt attention to the most minute details, from the placement of coping stones to the cost of a running foot of road. Following are some elements that unify the carriage road system:</p> <ul> <li><strong>Coping Stones</strong><br /> Large blocks of granite lining the roads serve as guardrails. Cut roughly and spaced irregularly, the coping stones create a rustic appearance. These coping stones have been affectionately called \u201cRockefeller\u2019s teeth.\u201d</li> <li><strong>Signposts</strong><br /> Cedar signposts were installed at intersections to direct carriage drivers. The posts were stained with Cabots shingle stain #248. The lettering was painted first with one coat of flat yellow paint, then with another coat of enamel yellow. Today, numbers that match maps and guidebooks are attached to the signposts and help carriage road users find their way.</li> <li><strong>Roadside Grooming and Landscaping</strong><br /> Rockefeller employed a crew of foresters to remove debris from the roads and roadsides. Nationally known landscape architect Beatrix Farrand consulted on planting designs to frame vistas and bridges and to heal scars left behind by carriage road construction. The Fire of 1947 destroyed much of her work.</li> <li><strong>Gate Lodges</strong><br /> Two gate lodges, one at Jordan Pond and the other near Northeast Harbor, ornament the roads and serve as impressive welcomes to the system. A third gate lodge was planned at Eagle Lake, but was never built. During carriage road construction, engineer Paul Simpson and his family lived at the Jordan Pond Gate Lodge.</li> <li><strong>Bridges</strong><br /> Rockefeller financed 16 of 17 stone-faced bridges, each unique in design, to span streams, waterfalls, roads, and cliff sides. The bridges are steel-reinforced concrete, but the use of native stone for the facing gives them a natural appearance. Over time, the stone cutters grew very skilled and Rockefeller often requested them not to cut the facing too well lest the rustic look be lost.</li> </ul> <p>The result of Rockefeller\u2019s vision and attention to detail is an integrated system of carriage roads that blends harmoniously with the landscape.</p>",
+      "reservationDescription": "",
+      "season": [
+        "Winter",
+        "Spring",
+        "Summer",
+        "Fall"
+      ],
+      "topics": [
+        {
+          "id": "AF4F1CDF-E6C4-4886-BA91-8BC887DC2793",
+          "name": "Landscape Design"
+        },
+        {
+          "id": "0BBD4A42-2B3D-4E82-B5C4-1A3874C8682E",
+          "name": "Roads, Routes and Highways"
+        }
+      ],
+      "durationDescription": "",
+      "arePetsPermitted": "true",
+      "timeOfDay": [
+        "Day",
+        "Dawn",
+        "Dusk"
+      ],
+      "duration": "",
+      "credit": "",
+      "relevanceScore": 1.0
+    }
+  ]
+}

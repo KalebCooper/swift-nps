@@ -5,9 +5,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, campgrounds,
-parks, and visitor centers are the implemented endpoint groups, built on a generic core shared by
-every offset-paginated collection:
-a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
+parks, things to do, and visitor centers are the implemented endpoint groups, built on a generic
+core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
 
@@ -155,13 +154,43 @@ no continuation.
 ``Park`` requires identity and names, while other documented fields remain optional.
 Missing and null optional fields decode to nil; empty strings and arrays stay empty.
 Coordinates, costs, dates, links, and comma-separated states stay in their provider form.
-Open address, phone, activity, and topic identifiers are not closed enums. Unknown JSON fields,
+Activities and topics are ``NPSNamedItem`` values, the same shape things to do use. Open address,
+phone, activity, and topic identifiers are not closed enums. Unknown JSON fields,
 including the currently undocumented `fees` field, are ignored by the typed model.
 
 The [official specification](https://www.nps.gov/subjects/developer/customcf/swagger.json)
 and real responses were checked on September 13, 2026. Its outer parks array declaration does
 not match the live object envelope. The live recordings confirm the envelope and nested objects;
 the schema's illustrative examples also differ in places from its property definitions.
+
+### Things to Do
+
+``ThingToDoQuery`` describes all seven documented things to do parameters: identifiers, park
+codes, state codes, text search, sort criteria, page limit, and start offset. ``NPSIdentifier``
+accepts any nonempty identifier without whitespace or control characters, preserving case and
+performing no format check, and identifiers are sent as `id`. Empty identifier, code, and sort
+arrays omit the parameter, and search text is preserved and percent encoded, including empty text.
+Things to do pages are `NPSCollection<ThingToDo>`, from ``Endpoint/thingsToDo(query:)`` or
+``NPSDataRequest/thingsToDo(query:)``.
+
+NPS documents `relevanceScore` as the only things to do sort field, usually as
+`.descending("relevanceScore")`; without a sort, results are ordered by date last modified. The
+live service answers other fields, such as `title`, with HTTP 400 rather than ignoring them. Sort
+fields are still sent without validation, so that failure comes from NPS rather than the query.
+
+``ThingToDo`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. Activities and topics are ``NPSNamedItem``, the same as parks.
+Images carry a description and crops whose aspect ratio is text such as `"1.78"`, so they are
+``ThingToDo/Image`` and ``ThingToDo/ImageCrop`` rather than the shared ``NPSImage``. Related parks
+are ``ThingToDo/RelatedPark`` summaries. Flags such as `isReservationRequired` and `doFeesApply`
+stay the provider's `"true"` or `"false"` text, and coordinates, durations, and descriptions stay
+as sent, including empty strings and HTML. The `relatedOrganizations` and `amenities` arrays are
+empty in every recorded response, so their element shape is unknown and they are not decoded.
+
+The specification and real responses were checked on September 17, 2026. The specification spells
+`arePetsPermittedwithRestrictions` and the crop `aspectratio` in lowercase and types the ratio as an
+integer, omits image descriptions, `credit`, and `amenities`, and says an invalid sort property is
+ignored; the live responses differ, and the model follows them.
 
 ### Visitor Centers
 
@@ -214,6 +243,7 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``NPSCollectionQuery``
 - ``NPSCollectionResolution``
 - ``NPSDataRequest``
+- ``NPSIdentifier``
 - ``NPSPaginationError``
 - ``NPSQueryItem``
 - ``NPSSort``
@@ -234,10 +264,16 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``NPSImage``
 - ``NPSImageCrop``
 - ``NPSMultimedia``
+- ``NPSNamedItem``
 - ``NPSOperatingHours``
 - ``NPSOperatingHoursException``
 - ``NPSPassportStampImage``
 - ``NPSPhoneNumber``
+
+### Things to Do
+
+- ``ThingToDo``
+- ``ThingToDoQuery``
 
 ### Visitor Centers
 

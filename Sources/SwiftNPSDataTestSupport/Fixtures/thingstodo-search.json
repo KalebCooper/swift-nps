@@ -1,0 +1,198 @@
+{
+  "total": "75",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "51F69951-0A1B-4D54-AEAC-499B53C8A31F",
+      "url": "https://www.nps.gov/thingstodo/hike-bubbles.htm",
+      "title": "Hike Bubbles",
+      "shortDescription": "This short 1.5 mile hike offers views of Jordan Pond and the surrounding mountains from the iconic North Bubble, South Bubble, and Bubble Rock.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/50930DFF-D1F5-25ED-16EEA28372225ECE.jpg",
+          "credit": "",
+          "altText": "Visitors sitting on a rock ledge overlooking a lake",
+          "title": "",
+          "description": "",
+          "caption": "",
+          "crops": [
+            {
+              "aspectRatio": "3",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/50930DFF-D1F5-25ED-16EEA28372225ECE.jpg"
+            },
+            {
+              "aspectRatio": "1",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/50930DFF-D1F5-25ED-16EEA28372225ECE.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ME",
+          "parkCode": "acad",
+          "designation": "National Park",
+          "fullName": "Acadia National Park",
+          "url": "https://www.nps.gov/acad/index.htm",
+          "name": "Acadia"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Acadia National Park",
+        "East Side",
+        "mount desert island",
+        "park loop road",
+        "The Bubbles",
+        "out and back",
+        "less than half day",
+        "summit",
+        "forest",
+        "island explorer",
+        "hiking"
+      ],
+      "latitude": "",
+      "longitude": "",
+      "geometryPoiId": "",
+      "amenities": [],
+      "location": "The Bubbles",
+      "seasonDescription": "",
+      "accessibilityInformation": "The Bubbles hike is not accessible. The trails have uneven footing, stairs, and short, steep sections. There are no accessible restrooms at the trailhead.",
+      "isReservationRequired": "false",
+      "ageDescription": "",
+      "petsDescription": "Dogs must be on a leash no longer than 6 feet.",
+      "timeOfDayDescription": "",
+      "feeDescription": "Although this activity is free, a\u00a0<a href=\"https://www.nps.gov/acad/planyourvisit/fees.htm\">park entrance pass</a>\u00a0is required for all areas of the park year round.",
+      "age": "",
+      "arePetsPermittedWithRestrictions": "true",
+      "activities": [
+        {
+          "id": "BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA",
+          "name": "Hiking"
+        }
+      ],
+      "activityDescription": "",
+      "locationDescription": "<p><strong>The Trailhead: Where to Begin</strong></p> <ul> <li> <p>Bubbles Divide Trailhead</p> </li> </ul> <p><strong>Getting to the Trailhead</strong></p> <ul> <li> <p>By car: Starting from ME Route 3, turn off at the Hulls Cove Entrance to Acadia National Park. Turn left to follow the Park Loop Road and approximately 3 miles. Continue straight on the two-way section of the Park Loop Road, following signs for Jordan Pond. In 5 miles, The Bubbles parking lot is on the right.</p> </li> <li> <p>By bus: Take the Island Explorer (mid-June to October) to the Bubbles. Check bus schedules for times and routes.</p> </li> </ul>",
+      "doFeesApply": "false",
+      "longDescription": "<p>This 1.5 mile hike is a quick way to access the iconic North Bubble, South Bubble, and Bubble Rock. Visitors can take two short spur trails to reach each summit with expansive views of Jordan Pond and the surrounding mountains.</p> <ul> <li>Distance: 1.5 miles round trip</li> <li>Terrain: Forested path, steep rocky sections, exposed granite, wide stairs</li> </ul> <h2>Hike Description</h2> <ul> <li>The hike starts at the Bubbles Divide parking lot.</li> <li>Follow the Bubbles Divide Trail for .25 miles as it becomes steeper with steps just before the junction of the Bubbles Trail to North Bubble.</li> <li>Take a right at this junction on the Bubbles Trail.</li> <li>Continuing onto North Bubble, the trail becomes steep with open granite ledges and will be slick in wet weather. There are excellent views of Jordan Pond, Pemetic and Sargent Mountains, and the Cranberry Isles.</li> <li>Return back down from the summit of North Bubble to the first junction. Turn right and follow the Bubbles Divide Trail towards South Bubble and Bubble Rock for .7 miles.</li> <li>After reaching the summit of South Bubble, turn back and\u00a0follow blue blazes for Bubble Rock, a precarious glacial erratic.</li> <li>Return on the Bubbles Divide Trail all the way back to the parking lot.</li> </ul>",
+      "reservationDescription": "",
+      "season": [
+        "Spring",
+        "Summer",
+        "Fall"
+      ],
+      "topics": [
+        {
+          "id": "5BE55D7F-BDB6-4E3D-AC35-2D8EBB974417",
+          "name": "Trails"
+        }
+      ],
+      "durationDescription": "This hike is 1.5 miles roundtrip. Duration, or how long a hike takes, depends on your pace, how frequently you stop, and the terrain. For an average pace, this hike takes 1 to 1 1/2 hours.\u00a0",
+      "arePetsPermitted": "true",
+      "timeOfDay": [
+        "Day",
+        "Dawn",
+        "Dusk"
+      ],
+      "duration": "60-90 Minutes",
+      "credit": "",
+      "relevanceScore": 13.626645
+    },
+    {
+      "id": "E6CE83A1-421D-4B0C-9404-782FCD87228F",
+      "url": "https://www.nps.gov/thingstodo/hike-beachcroft-path.htm",
+      "title": "Hike Beachcroft Path",
+      "shortDescription": "The Beachcroft Path is an historic memorial pathway, constructed in 1915. Take this trail to reach Champlain Mountain for panoramic coastal mountain views of Mount Desert Island, Frenchman Bay, and the outlying islands.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/7DBA6D30-A3A0-01DF-7F06F586403604FE.jpg",
+          "credit": "",
+          "altText": "Rock cairns mark a trail on exposed rock",
+          "title": "",
+          "description": "",
+          "caption": "",
+          "crops": [
+            {
+              "aspectRatio": "3",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/7DBA6D30-A3A0-01DF-7F06F586403604FE.jpg"
+            },
+            {
+              "aspectRatio": "1",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/7DBA6D30-A3A0-01DF-7F06F586403604FE.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ME",
+          "parkCode": "acad",
+          "designation": "National Park",
+          "fullName": "Acadia National Park",
+          "url": "https://www.nps.gov/acad/index.htm",
+          "name": "Acadia"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Acadia National Park",
+        "East Side",
+        "mount desert island",
+        "champlain mountain",
+        "hiking",
+        "summit",
+        "out and back",
+        "historic trails",
+        "memorial paths"
+      ],
+      "latitude": "44.3585023529493",
+      "longitude": "-68.2059851525353",
+      "geometryPoiId": "",
+      "amenities": [],
+      "location": "Beachcroft Path",
+      "seasonDescription": "",
+      "accessibilityInformation": "The Beachcroft Path is not accessible. The trail has uneven footing and short, steep sections throughout.<br /> <br /> There are no accessible restrooms at the trailhead.",
+      "isReservationRequired": "false",
+      "ageDescription": "",
+      "petsDescription": "Dogs must be on a leash no longer than 6 feet.",
+      "timeOfDayDescription": "",
+      "feeDescription": "Although this activity is free, a\u00a0<a href=\"https://www.nps.gov/acad/planyourvisit/fees.htm\">park entrance pass</a>\u00a0is required for all areas of the park year round.",
+      "age": "",
+      "arePetsPermittedWithRestrictions": "true",
+      "activities": [
+        {
+          "id": "BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA",
+          "name": "Hiking"
+        }
+      ],
+      "activityDescription": "",
+      "locationDescription": "<p><strong>The Trailhead: Where to Begin</strong></p> <ul> <li> <p>Beachcroft Path Trailhead</p> </li> </ul> <p><strong>Getting to the Trailhead</strong></p> <ul> <li> <p>By car: From Hulls Cove Visitor Center, proceed to the four-way intersection. Turn left and then right at the stop sign onto ME Route 3. Follow ME Route 3 south and turn left onto Mt. Desert Street. Turn right onto Main Street and continue on ME Route 3 through Bar Harbor for 2 miles. Pass Jackson Labratories and the entrance to Sieur de Monts. Parking for Beachcroft Path Trailhead is on your right.</p> </li> <li> <p>By bus: Take the Island Explorer (mid-June to October) to Sieur de Monts and follow the Wild Gardens Path to connect with Beachcroft Path. Check\u00a0<a href=\"https://www.exploreacadia.com/routefinder.htm\">bus schedules</a>\u00a0for times and routes.</p> </li> </ul>",
+      "doFeesApply": "false",
+      "longDescription": "<p>The Beachcroft Path\u00a0is a memorial path\u00a0constructed in 1915. It was funded by Anna Warren Ingersoll Smith in memory of\u00a0her husband Charles Morton Smith. It is\u00a0named after\u00a0their\u00a0summer\u00a0cottage in Bar Harbor.\u00a0In 1926,\u00a0Mrs. Smith, upset with the condition of the trail under park service management, established an endowment fund for maintenance, which led to improvement of the trail.\u00a0<br /> <br /> Take this trail to hike towards Champlain Mountain for\u00a0panoramic coastal mountain views of Mount Desert Island, Frenchman Bay, and the outlying islands.</p> <ul> <li>Distance: 2 miles round trip</li> <li>Terrain: Forested path, steep, exposed rocky sections, cut stone steps</li> </ul> <h2>Hike Description</h2> <ul> <li>Start at the Beachcroft Path Trailhead, located off ME Route 3. Use care crossing the road. <ul> <li>This trail can also be started from Sieur de Monts via the Wild Gardens Path (add .6 miles round trip). <span style=\"font-size: 1rem; text-align: -webkit-match-parent;\">Once reaching the Tarn, turn left and continue to ME Route 3. The Beachcroft Path Trailhead is across ME Route 3 slightly to the right.</span></li> </ul> </li> <li><span style=\"font-size: 1rem; text-align: -webkit-match-parent;\">Follow the cut granite stairs and flat stone pathways\u00a0</span>up the side of Huguenot Head, crossing a large boulder field. Enjoy views of Dorr Mountain and the Tarn below.</li> <li>After circling around Huguenot Head, the trail dips slightly before ascending Champlain Mountain. This section of trail has granite stairs and rocky scrambles up granite ledges.</li> <li>Before the summit, the trail goes over large expanses of granite. It is not recommended in wet weather.</li> <li>Reach the 1,058 ft peak of Champlain Mountain and enjoy views of\u00a0Mount Desert Island, Frenchman Bay, and the outlying islands.</li> <li>Return back the same way to the Beachcroft Path Trailhead.</li> </ul>",
+      "reservationDescription": "",
+      "season": [
+        "Winter",
+        "Spring",
+        "Summer",
+        "Fall"
+      ],
+      "topics": [
+        {
+          "id": "5BE55D7F-BDB6-4E3D-AC35-2D8EBB974417",
+          "name": "Trails"
+        }
+      ],
+      "durationDescription": "This hike is 2 miles round trip. Duration, or how long a hike takes, depends on your pace, how frequently you stop, and the terrain. For an average pace, this hike takes 1 to 2 hours.",
+      "arePetsPermitted": "true",
+      "timeOfDay": [
+        "Day",
+        "Dawn",
+        "Dusk"
+      ],
+      "duration": "1-2 Hours",
+      "credit": "",
+      "relevanceScore": 12.141288
+    }
+  ]
+}

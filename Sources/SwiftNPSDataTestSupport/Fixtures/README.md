@@ -1,7 +1,7 @@
 # Recorded responses
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
-2026 (alerts, campgrounds, and visitor centers) using the application identity
+2026 (alerts, campgrounds, things to do, and visitor centers) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -23,6 +23,10 @@ not examples copied from the specification. Tests read them locally and never co
 | parks-page-last.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1 | 200 |
 | parks-search.json | GET https://developer.nps.gov/api/v1/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA | 200 |
 | parks-yell.json | GET https://developer.nps.gov/api/v1/parks?parkCode=yell&limit=1&start=0 | 200 |
+| thingstodo-empty.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=zzzz&start=0 | 200 |
+| thingstodo-page-first.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=0 | 200 |
+| thingstodo-page-last.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=1 | 200 |
+| thingstodo-search.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=2&q=hike&sort=-relevanceScore&start=0&stateCode=ME | 200 |
 | visitorcenters-empty.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=zzzz&start=0 | 200 |
 | visitorcenters-page-first.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | visitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1 | 200 |
@@ -30,7 +34,8 @@ not examples copied from the specification. Tests read them locally and never co
 
 Successful recordings used the service's public demonstration credential in the `X-Api-Key`
 header. No request headers or credentials are stored. The missing-key recording deliberately
-omitted that header. Response ordering is retained, rather than alphabetized, to preserve the
+omitted that header. The things to do recordings used a private key in the same `X-Api-Key`
+header, with a reported limit of 1,000; the key is not stored. Response ordering is retained, rather than alphabetized, to preserve the
 provider's representation.
 
 JSON whitespace is normalized to LF without trailing blanks. The Unicode em dash in Yellowstone
@@ -51,6 +56,13 @@ The campgrounds recordings arrived with CRLF line endings, blank lines, and trai
 are reindented the same way, keeping the provider's key order, escaped quotation marks, and numeric
 literals such as `1.00`; they contain no non-ASCII characters. Decoded values were compared with
 the downloads and are identical.
+
+The things to do recordings arrived with CRLF line endings, blank lines, trailing spaces, and
+commas leading each line, and are reindented the same way, keeping the provider's key order,
+escaped quotation marks, and numeric literals. Their non-ASCII characters, no-break spaces and
+curly quotation marks, are written as the JSON escapes `\u00a0`, `\u2019`, `\u201c`, and
+`\u201d`. The empty recording is byte-identical to the other empty recordings. Decoded values
+were compared with the downloads and are identical.
 
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
@@ -75,6 +87,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | parks-page-last.json | 76e1eeea6fde0f15c64aab4f073f068002f1dde043b332aa197725798da0f8d2 |
 | parks-search.json | 1302400226103d947077e3d10908462b433ffc6b1e69511807af852640a67009 |
 | parks-yell.json | 243bbc33c1ffee6ff2d86794e2b546d32da28c9a9f605449aa2e88968697b53d |
+| thingstodo-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| thingstodo-page-first.json | 84da2d8510aca676afc2d8fca68f82c358c3bf79c9687cf160304e8de1c14544 |
+| thingstodo-page-last.json | 844a678ac81713b3128ed806fad66718223cf39bd9c83d4e1efa37064fa55c50 |
+| thingstodo-search.json | df1700c73e585d46183566bcd56b9964bb7b0ca3def44c316af85428cac46731 |
 | visitorcenters-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | visitorcenters-page-first.json | 74e3a748da6a6cef310f6f4264681303e5fef66b8372a3bdbf3acc7665f8c7d8 |
 | visitorcenters-page-last.json | 5584ce01ec607b53c20dc90e5faa0e8037edff031c7e37499e37c46f15d0eb7e |
@@ -136,6 +152,26 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   the specification's campground schema (`id`, `title`, `type`, `url`), the same as parks.
   Campground image crops are empty; passport stamp crops carry a numeric `aspectRatio`. Site counts,
   lengths, and flags are strings, including `"0"`, and `lastIndexedDate` is an empty string.
+- The live things to do body uses the same envelope. Things to do accept id, parkCode, stateCode,
+  q, limit, start, and sort. The specification documents `relevanceScore` as the only sort option,
+  with descending date last modified as the default, and says an invalid sort property is
+  ignored; the live service instead answers `sort=title` and `sort=-title` with HTTP 400 and an
+  envelope with empty `total`, `start`, and `data`. The recordings therefore sort by
+  `-relevanceScore`. The acad pages have no search text, report total 89, and every item scores
+  1.0, so the two recorded pages are the first two of 89 in the provider's tie order. The ME hike
+  search reports total 75 with scores 13.626645 and 12.141288.
+- The live things to do body differs from the specification's schema, and the model follows the
+  live body. The specification spells `arePetsPermittedwithRestrictions`; the live key is
+  `arePetsPermittedWithRestrictions`. The specification spells the crop key `aspectratio` and types
+  it as an integer; the live key is `aspectRatio` and its value is a string such as `"1.78"` or
+  `"1"`. Live images also carry a `description`, and the live body sends `credit` and `amenities`,
+  none of which the specification lists. Flags such as `isReservationRequired` are the strings
+  `"true"` and `"false"`, and coordinates, `age`, `duration`, and `geometryPoiId` are often empty
+  strings.
+- Every recorded things to do `relatedOrganizations` and `amenities` array is empty. The
+  specification types related organizations as untyped objects and omits amenities, so their
+  element shape is unknown; the typed model does not decode either field, and they are ignored like
+  other unknown fields.
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration

@@ -63,6 +63,22 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 13, 2026.
   case parksYellowstone = "parks-yell"
 
+  /// GET /api/v1/thingstodo?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 17, 2026.
+  case thingsToDoEmpty = "thingstodo-empty"
+
+  /// GET /api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=0; HTTP 200.
+  /// Recorded September 17, 2026.
+  case thingsToDoPageFirst = "thingstodo-page-first"
+
+  /// GET /api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=1; HTTP 200.
+  /// Recorded September 17, 2026.
+  case thingsToDoPageLast = "thingstodo-page-last"
+
+  /// GET /api/v1/thingstodo?limit=2&q=hike&sort=-relevanceScore&start=0&stateCode=ME; HTTP 200.
+  /// Recorded September 17, 2026.
+  case thingsToDoSearch = "thingstodo-search"
+
   /// GET /api/v1/visitorcenters?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 17, 2026.
   case visitorCentersEmpty = "visitorcenters-empty"
