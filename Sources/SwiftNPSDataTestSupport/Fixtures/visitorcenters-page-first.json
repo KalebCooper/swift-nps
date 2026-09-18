@@ -1,0 +1,135 @@
+{
+  "total": "6",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "99B33FA9-2579-415C-B2C7-2A29879744F8",
+      "url": "https://www.mainetourism.com/listing/maine-state-visitor-information-center-trenton/10336/",
+      "name": "Acadia Gateway Center",
+      "parkCode": "acad",
+      "description": "The Acadia Gateway Center is an intermodal transit and welcome center located on Route 3 in Trenton three miles north of Mount Desert Island. Facilities include an Island Explorer bus stop, day-use parking, and an 11,000-square-foot welcome center with tourism information, a store, waiting area, and restrooms. Owned by the State of Maine, it is operated by the Maine Department of Transportation in partnership with the National Park Service, Downeast Transportation Inc., and Maine Office of Tourism.",
+      "latitude": "44.47054889222931",
+      "longitude": "-68.36618185043335",
+      "latLong": "{lat:44.47054889222931, lng:-68.36618185043335}",
+      "audioDescription": "",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "geometryPoiId": "",
+      "amenities": [],
+      "contacts": {
+        "phoneNumbers": [],
+        "emailAddresses": []
+      },
+      "directionsInfo": "Located on Route 3 in Trenton, Maine three miles north of Mount Desert Island.",
+      "directionsUrl": "",
+      "operatingHours": [
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2027-01-01",
+              "name": "Off Season, Jan 1 to Spring Opening",
+              "endDate": "2027-05-19"
+            },
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-10-15",
+              "name": "Off Season, Fall Closing to Dec 31",
+              "endDate": "2026-12-31"
+            }
+          ],
+          "description": "8 am to 6 pm, Wed May 20 to Wed Oct 14, 2026",
+          "standardHours": {
+            "wednesday": "8:00AM - 6:00PM",
+            "monday": "8:00PM - 6:00PM",
+            "thursday": "8:00AM - 6:00PM",
+            "sunday": "8:00AM - 6:00PM",
+            "tuesday": "8:00PM - 6:00PM",
+            "friday": "8:00AM - 6:00PM",
+            "saturday": "8:00AM - 6:00PM"
+          },
+          "name": "Acadia Gateway Center"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "04605",
+          "city": "Trenton",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Acadia Gateway Center",
+          "type": "Physical",
+          "line3": "",
+          "line2": "Gateway Center Drive"
+        },
+        {
+          "postalCode": "04605",
+          "city": "Trenton",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Acadia Gateway Center",
+          "type": "Mailing",
+          "line3": "",
+          "line2": "Gateway Center Drive"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo by John Kelly",
+          "crops": [],
+          "title": "Acadia Gateway Center courtyard",
+          "altText": "Outdoor courtyard with a circular garden in foreground and visitor center building in the distance",
+          "caption": "Acadia Gateway Center courtyard",
+          "url": "https://www.nps.gov/common/uploads/structured_data/5761CD40-CF98-8480-346BAF67B0BC2127.jpeg"
+        },
+        {
+          "credit": "NPS Photo by John Kelly",
+          "crops": [],
+          "title": "Acadia Gateway Center entrance",
+          "altText": "A large building with a metal roof and wide rows of windows and an arched entry way",
+          "caption": "Acadia Gateway Center entrance",
+          "url": "https://www.nps.gov/common/uploads/structured_data/577D1970-E9E0-1797-EE18DD273C930734.jpg"
+        },
+        {
+          "credit": "NPS Photo by John Kelly",
+          "crops": [],
+          "title": "Acadia Gateway Center bus stop",
+          "altText": "A covered outdoor pavilion with benches near a roadway with a parked an Island Explorer shuttle bus",
+          "caption": "Acadia Gateway Center bus stop",
+          "url": "https://www.nps.gov/common/uploads/structured_data/57928DE7-F6E7-7E65-EBDFFE28996E9ADA.jpeg"
+        },
+        {
+          "credit": "NPS Photo by John Kelly",
+          "crops": [],
+          "title": "Acadia Gateway Center interior",
+          "altText": "Interior space with high wood beam ceilings, tall windows and rows of chairs for seating",
+          "caption": "Acadia Gateway Center interior",
+          "url": "https://www.nps.gov/common/uploads/structured_data/57AF2916-00CD-EF91-95AF7643EF841221.jpeg"
+        }
+      ],
+      "multimedia": [],
+      "relevanceScore": 1.0,
+      "lastIndexedDate": ""
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # Recorded responses
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
-2026 (alerts) using the application identity
+2026 (alerts and visitor centers) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -19,6 +19,10 @@ not examples copied from the specification. Tests read them locally and never co
 | parks-page-last.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1 | 200 |
 | parks-search.json | GET https://developer.nps.gov/api/v1/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA | 200 |
 | parks-yell.json | GET https://developer.nps.gov/api/v1/parks?parkCode=yell&limit=1&start=0 | 200 |
+| visitorcenters-empty.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=zzzz&start=0 | 200 |
+| visitorcenters-page-first.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=0 | 200 |
+| visitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1 | 200 |
+| visitorcenters-search.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=2&q=museum&sort=name&start=0&stateCode=ME,MA | 200 |
 
 Successful recordings used the service's public demonstration credential in the `X-Api-Key`
 header. No request headers or credentials are stored. The missing-key recording deliberately
@@ -33,6 +37,11 @@ invented or removed.
 The alerts recordings arrived with CRLF line endings, blank lines, and trailing spaces. They are
 reindented with two spaces and LF endings, keeping the provider's key order; they contain no
 non-ASCII characters. Decoded values were compared with the downloads and are identical.
+
+The visitor centers recordings arrived with CRLF line endings and are reindented the same way,
+keeping the provider's key order and numeric literals such as `1.00`. Their two non-ASCII
+characters, a right single quotation mark and an accented e, are written as the JSON escapes
+`\u2019` and `\u00e9`. Decoded values were compared with the downloads and are identical.
 
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
@@ -53,6 +62,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | parks-page-last.json | 76e1eeea6fde0f15c64aab4f073f068002f1dde043b332aa197725798da0f8d2 |
 | parks-search.json | 1302400226103d947077e3d10908462b433ffc6b1e69511807af852640a67009 |
 | parks-yell.json | 243bbc33c1ffee6ff2d86794e2b546d32da28c9a9f605449aa2e88968697b53d |
+| visitorcenters-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| visitorcenters-page-first.json | 74e3a748da6a6cef310f6f4264681303e5fef66b8372a3bdbf3acc7665f8c7d8 |
+| visitorcenters-page-last.json | 5584ce01ec607b53c20dc90e5faa0e8037edff031c7e37499e37c46f15d0eb7e |
+| visitorcenters-search.json | 1202e83cb3141b0e2fd4c0ba8b03b9cc1338b168f1eb0640ba0376140cb5c441 |
 
 ## Contract notes
 
@@ -77,12 +90,24 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   the first two of four. Every recorded alert has an empty `relatedRoadEvents` array; the element
   shape comes from the specification, and its decoding is covered by constructed test source.
   One recorded alert has an empty `url` string, preserved as sent.
+- The live visitor centers body uses the same envelope. Visitor centers accept parkCode,
+  stateCode, q, limit, start, and sort; sorting by `name` works, although NPS lists no sortable
+  fields. The acad pages report total 6, so the two recorded pages are the first two of six.
+- The specification declares visitor center `contacts` as an array of strings, but every recorded
+  body sends an object with `emailAddresses` and `phoneNumbers`, identical to park contacts. The
+  model follows the live object; no response in the specification's shape has been observed.
+- The specification declares `isPassportStampLocation` a boolean, but the live value is the string
+  `"0"` or `"1"`, kept as sent. Images carry a `crops` array, empty in these recordings except for
+  one passport stamp image with a numeric `aspectRatio`. Every recorded `multimedia` array is empty,
+  and `lastIndexedDate` is an empty string.
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration
   credential reported a limit of 10 for these recordings. No rate-limit response was forced.
 - Constructed edge cases in test source cover malformed data, unknown values, and status
   failures; they are explicitly separate from these recordings.
+- A personal email address in the recorded `visitorcenters-search.json` body was replaced with
+  `redacted@example.com`; the listed sha256 is of the original recording.
 
 NPS content and media retain their [upstream usage terms](https://www.nps.gov/aboutus/disclaimer.htm).
 No referenced image or media file is downloaded into these fixtures.

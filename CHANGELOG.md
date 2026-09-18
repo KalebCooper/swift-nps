@@ -14,6 +14,9 @@ All notable changes are documented here. This project follows
   the generic NPSDataClient.pages(for:) and items(for:) that every collection convenience uses.
 - Alerts: ParkAlert, AlertQuery, Endpoint.alerts(query:), NPSDataRequest.alerts(query:), and the
   lazy NPSDataClient.alertPages(query:) and alerts(query:), with recorded alerts responses.
+- Visitor centers: VisitorCenter, VisitorCenterQuery, Endpoint.visitorCenters(query:),
+  NPSDataRequest.visitorCenters(query:), and the lazy NPSDataClient.visitorCenterPages(query:) and
+  visitorCenters(query:), with recorded visitor centers responses.
 
 ### Changed
 
@@ -27,6 +30,14 @@ All notable changes are documented here. This project follows
 - Replace ParkPageSequence with the generic NPSPageSequence; parks pages are NPSPageSequence<Park>.
 - Replace ParkSequence with the generic NPSItemSequence; parks are NPSItemSequence<Park>.
 - NPSDataError.pagination carries NPSPaginationError.
+- Rename Park.Address to NPSAddress, shared by parks and visitor centers.
+- Rename Park.Contacts to NPSContacts, shared by parks and visitor centers.
+- Rename Park.EmailAddress to NPSEmailAddress, shared by parks and visitor centers.
+- Rename Park.Multimedia to NPSMultimedia, shared by parks and visitor centers.
+- Rename Park.OperatingHours to NPSOperatingHours, shared by parks and visitor centers.
+- Rename Park.OperatingHoursException to NPSOperatingHoursException, shared by parks and visitor
+  centers.
+- Rename Park.PhoneNumber to NPSPhoneNumber, shared by parks and visitor centers.
 
 ## [0.2.0] - 2026-09-17
 

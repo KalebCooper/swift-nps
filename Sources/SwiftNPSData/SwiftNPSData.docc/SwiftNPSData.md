@@ -20,8 +20,8 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts and parks are the implemented endpoint groups. They are built on a generic collection core that
-executes any offset-paginated NPS collection the same way.
+Alerts, parks, and visitor centers are the implemented endpoint groups. They are built on a generic
+collection core that executes any offset-paginated NPS collection the same way.
 
 ### Collection execution
 
@@ -109,6 +109,24 @@ let anotherPage = try await client.send(.parks(parkCode: code))
 An unknown code can return an empty data array. No first result is selected, no next page is
 fetched, and no retries or redirects are performed.
 
+### Visitor Centers
+
+``NPSDataClient/visitorCenters(query:)`` and ``NPSDataClient/visitorCenterPages(query:)`` search
+`/visitorcenters` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<VisitorCenter>`, and sort fields name visitor center properties without validation:
+
+```swift
+let query = try VisitorCenterQuery(parkCodes: [ParkCode("acad")], sort: [.ascending("name")])
+for try await center in client.visitorCenters(query: query) {
+  print(center.name, center.operatingHours?.first?.description ?? "")
+}
+let request = NPSDataRequest.visitorCenters(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.visitorCenters(query: query))
+```
+
+Published operating hours are descriptive text, not a live open-or-closed status.
+
 ### Authentication and failures
 
 [NPS requires an API key](https://www.nps.gov/subjects/developer/guides.htm).
@@ -161,6 +179,11 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/parks(for:)``
 - ``NPSDataClient/parkPages(for:)``
 - ``NPSDataClient/parks(parkCode:)``
+
+### Visitor Centers
+
+- ``NPSDataClient/visitorCenters(query:)``
+- ``NPSDataClient/visitorCenterPages(query:)``
 
 ### Errors
 

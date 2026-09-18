@@ -4,54 +4,6 @@
 /// null values without substituting empty strings or arrays. Codes, coordinates, costs, links,
 /// and dates retain their provider representation. Unknown JSON fields are ignored by Codable.
 public struct Park: Codable, Hashable, Sendable {
-  /// A physical or mailing address with provider-defined address types.
-  public struct Address: Codable, Hashable, Sendable {
-    /// The city text.
-    public let city: String?
-
-    /// The country code, when supplied.
-    public let countryCode: String?
-
-    /// The first address line.
-    public let line1: String?
-
-    /// The second address line, including an empty string.
-    public let line2: String?
-
-    /// The third address line, including an empty string.
-    public let line3: String?
-
-    /// The postal code as text.
-    public let postalCode: String?
-
-    /// The province or territory code, when supplied.
-    public let provinceTerritoryCode: String?
-
-    /// The state code without interpretation.
-    public let stateCode: String?
-
-    /// The open address type, such as Physical or Mailing.
-    public let type: String?
-  }
-
-  /// Contact information published by a park.
-  public struct Contacts: Codable, Hashable, Sendable {
-    /// Published email contacts, or nil when unavailable.
-    public let emailAddresses: [EmailAddress]?
-
-    /// Published phone contacts, or nil when unavailable.
-    public let phoneNumbers: [PhoneNumber]?
-  }
-
-  /// A published email contact.
-  public struct EmailAddress: Codable, Hashable, Sendable {
-    /// The provider's explanatory text.
-    public let description: String?
-
-    /// The email address as published.
-    public let emailAddress: String?
-  }
-
   /// A published entrance fee or pass, without numeric or currency conversion.
   public struct EntranceFee: Codable, Hashable, Sendable {
     /// The exact cost string; no currency is inferred.
@@ -82,21 +34,6 @@ public struct Park: Codable, Hashable, Sendable {
     public let url: String?
   }
 
-  /// A reference to provider multimedia with an open content type.
-  public struct Multimedia: Codable, Hashable, Sendable {
-    /// The provider identifier.
-    public let id: String?
-
-    /// The multimedia title.
-    public let title: String?
-
-    /// The provider's open media type.
-    public let type: String?
-
-    /// The original media link text.
-    public let url: String?
-  }
-
   /// An activity or topic with a provider identifier.
   public struct NamedItem: Codable, Hashable, Sendable {
     /// The identifier, including values unknown to this package.
@@ -106,59 +43,14 @@ public struct Park: Codable, Hashable, Sendable {
     public let name: String?
   }
 
-  /// The park's published hours and seasonal exceptions.
-  public struct OperatingHours: Codable, Hashable, Sendable {
-    /// The original description and caveats.
-    public let description: String?
-
-    /// Exceptions, preserving nil separately from an empty array.
-    public let exceptions: [OperatingHoursException]?
-
-    /// The facility or schedule name.
-    public let name: String?
-
-    /// Hours by provider weekday key; values remain descriptive text.
-    public let standardHours: [String: String?]?
-  }
-
-  /// A dated exception to published operating hours.
-  public struct OperatingHoursException: Codable, Hashable, Sendable {
-    /// The end date or timestamp in its original provider representation.
-    public let endDate: String?
-
-    /// Hours by provider weekday key, retaining null values.
-    public let exceptionHours: [String: String?]?
-
-    /// The exception's display name.
-    public let name: String?
-
-    /// The start date or timestamp without timezone assumptions.
-    public let startDate: String?
-  }
-
-  /// A published phone contact with an open phone type.
-  public struct PhoneNumber: Codable, Hashable, Sendable {
-    /// The provider's explanatory text.
-    public let description: String?
-
-    /// The telephone extension as text.
-    public let `extension`: String?
-
-    /// The phone number without formatting changes.
-    public let phoneNumber: String?
-
-    /// The open type, including Voice, Fax, TTY, and future values.
-    public let type: String?
-  }
-
   /// Activities identified by NPS.
   public let activities: [NamedItem]?
 
   /// Physical and mailing addresses.
-  public let addresses: [Address]?
+  public let addresses: [NPSAddress]?
 
   /// Published contact information.
-  public let contacts: Contacts?
+  public let contacts: NPSContacts?
 
   /// The introduction from the park homepage.
   public let description: String?
@@ -197,13 +89,13 @@ public struct Park: Codable, Hashable, Sendable {
   public let longitude: String?
 
   /// Published multimedia references.
-  public let multimedia: [Multimedia]?
+  public let multimedia: [NPSMultimedia]?
 
   /// The short park name.
   public let name: String
 
   /// Descriptive hours; these are not a live open-or-closed status.
-  public let operatingHours: [OperatingHours]?
+  public let operatingHours: [NPSOperatingHours]?
 
   /// The response code as supplied, without request-code validation.
   public let parkCode: String

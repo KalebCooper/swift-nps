@@ -47,6 +47,22 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 13, 2026.
   case parksYellowstone = "parks-yell"
 
+  /// GET /api/v1/visitorcenters?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 17, 2026.
+  case visitorCentersEmpty = "visitorcenters-empty"
+
+  /// GET /api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=0; HTTP 200.
+  /// Recorded September 17, 2026.
+  case visitorCentersPageFirst = "visitorcenters-page-first"
+
+  /// GET /api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1; HTTP 200.
+  /// Recorded September 17, 2026.
+  case visitorCentersPageLast = "visitorcenters-page-last"
+
+  /// GET /api/v1/visitorcenters?limit=2&q=museum&sort=name&start=0&stateCode=ME,MA; HTTP 200.
+  /// Recorded September 17, 2026.
+  case visitorCentersSearch = "visitorcenters-search"
+
   /// Reads the recorded JSON response; see Fixtures/README.md for lossless escaping.
   package func data() throws -> Data {
     guard

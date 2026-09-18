@@ -11,10 +11,10 @@ import SwiftNPSDataModels
 ///
 /// Use ``parks(parkCode:)`` for an everyday lookup, ``value(for:)`` for a reusable request,
 /// or ``send(_:)`` for a typed endpoint. Every entry point uses the same authentication and errors.
-/// Use ``alertPages(query:)``, ``alerts(query:)``, ``parkPages(query:)``, or ``parks(query:)``
-/// for lazy pagination of one group, or ``pages(for:)`` and ``items(for:)`` for any collection
-/// request. No retries or redirects are performed
-/// automatically.
+/// Use ``alertPages(query:)``, ``alerts(query:)``, ``parkPages(query:)``, ``parks(query:)``,
+/// ``visitorCenterPages(query:)``, or ``visitorCenters(query:)`` for lazy pagination of one
+/// group, or ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or
+/// redirects are performed automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration
@@ -120,6 +120,21 @@ public struct NPSDataClient: Sendable {
   /// - Returns: Parks in provider order, without deduplication, throwing ``NPSDataError``.
   public func parks(query: ParkQuery) -> NPSItemSequence<Park> {
     items(for: .parks(query: query))
+  }
+
+  /// Iterates complete visitor centers pages with filters, sorting, and explicit pagination.
+  /// - Parameter query: Validated options shared by each request except its advancing offset.
+  /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
+  public func visitorCenterPages(query: VisitorCenterQuery) -> NPSPageSequence<VisitorCenter> {
+    pages(for: .visitorCenters(query: query))
+  }
+
+  /// Iterates individual visitor centers, fetching the next page only when needed.
+  /// - Parameter query: Validated query options, including page size and starting offset.
+  /// - Returns: Visitor centers in provider order, without deduplication, throwing
+  ///   ``NPSDataError``.
+  public func visitorCenters(query: VisitorCenterQuery) -> NPSItemSequence<VisitorCenter> {
+    items(for: .visitorCenters(query: query))
   }
 
   /// Sends one endpoint and decodes its body as the endpoint's response type.

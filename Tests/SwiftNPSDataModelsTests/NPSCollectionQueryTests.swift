@@ -68,6 +68,28 @@ struct NPSCollectionQueryTests {
     #expect(try ParkQuery(start: 2).next(after: beyond) == nil)
   }
 
+  @Test("Recorded visitor center pages advance without changing query options")
+  func recordedVisitorCenterPagesAdvanceWithoutChangingQueryOptions() throws {
+    let first = try JSONDecoder().decode(
+      NPSCollection<VisitorCenter>.self, from: Fixture.visitorCentersPageFirst.data())
+    let last = try JSONDecoder().decode(
+      NPSCollection<VisitorCenter>.self, from: Fixture.visitorCentersPageLast.data())
+    let empty = try JSONDecoder().decode(
+      NPSCollection<VisitorCenter>.self, from: Fixture.visitorCentersEmpty.data())
+    let query = try VisitorCenterQuery(
+      limit: 1, parkCodes: [ParkCode("acad")], searchText: "center", sort: [.ascending("name")],
+      stateCodes: [StateCode("ME")])
+    let following = try #require(try query.next(after: first))
+    #expect(following.start == 1)
+    #expect(following.limit == 1)
+    #expect(following.parkCodes == query.parkCodes)
+    #expect(following.searchText == "center")
+    #expect(following.sort == [.ascending("name")])
+    #expect(following.stateCodes == query.stateCodes)
+    #expect(try following.next(after: last)?.start == 2)
+    #expect(try VisitorCenterQuery(limit: 1).next(after: empty) == nil)
+  }
+
   @Test("Short pages advance by returned count without skipping records")
   func shortPagesAdvanceByReturnedCountWithoutSkippingRecords() throws {
     let page = try modifiedPage(["limit": "50", "total": "3"])

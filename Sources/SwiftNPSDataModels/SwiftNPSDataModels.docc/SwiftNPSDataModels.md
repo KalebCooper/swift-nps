@@ -4,8 +4,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Alerts and parks are
-the implemented endpoint groups, built on a generic core shared by every offset-paginated collection:
+This module describes National Park Service Data API operations as values. Alerts, parks, and
+visitor centers are the implemented endpoint groups, built on a generic core shared by every offset-paginated collection:
 a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -137,6 +137,25 @@ and real responses were checked on September 13, 2026. Its outer parks array dec
 not match the live object envelope. The live recordings confirm the envelope and nested objects;
 the schema's illustrative examples also differ in places from its property definitions.
 
+### Visitor Centers
+
+``VisitorCenterQuery`` describes all six documented visitor centers parameters: park codes, state
+codes, text search, sort criteria, page limit, and start offset. NPS documents sorting by resource
+properties without listing them, so sort fields are sent without validation. Empty code and sort
+arrays omit the parameter, and search text is preserved and percent encoded, including empty
+text. Visitor centers pages are `NPSCollection<VisitorCenter>`, from
+``Endpoint/visitorCenters(query:)`` or ``NPSDataRequest/visitorCenters(query:)``.
+
+``VisitorCenter`` requires an identifier and name; other documented fields remain optional, and
+unknown JSON fields are ignored. Addresses, contacts, multimedia, and operating hours use the same
+``NPSAddress``, ``NPSContacts``, ``NPSMultimedia``, and ``NPSOperatingHours`` types as ``Park``.
+Visitor center images add published crops, so they are ``VisitorCenter/Image`` rather than the
+park image type. The passport stamp flag stays the provider's `"0"` or `"1"` string, and
+coordinates, links, and `lastIndexedDate` stay as sent, including empty strings. The specification
+and real responses were checked on September 17, 2026. The specification declares `contacts` an
+array of strings and the passport stamp flag a Boolean; the live responses send a contacts object
+and a string flag, which the model follows.
+
 ### Endpoint boundaries
 
 ``Endpoint/init(path:)`` accepts only relative paths without fragments, traversal, or an
@@ -174,3 +193,18 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkCode``
 - ``ParkQuery``
 - ``StateCode``
+
+### Shared park and facility details
+
+- ``NPSAddress``
+- ``NPSContacts``
+- ``NPSEmailAddress``
+- ``NPSMultimedia``
+- ``NPSOperatingHours``
+- ``NPSOperatingHoursException``
+- ``NPSPhoneNumber``
+
+### Visitor Centers
+
+- ``VisitorCenter``
+- ``VisitorCenterQuery``

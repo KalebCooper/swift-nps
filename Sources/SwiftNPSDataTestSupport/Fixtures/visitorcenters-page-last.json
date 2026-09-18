@@ -1,0 +1,164 @@
+{
+  "total": "6",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "2DC6EAAC-3718-4438-9630-85E55A3DA496",
+      "url": "https://www.nps.gov/acad/planyourvisit/hours.htm",
+      "name": "Hulls Cove Visitor Center",
+      "parkCode": "acad",
+      "description": "Located close to Bar Harbor off Route 3, the Hulls Cove Visitor Center is Acadia\u2019s main visitor contact station and transportation hub from May into October. It is a popular, and often crowded, first stop for many visitors. It is adjacent to an entrance for the park's iconic 27-mile Park Loop Road and it serves as a key stop for several routes on the fare-free Island Explorer bus system. From a large parking lot, visitors must climb 52 steps to the main entrance. There is a separate accessible entrance.",
+      "latitude": "44.4085418988",
+      "longitude": "-68.2461366995",
+      "latLong": "{lat:44.4085418988, lng:-68.2461366995}",
+      "audioDescription": "",
+      "isPassportStampLocation": "1",
+      "passportStampLocationDescription": "Text: Acadia National Park, Bar Harbor, Maine",
+      "passportStampImages": [
+        {
+          "credit": "",
+          "description": "",
+          "crops": [
+            {
+              "aspectRatio": 1.00,
+              "url": "https://www.nps.gov/common/uploads/passport_stamps/primary/A9AB785F-C6A1-6E84-86ABC93D2D3DB797.jpeg"
+            }
+          ],
+          "altText": "Text: Acadia National Park, Bar Harbor, Maine",
+          "title": "Bar Harbor Stamp",
+          "caption": "",
+          "url": "https://www.nps.gov/common/uploads/passport_stamps/A9AB785F-C6A1-6E84-86ABC93D2D3DB797.jpeg"
+        }
+      ],
+      "geometryPoiId": "F96FB9D2-861E-5C17-A0A0-5C6A13ABC159",
+      "amenities": [
+        "Automated Entrance",
+        "Benches/Seating",
+        "Bicycle - Rack",
+        "Bus/Shuttle Stop",
+        "Elevator",
+        "Entrance Passes For Sale",
+        "Gifts/Souvenirs/Books",
+        "Information",
+        "Information - Maps Available",
+        "Information - Ranger/Staff Member Present",
+        "Parking - Auto",
+        "Parking - Bus/RV",
+        "Public Transit",
+        "Restroom",
+        "Restroom - Accessible",
+        "Ticket Sales",
+        "Wheelchair Accessible"
+      ],
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "2072883338",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          },
+          {
+            "phoneNumber": "2072888800",
+            "description": "",
+            "extension": "",
+            "type": "TTY"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "This email is for general park inquiries.",
+            "emailAddress": "acadia_information@nps.gov"
+          }
+        ]
+      },
+      "directionsInfo": "Located off ME 3 in Hulls Cove (just north of Bar Harbor) Hulls Cove Visitor Center is at the top of the hill above the large parking lots. An accessible entrance is also available.",
+      "directionsUrl": "http://www.nps.gov/acad/planyourvisit/directions.htm",
+      "operatingHours": [
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-11-01",
+              "name": "Winter closure",
+              "endDate": "2027-04-30"
+            }
+          ],
+          "description": "Our summer season serving visitors at the Hulls Cove Visitor Center typically spans from the first week of May to the end of October.\n\nDuring winter months, typically the end of October into early May, visitor information is hosted at the Bar Harbor Chamber of Commerce, 2 Cottage St., corner of Cottage and Main.",
+          "standardHours": {
+            "wednesday": "8:30AM - 4:30PM",
+            "monday": "8:30AM - 4:30PM",
+            "thursday": "8:30AM - 4:30PM",
+            "sunday": "8:30AM - 4:30PM",
+            "tuesday": "8:30AM - 4:30PM",
+            "friday": "8:30AM - 4:30PM",
+            "saturday": "8:30AM - 4:30PM"
+          },
+          "name": "Hulls Cove Visitor Center"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "04609",
+          "city": "Bar Harbor",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "25 Visitor Center Road",
+          "type": "Physical",
+          "line3": "",
+          "line2": ""
+        },
+        {
+          "postalCode": "04609",
+          "city": "Bar Harbor",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "PO Box 177",
+          "type": "Mailing",
+          "line3": "",
+          "line2": "Hulls Cove Visitor Center"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo",
+          "crops": [],
+          "title": "Information pavlion",
+          "altText": "Outdoor structure with visitor center spelled across roof provides cover for information displays.",
+          "caption": "An information pavilion adjacent to the visitor center parking lot",
+          "url": "https://www.nps.gov/common/uploads/structured_data/74BB868B-FD73-480F-995ADD559080E7DD.jpg"
+        },
+        {
+          "credit": "NPS Photo by Michelle Read",
+          "crops": [],
+          "title": "Accessible entrance",
+          "altText": "Building exterior covered with cedar shingles and large windows and an entry door at ground level.",
+          "caption": "A separate accessible entrance behind the facility has an automated door and an elevator to the main floor.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/758A1098-01C9-7CF0-EF270ABEC221E848.jpg"
+        },
+        {
+          "credit": "NPS",
+          "crops": [],
+          "title": "Visitor Center Floor Plan",
+          "altText": "Schematic drawing of the interior floor plan for Hulls Cove Visitor Center",
+          "caption": "Schematic drawing of the interior floor plan for Hulls Cove Visitor Center",
+          "url": "https://www.nps.gov/common/uploads/structured_data/2D228B47-B7D0-20D2-551E5E81EDF3FF85.jpg"
+        }
+      ],
+      "multimedia": [],
+      "relevanceScore": 1.0,
+      "lastIndexedDate": ""
+    }
+  ]
+}

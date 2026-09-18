@@ -1,0 +1,128 @@
+{
+  "total": "9",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "88AB3CC6-6CC5-4C62-BAC7-452F632E9177",
+      "url": "",
+      "name": "Allagash Historical Society/Museum",
+      "parkCode": "maac",
+      "description": "The Allagash Historical Society/Museum highlights the Irish/Scottish heritage of the settlers of Allagash. You will find displays of lumbering, farming, and the St. John River log drives, as well as a display honoring the veterans of the town, histories of the schools and churches. Photograph collections demonstrate ways of life when the first settlers came up the mighty St. John River.",
+      "latitude": "47.112347933178576",
+      "longitude": "-69.09027549691154",
+      "latLong": "{lat:47.112347933178576, lng:-69.09027549691154}",
+      "audioDescription": "",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "geometryPoiId": "",
+      "amenities": [],
+      "contacts": {
+        "phoneNumbers": [],
+        "emailAddresses": []
+      },
+      "directionsInfo": "",
+      "directionsUrl": "",
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "Hours for May 3-September 1, 2025",
+          "standardHours": {
+            "wednesday": "Closed",
+            "monday": "Closed",
+            "thursday": "Closed",
+            "sunday": "12:00PM - 5:00PM",
+            "tuesday": "Closed",
+            "friday": "Closed",
+            "saturday": "12:00PM - 12:00PM"
+          },
+          "name": "Allagash Historical Society/Museum"
+        }
+      ],
+      "addresses": [],
+      "images": [],
+      "multimedia": [],
+      "relevanceScore": 12.067375,
+      "lastIndexedDate": ""
+    },
+    {
+      "id": "984C08FB-AF5E-4BD3-BE9A-7F7A8DAF5C1E",
+      "url": "",
+      "name": "Association Culturelle et Historique du Mont-Carmel",
+      "parkCode": "maac",
+      "description": "Mus\u00e9e Culturel du Mont-Carmel was founded in 1973 in order to preserve and restore the Notre-Dame-du-Mont-Carmel, a Roman Catholic church was built in 1908-1909. It was entered on the National Register of Historic Places in 1983 by the Maine Historic Preservation Commission. This museum consists of the former church as well as the former Lawrence Parent General Store now known as the Galerie Lille-sur-St-Jean.",
+      "latitude": "47.27906595899459",
+      "longitude": "-68.10842529347514",
+      "latLong": "{lat:47.27906595899459, lng:-68.10842529347514}",
+      "audioDescription": "",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "geometryPoiId": "",
+      "amenities": [],
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "207-895-3339",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "redacted@example.com"
+          }
+        ]
+      },
+      "directionsInfo": "",
+      "directionsUrl": "",
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "Hours for June 15-August 15, 2025",
+          "standardHours": {
+            "wednesday": "12:00PM - 4:00PM",
+            "monday": "12:00PM - 4:00PM",
+            "thursday": "12:00PM - 4:00PM",
+            "sunday": "12:00PM - 4:00PM",
+            "tuesday": "12:00PM - 4:00PM",
+            "friday": "12:00PM - 4:00PM",
+            "saturday": "Closed"
+          },
+          "name": "Association Culturelle et Historique du Mont-Carmel"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "04746",
+          "city": "Grand Isle",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "993 Main St",
+          "type": "Physical",
+          "line3": "",
+          "line2": ""
+        },
+        {
+          "postalCode": "04746",
+          "city": "Grand Isle",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "993 Main St",
+          "type": "Mailing",
+          "line3": "",
+          "line2": ""
+        }
+      ],
+      "images": [],
+      "multimedia": [],
+      "relevanceScore": 3.87362,
+      "lastIndexedDate": ""
+    }
+  ]
+}
