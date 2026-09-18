@@ -46,6 +46,66 @@ struct NPSCollectionQueryTests {
     #expect(try AlertQuery(limit: 1).next(after: empty) == nil)
   }
 
+  @Test("Recorded amenity pages advance without changing query options")
+  func recordedAmenityPagesAdvanceWithoutChangingQueryOptions() throws {
+    let decoder = JSONDecoder()
+    let first = try decoder.decode(
+      NPSCollection<Amenity>.self, from: Fixture.amenitiesPageFirst.data())
+    let last = try decoder.decode(
+      NPSCollection<Amenity>.self, from: Fixture.amenitiesPageLast.data())
+    let empty = try decoder.decode(
+      NPSCollection<Amenity>.self, from: Fixture.amenitiesEmpty.data())
+    let query = try AmenityQuery(
+      identifiers: [NPSIdentifier("A1B0AD01-740C-41E7-8412-FBBEDD5F1443")], limit: 1,
+      searchText: "atm")
+    let following = try #require(try query.next(after: first))
+    #expect(following.start == 1)
+    #expect(following.limit == 1)
+    #expect(following.identifiers == query.identifiers)
+    #expect(following.searchText == "atm")
+    #expect(try following.next(after: last)?.start == 2)
+    #expect(try AmenityQuery(limit: 1).next(after: empty) == nil)
+  }
+
+  @Test("Recorded amenity park groups advance by group count without changing query options")
+  func recordedAmenityParkGroupsAdvanceByGroupCountWithoutChangingQueryOptions() throws {
+    let decoder = JSONDecoder()
+    let placesFirst = try decoder.decode(
+      NPSCollection<[AmenityParkPlaces]>.self, from: Fixture.amenityParkPlacesPageFirst.data())
+    let placesLast = try decoder.decode(
+      NPSCollection<[AmenityParkPlaces]>.self, from: Fixture.amenityParkPlacesPageLast.data())
+    let placesEmpty = try decoder.decode(
+      NPSCollection<[AmenityParkPlaces]>.self, from: Fixture.amenityParkPlacesEmpty.data())
+    let places = try AmenityParkPlacesQuery(
+      identifiers: [NPSIdentifier("4E4D076A-6866-46C8-A28B-A129E2B8F3DB")], limit: 1,
+      parkCodes: [ParkCode("acad")], searchText: "rooms", sort: [.ascending("name")])
+    let nextPlaces = try #require(try places.next(after: placesFirst))
+    #expect(nextPlaces.start == 1)
+    #expect(nextPlaces.identifiers == places.identifiers)
+    #expect(nextPlaces.parkCodes == places.parkCodes)
+    #expect(nextPlaces.searchText == "rooms")
+    #expect(nextPlaces.sort == [.ascending("name")])
+    #expect(try nextPlaces.next(after: placesLast)?.start == 2)
+    #expect(try AmenityParkPlacesQuery(limit: 1).next(after: placesEmpty) == nil)
+    let centersFirst = try decoder.decode(
+      NPSCollection<[AmenityParkVisitorCenters]>.self,
+      from: Fixture.amenityParkVisitorCentersPageFirst.data())
+    let centersLast = try decoder.decode(
+      NPSCollection<[AmenityParkVisitorCenters]>.self,
+      from: Fixture.amenityParkVisitorCentersPageLast.data())
+    let centersEmpty = try decoder.decode(
+      NPSCollection<[AmenityParkVisitorCenters]>.self,
+      from: Fixture.amenityParkVisitorCentersEmpty.data())
+    let centers = try AmenityParkVisitorCentersQuery(
+      limit: 1, parkCodes: [ParkCode("acad")], sort: [.descending("name")])
+    let nextCenters = try #require(try centers.next(after: centersFirst))
+    #expect(nextCenters.start == 1)
+    #expect(nextCenters.parkCodes == centers.parkCodes)
+    #expect(nextCenters.sort == [.descending("name")])
+    #expect(try nextCenters.next(after: centersLast)?.start == 2)
+    #expect(try AmenityParkVisitorCentersQuery(limit: 1).next(after: centersEmpty) == nil)
+  }
+
   @Test("Recorded campground pages advance without changing query options")
   func recordedCampgroundPagesAdvanceWithoutChangingQueryOptions() throws {
     let first = try JSONDecoder().decode(

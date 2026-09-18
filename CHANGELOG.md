@@ -14,6 +14,14 @@ All notable changes are documented here. This project follows
   the generic NPSDataClient.pages(for:) and items(for:) that every collection convenience uses.
 - Alerts: ParkAlert, AlertQuery, Endpoint.alerts(query:), NPSDataRequest.alerts(query:), and the
   lazy NPSDataClient.alertPages(query:) and alerts(query:), with recorded alerts responses.
+- Amenities: Amenity, AmenityQuery, AmenityParkPlaces, AmenityParkPlacesQuery,
+  AmenityParkVisitorCenters, AmenityParkVisitorCentersQuery, Endpoint and NPSDataRequest
+  amenities(query:), amenityParkPlaces(query:), and amenityParkVisitorCenters(query:), the lazy
+  NPSDataClient.amenityPages(query:), amenities(query:), amenityParkPlacePages(query:),
+  amenityParkPlaces(query:), amenityParkVisitorCenterPages(query:), and
+  amenityParkVisitorCenters(query:), and NPSFlattenedItemSequence, with recorded amenities
+  responses. Park places and park visitor centers pages keep the provider's per-amenity groups;
+  their item sequences flatten them.
 - Campgrounds: Campground, CampgroundQuery, Endpoint.campgrounds(query:),
   NPSDataRequest.campgrounds(query:), and the lazy NPSDataClient.campgroundPages(query:) and
   campgrounds(query:), with recorded campgrounds responses.

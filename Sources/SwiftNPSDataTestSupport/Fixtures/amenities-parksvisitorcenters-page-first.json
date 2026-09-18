@@ -1,0 +1,30 @@
+{
+  "total": "27",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    [
+      {
+        "id": "F4A842CB-C966-402E-BBD3-AB86EDCF8403",
+        "name": "Automated Entrance",
+        "parks": [
+          {
+            "states": "ME",
+            "designation": "National Park",
+            "parkCode": "acad",
+            "visitorcenters": [
+              {
+                "id": "2DC6EAAC-3718-4438-9630-85E55A3DA496",
+                "url": "https://www.nps.gov/acad/planyourvisit/hours.htm",
+                "name": "Hulls Cove Visitor Center"
+              }
+            ],
+            "fullName": "Acadia National Park",
+            "url": "http://www.nps.gov/acad/",
+            "name": "Acadia"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -20,8 +20,8 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, campgrounds, parks, things to do, and visitor centers are the implemented endpoint groups.
-They are built on a generic collection core that executes any offset-paginated NPS collection the same way.
+Alerts, amenities, campgrounds, parks, things to do, and visitor centers are the implemented
+endpoint groups. They are built on a generic collection core that executes any offset-paginated NPS collection the same way.
 
 ### Collection execution
 
@@ -92,6 +92,34 @@ let samePage = try await client.send(.alerts(query: query))
 
 Alerts describe current park conditions as NPS publishes them; the package makes no freshness
 guarantee.
+
+### Amenities
+
+``NPSDataClient/amenities(query:)`` and ``NPSDataClient/amenityPages(query:)`` search
+`/amenities` by identifiers and text; NPS documents no park, state, or sort parameter there. Each
+page is `NPSCollection<Amenity>`.
+
+``NPSDataClient/amenityParkPlaces(query:)`` and ``NPSDataClient/amenityParkPlacePages(query:)``
+search `/amenities/parksplaces`, and ``NPSDataClient/amenityParkVisitorCenters(query:)`` and
+``NPSDataClient/amenityParkVisitorCenterPages(query:)`` search `/amenities/parksvisitorcenters`,
+by identifiers, park codes, text, and sorting. These two endpoints wrap each result in an extra
+array. Their pages keep the provider's shape, `NPSCollection<[AmenityParkPlaces]>` and
+`NPSCollection<[AmenityParkVisitorCenters]>`, where each element of `data` is one amenity's group,
+observed so far with one entry each, and the offset advances by the number of groups. The item
+methods return ``NPSFlattenedItemSequence``, which yields every entry of every group in provider
+order with the same laziness, cancellation, and typed failures as ``NPSItemSequence``:
+
+```swift
+let query = try AmenityParkPlacesQuery(parkCodes: [ParkCode("acad")])
+for try await amenity in client.amenityParkPlaces(query: query) {
+  print(amenity.name, amenity.parks?.first?.places?.map(\.title) ?? [])
+}
+let request = NPSDataRequest.amenityParkPlaces(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.amenityParkPlaces(query: query))
+```
+
+Listing an amenity at a park or place describes published facilities, not current availability.
 
 ### Campgrounds
 
@@ -198,6 +226,16 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/alerts(query:)``
 - ``NPSDataClient/alertPages(query:)``
+
+### Amenities
+
+- ``NPSDataClient/amenities(query:)``
+- ``NPSDataClient/amenityPages(query:)``
+- ``NPSDataClient/amenityParkPlaces(query:)``
+- ``NPSDataClient/amenityParkPlacePages(query:)``
+- ``NPSDataClient/amenityParkVisitorCenters(query:)``
+- ``NPSDataClient/amenityParkVisitorCenterPages(query:)``
+- ``NPSFlattenedItemSequence``
 
 ### Campgrounds
 

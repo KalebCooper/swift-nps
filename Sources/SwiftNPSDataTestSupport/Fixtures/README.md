@@ -1,7 +1,7 @@
 # Recorded responses
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
-2026 (alerts, campgrounds, things to do, and visitor centers) using the application identity
+2026 (alerts, amenities, campgrounds, things to do, and visitor centers) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -11,6 +11,16 @@ not examples copied from the specification. Tests read them locally and never co
 | alerts-page-first.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=0 | 200 |
 | alerts-page-last.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=1 | 200 |
 | alerts-search.json | GET https://developer.nps.gov/api/v1/alerts?limit=2&parkCode=acad,yell&start=0 | 200 |
+| amenities-empty.json | GET https://developer.nps.gov/api/v1/amenities?limit=1&q=zzzzzz&start=0 | 200 |
+| amenities-page-first.json | GET https://developer.nps.gov/api/v1/amenities?limit=1&start=0 | 200 |
+| amenities-page-last.json | GET https://developer.nps.gov/api/v1/amenities?limit=1&start=1 | 200 |
+| amenities-parksplaces-empty.json | GET https://developer.nps.gov/api/v1/amenities/parksplaces?limit=1&parkCode=zzzz&start=0 | 200 |
+| amenities-parksplaces-page-first.json | GET https://developer.nps.gov/api/v1/amenities/parksplaces?limit=1&parkCode=acad&start=0 | 200 |
+| amenities-parksplaces-page-last.json | GET https://developer.nps.gov/api/v1/amenities/parksplaces?limit=1&parkCode=acad&start=1 | 200 |
+| amenities-parksvisitorcenters-empty.json | GET https://developer.nps.gov/api/v1/amenities/parksvisitorcenters?limit=1&parkCode=zzzz&start=0 | 200 |
+| amenities-parksvisitorcenters-page-first.json | GET https://developer.nps.gov/api/v1/amenities/parksvisitorcenters?limit=1&parkCode=acad&start=0 | 200 |
+| amenities-parksvisitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/amenities/parksvisitorcenters?limit=1&parkCode=acad&start=1 | 200 |
+| amenities-search.json | GET https://developer.nps.gov/api/v1/amenities?limit=2&q=restroom&start=0 | 200 |
 | api-key-missing.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 without an API key | 403 |
 | campgrounds-empty.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=zzzz&start=0 | 200 |
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
@@ -32,11 +42,12 @@ not examples copied from the specification. Tests read them locally and never co
 | visitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | visitorcenters-search.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=2&q=museum&sort=name&start=0&stateCode=ME,MA | 200 |
 
-Successful recordings used the service's public demonstration credential in the `X-Api-Key`
-header. No request headers or credentials are stored. The missing-key recording deliberately
-omitted that header. The things to do recordings used a private key in the same `X-Api-Key`
-header, with a reported limit of 1,000; the key is not stored. Response ordering is retained, rather than alphabetized, to preserve the
-provider's representation.
+Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
+visitor centers recordings used the service's public demonstration credential, which reported a
+limit of 10. The campgrounds, things to do, and amenities recordings used the maintainer's private
+key, which reported a limit of 1,000. No request headers or credentials are stored. The
+missing-key recording deliberately omitted that header. Response ordering is retained, rather than
+alphabetized, to preserve the provider's representation.
 
 JSON whitespace is normalized to LF without trailing blanks. The Unicode em dash in Yellowstone
 is written as the JSON escape `\u2014` to satisfy repository text rules. Decoded JSON was compared
@@ -64,6 +75,13 @@ curly quotation marks, are written as the JSON escapes `\u00a0`, `\u2019`, `\u20
 `\u201d`. The empty recording is byte-identical to the other empty recordings. Decoded values
 were compared with the downloads and are identical.
 
+The amenities recordings arrived with CRLF line endings, blank lines, trailing spaces, and commas
+leading each line, and are reindented the same way, keeping the provider's key order, including
+the nested group arrays; they contain no non-ASCII characters or escapes. The three empty
+recordings are byte-identical to the other empty recordings. Decoded values were compared with the
+downloads and are identical. The park places and park visitor centers first pages were also
+recorded a second time under a different name; those copies were byte-identical and are not kept.
+
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -75,6 +93,16 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | alerts-page-first.json | ddce89e0f28d5f35a164e9016bf155fbc1a6b686be4db49046d01f311812809f |
 | alerts-page-last.json | 045c53d90dd590ac5a374b6fab43e821d8b1888810c94f472f0632935ba97f8c |
 | alerts-search.json | abe1bba5228628b2e1471b66cc803ecf7809a6eafcef757a1b295d6d0f70fdcd |
+| amenities-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| amenities-page-first.json | d6746d4717a3d1cada7607d712bdb2fd5adc8db2c3f36276cf90a729dd90704e |
+| amenities-page-last.json | 540b507e72c7f0bb89c3a79dd11fbb9b6a1cb5e431ad3d5f0812ffad2f0910ef |
+| amenities-parksplaces-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| amenities-parksplaces-page-first.json | 042083c785286f2df0bc5197f36335a34701d3a3b2380c379d3f1a50a0a98e29 |
+| amenities-parksplaces-page-last.json | 30455e16d1aca75550916b1bd9a2eecb5d5cca8a663c52212e1cfd3b0f1d506e |
+| amenities-parksvisitorcenters-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| amenities-parksvisitorcenters-page-first.json | 0cd194ff239193618fa1f13632bf2e8e0c934e1825ba50b6fc2958c729f7b9e6 |
+| amenities-parksvisitorcenters-page-last.json | 06cec1916799d6bacad3b13991243a0f9613e8c504861e5c59c4da052be5e6f8 |
+| amenities-search.json | f1308ec4cb3ab350a2277f0feb6c70f3528edfc16dd5bd6d00dd74adc8e74e62 |
 | api-key-missing.json | adf24054a0da1d216699be8c128aa47c2c98f381a2c21945836ebc904653c8cc |
 | campgrounds-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
@@ -172,10 +200,23 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   specification types related organizations as untyped objects and omits amenities, so their
   element shape is unknown; the typed model does not decode either field, and they are ignored like
   other unknown fields.
+- The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,
+  with no park, state, or sort parameter. The specification lists `id` and `name` for an amenity;
+  the live body also sends a `categories` array of strings, such as `["Convenience", "Souvenirs
+  and Supplies"]`. The unfiltered pages report total 127 and the restroom search total 30.
+- The live `/amenities/parksplaces` and `/amenities/parksvisitorcenters` bodies use the same
+  envelope keys, but `data` is an array of arrays: each element is a group of amenity entries.
+  Every recorded group holds exactly one entry, and diagnostic requests at `limit=3` returned
+  three groups, so the service counts groups against `limit` and the recorded start advances by
+  group count. Whether a group can hold more than one entry is not established. Each entry carries
+  `id`, `name`, and `parks`; each park carries `states`, `designation`, `parkCode`, `fullName`,
+  `url`, and `name`, plus `places` (`title`, `id`, `url`) or lowercase `visitorcenters` (`id`,
+  `url`, `name`). The acad pages report totals 59 and 27, and their `start=1` pages are the second
+  group, not the collection's last. Park and visitor center links mix `http` and `https` as sent.
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration
-  credential reported a limit of 10 for these recordings. No rate-limit response was forced.
+  credential reported a limit of 10 and the private key a limit of 1,000 for these recordings. No rate-limit response was forced.
 - Constructed edge cases in test source cover malformed data, unknown values, and status
   failures; they are explicitly separate from these recordings.
 - A personal email address in the recorded `visitorcenters-search.json` body was replaced with

@@ -11,7 +11,11 @@ pagination. Lazy `parkPages` and `parks` sequences provide complete pages or ind
 swifty-networking 1.1.0. Reusable typed requests and transport-independent endpoints remain
 available for single-page execution. Alerts queries support multiple park codes, state codes, text
 search, and pagination through lazy `alertPages` and `alerts` sequences; NPS documents no alerts
-sorting. Campgrounds queries support park codes, state codes, text search, sorting, and pagination
+sorting. Amenities queries support identifiers, text search, and pagination through lazy
+`amenityPages` and `amenities` sequences. Amenity park places and park visitor centers queries
+support identifiers, park codes, text search, sorting, and pagination; their pages keep the
+provider's per-amenity groups, and `amenityParkPlaces` and `amenityParkVisitorCenters` yield each
+entry. Campgrounds queries support park codes, state codes, text search, sorting, and pagination
 through lazy `campgroundPages` and `campgrounds` sequences; published site counts and fees are not
 live availability. Things to do queries support identifiers, park codes, state codes, text search,
 sorting, and pagination through lazy `thingToDoPages` and `thingsToDo` sequences; NPS documents only
@@ -114,8 +118,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, campgrounds, parks, things to do, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, campground, park, thing to do, visitor center, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, things to do, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, thing to do, visitor center, and shared detail models. | None. |
 
 ## Requirements
 

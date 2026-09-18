@@ -1,0 +1,30 @@
+{
+  "total": "59",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    [
+      {
+        "id": "B509969B-F06A-4DCC-BBB3-134964D896E2",
+        "name": "Amphitheater",
+        "parks": [
+          {
+            "states": "ME",
+            "designation": "National Park",
+            "parkCode": "acad",
+            "fullName": "Acadia National Park",
+            "places": [
+              {
+                "title": "Schoodic Woods Campground",
+                "id": "946BF890-0171-4AB0-A713-09B92CD1BBA8",
+                "url": "https://www.nps.gov/places/acad_schoodic-woods-campground.htm"
+              }
+            ],
+            "url": "http://www.nps.gov/acad/",
+            "name": "Acadia"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "total": "59",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    [
+      {
+        "id": "4E4D076A-6866-46C8-A28B-A129E2B8F3DB",
+        "name": "Accessible Rooms",
+        "parks": [
+          {
+            "states": "ME",
+            "designation": "National Park",
+            "parkCode": "acad",
+            "fullName": "Acadia National Park",
+            "places": [
+              {
+                "title": "Jordan Pond House",
+                "id": "73CD84BA-F5B5-491E-A3B4-B5B6743668AC",
+                "url": "https://www.nps.gov/places/jordan-pond-house.htm"
+              },
+              {
+                "title": "Moore Auditorium",
+                "id": "EE4C8973-5FB0-47F0-8803-8A9A36870EF8",
+                "url": "https://www.nps.gov/places/acad_moore-auditorium.htm"
+              }
+            ],
+            "url": "http://www.nps.gov/acad/",
+            "name": "Acadia"
+          }
+        ]
+      }
+    ]
+  ]
+}

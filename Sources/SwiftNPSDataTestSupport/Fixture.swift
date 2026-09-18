@@ -15,6 +15,46 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// GET /api/v1/alerts?limit=2&parkCode=acad,yell&start=0; HTTP 200. Recorded September 17, 2026.
   case alertsSearch = "alerts-search"
 
+  /// GET /api/v1/amenities?limit=1&q=zzzzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 17, 2026.
+  case amenitiesEmpty = "amenities-empty"
+
+  /// GET /api/v1/amenities?limit=1&start=0; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenitiesPageFirst = "amenities-page-first"
+
+  /// GET /api/v1/amenities?limit=1&start=1; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenitiesPageLast = "amenities-page-last"
+
+  /// GET /api/v1/amenities?limit=2&q=restroom&start=0; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenitiesSearch = "amenities-search"
+
+  /// GET /api/v1/amenities/parksplaces?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 17, 2026.
+  case amenityParkPlacesEmpty = "amenities-parksplaces-empty"
+
+  /// GET /api/v1/amenities/parksplaces?limit=1&parkCode=acad&start=0; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenityParkPlacesPageFirst = "amenities-parksplaces-page-first"
+
+  /// GET /api/v1/amenities/parksplaces?limit=1&parkCode=acad&start=1; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenityParkPlacesPageLast = "amenities-parksplaces-page-last"
+
+  /// GET /api/v1/amenities/parksvisitorcenters?limit=1&parkCode=zzzz&start=0; HTTP 200 with no
+  /// matches. Recorded September 17, 2026.
+  case amenityParkVisitorCentersEmpty = "amenities-parksvisitorcenters-empty"
+
+  /// GET /api/v1/amenities/parksvisitorcenters?limit=1&parkCode=acad&start=0; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenityParkVisitorCentersPageFirst = "amenities-parksvisitorcenters-page-first"
+
+  /// GET /api/v1/amenities/parksvisitorcenters?limit=1&parkCode=acad&start=1; HTTP 200.
+  /// Recorded September 17, 2026.
+  case amenityParkVisitorCentersPageLast = "amenities-parksvisitorcenters-page-last"
+
   /// GET /api/v1/parks?parkCode=acad&limit=1&start=0 without authentication; HTTP 403.
   /// Recorded September 13, 2026.
   case apiKeyMissing = "api-key-missing"

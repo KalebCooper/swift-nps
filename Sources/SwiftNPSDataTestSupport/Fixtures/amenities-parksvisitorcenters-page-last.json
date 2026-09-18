@@ -1,0 +1,30 @@
+{
+  "total": "27",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    [
+      {
+        "id": "63734D6E-3330-4EED-B916-52B3F625A091",
+        "name": "Beach/Water Access",
+        "parks": [
+          {
+            "states": "ME",
+            "designation": "National Park",
+            "parkCode": "acad",
+            "visitorcenters": [
+              {
+                "id": "109BDB6B-C627-4C8D-87DA-A4F687E81BCE",
+                "url": "http://www.nps.gov/acad/planyourvisit/hours.htm",
+                "name": "Islesford Historical Museum"
+              }
+            ],
+            "fullName": "Acadia National Park",
+            "url": "http://www.nps.gov/acad/",
+            "name": "Acadia"
+          }
+        ]
+      }
+    ]
+  ]
+}

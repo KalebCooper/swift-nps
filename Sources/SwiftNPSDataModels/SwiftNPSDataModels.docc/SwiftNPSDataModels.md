@@ -4,8 +4,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Alerts, campgrounds,
-parks, things to do, and visitor centers are the implemented endpoint groups, built on a generic
+This module describes National Park Service Data API operations as values. Alerts, amenities,
+campgrounds, parks, things to do, and visitor centers are the implemented endpoint groups, built on a generic
 core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -112,6 +112,31 @@ Danger, Caution, Information, and Park Closure. The `url` is kept as sent, inclu
 string, and `lastIndexedDate` stays the provider's zone-less timestamp text. Related road events
 keep their open type strings. The specification and real responses were checked on September 17,
 2026; its outer array declaration does not match the live object envelope.
+
+### Amenities
+
+``AmenityQuery`` describes the four documented `/amenities` parameters: identifiers, text search,
+page limit, and start offset; NPS documents no park, state, or sort parameter there, so the query
+has none. ``AmenityParkPlacesQuery`` and ``AmenityParkVisitorCentersQuery`` describe the six
+documented parameters of `/amenities/parksplaces` and `/amenities/parksvisitorcenters`:
+identifiers, park codes, text search, sort criteria, page limit, and start offset. Identifiers are
+``NPSIdentifier`` values sent as `id`. Empty identifier, code, and sort arrays omit the parameter,
+and sort fields are sent without validation because NPS lists no sort fields.
+
+``Amenity`` requires an identifier and name and keeps the provider's `categories` text, which
+the specification omits. The park places and park visitor centers endpoints wrap each result in an
+extra array: every element of a page's `data` is one amenity's group, observed so far with one
+entry each. Their pages are therefore `NPSCollection<[AmenityParkPlaces]>` and
+`NPSCollection<[AmenityParkVisitorCenters]>`, kept as sent; ``NPSCollectionQuery/next(after:)``
+advances by the number of groups, which the live service counts against `limit`. Each entry lists
+parks as ``AmenityParkPlaces/RelatedPark`` or ``AmenityParkVisitorCenters/RelatedPark`` summaries
+carrying ``AmenityParkPlaces/Place`` or ``AmenityParkVisitorCenters/VisitorCenterSummary`` values,
+read from the lowercase `visitorcenters` key. These summaries carry links, so they are not
+``NPSNamedItem``. Unknown JSON fields are ignored.
+
+The specification and real responses were checked on September 17, 2026. The live responses carry
+`categories` on amenities and the extra group array on the park endpoints, and the models follow
+them.
 
 ### Campgrounds
 
@@ -226,6 +251,15 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``AlertQuery``
 - ``ParkAlert``
+
+### Amenities
+
+- ``Amenity``
+- ``AmenityParkPlaces``
+- ``AmenityParkPlacesQuery``
+- ``AmenityParkVisitorCenters``
+- ``AmenityParkVisitorCentersQuery``
+- ``AmenityQuery``
 
 ### Campgrounds
 
