@@ -1,0 +1,158 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "C1388F86-68A9-4C1C-85C2-193CD4BD3EE1",
+      "url": "https://www.nps.gov/acad/planyourvisit/duckharbor.htm",
+      "name": "Duck Harbor Campground",
+      "parkCode": "acad",
+      "description": "Duck Harbor Campground is located on Isle au Haut, a rugged island off the coast of Stonington, Maine. This campground has five sites with lean-to shelters and is a great launch point for paddling excursions. Remote and inaccessible to automobiles, Isle au Haut is linked to the mainland by mailboat.",
+      "latitude": "44.0277948999",
+      "longitude": "-68.6535293994",
+      "latLong": "{lat:44.0277948999, lng:-68.6535293994}",
+      "audioDescription": "Five wood lean-to shelters, three-sided with roof and floor. Dimensions are 8' tall, 8' deep, and 12.5' wide. Sites have fire rings and picnic tables. The campground has a composting vault toilet and a hand pump for water located 1,600 feet from shelters.",
+      "isPassportStampLocation": "1",
+      "passportStampLocationDescription": "Text: Acadia National Park, Duck Harbor, ME",
+      "passportStampImages": [
+        {
+          "credit": "",
+          "description": "",
+          "crops": [
+            {
+              "aspectRatio": 1.00,
+              "url": "https://www.nps.gov/common/uploads/passport_stamps/primary/A2EC8CE7-B35E-B2AB-704D4A79E483AAC9.jpeg"
+            }
+          ],
+          "altText": "Text: Acadia National Park, Duck Harbor, ME",
+          "title": "Duck Harbor Stamp",
+          "caption": "",
+          "url": "https://www.nps.gov/common/uploads/passport_stamps/A2EC8CE7-B35E-B2AB-704D4A79E483AAC9.jpeg"
+        }
+      ],
+      "geometryPoiId": "9166F791-C506-555D-9F72-D67F9644313B",
+      "reservationInfo": "Reservations are required to camp at Duck Harbor Campground. Reservations are available 7 months in advance of the reservation date. All reservations are released at 10 am April 1 for the entire season.",
+      "reservationUrl": "https://www.recreation.gov/camping/campgrounds/264293",
+      "regulationsurl": "https://www.nps.gov/acad/learn/management/lawsandpolicies.htm",
+      "regulationsOverview": "No pets allowed in the campground. Maximum length of stay is three nights. Campers are limited to one stay per calendar year. Six people are permitted per campsite. All trash must be carried out. Please do not bring your own firewood to reduce the spread of non-native insects. Check-in time and check-out time is 11:00am All campsites must be reserved. Camping without a reservation is prohibited. Arriving Late? You must arrive at your campsite before 11:00am check-out time on the day after your scheduled arrival date. If you cannot arrive by that time, you must call (207) 335-5551 or you will be marked a No Show and incur fees. Quiet hours are from 10 p.m. to 8 a.m. Generator use is prohibited.",
+      "amenities": {
+        "trashRecyclingCollection": "No",
+        "toilets": [
+          "Composting Toilets - seasonal"
+        ],
+        "internetConnectivity": "No",
+        "showers": [
+          "None"
+        ],
+        "cellPhoneReception": "No",
+        "laundry": "No",
+        "amphitheater": "No",
+        "dumpStation": "No",
+        "campStore": "No",
+        "staffOrVolunteerHostOnsite": "Yes - seasonal",
+        "potableWater": [
+          "Yes - seasonal"
+        ],
+        "iceAvailableForSale": "No",
+        "firewoodForSale": "No",
+        "foodStorageLockers": "Yes - seasonal"
+      },
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "207-335-5551",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "acadia_information@nps.gov"
+          }
+        ]
+      },
+      "fees": [
+        {
+          "cost": "20.00",
+          "description": "Fee/per night\nmaximum number of people: 6",
+          "title": "Tent/Shelter Non-Electric"
+        }
+      ],
+      "directionsOverview": "Isle au Haut and Duck Harbor Campground are inaccessible by car. Campers may boat in to Duck Harbor, or take the Isle au Haut mailboat from Stonington. Check with the Isle au Haut Boat Services for boat schedule. Boat transportation may be limited especially at the beginning and end of the season.",
+      "directionsUrl": "",
+      "operatingHours": [],
+      "addresses": [
+        {
+          "postalCode": "04609",
+          "city": "Bar Harbor",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Acadia National Park, Attn: Duck Harbor Campground, PO Box 177",
+          "type": "Physical",
+          "line3": "",
+          "line2": ""
+        },
+        {
+          "postalCode": "04609",
+          "city": "Bar Harbor",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Acadia National Park, Attn: Duck Harbor Campground, PO Box 177",
+          "type": "Mailing",
+          "line3": "",
+          "line2": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "Ashley L. Conti/Friends of Acadia",
+          "crops": [],
+          "title": "Isle au Haut Wayfinding Junction",
+          "altText": "A park ranger and three other adults stand by a wood wayside with area information and directions",
+          "caption": "You can paddle to your site, or walk in from this trailhead.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/8A093093-CBCB-F6C2-433B54CDDCDD6107.jpg"
+        }
+      ],
+      "weatherOverview": "",
+      "numberOfSitesReservable": "5",
+      "numberOfSitesFirstComeFirstServe": "0",
+      "campsites": {
+        "totalSites": "5",
+        "group": "0",
+        "horse": "0",
+        "tentOnly": "5",
+        "electricalHookups": "0",
+        "rvOnly": "0",
+        "walkBoatTo": "5",
+        "other": "0"
+      },
+      "accessibility": {
+        "wheelchairAccess": "Isle au Haut and Duck Harbor Campground are not wheelchair-accessible. Terrain is rocky and uneven, and trails are narrow.",
+        "internetInfo": "",
+        "cellPhoneInfo": "",
+        "fireStovePolicy": "Each site has a fire ring. Dead and downed wood may be collected near the campground. Please do not bring your own firewood to reduce the spread of non-native insects.",
+        "rvAllowed": "0",
+        "rvInfo": "RVs and trailers are not allowed in Duck Harbor Campground.",
+        "rvMaxLength": "0",
+        "additionalInfo": "There is a ranger station 4 miles from the campground but only 0.3 miles from the Isle au Haut Town Landing. The ranger station is open mid-April to mid-October, when there are rangers on Isle au Haut for the season. While the rangers are typically out in the field and not at the ranger station during most of the day, the lobby remains open, allowing visitors access to maps, reading material, water, and the only public restroom in town. There is a small, traditional village near the Isle au Haut Town Landing where one can find a general store, seasonal gift shop, a seasonal food shack, and post office.",
+        "trailerMaxLength": "0",
+        "adaInfo": "Duck Harbor Campground and facilities are not accessible. Terrain is uneven, and shelters have a stepped entrance.",
+        "trailerAllowed": "0",
+        "accessRoads": [
+          "No Roads"
+        ],
+        "classifications": [
+          "Designated Primitive Campsites"
+        ]
+      },
+      "multimedia": [],
+      "relevanceScore": 1.0,
+      "lastIndexedDate": ""
+    }
+  ]
+}

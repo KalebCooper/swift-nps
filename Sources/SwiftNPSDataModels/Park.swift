@@ -4,18 +4,6 @@
 /// null values without substituting empty strings or arrays. Codes, coordinates, costs, links,
 /// and dates retain their provider representation. Unknown JSON fields are ignored by Codable.
 public struct Park: Codable, Hashable, Sendable {
-  /// A published entrance fee or pass, without numeric or currency conversion.
-  public struct EntranceFee: Codable, Hashable, Sendable {
-    /// The exact cost string; no currency is inferred.
-    public let cost: String?
-
-    /// The provider's fee or pass description.
-    public let description: String?
-
-    /// The fee or pass title.
-    public let title: String?
-  }
-
   /// An image reference, including its attribution and accessibility text.
   public struct Image: Codable, Hashable, Sendable {
     /// The alternative text.
@@ -65,10 +53,10 @@ public struct Park: Codable, Hashable, Sendable {
   public let directionsUrl: String?
 
   /// Published entrance fees, without reservation availability.
-  public let entranceFees: [EntranceFee]?
+  public let entranceFees: [NPSFee]?
 
   /// Published entrance passes.
-  public let entrancePasses: [EntranceFee]?
+  public let entrancePasses: [NPSFee]?
 
   /// The full park name, including its designation.
   public let fullName: String

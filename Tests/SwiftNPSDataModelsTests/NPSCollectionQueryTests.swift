@@ -46,6 +46,28 @@ struct NPSCollectionQueryTests {
     #expect(try AlertQuery(limit: 1).next(after: empty) == nil)
   }
 
+  @Test("Recorded campground pages advance without changing query options")
+  func recordedCampgroundPagesAdvanceWithoutChangingQueryOptions() throws {
+    let first = try JSONDecoder().decode(
+      NPSCollection<Campground>.self, from: Fixture.campgroundsPageFirst.data())
+    let last = try JSONDecoder().decode(
+      NPSCollection<Campground>.self, from: Fixture.campgroundsPageLast.data())
+    let empty = try JSONDecoder().decode(
+      NPSCollection<Campground>.self, from: Fixture.campgroundsEmpty.data())
+    let query = try CampgroundQuery(
+      limit: 1, parkCodes: [ParkCode("acad")], searchText: "lake", sort: [.ascending("name")],
+      stateCodes: [StateCode("ME")])
+    let following = try #require(try query.next(after: first))
+    #expect(following.start == 1)
+    #expect(following.limit == 1)
+    #expect(following.parkCodes == query.parkCodes)
+    #expect(following.searchText == "lake")
+    #expect(following.sort == [.ascending("name")])
+    #expect(following.stateCodes == query.stateCodes)
+    #expect(try following.next(after: last)?.start == 2)
+    #expect(try CampgroundQuery(limit: 1).next(after: empty) == nil)
+  }
+
   @Test("Recorded pages advance without changing query options")
   func recordedPagesAdvanceWithoutChangingQueryOptions() throws {
     let first = try JSONDecoder().decode(

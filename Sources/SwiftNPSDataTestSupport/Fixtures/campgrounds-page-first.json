@@ -1,0 +1,214 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "6E127BF1-F2A9-4C59-90FA-C4BED53EA7F5",
+      "url": "https://www.nps.gov/acad/planyourvisit/blackwoods-campground.htm",
+      "name": "Blackwoods Campground",
+      "parkCode": "acad",
+      "description": "Blackwoods Campground is located on the east side of Mount Desert Island, about 5 miles (8 km) south of Bar Harbor on Route 3. All sites at Blackwoods are wooded and within a 10-minute walk of the ocean. The majority of Blackwoods' sites are for small and large tents; other sites can accommodate travelers with RVs. Flush toilets, running water, and a dump station are provided, as are picnic tables and fire rings. Roads are paved.",
+      "latitude": "44.30894404258141",
+      "longitude": "-68.20988547018771",
+      "latLong": "{lat:44.30894404258141, lng:-68.20988547018771}",
+      "audioDescription": "Blackwoods Campground is located on the east side of Mount Desert Island, about 5 miles (8 km) south of Bar Harbor on Route 3. All sites at Blackwoods are wooded and within a 10-minute walk of the ocean. The majority of Blackwoods' sites are for small and large tents; other sites can accommodate travelers with RVs. Flush toilets, running water, and a dump station are provided, as are picnic tables and fire rings. Roads are paved.",
+      "isPassportStampLocation": "1",
+      "passportStampLocationDescription": "Text: Acadia National Park, Blackwoods Campground.",
+      "passportStampImages": [
+        {
+          "credit": "",
+          "description": "",
+          "crops": [
+            {
+              "aspectRatio": 1.00,
+              "url": "https://www.nps.gov/common/uploads/passport_stamps/primary/A2BAC13F-D52B-2CD7-2D0F9D14779DF060.jpeg"
+            }
+          ],
+          "altText": "Text: Acadia National Park, Blackwoods Campground",
+          "title": "Blackwoods Campground Stamp",
+          "caption": "",
+          "url": "https://www.nps.gov/common/uploads/passport_stamps/A2BAC13F-D52B-2CD7-2D0F9D14779DF060.jpeg"
+        }
+      ],
+      "geometryPoiId": "",
+      "reservationInfo": "Ninety percent of campsites are released six months in advance on the first of each month at 10 am EST. The remaining 10 percent are released at 10 am 14 days ahead of a desired arrival date on a rolling basis. All campsite reservations must be made in advance at Recreation.gov. Reservations cannot be made through the campground office or in-person.",
+      "reservationUrl": "https://www.recreation.gov/camping/campgrounds/232508",
+      "regulationsurl": "https://www.recreation.gov/camping/campgrounds/232508",
+      "regulationsOverview": "All regulations are listed in the \"Need to Know\" section when making reservations on recreation.gov.",
+      "amenities": {
+        "trashRecyclingCollection": "No",
+        "toilets": [
+          "Flush Toilets - seasonal"
+        ],
+        "internetConnectivity": "No",
+        "showers": [
+          "None"
+        ],
+        "cellPhoneReception": "No",
+        "laundry": "No",
+        "amphitheater": "Yes - seasonal",
+        "dumpStation": "Yes - seasonal",
+        "campStore": "No",
+        "staffOrVolunteerHostOnsite": "Yes - seasonal",
+        "potableWater": [
+          "Yes - seasonal"
+        ],
+        "iceAvailableForSale": "No",
+        "firewoodForSale": "No",
+        "foodStorageLockers": "No"
+      },
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "207-288-3274",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "acadia_information@nps.gov"
+          }
+        ]
+      },
+      "fees": [
+        {
+          "cost": "60.00",
+          "description": "This is the nightly/daily rate for Group Tent Only Area - Non-electric sites. Park entrance fees are separate from campground fees. An entrance pass is required in the park and while staying in the campground.",
+          "title": "Group Tent Only Area - Non-electric"
+        },
+        {
+          "cost": "30.00",
+          "description": "This is the nightly/daily rate for RV Non-electric sites. Park entrance fees are separate from campground fees. An entrance pass is required in the park and while staying in the campground.",
+          "title": "RV Non-electric"
+        },
+        {
+          "cost": "30.00",
+          "description": "This is the nightly/daily rate for tent-only sites. Park entrance fees are separate from campground fees. An entrance pass is required in the park and while staying in the campground.",
+          "title": "Tent Only Non-electric"
+        }
+      ],
+      "directionsOverview": "The entrance to Blackwoods Campground is off of State Highway 3, six miles south of Bar Harbor. There is no entrance to the campground from Acadia National Park's Park Loop Rd. The Park Loop Rd. has several low bridges and the majority of it is one way traffic; do not enter any entrances with a vehicle or equipment that is 10'4\" or more.",
+      "directionsUrl": "",
+      "operatingHours": [
+        {
+          "exceptions": [
+            {
+              "exceptionHours": {
+                "wednesday": "Closed",
+                "monday": "Closed",
+                "thursday": "Closed",
+                "sunday": "Closed",
+                "tuesday": "Closed",
+                "friday": "Closed",
+                "saturday": "Closed"
+              },
+              "startDate": "2026-10-22",
+              "name": "Off Season",
+              "endDate": "2027-05-02"
+            }
+          ],
+          "description": "Blackwoods Campground facility is open seasonally, usually from early May to mid-October.",
+          "standardHours": {
+            "wednesday": "All Day",
+            "monday": "All Day",
+            "thursday": "All Day",
+            "sunday": "All Day",
+            "tuesday": "All Day",
+            "friday": "All Day",
+            "saturday": "All Day"
+          },
+          "name": "Blackwoods Campground"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "04660",
+          "city": "Otter Creek",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "155 Blackwoods Drive",
+          "type": "Physical",
+          "line3": "",
+          "line2": ""
+        },
+        {
+          "postalCode": "04609",
+          "city": "Bar Harbor",
+          "stateCode": "ME",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "PO Box 177",
+          "type": "Mailing",
+          "line3": "",
+          "line2": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo",
+          "crops": [],
+          "title": "Blackwoods Campground Ranger Station",
+          "altText": "A wooden building with a flag pole and signs",
+          "caption": "",
+          "url": "https://www.nps.gov/common/uploads/structured_data/903C0CC8-D26A-9016-87F0A4779F6F59DA.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "crops": [],
+          "title": "Blackwoods Campground Amphitheater",
+          "altText": "Wooden amphitheater stage with wooden benches",
+          "caption": "Park rangers host programs at the amphitheater during peak season",
+          "url": "https://www.nps.gov/common/uploads/structured_data/221E0769-F61D-1F1E-835FA0893B4A88A7.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "crops": [],
+          "title": "Island Explorer bus stop",
+          "altText": "Wooden bus stop shelter",
+          "caption": "Campers can ride free Island Explorer shuttle buses to access areas of the park",
+          "url": "https://www.nps.gov/common/uploads/structured_data/2227C337-ED82-5A6C-51C66621DC7012BF.jpg"
+        }
+      ],
+      "weatherOverview": "For seasonal weather conditions, check https://www.nps.gov/acad/planyourvisit/weather.htm.",
+      "numberOfSitesReservable": "281",
+      "numberOfSitesFirstComeFirstServe": "0",
+      "campsites": {
+        "totalSites": "281",
+        "group": "4",
+        "horse": "0",
+        "tentOnly": "221",
+        "electricalHookups": "0",
+        "rvOnly": "60",
+        "walkBoatTo": "0",
+        "other": "0"
+      },
+      "accessibility": {
+        "wheelchairAccess": "There are hard-packed walkways to wheelchair-accessible restrooms and the amphitheater.",
+        "internetInfo": "",
+        "cellPhoneInfo": "Cell service is limited and not reliable.",
+        "fireStovePolicy": "Fire rings and grills are available for use. Do not bring firewood from more than 50 miles away. Help protect our forests from the spread of hidden, tree-killing insects by obtaining firewood from local vendors near the campground.",
+        "rvAllowed": "1",
+        "rvInfo": "Maximum vehicle length is strictly enforced. Camping equipment exceeding maximum length will not be allowed entry into campground. It is your responsiblity to review Site Details and Equipment Allowed before reserving your campsite. If you reserve a campsite and your equipment exceeds the listed limits, you may have your reservation cancelled.",
+        "rvMaxLength": "0",
+        "additionalInfo": "Pets are permitted and must be leashed or caged at all times. Leashes must be six feet (1.8 m) or less in length. Pets may not be left unattended for their safety and for the safety of other visitors and wildlife.",
+        "trailerMaxLength": "0",
+        "adaInfo": "There are 12 accessible drive-in sites, including RV Non-electric and Tent Only Non-electric sites. RV sites have a 35-foot (10.7 m) maximum. There are hard-packed walkways to wheelchair-accessible restrooms and the amphitheater.",
+        "trailerAllowed": "1",
+        "accessRoads": [
+          "Paved Roads - All vehicles OK"
+        ],
+        "classifications": [
+          "Developed Campground"
+        ]
+      },
+      "multimedia": [],
+      "relevanceScore": 1.0,
+      "lastIndexedDate": ""
+    }
+  ]
+}

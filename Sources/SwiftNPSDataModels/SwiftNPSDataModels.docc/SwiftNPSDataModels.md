@@ -4,8 +4,9 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Alerts, parks, and
-visitor centers are the implemented endpoint groups, built on a generic core shared by every offset-paginated collection:
+This module describes National Park Service Data API operations as values. Alerts, campgrounds,
+parks, and visitor centers are the implemented endpoint groups, built on a generic core shared by
+every offset-paginated collection:
 a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -113,6 +114,31 @@ string, and `lastIndexedDate` stays the provider's zone-less timestamp text. Rel
 keep their open type strings. The specification and real responses were checked on September 17,
 2026; its outer array declaration does not match the live object envelope.
 
+### Campgrounds
+
+``CampgroundQuery`` describes all six documented campgrounds parameters: park codes, state codes,
+text search, sort criteria, page limit, and start offset. NPS documents sorting by resource
+properties without listing them, so sort fields are sent without validation. Empty code and sort
+arrays omit the parameter, and search text is preserved and percent encoded, including empty text.
+Campgrounds pages are `NPSCollection<Campground>`, from ``Endpoint/campgrounds(query:)`` or
+``NPSDataRequest/campgrounds(query:)``.
+
+``Campground`` requires an identifier and name; other documented fields remain optional, and
+unknown JSON fields are ignored. Addresses, contacts, multimedia, and operating hours use the
+shared ``NPSAddress``, ``NPSContacts``, ``NPSMultimedia``, and ``NPSOperatingHours`` types.
+Fees are ``NPSFee``, the same shape as park entrance fees and passes; images and passport stamp
+images are ``NPSImage`` and ``NPSPassportStampImage``, the same as visitor centers.
+``Campground/Accessibility``, ``Campground/Amenities``, and ``Campground/Campsites`` keep every
+value as sent: flags such as `rvAllowed` stay `"0"` or `"1"`, lengths and site counts stay text,
+and amenity descriptions such as `"Yes - seasonal"` stay open strings. The provider's lowercase
+`regulationsurl` key decodes as ``Campground/regulationsUrl``.
+
+Site counts, fees, and reservation links are published descriptions, not live campsite
+availability or a booking service. The specification and real responses were checked on
+September 17, 2026. The specification spells nested keys in lowercase, names the reservation
+fields differently, and declares fees, images, and operating hours as arrays of strings; the live
+responses send camelCase keys and objects, and add passport stamp fields, which the model follows.
+
 ### Parks
 
 ``ParkQuery`` describes all six documented parks parameters: park codes, state codes, text search,
@@ -149,12 +175,12 @@ text. Visitor centers pages are `NPSCollection<VisitorCenter>`, from
 ``VisitorCenter`` requires an identifier and name; other documented fields remain optional, and
 unknown JSON fields are ignored. Addresses, contacts, multimedia, and operating hours use the same
 ``NPSAddress``, ``NPSContacts``, ``NPSMultimedia``, and ``NPSOperatingHours`` types as ``Park``.
-Visitor center images add published crops, so they are ``VisitorCenter/Image`` rather than the
-park image type. The passport stamp flag stays the provider's `"0"` or `"1"` string, and
-coordinates, links, and `lastIndexedDate` stay as sent, including empty strings. The specification
-and real responses were checked on September 17, 2026. The specification declares `contacts` an
-array of strings and the passport stamp flag a Boolean; the live responses send a contacts object
-and a string flag, which the model follows.
+Visitor center images add published crops, so they are the shared ``NPSImage`` rather than the
+park image type, and passport stamp images are ``NPSPassportStampImage``. The passport stamp flag
+stays the provider's `"0"` or `"1"` string, and coordinates, links, and `lastIndexedDate` stay as
+sent, including empty strings. The specification and real responses were checked on September 17,
+2026. The specification declares `contacts` an array of strings and the passport stamp flag a
+Boolean; the live responses send a contacts object and a string flag, which the model follows.
 
 ### Endpoint boundaries
 
@@ -171,6 +197,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``AlertQuery``
 - ``ParkAlert``
+
+### Campgrounds
+
+- ``Campground``
+- ``CampgroundQuery``
 
 ### Endpoints and errors
 
@@ -199,9 +230,13 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``NPSAddress``
 - ``NPSContacts``
 - ``NPSEmailAddress``
+- ``NPSFee``
+- ``NPSImage``
+- ``NPSImageCrop``
 - ``NPSMultimedia``
 - ``NPSOperatingHours``
 - ``NPSOperatingHoursException``
+- ``NPSPassportStampImage``
 - ``NPSPhoneNumber``
 
 ### Visitor Centers

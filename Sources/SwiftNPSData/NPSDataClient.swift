@@ -11,7 +11,8 @@ import SwiftNPSDataModels
 ///
 /// Use ``parks(parkCode:)`` for an everyday lookup, ``value(for:)`` for a reusable request,
 /// or ``send(_:)`` for a typed endpoint. Every entry point uses the same authentication and errors.
-/// Use ``alertPages(query:)``, ``alerts(query:)``, ``parkPages(query:)``, ``parks(query:)``,
+/// Use ``alertPages(query:)``, ``alerts(query:)``, ``campgroundPages(query:)``,
+/// ``campgrounds(query:)``, ``parkPages(query:)``, ``parks(query:)``,
 /// ``visitorCenterPages(query:)``, or ``visitorCenters(query:)`` for lazy pagination of one
 /// group, or ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or
 /// redirects are performed automatically.
@@ -84,6 +85,20 @@ public struct NPSDataClient: Sendable {
   /// - Returns: Alerts in provider order, without deduplication, throwing ``NPSDataError``.
   public func alerts(query: AlertQuery) -> NPSItemSequence<ParkAlert> {
     items(for: .alerts(query: query))
+  }
+
+  /// Iterates complete campgrounds pages with filters, sorting, and explicit pagination.
+  /// - Parameter query: Validated options shared by each request except its advancing offset.
+  /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
+  public func campgroundPages(query: CampgroundQuery) -> NPSPageSequence<Campground> {
+    pages(for: .campgrounds(query: query))
+  }
+
+  /// Iterates individual campgrounds, fetching the next page only when needed.
+  /// - Parameter query: Validated query options, including page size and starting offset.
+  /// - Returns: Campgrounds in provider order, without deduplication, throwing ``NPSDataError``.
+  public func campgrounds(query: CampgroundQuery) -> NPSItemSequence<Campground> {
+    items(for: .campgrounds(query: query))
   }
 
   /// Iterates pages from an inspectable parks request without sending during construction.

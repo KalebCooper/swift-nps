@@ -18,7 +18,7 @@ public enum NPSDataError: Error {
   /// Pagination metadata cannot safely establish progress or completion.
   ///
   /// The failing page is not yielded and iteration ends. Earlier pages remain valid results,
-  /// but their presence does not imply that every matching park was fetched.
+  /// but their presence does not imply that every matching item was fetched.
   case pagination(NPSPaginationError)
 
   /// The service returned a recognized error envelope.

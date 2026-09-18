@@ -1,7 +1,7 @@
 # Recorded responses
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
-2026 (alerts and visitor centers) using the application identity
+2026 (alerts, campgrounds, and visitor centers) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -12,6 +12,10 @@ not examples copied from the specification. Tests read them locally and never co
 | alerts-page-last.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=1 | 200 |
 | alerts-search.json | GET https://developer.nps.gov/api/v1/alerts?limit=2&parkCode=acad,yell&start=0 | 200 |
 | api-key-missing.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 without an API key | 403 |
+| campgrounds-empty.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=zzzz&start=0 | 200 |
+| campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
+| campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
+| campgrounds-search.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=2&q=lake&sort=name&start=0&stateCode=WY | 200 |
 | parks-acad.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 | 200 |
 | parks-beyond.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=2 | 200 |
 | parks-empty.json | GET https://developer.nps.gov/api/v1/parks?parkCode=zzzz&limit=1&start=0 | 200 |
@@ -43,6 +47,11 @@ keeping the provider's key order and numeric literals such as `1.00`. Their two 
 characters, a right single quotation mark and an accented e, are written as the JSON escapes
 `\u2019` and `\u00e9`. Decoded values were compared with the downloads and are identical.
 
+The campgrounds recordings arrived with CRLF line endings, blank lines, and trailing spaces, and
+are reindented the same way, keeping the provider's key order, escaped quotation marks, and numeric
+literals such as `1.00`; they contain no non-ASCII characters. Decoded values were compared with
+the downloads and are identical.
+
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -55,6 +64,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | alerts-page-last.json | 045c53d90dd590ac5a374b6fab43e821d8b1888810c94f472f0632935ba97f8c |
 | alerts-search.json | abe1bba5228628b2e1471b66cc803ecf7809a6eafcef757a1b295d6d0f70fdcd |
 | api-key-missing.json | adf24054a0da1d216699be8c128aa47c2c98f381a2c21945836ebc904653c8cc |
+| campgrounds-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
+| campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
+| campgrounds-search.json | e1f09e544bd067518b0a5b8561c5f360d884818dcb0c0f12d7c1e291fa926f77 |
 | parks-acad.json | 190b90f17bff221b71e564247b265a581844143b4eeca8455674ad47154f4632 |
 | parks-beyond.json | bc6e94934ea41746830b8df13e264efc9eef42d9fe23ace5e61d81c6d728996d |
 | parks-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
@@ -100,6 +113,29 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   `"0"` or `"1"`, kept as sent. Images carry a `crops` array, empty in these recordings except for
   one passport stamp image with a numeric `aspectRatio`. Every recorded `multimedia` array is empty,
   and `lastIndexedDate` is an empty string.
+- The live campgrounds body uses the same envelope. Campgrounds accept parkCode, stateCode, q,
+  limit, start, and sort; sorting by `name` works, although NPS lists no sortable fields. The acad
+  pages report total 4, so the two recorded pages are the first two of four. The WY lake search
+  reports total 26, and its first result has a Montana address, as sent.
+- The live campground body differs from the specification's campground schema, and the model
+  follows the live body. The specification spells the accessibility, amenities, and campsites keys
+  and `directionsoverview`, `regulationsoverview`, and `weatheroverview` in lowercase; the live body
+  sends camelCase, such as `wheelchairAccess`, `totalSites`, and `directionsOverview`. The
+  specification spells `ampitheater`; the live key is `amphitheater`. The specification declares
+  `fees`, `images`, and `operatingHours` as arrays of strings; the live body sends fee objects with
+  `cost`, `description`, and `title`, image objects with `crops`, and operating hours objects
+  identical to park hours.
+- The specification names the reservation fields `reservationsdescription`,
+  `reservationssitesfirstcome`, `reservationssitesreservable`, and `reservationsurl`; the live body
+  sends `reservationInfo`, `numberOfSitesFirstComeFirstServe`, `numberOfSitesReservable`, and
+  `reservationUrl`. The live body also sends `audioDescription`, `isPassportStampLocation` (the
+  string `"0"` or `"1"`), `passportStampImages`, and `passportStampLocationDescription`, which the
+  specification omits. The raw key `regulationsurl` is lowercase in both, and decodes as
+  `regulationsUrl`.
+- Every recorded campground `multimedia` array is empty, so the multimedia element shape rests on
+  the specification's campground schema (`id`, `title`, `type`, `url`), the same as parks.
+  Campground image crops are empty; passport stamp crops carry a numeric `aspectRatio`. Site counts,
+  lengths, and flags are strings, including `"0"`, and `lastIndexedDate` is an empty string.
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration

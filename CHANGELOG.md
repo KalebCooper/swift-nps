@@ -14,9 +14,14 @@ All notable changes are documented here. This project follows
   the generic NPSDataClient.pages(for:) and items(for:) that every collection convenience uses.
 - Alerts: ParkAlert, AlertQuery, Endpoint.alerts(query:), NPSDataRequest.alerts(query:), and the
   lazy NPSDataClient.alertPages(query:) and alerts(query:), with recorded alerts responses.
+- Campgrounds: Campground, CampgroundQuery, Endpoint.campgrounds(query:),
+  NPSDataRequest.campgrounds(query:), and the lazy NPSDataClient.campgroundPages(query:) and
+  campgrounds(query:), with recorded campgrounds responses.
 - Visitor centers: VisitorCenter, VisitorCenterQuery, Endpoint.visitorCenters(query:),
   NPSDataRequest.visitorCenters(query:), and the lazy NPSDataClient.visitorCenterPages(query:) and
-  visitorCenters(query:), with recorded visitor centers responses.
+  visitorCenters(query:), with recorded visitor centers responses. Visitor center images and
+  passport stamp images use the shared NPSImage, NPSImageCrop, and NPSPassportStampImage, also used
+  by campgrounds.
 
 ### Changed
 
@@ -32,6 +37,7 @@ All notable changes are documented here. This project follows
 - NPSDataError.pagination carries NPSPaginationError.
 - Rename Park.Address to NPSAddress, shared by parks and visitor centers.
 - Rename Park.Contacts to NPSContacts, shared by parks and visitor centers.
+- Rename Park.EntranceFee to NPSFee, shared by park entrance fees and passes and campground fees.
 - Rename Park.EmailAddress to NPSEmailAddress, shared by parks and visitor centers.
 - Rename Park.Multimedia to NPSMultimedia, shared by parks and visitor centers.
 - Rename Park.OperatingHours to NPSOperatingHours, shared by parks and visitor centers.

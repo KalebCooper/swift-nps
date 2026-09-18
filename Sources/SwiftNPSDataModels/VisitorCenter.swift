@@ -12,60 +12,6 @@
 /// }
 /// ```
 public struct VisitorCenter: Codable, Hashable, Sendable {
-  /// An image reference with attribution, accessibility text, and published crops.
-  public struct Image: Codable, Hashable, Sendable {
-    /// The alternative text.
-    public let altText: String?
-
-    /// The original caption.
-    public let caption: String?
-
-    /// The attribution; upstream rights still apply.
-    public let credit: String?
-
-    /// Published crops, including an empty array, or nil when absent.
-    public let crops: [ImageCrop]?
-
-    /// The image title.
-    public let title: String?
-
-    /// The image URL text, not an API endpoint.
-    public let url: String?
-  }
-
-  /// A published crop of an image.
-  public struct ImageCrop: Codable, Hashable, Sendable {
-    /// The width-to-height ratio as a number, when supplied.
-    public let aspectRatio: Double?
-
-    /// The cropped image URL text, not an API endpoint.
-    public let url: String?
-  }
-
-  /// An image of the National Parks Passport stamp available at a visitor center.
-  public struct PassportStampImage: Codable, Hashable, Sendable {
-    /// The alternative text, which often transcribes the stamp.
-    public let altText: String?
-
-    /// The original caption, including an empty string.
-    public let caption: String?
-
-    /// The attribution, including an empty string; upstream rights still apply.
-    public let credit: String?
-
-    /// Published crops, including an empty array, or nil when absent.
-    public let crops: [ImageCrop]?
-
-    /// The provider's description, including an empty string.
-    public let description: String?
-
-    /// The stamp image title.
-    public let title: String?
-
-    /// The image URL text, not an API endpoint.
-    public let url: String?
-  }
-
   /// Physical and mailing addresses.
   public let addresses: [NPSAddress]?
 
@@ -94,7 +40,7 @@ public struct VisitorCenter: Codable, Hashable, Sendable {
   public let id: String
 
   /// Image references and attribution.
-  public let images: [Image]?
+  public let images: [NPSImage]?
 
   /// The passport stamp flag exactly as sent, such as `"0"` or `"1"`, without Boolean parsing.
   public let isPassportStampLocation: String?
@@ -124,7 +70,7 @@ public struct VisitorCenter: Codable, Hashable, Sendable {
   public let parkCode: String?
 
   /// Passport stamp images, including an empty array, or nil when absent.
-  public let passportStampImages: [PassportStampImage]?
+  public let passportStampImages: [NPSPassportStampImage]?
 
   /// The provider's passport stamp description, including an empty string.
   public let passportStampLocationDescription: String?

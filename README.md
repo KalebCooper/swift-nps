@@ -11,8 +11,10 @@ pagination. Lazy `parkPages` and `parks` sequences provide complete pages or ind
 swifty-networking 1.1.0. Reusable typed requests and transport-independent endpoints remain
 available for single-page execution. Alerts queries support multiple park codes, state codes, text
 search, and pagination through lazy `alertPages` and `alerts` sequences; NPS documents no alerts
-sorting. Visitor centers queries support park codes, state codes, text search, sorting, and
-pagination through lazy `visitorCenterPages` and `visitorCenters` sequences. The package includes
+sorting. Campgrounds queries support park codes, state codes, text search, sorting, and pagination
+through lazy `campgroundPages` and `campgrounds` sequences; published site counts and fees are not
+live availability. Visitor centers queries support park codes, state codes, text search, sorting,
+and pagination through lazy `visitorCenterPages` and `visitorCenters` sequences. The package includes
 required API-key configuration, typed failures, and recorded-response tests. Other endpoint groups
 are not implemented.
 
@@ -22,8 +24,9 @@ This package provides no freshness, ordering, completeness, or availability guar
 ## Usage
 
 Every NPS collection in this package is available at three equivalent levels: an everyday client
-method, a reusable `NPSDataRequest`, and a typed `Endpoint` for one page. Parks are the
-implemented group. A validated `ParkQuery` drives all three:
+method, a reusable `NPSDataRequest`, and a typed `Endpoint` for one page. Parks work as the example
+below; every other implemented collection follows the same three levels. A validated `ParkQuery`
+drives all three:
 
 ```swift
 import SwiftNPSData
@@ -108,8 +111,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, parks, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, park, visitor center, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, campgrounds, parks, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, campground, park, visitor center, and shared detail models. | None. |
 
 ## Requirements
 

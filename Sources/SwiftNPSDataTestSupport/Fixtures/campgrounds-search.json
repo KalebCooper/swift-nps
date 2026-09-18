@@ -1,0 +1,338 @@
+{
+  "total": "26",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "4F9ED6A5-3ED1-443D-9E4C-859D7988F199",
+      "url": "https://www.nps.gov/bica/planyourvisit/afterbay-campground.htm",
+      "name": "Afterbay Campground",
+      "parkCode": "bica",
+      "description": "- Near Fort Smith, Montana - Open All Year - 22 RV and tent sites are located on the south shore of Afterbay lake - All sites have fire rings and picnic tables - Composting vault toilets - All sites are back in (not pull through) - All sites have electric and water - RV dump station available across the road near the Headquarters building",
+      "latitude": "45.3154409191",
+      "longitude": "-107.941548948",
+      "latLong": "{lat:45.3154409191, lng:-107.941548948}",
+      "audioDescription": "",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "geometryPoiId": "7F24B353-91F9-56B7-83CB-47807B7C6080",
+      "reservationInfo": "Please place a reservation for your site by calling 406-666-2333 (Yellowtail Market) during normal operating hours or after hours call 406-679-2435",
+      "reservationUrl": "",
+      "regulationsurl": "",
+      "regulationsOverview": "1. Overnight stays/camping in park is only allowed in established sites 2. Check-out is 12:00 pm 3. Quiet hours from 10:00 pm to 6:00 am; idling of motor vehicles is prohibited during quiet hours 4. Generators permitted from 8 am to 8 pm 5. Campsite occupancy may not exceed 14 cumulative days within a 28-day period 6. Collection of firewood is prohibited within the park 7. No attaching or tying items to trees 8. Pets must be leashed at all times and may not be left unattended",
+      "amenities": {
+        "trashRecyclingCollection": "Yes - seasonal",
+        "toilets": [
+          "Composting Toilets - year round"
+        ],
+        "internetConnectivity": "No",
+        "showers": [
+          "None"
+        ],
+        "cellPhoneReception": "No",
+        "laundry": "No",
+        "amphitheater": "Yes - seasonal",
+        "dumpStation": "Yes - seasonal",
+        "campStore": "No",
+        "staffOrVolunteerHostOnsite": "Yes - seasonal",
+        "potableWater": [
+          "Yes - seasonal"
+        ],
+        "iceAvailableForSale": "No",
+        "firewoodForSale": "No",
+        "foodStorageLockers": "Yes - year round"
+      },
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "(406) 666-2333",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          },
+          {
+            "phoneNumber": "406-679-5599",
+            "description": "",
+            "extension": "",
+            "type": "Fax"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "dyanna.threeirons@crow-nsn.gov"
+          }
+        ]
+      },
+      "fees": [],
+      "directionsOverview": "Take 313 through the town of Fort Smith, MT and follow the brown and white sign to Afterbay Campground. It will be on the right side of 313 just past the NPS Headquarters building.",
+      "directionsUrl": "https://www.google.com/maps/dir//Afterbay+South+Campground,+Fort+Smith,+MT+59035/@45.3135083,-107.9382166,15z/data=!4m8!4m7!1m0!1m5!1m1!1s0x5349b60ef11e2427:0x5360e17333e34042!2m2!1d-107.9417086!2d45.3154533",
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "Open year round.",
+          "standardHours": {
+            "wednesday": "All Day",
+            "monday": "All Day",
+            "thursday": "All Day",
+            "sunday": "All Day",
+            "tuesday": "All Day",
+            "friday": "All Day",
+            "saturday": "All Day"
+          },
+          "name": "Afterbay Campground"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "59035",
+          "city": "Fort Smith",
+          "stateCode": "MT",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "Afterbay Campground",
+          "type": "Physical",
+          "line3": "",
+          "line2": "Rte 200"
+        },
+        {
+          "postalCode": "59035",
+          "city": "Fort Smith",
+          "stateCode": "MT",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "PO Box 7458",
+          "type": "Mailing",
+          "line3": "",
+          "line2": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS, Jen Prentiss",
+          "crops": [],
+          "title": "Afterbay Campground upper spots",
+          "altText": "A gravel campground spot with a fire pit and picnic table with trees and afterbay lake in the back.",
+          "caption": "Upper camp spots at Afterbay Campground",
+          "url": "https://www.nps.gov/common/uploads/structured_data/6EDA2637-E4C2-DD95-F0C82B84901ADDB2.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "crops": [],
+          "title": "Afterbay Campground looking toward Grapevine Campground.",
+          "altText": "Campground with lake in the background and Grapevine Campground in the distance.",
+          "caption": "Afterbay Campground looking toward Grapevine Campground.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/66989928-1DD8-B71B-0B561CB7F8470440.jpg"
+        },
+        {
+          "credit": "Afterbay Campground Service",
+          "crops": [],
+          "title": "Afterbay Campground Map",
+          "altText": "A hand drawn sketch of the layout of afterbay campground.",
+          "caption": "Afterbay Campground Map",
+          "url": "https://www.nps.gov/common/uploads/structured_data/330D8DE8-EC87-D37E-AE029B7676E9130B.png"
+        },
+        {
+          "credit": "NPS, Jen Prentiss",
+          "crops": [],
+          "title": "Afterbay Campground",
+          "altText": "A gravel road with several side by side campgrounds lining the left side.",
+          "caption": "Lower units at Afterbay Campground.",
+          "url": "https://www.nps.gov/common/uploads/structured_data/6EC9B9FA-EE82-5B48-291D96A7469A02E3.jpg"
+        }
+      ],
+      "weatherOverview": "For the most recent weather forecast please look up Fort Smith, MT.",
+      "numberOfSitesReservable": "22",
+      "numberOfSitesFirstComeFirstServe": "0",
+      "campsites": {
+        "totalSites": "22",
+        "group": "0",
+        "horse": "0",
+        "tentOnly": "0",
+        "electricalHookups": "22",
+        "rvOnly": "0",
+        "walkBoatTo": "0",
+        "other": "0"
+      },
+      "accessibility": {
+        "wheelchairAccess": "All sites are handicapped accessible. Campsite 6,7 and 19 are Designated Accessible campsites. Mens and Womens pit toilets are handicapped accessible.",
+        "internetInfo": "",
+        "cellPhoneInfo": "Cell phone reception is dependent on the carrier.",
+        "fireStovePolicy": "Check locally, dependent on conditions.",
+        "rvAllowed": "1",
+        "rvInfo": "All sites are handicapped accessible. Campsites 6,7 and 19 are Designated Accessible campsites. Mens and Womens pit toilets are handicapped accessible.",
+        "rvMaxLength": "0",
+        "additionalInfo": "Season is generally from Memorial Day to Labor Day. Please check at the Headquarters building for more information or call 307-568-5406.",
+        "trailerMaxLength": "0",
+        "adaInfo": "All sites are handicapped accessible. Mens and Womens pit toilets are handicapped accessible.",
+        "trailerAllowed": "1",
+        "accessRoads": [
+          "Unpaved Roads - All vehicles OK in good weather"
+        ],
+        "classifications": [
+          "Limited Development Campground"
+        ]
+      },
+      "multimedia": [],
+      "relevanceScore": 2.3048844,
+      "lastIndexedDate": ""
+    },
+    {
+      "id": "4EAF0F61-6361-4CAC-BB23-F93C5CF4A8E2",
+      "url": "https://www.nps.gov/bica/planyourvisit/trail-creek-campground.htm",
+      "name": "Barry's Landing & Trail Creek Campground",
+      "parkCode": "bica",
+      "description": "Barry's Landing & Trail Creek campgrounds are located on the south district near Barry's Landing, 27 miles north of Lovell, WY on HWY 37. - Open All Year - 14 RV sites, 16 tent sites - Most RV sites are small for a 28 ft RV or smaller - Vault toilets only, no running water or electricity",
+      "latitude": "45.104412827253675",
+      "longitude": "-108.22557108416072",
+      "latLong": "{lat:45.104412827253675, lng:-108.22557108416072}",
+      "audioDescription": "",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "geometryPoiId": "3A53E0E9-0462-43E1-A657-40A421A22BCF",
+      "reservationInfo": "All sites are first come first serve except the group campground.",
+      "reservationUrl": "http://www.hiddentreasurecharters.com",
+      "regulationsurl": "",
+      "regulationsOverview": "1. Overnight stays/camping in park is only allowed in established sites 2. Check-out is 12:00 pm 3. Quiet hours from 10:00 pm to 6:00 am; idling of motor vehicles is prohibited during quiet hours 4. Generators permitted from 8 am to 8 pm 5. Campsite occupancy may not exceed 14 cumulative days within a 28-day period 6. Collection of firewood is prohibited within the park 7. No attaching or tying items to trees 8. Pets must be leashed at all times and may not be left unattended",
+      "amenities": {
+        "trashRecyclingCollection": "Yes - year round",
+        "toilets": [
+          "Vault Toilets - year round"
+        ],
+        "internetConnectivity": "No",
+        "showers": [
+          "None"
+        ],
+        "cellPhoneReception": "No",
+        "laundry": "No",
+        "amphitheater": "No",
+        "dumpStation": "No",
+        "campStore": "No",
+        "staffOrVolunteerHostOnsite": "Yes - seasonal",
+        "potableWater": [
+          "No water"
+        ],
+        "iceAvailableForSale": "No",
+        "firewoodForSale": "No",
+        "foodStorageLockers": "Yes - year round"
+      },
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "307-548-7230",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          },
+          {
+            "phoneNumber": "307-899-1401",
+            "description": "",
+            "extension": "",
+            "type": "TTY"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "info@hiddentreasurecharters.com"
+          }
+        ]
+      },
+      "fees": [],
+      "directionsOverview": "From 14A turn north on Hwy 37 and continue on Hwy 37 for approximately 22 miles. Just inside the NPS welcome sign you will see a brown and white direction sign. Stay on Hwy 37 approximately 22 miles to where the sign shows to turn right to Barry's Landing. If you accidentally stay straight at this point the paved road does turn to gravel.",
+      "directionsUrl": "https://www.google.com/maps/dir//45.0962246,-108.2115038/@45.0981952,-108.2510898,13z",
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "Open year round. First come first serve.\n\nMid May through September there is a campground host and fees are collected.\n\nOctober through Mid May camping is free.",
+          "standardHours": {
+            "wednesday": "All Day",
+            "monday": "All Day",
+            "thursday": "All Day",
+            "sunday": "All Day",
+            "tuesday": "All Day",
+            "friday": "All Day",
+            "saturday": "All Day"
+          },
+          "name": "Barry's Landing & Trail Creek Campground"
+        }
+      ],
+      "addresses": [
+        {
+          "postalCode": "82413",
+          "city": "Lovell",
+          "stateCode": "WY",
+          "countryCode": "US",
+          "provinceTerritoryCode": "",
+          "line1": "20 Highway 14A East",
+          "type": "Physical",
+          "line3": "",
+          "line2": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS, Jen Prentiss",
+          "crops": [],
+          "title": "Barry's Landing Camping",
+          "altText": "A gravel drive through campground with the canyon and lake in the background.",
+          "caption": "Barry's Landing Campground",
+          "url": "https://www.nps.gov/common/uploads/structured_data/9137A368-D2C5-4D50-D81A7E77CA5937A0.jpg"
+        },
+        {
+          "credit": "NPS, Jen Prentiss",
+          "crops": [],
+          "title": "Trail Creek Tent Campground",
+          "altText": "Several small tent campgrounds in the cotton wood trees.",
+          "caption": "Trail Creek Tent Campground",
+          "url": "https://www.nps.gov/common/uploads/structured_data/91474264-A92D-1EA7-2260297C93489664.jpg"
+        },
+        {
+          "credit": "NPS, Jen Prentiss",
+          "crops": [],
+          "title": "Trail Creek RV Campground",
+          "altText": "A gravel road with several well spaced out camp spots along a red rock background.",
+          "caption": "Trail Creek RV Campground",
+          "url": "https://www.nps.gov/common/uploads/structured_data/914D6D9F-B116-EDB1-3827835F80480B1A.jpg"
+        }
+      ],
+      "weatherOverview": "",
+      "numberOfSitesReservable": "1",
+      "numberOfSitesFirstComeFirstServe": "30",
+      "campsites": {
+        "totalSites": "30",
+        "group": "0",
+        "horse": "0",
+        "tentOnly": "16",
+        "electricalHookups": "0",
+        "rvOnly": "0",
+        "walkBoatTo": "0",
+        "other": "0"
+      },
+      "accessibility": {
+        "wheelchairAccess": "ADA is limited. Paths and camp sites are gravel and level. Bathrooms are wheelchair accessible but do not have automatic openers.",
+        "internetInfo": "",
+        "cellPhoneInfo": "",
+        "fireStovePolicy": "Check locally, dependent on conditions.",
+        "rvAllowed": "1",
+        "rvInfo": "There are NO utility sites. Sites accommodate most sizes of RV plus vehicle and boat. There are no pull through sites.",
+        "rvMaxLength": "0",
+        "additionalInfo": "",
+        "trailerMaxLength": "0",
+        "adaInfo": "ADA is limited. Paths and camp sites are gravel and level. Bathrooms are wheelchair accessible but do not have automatic openers.",
+        "trailerAllowed": "1",
+        "accessRoads": [
+          "Paved Roads - All vehicles OK"
+        ],
+        "classifications": [
+          "Limited Development Campground"
+        ]
+      },
+      "multimedia": [],
+      "relevanceScore": 1.0050298,
+      "lastIndexedDate": ""
+    }
+  ]
+}
