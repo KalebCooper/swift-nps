@@ -1,6 +1,7 @@
 # ``SwiftNPSData``
 
-Find and browse parks through the National Park Service Data API.
+Execute National Park Service Data API collection requests with authentication, lazy pagination,
+and typed failures.
 
 ## Overview
 
@@ -13,65 +14,55 @@ import SwiftNPSData
 import SwiftNPSDataModels
 
 let client = try NPSDataClient(apiKey: apiKey)
-let code = try ParkCode("acad")
-let page = try await client.parks(parkCode: code)
-for park in page.data {
+let query = try ParkQuery(stateCodes: [StateCode("ME")])
+for try await park in client.parks(query: query) {
   print(park.fullName)
 }
 ```
 
-### Equivalent entry points
+Parks are the implemented endpoint group. They are built on a generic collection core that
+executes any offset-paginated NPS collection the same way.
 
-Choose one level for each lookup. Each call below sends one GET request to
-`https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0`.
+### Collection execution
 
-```swift
-let page = try await client.parks(parkCode: code)
-
-let request = ParkRequest.parks(parkCode: code)
-let samePage = try await client.value(for: request)
-
-let endpoint = Endpoint.parks(parkCode: code)
-let anotherPage = try await client.send(endpoint)
-```
-
-All three return ``/SwiftNPSDataModels/ParksResponse``. The string-valued pagination metadata
-and result order are preserved. An unknown code can return an empty data array. No first result
-is selected, no next page is fetched, and no retries or redirects are performed.
-
-### Queries and lazy pagination
-
-Use one validated ``/SwiftNPSDataModels/ParkQuery`` across page iteration, individual park
-iteration, and single-page requests:
+Every collection operation is available at three equivalent levels: an everyday client method,
+a reusable ``/SwiftNPSDataModels/NPSDataRequest``, and a typed ``/SwiftNPSDataModels/Endpoint``
+for one page. For parks, one validated ``/SwiftNPSDataModels/ParkQuery`` drives all of them:
 
 ```swift
 let query = try ParkQuery(
-  limit: 20, searchText: "history", sort: [.relevanceScore(.descending)],
+  limit: 20, searchText: "history", sort: [.descending("relevanceScore")],
   stateCodes: [StateCode("ME"), StateCode("MA")])
 
 for try await page in client.parkPages(query: query) {
   print("Received \(page.data.count) of \(page.total) parks")
 }
 
-for try await park in client.parks(query: query) {
-  print(park.fullName)
-}
-
-let request = ParkRequest.parks(query: query)
-let pages = client.parkPages(for: request)
-let parks = client.parks(for: request)
+let request = NPSDataRequest.parks(query: query)
+let pages = client.pages(for: request)
+let parks = client.items(for: request)
 let onePage = try await client.value(for: request)
 let samePage = try await client.send(.parks(query: query))
 ```
 
-Each loop starts an independent traversal. ``ParkPageSequence`` uses swifty-networking 1.1.0
-pagination to fetch one page per read. ``ParkSequence`` drains that page before fetching another.
+The group conveniences, such as ``NPSDataClient/parkPages(query:)`` and
+``NPSDataClient/parks(query:)``, delegate to the generic ``NPSDataClient/pages(for:)`` and
+``NPSDataClient/items(for:)``. Single-page calls go through ``NPSDataClient/value(for:)``, which
+sends the request's first endpoint with ``NPSDataClient/send(_:)``. Every path shares request
+construction, authentication, and typed error mapping. Each page is
+``/SwiftNPSDataModels/NPSCollection`` of the group's item type, with its string-valued `limit`,
+`start`, and `total` and the provider's result order preserved.
+
+### Lazy pagination
+
+Each loop starts an independent traversal. ``NPSPageSequence`` uses swifty-networking 1.1.0
+pagination to fetch one page per read. ``NPSItemSequence`` drains that page before fetching another.
 Construction performs no I/O, no pages are prefetched, and breaking iteration sends no later request.
-Cancellation is checked before requests and when reading buffered parks. Any failure ends the
+Cancellation is checked before requests and when reading buffered items. Any failure ends the
 iterator; later reads return nil.
 
 Queries explicitly default to `limit=50` and `start=0`, with both overridable. Pagination advances
-by the number of returned parks, retaining filters, sorting, and authentication. A returned range
+by the number of returned items, retaining filters, sorting, and authentication. A returned range
 ending at the reported total completes iteration. An empty page is terminal only at or beyond
 the total. Metadata strings remain unchanged in each page.
 
@@ -80,8 +71,24 @@ Unusable metadata, an unexpected offset, contradictory counts, or overflow throw
 not imply completion. Data can change between requests; neither sequence deduplicates, reorders,
 or promises a stable snapshot.
 
-A request made with `init(endpoint:)` or the existing single-code factory declares no continuation.
-It yields only its one page even when the provider reports more results.
+A request made with `init(endpoint:)` declares no continuation, and yields only its one page even
+when the provider reports more results.
+
+### Parks
+
+``NPSDataClient/parks(query:)`` and ``NPSDataClient/parkPages(query:)`` search `/parks` by park
+codes, state codes, text, and sorting. The single-code lookup sends exactly
+`/parks?parkCode=acad&limit=1&start=0` at each of its three levels and declares no continuation:
+
+```swift
+let code = try ParkCode("acad")
+let page = try await client.parks(parkCode: code)
+let samePage = try await client.value(for: .parks(parkCode: code))
+let anotherPage = try await client.send(.parks(parkCode: code))
+```
+
+An unknown code can return an empty data array. No first result is selected, no next page is
+fetched, and no retries or redirects are performed.
 
 ### Authentication and failures
 
@@ -100,9 +107,9 @@ HTTP 429 is returned to the caller without automatic retry.
 
 ### Custom execution
 
-``/SwiftNPSDataModels/ParkRequest`` and ``/SwiftNPSDataModels/Endpoint`` are transport-independent
+``/SwiftNPSDataModels/NPSDataRequest`` and ``/SwiftNPSDataModels/Endpoint`` are transport-independent
 values. Their response types stay concrete, including consumer-defined Codable models.
-See the models catalog for an example constrained request factory.
+See the models catalog for how a custom executor interprets a request and its continuation.
 
 NPS destination information does not provide live campsite booking availability or reservations.
 The package makes no freshness or completeness guarantee.
@@ -114,11 +121,23 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient``
 - ``NPSDataConfiguration``
 
+### Collections
+
+- ``NPSDataClient/pages(for:)``
+- ``NPSDataClient/items(for:)``
+- ``NPSDataClient/value(for:)``
+- ``NPSDataClient/send(_:)``
+- ``NPSPageSequence``
+- ``NPSItemSequence``
+
+### Parks
+
+- ``NPSDataClient/parks(query:)``
+- ``NPSDataClient/parkPages(query:)``
+- ``NPSDataClient/parks(for:)``
+- ``NPSDataClient/parkPages(for:)``
+- ``NPSDataClient/parks(parkCode:)``
+
 ### Errors
 
 - ``NPSDataError``
-
-### Pagination
-
-- ``ParkPageSequence``
-- ``ParkSequence``

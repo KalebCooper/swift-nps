@@ -17,7 +17,7 @@ struct NPSDataClientTests {
     let client = try makeClient(transport)
     let code = try ParkCode("acad")
     let everyday = try await client.parks(parkCode: code)
-    let request = ParkRequest.parks(parkCode: code)
+    let request = NPSDataRequest.parks(parkCode: code)
     let reusable = try await client.value(for: request)
     let endpoint = try await client.send(.parks(parkCode: code))
     #expect(everyday == reusable)
@@ -74,7 +74,7 @@ struct NPSDataClientTests {
   func consumerDefinedResponsesExecuteThroughReusableRequests() async throws {
     let transport = MockTransport(results: [.success(.ok(json: try Fixture.parksAcadia.data()))])
     let client = try makeClient(transport)
-    let request = ParkRequest.nameLookup
+    let request = NPSDataRequest.nameLookup
     let response = try await client.value(for: request)
     let _: NamesResponse = response
     #expect(response.data.first?.fullName == "Acadia National Park")
@@ -258,7 +258,7 @@ private struct NamesResponse: Decodable, Sendable {
   let data: [Name]
 }
 
-extension ParkRequest where Response == NamesResponse {
+extension NPSDataRequest where Response == NamesResponse {
   fileprivate static var nameLookup: Self {
     guard let endpoint = Endpoint<NamesResponse>(path: "/parks?parkCode=acad&limit=1&start=0")
     else {

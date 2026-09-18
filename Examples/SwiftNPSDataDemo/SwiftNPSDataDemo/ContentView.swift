@@ -8,7 +8,7 @@ struct ContentView: View {
   @State private var loadTask: Task<Void, Never>?
   @State private var message = "Enter your private NPS API key to search parks."
   @State private var nextQuery: ParkQuery?
-  @State private var pageIterator: ParkPageSequence.Iterator?
+  @State private var pageIterator: NPSPageSequence<Park>.Iterator?
   @State private var pageSize = 1
   @State private var parkCodes = "acad,yell"
   @State private var parks: [Park] = []
@@ -92,7 +92,7 @@ struct ContentView: View {
         }
         guard !Task.isCancelled else { throw .transport(.cancelled) }
         let following: ParkQuery?
-        do throws(ParkPaginationError) {
+        do throws(NPSPaginationError) {
           following = try query.next(after: page)
         } catch {
           throw .pagination(error)
@@ -133,7 +133,7 @@ struct ContentView: View {
         }
       let query = try ParkQuery(
         limit: pageSize, parkCodes: codes, searchText: searchText.isEmpty ? nil : searchText,
-        sort: [.fullName(.ascending)], stateCodes: states)
+        sort: [.ascending("fullName")], stateCodes: states)
       let client = try NPSDataClient(apiKey: apiKey)
       nextQuery = query
       pageIterator = client.parkPages(query: query).makeAsyncIterator()

@@ -6,6 +6,26 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+### Added
+
+- NPSCollectionQuery, NPSQueryItem, and the generic Endpoint.collection factory shared by every
+  offset-paginated collection; ParkQuery conforms and Endpoint.parks(query:) delegates to it.
+- NPSCollectionResolution, the closure-free erasure of any collection query inside a request, and
+  the generic NPSDataClient.pages(for:) and items(for:) that every collection convenience uses.
+
+### Changed
+
+- Replace ParksResponse with the generic NPSCollection; parks pages are NPSCollection<Park>.
+- Rename ParkPaginationError to NPSPaginationError.
+- Replace the closed ParkSort enum with the open NPSSort value, and ParkSort.Order with
+  NPSSort.Direction. Parks criteria are written as .ascending("fullName") or .descending("parkCode").
+- Make ParkQuery.starting(at:) public as an NPSCollectionQuery requirement.
+- Rename ParkRequest to NPSDataRequest; its Resolution.parks case becomes Resolution.collection
+  carrying an NPSCollectionResolution.
+- Replace ParkPageSequence with the generic NPSPageSequence; parks pages are NPSPageSequence<Park>.
+- Replace ParkSequence with the generic NPSItemSequence; parks are NPSItemSequence<Park>.
+- NPSDataError.pagination carries NPSPaginationError.
+
 ## [0.2.0] - 2026-09-17
 
 ### Added

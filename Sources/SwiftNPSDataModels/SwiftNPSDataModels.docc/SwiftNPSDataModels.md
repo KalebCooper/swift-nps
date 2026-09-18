@@ -1,56 +1,65 @@
 # ``SwiftNPSDataModels``
 
-Typed park responses and requests without a networking dependency.
+Typed NPS collection responses, queries, and requests without a networking dependency.
 
 ## Overview
 
-Use ``ParkCode`` to validate one lookup code, ``Endpoint`` to describe its GET operation, and
-``ParkRequest`` to store or extend a reusable lookup. Construction performs no I/O.
+This module describes National Park Service Data API operations as values. Parks are the
+implemented endpoint group, built on a generic core shared by every offset-paginated collection:
+a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
+the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
+transport or holds credentials.
 
 ```swift
 import SwiftNPSDataModels
 
-let code = try ParkCode("acad")
-let endpoint = Endpoint.parks(parkCode: code)
-let request = ParkRequest.parks(parkCode: code)
+let query = try ParkQuery(
+  limit: 20, searchText: "history", sort: [.descending("relevanceScore")],
+  stateCodes: [StateCode("ME"), StateCode("MA")])
+let endpoint = Endpoint.parks(query: query)
+let request = NPSDataRequest.parks(query: query)
 ```
+
+### Collection queries
+
+A conforming ``NPSCollectionQuery`` names its collection path and item type, and lists its
+parameters as ``NPSQueryItem`` values. ``Endpoint/collection(_:)`` serializes them in name order,
+percent-encoding each value and joining list values with a literal comma, so equal queries always
+produce identical paths. Queries are immutable, Hashable, and Sendable, and explicitly send
+`limit=50&start=0` by default. Limits must be positive and offsets nonnegative; the official
+specification defines no maximum.
+
+``NPSSort`` names an open resource property in either direction. An empty sort array omits the
+parameter, so NPS applies its own default order. Comma-delimited serialization follows the
+specification's descriptions and recorded requests, which conflict with its
+`collectionFormat: multi` declarations.
+
+### Custom execution
 
 An executor reads `request.resolution`. For `.endpoint`, send the endpoint path relative to
 `https://developer.nps.gov/api/v1`, supply `Accept: application/json` and a private `X-Api-Key`
-header, then decode the response body. This module never imports a transport or holds credentials.
+header, then decode the response body as the request's response type.
 
-### Shared query values
-
-``ParkQuery`` describes all six documented parks parameters: park codes, state codes, text search,
-sort criteria, page limit, and start offset. It is immutable, Hashable, and Sendable.
+For `.collection`, the ``NPSCollectionResolution`` carries the first-page endpoint and the
+erased query. Send ``NPSCollectionResolution/endpoint``, decode ``NPSCollection`` of the query's
+item, and call ``NPSCollectionResolution/next(after:)`` while more pages are wanted. The next
+resolution retains every option except the offset, which advances by the returned item count.
+Nil means the returned range reaches the reported total, or an empty page is at or beyond the
+total. The resolution holds no closures, so the request stays Hashable, and its concrete query
+can be matched with a cast:
 
 ```swift
-let query = try ParkQuery(
-  limit: 20, searchText: "history", sort: [.relevanceScore(.descending)],
-  stateCodes: [StateCode("ME"), StateCode("MA")])
-let endpoint = Endpoint.parks(query: query)
-let request = ParkRequest.parks(query: query)
+if case .collection(let resolution) = request.resolution,
+  let query = resolution.query as? ParkQuery
+{
+  print(query.stateCodes)
+}
 ```
 
-The defaults explicitly send `limit=50&start=0`. Limits must be positive and offsets nonnegative;
-the official specification defines no maximum. ``ParkCode`` and ``StateCode`` validate syntax
-without trimming or changing case. Empty code arrays omit the filter. Search text is preserved
-and percent encoded, including empty text. Code arrays and sort criteria retain caller order.
-
-``ParkSort`` supports full name, park code, and relevance in either direction. An empty sort array
-uses NPS's full-name default; relevance must be the sole criterion. Comma-delimited serialization
-follows the specification's descriptions and recorded requests, which conflict with its
-`collectionFormat: multi` declarations.
-
-For `.parks(query)`, a custom executor sends ``Endpoint/parks(query:)`` and decodes ``ParksResponse``.
-To continue, call ``ParkQuery/next(after:)`` on the query that produced that page. The next query
-retains every option except the offset, which advances by the returned item count. Nil means the
-returned range reaches the reported total, or an empty page is at or beyond the total.
-
-``ParkPaginationError`` reports invalid numeric metadata, an unexpected offset, contradictory
+``NPSPaginationError`` reports invalid numeric metadata, an unexpected offset, contradictory
 counts, or overflow. Validate before yielding a page; do not treat a validation failure as normal
 completion. These rules interpret provider metadata without promising a stable snapshot.
-Executable lazy page and park sequences belong to the SDK; this module contains no fetching loop.
+Executable lazy page and item sequences belong to the SDK; this module contains no fetching loop.
 
 ### Extending application vocabulary
 
@@ -66,7 +75,7 @@ struct ParkNames: Decodable, Sendable {
   let data: [Name]
 }
 
-extension ParkRequest where Response == ParkNames {
+extension NPSDataRequest where Response == ParkNames {
   static func names(parkCode: ParkCode) -> Self {
     let path = Endpoint.parks(parkCode: parkCode).path
     guard let endpoint = Endpoint<ParkNames>(path: path) else {
@@ -76,16 +85,31 @@ extension ParkRequest where Response == ParkNames {
   }
 }
 
-let request = ParkRequest.names(parkCode: try ParkCode("acad"))
-// ParkRequest<ParkNames>, usable by a custom executor or NPSDataClient.value(for:).
+let request = NPSDataRequest.names(parkCode: try ParkCode("acad"))
+// NPSDataRequest<ParkNames>, usable by a custom executor or NPSDataClient.value(for:).
 ```
 
-### Provider representation
+A request created with ``NPSDataRequest/init(endpoint:)`` declares no continuation.
 
-``ParksResponse`` retains the `data`, `limit`, `start`, and `total` envelope. The last three
-are strings in recorded NPS responses. The existing single-code factory keeps its exact
-`limit=1&start=0` request and declares no continuation. Single-page decoding preserves metadata
-even when it cannot be used for pagination, and never selects a first result automatically.
+### Collection representation
+
+``NPSCollection`` retains the `data`, `limit`, `start`, and `total` envelope of every
+offset-paginated endpoint. The last three are strings in recorded NPS responses. Single-page
+decoding preserves metadata even when it cannot be used for pagination, and never selects a
+first result automatically.
+
+### Parks
+
+``ParkQuery`` describes all six documented parks parameters: park codes, state codes, text search,
+sort criteria, page limit, and start offset. ``ParkCode`` and ``StateCode`` validate syntax
+without trimming or changing case. Empty code arrays omit the filter. Search text is preserved
+and percent encoded, including empty text. Code arrays and sort criteria retain caller order.
+NPS documents `fullName`, `parkCode`, and `relevanceScore` as parks sort fields, and sorts by
+full name when no criterion is given; relevance must be the sole criterion.
+
+Parks pages are `NPSCollection<Park>`. The single-code factories, ``Endpoint/parks(parkCode:)``
+and ``NPSDataRequest/parks(parkCode:)``, keep their exact `limit=1&start=0` request and declare
+no continuation.
 
 ``Park`` requires identity and names, while other documented fields remain optional.
 Missing and null optional fields decode to nil; empty strings and arrays stay empty.
@@ -109,21 +133,24 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 ## Topics
 
-### Requests
+### Endpoints and errors
 
 - ``Endpoint``
-- ``ParkCode``
-- ``ParkQuery``
-- ``ParkRequest``
-- ``ParkSort``
-- ``StateCode``
+- ``ServiceErrorResponse``
 
-### Pagination
+### Collections
 
-- ``ParkPaginationError``
+- ``NPSCollection``
+- ``NPSCollectionQuery``
+- ``NPSCollectionResolution``
+- ``NPSDataRequest``
+- ``NPSPaginationError``
+- ``NPSQueryItem``
+- ``NPSSort``
 
-### Responses
+### Parks
 
 - ``Park``
-- ``ParksResponse``
-- ``ServiceErrorResponse``
+- ``ParkCode``
+- ``ParkQuery``
+- ``StateCode``

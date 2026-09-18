@@ -17,33 +17,68 @@ This package provides no freshness, ordering, completeness, or availability guar
 
 ## Usage
 
+Every NPS collection in this package is available at three equivalent levels: an everyday client
+method, a reusable `NPSDataRequest`, and a typed `Endpoint` for one page. Parks are the
+implemented group. A validated `ParkQuery` drives all three:
+
 ```swift
 import SwiftNPSData
 import SwiftNPSDataModels
 
 // Supply your private key at runtime; never put it in source or an application bundle.
 let client = try NPSDataClient(apiKey: apiKey)
-let code = try ParkCode("acad")
-let page = try await client.parks(parkCode: code)
-for park in page.data {
+let query = try ParkQuery(
+  limit: 20, searchText: "history", sort: [.descending("relevanceScore")],
+  stateCodes: [StateCode("ME"), StateCode("MA")])
+
+// Everyday methods: lazy pages or individual parks.
+for try await page in client.parkPages(query: query) {
+  print("Received \(page.data.count) of \(page.total) parks")
+}
+for try await park in client.parks(query: query) {
   print(park.fullName)
 }
+
+// A reusable, inspectable request: pages, items, or just the first page.
+let request = NPSDataRequest.parks(query: query)
+let pages = client.pages(for: request)
+let parks = client.items(for: request)
+let onePage = try await client.value(for: request)
+
+// A typed endpoint for one page.
+let samePage = try await client.send(.parks(query: query))
 ```
 
-For a reusable request or a typed endpoint, choose either equivalent call:
+Each page is `NPSCollection<Park>`, including string-valued `limit`, `start`, and `total` and the
+provider's result order. The parks conveniences delegate to the generic `pages(for:)` and
+`items(for:)`, so every level shares request construction, authentication, and typed failures.
+
+`ParkQuery` explicitly defaults to `limit=50` and `start=0`, with both overridable. Code filters
+preserve caller order and case. Empty filter arrays omit the filter; empty sorting uses NPS's
+full-name default. Search text is encoded without trimming. Sort by full name, park code, or
+relevance in either direction; relevance cannot be combined with other sort criteria.
+
+Each loop starts its own traversal. Construction sends nothing. Pages fetch on demand; individual
+items drain the current page before fetching another. Breaking a loop prevents later requests.
+Pagination advances by the returned item count and stops when that range reaches the reported
+total. Empty pages terminate only at or beyond the total. Invalid numeric metadata, an unexpected
+offset, contradictory counts, or overflow throws `NPSDataError.pagination` before yielding the
+affected page. Earlier results do not imply completion. Results can change between requests;
+the sequences do not deduplicate or promise a stable snapshot.
+
+To look up one park code, use any of the same three levels:
 
 ```swift
-let request = ParkRequest.parks(parkCode: code)
-let page = try await client.value(for: request)
-
-let endpoint = Endpoint.parks(parkCode: code)
-let samePage = try await client.send(endpoint)
+let code = try ParkCode("acad")
+let page = try await client.parks(parkCode: code)
+let samePage = try await client.value(for: .parks(parkCode: code))
+let anotherPage = try await client.send(.parks(parkCode: code))
 ```
 
-Each call sends one GET to `/api/v1/parks?parkCode=acad&limit=1&start=0`. The result is
-`ParksResponse`, including string-valued `limit`, `start`, and `total`. An unknown code can
-return an empty `data` array. The client does not select a first result, follow pages, retry,
-or follow redirects. `ParkCode` accepts 4 to 10 ASCII letters or digits and preserves case.
+Each call sends one GET to `/api/v1/parks?parkCode=acad&limit=1&start=0` and declares no
+continuation. An unknown code can return an empty `data` array. The client does not select a
+first result, follow pages, retry, or follow redirects. `ParkCode` accepts 4 to 10 ASCII letters
+or digits and preserves case. A request created with `init(endpoint:)` also yields one page.
 
 [Obtain a private NPS API key](https://www.nps.gov/subjects/developer/get-started.htm).
 The client sends it in `X-Api-Key`; there is no default key or environment lookup.
@@ -51,50 +86,10 @@ Client operations throw `NPSDataError`, preserving recognized gateway errors and
 metadata, or the underlying transport, decoding, status, or cancellation failure.
 NPS rate limits vary; HTTP 429 is returned without automatic retry.
 
-For a filtered search, use the same query with either lazy sequence:
-
-```swift
-let query = try ParkQuery(
-  limit: 20, searchText: "history", sort: [.relevanceScore(.descending)],
-  stateCodes: [StateCode("ME"), StateCode("MA")])
-
-for try await page in client.parkPages(query: query) {
-  print("Received \(page.data.count) of \(page.total) parks")
-}
-
-for try await park in client.parks(query: query) {
-  print(park.fullName)
-}
-```
-
-Each loop above starts its own traversal. Construction sends nothing. Pages fetch on demand;
-individual parks drain the current page before fetching another. Breaking a loop prevents later
-requests. `ParkQuery` explicitly defaults to `limit=50` and `start=0`, with both overridable.
-Code filters preserve caller order and case. Empty filter arrays omit the filter; empty sorting
-uses NPS's full-name default. Search text is encoded without trimming. Sort by full name, park code,
-or relevance in either direction; relevance cannot be combined with other sort criteria.
-
-Reuse an inspectable query request for pages, parks, or just one page:
-
-```swift
-let request = ParkRequest.parks(query: query)
-let pages = client.parkPages(for: request)
-let parks = client.parks(for: request)
-let onePage = try await client.value(for: request)
-let samePage = try await client.send(.parks(query: query))
-```
-
-Pagination advances by the returned item count and stops when that range reaches the reported
-total. Empty pages terminate only at or beyond the total. Invalid numeric metadata, an unexpected
-offset, contradictory counts, or overflow throws `NPSDataError.pagination` before yielding the
-affected page. Earlier results do not imply completion. Results can change between requests;
-the sequences do not deduplicate or promise a stable snapshot. A request created with
-`init(endpoint:)`, or the legacy single-code factory, declares no continuation and yields one page.
-
 On non-Apple platforms, create `NPSDataClient(configuration:transport:)` with an explicit
 `NPSDataConfiguration(apiKey:)` and an HTTPCore transport. Request and endpoint values also
-work with a custom executor, including consumer-defined response models through
-`ParkRequest.init(endpoint:)`.
+work with a custom executor, which sends `NPSCollectionResolution.endpoint` and continues with
+`next(after:)`, including consumer-defined response models through `NPSDataRequest.init(endpoint:)`.
 
 ## Example
 
@@ -109,8 +104,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated parks queries, lazy page and park sequences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Park models, validated queries, continuation rules, requests, and endpoints. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, parks conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; park models. | None. |
 
 ## Requirements
 

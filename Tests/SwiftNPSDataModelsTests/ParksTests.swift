@@ -7,7 +7,7 @@ import Testing
 struct ParksTests {
   @Test("Acadia preserves the recorded envelope and park details")
   func acadiaPreservesTheRecordedEnvelopeAndParkDetails() throws {
-    let page = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksAcadia.data())
+    let page = try JSONDecoder().decode(NPSCollection<Park>.self, from: Fixture.parksAcadia.data())
     #expect(page.data.count == 1)
     #expect(page.limit == "1")
     #expect(page.start == "0")
@@ -22,12 +22,13 @@ struct ParksTests {
     #expect(park.entranceFees?.first?.cost == "6.00")
     #expect(park.images?.first?.credit == "Photo courtesy of Sam Mallon, Friends of Acadia")
     #expect(park.operatingHours?.first?.standardHours?["monday"] == "All Day")
-    #expect(try JSONDecoder().decode(ParksResponse.self, from: JSONEncoder().encode(page)) == page)
+    #expect(
+      try JSONDecoder().decode(NPSCollection<Park>.self, from: JSONEncoder().encode(page)) == page)
   }
 
   @Test("An empty recording remains a successful empty page")
   func anEmptyRecordingRemainsASuccessfulEmptyPage() throws {
-    let page = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksEmpty.data())
+    let page = try JSONDecoder().decode(NPSCollection<Park>.self, from: Fixture.parksEmpty.data())
     #expect(page.data.isEmpty)
     #expect(page.limit == "1")
     #expect(page.start == "0")
@@ -36,8 +37,8 @@ struct ParksTests {
 
   @Test("Consumer requests preserve concrete response inference and inspectable resolution")
   func consumerRequestsPreserveConcreteResponseInferenceAndInspectableResolution() throws {
-    let request = ParkRequest.localAcadia
-    let _: ParkRequest<ParkNames> = request
+    let request = NPSDataRequest.localAcadia
+    let _: NPSDataRequest<ParkNames> = request
     guard case .endpoint(let endpoint) = request.resolution else {
       Issue.record("A single endpoint resolution was expected.")
       return
@@ -73,7 +74,7 @@ struct ParksTests {
     ])
   func endpointLinksRejectOtherOriginsAndUnsafePaths(_ value: String) throws {
     let url = try #require(URL(string: value))
-    #expect(Endpoint<ParksResponse>(link: url) == nil)
+    #expect(Endpoint<NPSCollection<Park>>(link: url) == nil)
   }
 
   @Test(
@@ -85,7 +86,7 @@ struct ParksTests {
       "/parks\n", "/parks?q=a b", "/%5cother",
     ])
   func endpointPathsRejectInjectionAndTraversal(_ value: String) {
-    #expect(Endpoint<ParksResponse>(path: value) == nil)
+    #expect(Endpoint<NPSCollection<Park>>(path: value) == nil)
   }
 
   @Test("Missing required park identity fails decoding")
@@ -147,12 +148,12 @@ struct ParksTests {
   func parksFactoriesInferTheSameResponseWithoutAnnotations() throws {
     let code = try ParkCode("acad")
     let endpoint = Endpoint.parks(parkCode: code)
-    let request = ParkRequest.parks(parkCode: code)
-    let _: Endpoint<ParksResponse> = endpoint
-    let _: ParkRequest<ParksResponse> = request
+    let request = NPSDataRequest.parks(parkCode: code)
+    let _: Endpoint<NPSCollection<Park>> = endpoint
+    let _: NPSDataRequest<NPSCollection<Park>> = request
     #expect(endpoint.path == "/parks?parkCode=acad&limit=1&start=0")
     #expect(request.resolution == .endpoint(endpoint))
-    #expect(request == ParkRequest(endpoint: endpoint))
+    #expect(request == NPSDataRequest(endpoint: endpoint))
     #expect(Set([request, .parks(parkCode: code)]).count == 1)
   }
 
@@ -166,7 +167,8 @@ struct ParksTests {
 
   @Test("Yellowstone preserves multiple states and dated operating exceptions")
   func yellowstonePreservesMultipleStatesAndDatedOperatingExceptions() throws {
-    let page = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksYellowstone.data())
+    let page = try JSONDecoder().decode(
+      NPSCollection<Park>.self, from: Fixture.parksYellowstone.data())
     let park = try #require(page.data.first)
     #expect(park.fullName == "Yellowstone National Park")
     #expect(park.id == "F58C6D24-8D10-4573-9826-65D42B8B83AD")
@@ -187,7 +189,7 @@ private struct ParkNames: Decodable, Sendable {
   let data: [Name]
 }
 
-extension ParkRequest where Response == ParkNames {
+extension NPSDataRequest where Response == ParkNames {
   fileprivate static var localAcadia: Self {
     get {
       guard let endpoint = Endpoint<ParkNames>(path: "/parks?parkCode=acad&limit=1&start=0") else {

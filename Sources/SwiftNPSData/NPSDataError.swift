@@ -19,7 +19,7 @@ public enum NPSDataError: Error {
   ///
   /// The failing page is not yielded and iteration ends. Earlier pages remain valid results,
   /// but their presence does not imply that every matching park was fetched.
-  case pagination(ParkPaginationError)
+  case pagination(NPSPaginationError)
 
   /// The service returned a recognized error envelope.
   ///

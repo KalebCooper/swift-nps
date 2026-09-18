@@ -84,9 +84,9 @@ struct PaginationTests {
     let query = try makeQuery()
     let page = try await client.value(for: .parks(query: query))
     let direct = try await client.send(.parks(query: query))
-    let request = ParkRequest.names(query: query)
+    let request = NPSDataRequest.names(query: query)
     let names = try await client.value(for: request)
-    let _: ParkRequest<QueryNames> = request
+    let _: NPSDataRequest<QueryNames> = request
     #expect(page == direct)
     #expect(names.data.map(\.parkCode) == ["acad"])
     #expect(transport.requests.count == 3)
@@ -101,7 +101,7 @@ struct PaginationTests {
       ])
     let query = try ParkQuery(
       limit: 1, parkCodes: [ParkCode("acad"), ParkCode("yell")], searchText: "national park",
-      sort: [.fullName(.ascending), .parkCode(.descending)],
+      sort: [.ascending("fullName"), .descending("parkCode")],
       stateCodes: [StateCode("ME"), StateCode("WY")])
     for try await _ in try makeClient(transport).parkPages(query: query) {}
     #expect(
@@ -146,6 +146,34 @@ struct PaginationTests {
     #expect(transport.requests.count == 1)
   }
 
+  @Test("Generic page and item entry points match the parks conveniences")
+  func genericPageAndItemEntryPointsMatchTheParksConveniences() async throws {
+    let responses: [Result<Response, TransportError>] = try [
+      .success(.ok(json: Fixture.parksPageFirst.data())),
+      .success(.ok(json: Fixture.parksPageLast.data())),
+    ]
+    let transport = MockTransport(results: responses + responses)
+    let client = try makeClient(transport)
+    let request = try NPSDataRequest.parks(query: makeQuery())
+    let pages = client.pages(for: request)
+    let items = client.items(for: request)
+    let _: NPSPageSequence<Park> = pages
+    let _: NPSItemSequence<Park> = items
+    var fromPages: [Park] = []
+    for try await page in pages { fromPages += page.data }
+    var fromItems: [Park] = []
+    for try await park in items { fromItems.append(park) }
+    #expect(fromPages == fromItems)
+    #expect(fromItems.map(\.parkCode) == ["acad", "yell"])
+    #expect(
+      transport.requests.map(\.request.path) == [
+        "/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=0",
+        "/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1",
+        "/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=0",
+        "/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1",
+      ])
+  }
+
   @Test("Independent iterators start at the original offset")
   func independentIteratorsStartAtTheOriginalOffset() async throws {
     let transport = MockTransport(
@@ -184,7 +212,7 @@ struct PaginationTests {
   @Test("Item iteration drains the current page without prefetch")
   func itemIterationDrainsTheCurrentPageWithoutPrefetch() async throws {
     let transport = MockTransport(results: [.success(.ok(json: try Fixture.parksSearch.data()))])
-    let request = try ParkRequest.parks(query: ParkQuery(limit: 2))
+    let request = try NPSDataRequest.parks(query: ParkQuery(limit: 2))
     var iterator = try makeClient(transport).parks(for: request).makeAsyncIterator()
     #expect(transport.requests.isEmpty)
     #expect(try await iterator.next()?.parkCode == "adam")
@@ -200,7 +228,7 @@ struct PaginationTests {
     ]
     let transport = MockTransport(results: responses + responses)
     let client = try makeClient(transport)
-    let request = try ParkRequest.parks(query: makeQuery())
+    let request = try NPSDataRequest.parks(query: makeQuery())
     var fromPages: [Park] = []
     for try await page in client.parkPages(for: request) { fromPages += page.data }
     var fromItems: [Park] = []
@@ -321,8 +349,8 @@ struct PaginationTests {
     let transport = MockTransport(results: [.success(.ok(json: try Fixture.parksPageFirst.data()))])
     let request =
       legacy
-      ? try ParkRequest.parks(parkCode: ParkCode("acad"))
-      : try ParkRequest(endpoint: Endpoint.parks(query: makeQuery()))
+      ? try NPSDataRequest.parks(parkCode: ParkCode("acad"))
+      : try NPSDataRequest(endpoint: Endpoint.parks(query: makeQuery()))
     var iterator = try makeClient(transport).parkPages(for: request).makeAsyncIterator()
     #expect(try await iterator.next()?.total == "2")
     #expect(try await iterator.next() == nil)
@@ -340,7 +368,7 @@ struct PaginationTests {
 
   private func makeQuery() throws -> ParkQuery {
     try ParkQuery(
-      limit: 1, parkCodes: [ParkCode("acad"), ParkCode("yell")], sort: [.parkCode(.ascending)])
+      limit: 1, parkCodes: [ParkCode("acad"), ParkCode("yell")], sort: [.ascending("parkCode")])
   }
 }
 
@@ -351,7 +379,7 @@ private struct QueryNames: Decodable, Sendable {
   let data: [Name]
 }
 
-extension ParkRequest where Response == QueryNames {
+extension NPSDataRequest where Response == QueryNames {
   fileprivate static func names(query: ParkQuery) -> Self {
     guard let endpoint = Endpoint<QueryNames>(path: Endpoint.parks(query: query).path) else {
       preconditionFailure("The parks query endpoint has a validated path.")

@@ -56,13 +56,32 @@ public struct Endpoint<Response>: Hashable, Sendable {
   }
 }
 
-extension Endpoint where Response == ParksResponse {
+extension Endpoint {
+  /// Describes one page of any offset-paginated collection from its validated query.
+  ///
+  /// Parameters are serialized in name order, each value percent-encoded and list values joined
+  /// with commas, so equal queries always produce identical paths.
+  /// - Parameter query: A validated collection query, including its explicit limit and start.
+  /// - Returns: One endpoint returning the complete ``NPSCollection`` envelope for the page.
+  public static func collection<Query: NPSCollectionQuery>(
+    _ query: Query
+  ) -> Self where Response == NPSCollection<Query.Item> {
+    let items = query.queryItems.sorted { $0.name < $1.name }.map(\.encoded)
+    guard let endpoint = Self(path: Query.path + "?" + items.joined(separator: "&")) else {
+      preconditionFailure(
+        "Validated query values and percent-encoded parameters form a relative endpoint.")
+    }
+    return endpoint
+  }
+}
+
+extension Endpoint where Response == NPSCollection<Park> {
   /// Looks up one code using `/parks`, explicitly requesting one result starting at zero.
   ///
   /// The provider envelope is retained, including an empty data array for an unknown code.
   /// No subsequent page is fetched and no result is selected from the response.
   /// - Parameter parkCode: A validated single park code.
-  /// - Returns: A transport-independent endpoint returning ``ParksResponse``.
+  /// - Returns: A transport-independent endpoint returning ``NPSCollection`` of ``Park``.
   public static func parks(parkCode: ParkCode) -> Self {
     guard let endpoint = Self(path: "/parks?parkCode=\(parkCode.rawValue)&limit=1&start=0") else {
       preconditionFailure("A validated park code produces a valid relative parks endpoint.")
@@ -72,36 +91,9 @@ extension Endpoint where Response == ParksResponse {
 
   /// Describes one parks page with filters, text search, sorting, and explicit pagination.
   /// - Parameter query: Validated options, encoded without changing their values or order.
-  /// - Returns: One endpoint returning the complete ``ParksResponse`` envelope.
+  /// - Returns: One endpoint returning the complete ``NPSCollection`` envelope, the same as
+  ///   ``collection(_:)``.
   public static func parks(query: ParkQuery) -> Self {
-    var items = ["limit=\(query.limit)"]
-    if !query.parkCodes.isEmpty {
-      items.append("parkCode=" + query.parkCodes.map(\.rawValue).joined(separator: ","))
-    }
-    if let text = query.searchText { items.append("q=" + encode(text)) }
-    if !query.sort.isEmpty {
-      items.append("sort=" + query.sort.map(\.queryValue).joined(separator: ","))
-    }
-    items.append("start=\(query.start)")
-    if !query.stateCodes.isEmpty {
-      items.append("stateCode=" + query.stateCodes.map(\.rawValue).joined(separator: ","))
-    }
-    guard let endpoint = Self(path: "/parks?" + items.joined(separator: "&")) else {
-      preconditionFailure(
-        "Validated query values and percent-encoded text form a relative endpoint.")
-    }
-    return endpoint
-  }
-
-  private static func encode(_ value: String) -> String {
-    value.utf8.map { byte in
-      if (48...57).contains(byte) || (65...90).contains(byte) || (97...122).contains(byte)
-        || [45, 46, 95, 126].contains(byte)
-      {
-        return String(UnicodeScalar(byte))
-      }
-      let hex = String(byte, radix: 16, uppercase: true)
-      return "%" + (hex.count == 1 ? "0" : "") + hex
-    }.joined()
+    collection(query)
   }
 }

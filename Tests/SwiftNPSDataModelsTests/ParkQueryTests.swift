@@ -3,22 +3,46 @@ import SwiftNPSDataModels
 import SwiftNPSDataTestSupport
 import Testing
 
-@Suite("Parks queries and continuation", .timeLimit(.minutes(suiteTimeLimitMinutes)))
+@Suite("Parks queries", .timeLimit(.minutes(suiteTimeLimitMinutes)))
 struct ParkQueryTests {
   @Test("All documented query parameters preserve caller values")
   func allDocumentedQueryParametersPreserveCallerValues() throws {
     let query = try ParkQuery(
       limit: 2, parkCodes: [ParkCode("ACAD"), ParkCode("yell")], searchText: "a +&/#?é",
-      sort: [.fullName(.descending), .parkCode(.ascending)], start: 3,
+      sort: [.descending("fullName"), NPSSort("parkCode")], start: 3,
       stateCodes: [StateCode("me"), StateCode("MA")])
     #expect(
       Endpoint.parks(query: query).path
         == "/parks?limit=2&parkCode=ACAD,yell&q=a%20%2B%26%2F%23%3F%C3%A9&sort=-fullName,parkCode&start=3&stateCode=me,MA"
     )
-    let request = ParkRequest.parks(query: query)
-    let _: ParkRequest<ParksResponse> = request
-    #expect(request.resolution == .parks(query))
+    #expect(Endpoint.collection(query) == Endpoint.parks(query: query))
+    let request = NPSDataRequest.parks(query: query)
+    let _: NPSDataRequest<NPSCollection<Park>> = request
+    #expect(request.resolution == .collection(NPSCollectionResolution(query)))
     #expect(Set([request, .parks(query: query)]).count == 1)
+  }
+
+  @Test("Collection requests erase queries without closures and stay inspectable")
+  func collectionRequestsEraseQueriesWithoutClosuresAndStayInspectable() throws {
+    let query = try ParkQuery(limit: 1, parkCodes: [ParkCode("acad"), ParkCode("yell")])
+    let request = NPSDataRequest.parks(query: query)
+    #expect(request == .parks(query: query))
+    #expect(request.hashValue == NPSDataRequest.parks(query: query).hashValue)
+    #expect(request != .parks(query: try ParkQuery(limit: 2)))
+    guard case .collection(let resolution) = request.resolution else {
+      Issue.record("A query request must resolve as a collection.")
+      return
+    }
+    #expect(resolution.endpoint == Endpoint.parks(query: query))
+    #expect(resolution.query as? ParkQuery == query)
+    let empty = Data(#"{"data":[],"limit":"1","start":"0","total":"0"}"#.utf8)
+    let page = try JSONDecoder().decode(NPSCollection<Park>.self, from: empty)
+    #expect(try resolution.next(after: page) == nil)
+    let body = try Fixture.parksPageFirst.data()
+    let first = try JSONDecoder().decode(NPSCollection<Park>.self, from: body)
+    let following = try #require(try resolution.next(after: first))
+    #expect(following.endpoint == Endpoint.parks(query: query.starting(at: 1)))
+    #expect(following.query as? ParkQuery == query.starting(at: 1))
   }
 
   @Test("Default queries explicitly request fifty results at zero")
@@ -28,75 +52,29 @@ struct ParkQueryTests {
       try Endpoint.parks(query: ParkQuery(searchText: "")).path == "/parks?limit=50&q=&start=0")
   }
 
-  @Test(
-    "Invalid pagination metadata fails explicitly",
-    arguments: [
-      ("limit", "0"), ("limit", "-1"), ("start", "+0"), ("total", ""),
-      ("total", "1.5"), ("total", " 2"), ("total", "999999999999999999999999999"),
-    ])
-  func invalidPaginationMetadataFailsExplicitly(_ field: String, _ value: String) throws {
-    let page = try modifiedPage([field: value])
-    #expect(throws: ParkPaginationError.invalidMetadata(field: field, value: value)) {
-      try ParkQuery(limit: 1).next(after: page)
-    }
-  }
-
   @Test("Invalid query pagination and mixed relevance sorting are rejected")
   func invalidQueryPaginationAndMixedRelevanceSortingAreRejected() {
     #expect(throws: ParkQuery.ValidationError.invalidLimit) { try ParkQuery(limit: 0) }
     #expect(throws: ParkQuery.ValidationError.invalidLimit) { try ParkQuery(limit: -1) }
     #expect(throws: ParkQuery.ValidationError.invalidStart) { try ParkQuery(start: -1) }
     #expect(throws: ParkQuery.ValidationError.mixedRelevanceSort) {
-      try ParkQuery(sort: [.relevanceScore(.descending), .fullName(.ascending)])
+      try ParkQuery(sort: [.descending("relevanceScore"), .ascending("fullName")])
     }
-  }
-
-  @Test("Offset overflow is reported without wrapping")
-  func offsetOverflowIsReportedWithoutWrapping() throws {
-    let page = try modifiedPage(["start": String(Int.max), "total": String(Int.max)])
-    #expect(throws: ParkPaginationError.offsetOverflow) {
-      try ParkQuery(start: Int.max).next(after: page)
-    }
-  }
-
-  @Test("Recorded pages advance without changing query options")
-  func recordedPagesAdvanceWithoutChangingQueryOptions() throws {
-    let first = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksPageFirst.data())
-    let last = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksPageLast.data())
-    let query = try ParkQuery(
-      limit: 1, parkCodes: [ParkCode("acad"), ParkCode("yell")], searchText: "park",
-      sort: [.parkCode(.ascending)], stateCodes: [StateCode("ME"), StateCode("WY")])
-    let following = try #require(try query.next(after: first))
-    #expect(following.start == 1)
-    #expect(following.limit == 1)
-    #expect(following.parkCodes == query.parkCodes)
-    #expect(following.searchText == "park")
-    #expect(following.sort == [.parkCode(.ascending)])
-    #expect(following.stateCodes == query.stateCodes)
-    #expect(try following.next(after: last) == nil)
-    let beyond = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksBeyond.data())
-    #expect(try ParkQuery(start: 2).next(after: beyond) == nil)
   }
 
   @Test("Recorded search results retain relevance and multiple-state filtering")
   func recordedSearchResultsRetainRelevanceAndMultipleStateFiltering() throws {
-    let page = try JSONDecoder().decode(ParksResponse.self, from: Fixture.parksSearch.data())
+    let page = try JSONDecoder().decode(NPSCollection<Park>.self, from: Fixture.parksSearch.data())
     #expect(page.data.map(\.parkCode) == ["adam", "bost"])
     #expect(page.data.map(\.relevanceScore) == [9.226259, 9.226259])
     #expect(page.total == "21")
     let query = try ParkQuery(
-      limit: 2, searchText: "history", sort: [.relevanceScore(.descending)],
+      limit: 2, searchText: "history", sort: [.descending("relevanceScore")],
       stateCodes: [StateCode("ME"), StateCode("MA")])
     #expect(
       Endpoint.parks(query: query).path
         == "/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA")
     #expect(try query.next(after: page)?.start == 2)
-  }
-
-  @Test("Short pages advance by returned count without skipping records")
-  func shortPagesAdvanceByReturnedCountWithoutSkippingRecords() throws {
-    let page = try modifiedPage(["limit": "50", "total": "3"])
-    #expect(try ParkQuery().next(after: page)?.start == 1)
   }
 
   @Test("State codes preserve case and unknown values", arguments: ["ME", "ma", "ZZ"])
@@ -107,28 +85,5 @@ struct ParkQueryTests {
   @Test("State codes reject invalid syntax", arguments: ["", "M", "MAA", "M1", "MÉ", " MA", "M,"])
   func stateCodesRejectInvalidSyntax(_ value: String) {
     #expect(throws: StateCode.ValidationError.invalidValue) { try StateCode(value) }
-  }
-
-  @Test("Unexpected offsets and contradictory counts cannot imply completion")
-  func unexpectedOffsetsAndContradictoryCountsCannotImplyCompletion() throws {
-    let repeated = try modifiedPage([:])
-    #expect(throws: ParkPaginationError.unexpectedStart(actual: 0, expected: 1)) {
-      try ParkQuery(start: 1).next(after: repeated)
-    }
-    let premature = try modifiedPage(["data": []])
-    #expect(throws: ParkPaginationError.inconsistentPage) { try ParkQuery().next(after: premature) }
-    let contradictory = try modifiedPage(["total": "0"])
-    #expect(throws: ParkPaginationError.inconsistentPage) {
-      try ParkQuery().next(after: contradictory)
-    }
-  }
-
-  private func modifiedPage(_ changes: [String: Any]) throws -> ParksResponse {
-    // Constructed metadata cases are deliberately separate from the recorded response bodies.
-    var object = try #require(
-      JSONSerialization.jsonObject(with: Fixture.parksPageFirst.data()) as? [String: Any])
-    object.merge(changes) { _, new in new }
-    return try JSONDecoder().decode(
-      ParksResponse.self, from: JSONSerialization.data(withJSONObject: object))
   }
 }
