@@ -12,6 +12,8 @@ All notable changes are documented here. This project follows
   offset-paginated collection; ParkQuery conforms and Endpoint.parks(query:) delegates to it.
 - NPSCollectionResolution, the closure-free erasure of any collection query inside a request, and
   the generic NPSDataClient.pages(for:) and items(for:) that every collection convenience uses.
+- Alerts: ParkAlert, AlertQuery, Endpoint.alerts(query:), NPSDataRequest.alerts(query:), and the
+  lazy NPSDataClient.alertPages(query:) and alerts(query:), with recorded alerts responses.
 
 ### Changed
 

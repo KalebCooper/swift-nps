@@ -4,8 +4,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Parks are the
-implemented endpoint group, built on a generic core shared by every offset-paginated collection:
+This module describes National Park Service Data API operations as values. Alerts and parks are
+the implemented endpoint groups, built on a generic core shared by every offset-paginated collection:
 a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -98,6 +98,21 @@ offset-paginated endpoint. The last three are strings in recorded NPS responses.
 decoding preserves metadata even when it cannot be used for pagination, and never selects a
 first result automatically.
 
+### Alerts
+
+``AlertQuery`` describes all five documented alerts parameters: park codes, state codes, text
+search, page limit, and start offset. NPS documents no alerts sort parameter, so the query has
+none. Empty code arrays omit the filter, and search text is preserved and percent encoded,
+including empty text. Alerts pages are `NPSCollection<ParkAlert>`, from
+``Endpoint/alerts(query:)`` or ``NPSDataRequest/alerts(query:)``.
+
+``ParkAlert`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. The category stays an open string, although NPS documents
+Danger, Caution, Information, and Park Closure. The `url` is kept as sent, including an empty
+string, and `lastIndexedDate` stays the provider's zone-less timestamp text. Related road events
+keep their open type strings. The specification and real responses were checked on September 17,
+2026; its outer array declaration does not match the live object envelope.
+
 ### Parks
 
 ``ParkQuery`` describes all six documented parks parameters: park codes, state codes, text search,
@@ -132,6 +147,11 @@ are preserved as strings in the response; they are not executable API endpoints.
 NPS data describes destinations, not live reservation availability, freshness, or completeness.
 
 ## Topics
+
+### Alerts
+
+- ``AlertQuery``
+- ``ParkAlert``
 
 ### Endpoints and errors
 

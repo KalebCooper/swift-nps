@@ -1,11 +1,16 @@
 # Recorded responses
 
-Recorded from the NPS Data API on September 13, 2026 using the application identity
+Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
+2026 (alerts) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
+| alerts-empty.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=zzzz&start=0 | 200 |
+| alerts-page-first.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=0 | 200 |
+| alerts-page-last.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=1 | 200 |
+| alerts-search.json | GET https://developer.nps.gov/api/v1/alerts?limit=2&parkCode=acad,yell&start=0 | 200 |
 | api-key-missing.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 without an API key | 403 |
 | parks-acad.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 | 200 |
 | parks-beyond.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=2 | 200 |
@@ -25,6 +30,10 @@ is written as the JSON escape `\u2014` to satisfy repository text rules. Decoded
 with the original downloads and is identical. No data, nulls, fields, identifiers, or values were
 invented or removed.
 
+The alerts recordings arrived with CRLF line endings, blank lines, and trailing spaces. They are
+reindented with two spaces and LF endings, keeping the provider's key order; they contain no
+non-ASCII characters. Decoded values were compared with the downloads and are identical.
+
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -32,6 +41,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 
 | File | SHA-256 |
 | --- | --- |
+| alerts-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| alerts-page-first.json | ddce89e0f28d5f35a164e9016bf155fbc1a6b686be4db49046d01f311812809f |
+| alerts-page-last.json | 045c53d90dd590ac5a374b6fab43e821d8b1888810c94f472f0632935ba97f8c |
+| alerts-search.json | abe1bba5228628b2e1471b66cc803ecf7809a6eafcef757a1b295d6d0f70fdcd |
 | api-key-missing.json | adf24054a0da1d216699be8c128aa47c2c98f381a2c21945836ebc904653c8cc |
 | parks-acad.json | 190b90f17bff221b71e564247b265a581844143b4eeca8455674ad47154f4632 |
 | parks-beyond.json | bc6e94934ea41746830b8df13e264efc9eef42d9fe23ace5e61d81c6d728996d |
@@ -58,6 +71,12 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   some illustrative examples incorrectly depict arrays. Costs are strings.
 - The live `fees` field is absent from the current parks schema. It remains in the recordings
   but is not exposed by the typed model. Other unknown JSON fields are also ignored when decoding.
+- The live alerts body uses the same string-valued `data`, `limit`, `start`, and `total` envelope;
+  the specification again declares an outer array. Alerts accept parkCode, stateCode, q, limit,
+  and start, with no sort parameter. The acad pages report total 4, so the two recorded pages are
+  the first two of four. Every recorded alert has an empty `relatedRoadEvents` array; the element
+  shape comes from the specification, and its decoding is covered by constructed test source.
+  One recorded alert has an empty `url` string, preserved as sent.
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration

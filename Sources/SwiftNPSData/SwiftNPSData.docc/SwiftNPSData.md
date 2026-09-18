@@ -20,7 +20,7 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Parks are the implemented endpoint group. They are built on a generic collection core that
+Alerts and parks are the implemented endpoint groups. They are built on a generic collection core that
 executes any offset-paginated NPS collection the same way.
 
 ### Collection execution
@@ -74,6 +74,25 @@ or promises a stable snapshot.
 A request made with `init(endpoint:)` declares no continuation, and yields only its one page even
 when the provider reports more results.
 
+### Alerts
+
+``NPSDataClient/alerts(query:)`` and ``NPSDataClient/alertPages(query:)`` read `/alerts` by park
+codes, state codes, and text. Each page is `NPSCollection<ParkAlert>`, and alerts arrive in the
+provider's order, since NPS documents no alerts sorting:
+
+```swift
+let query = try AlertQuery(parkCodes: [ParkCode("acad"), ParkCode("yell")])
+for try await alert in client.alerts(query: query) {
+  print(alert.category ?? "", alert.title)
+}
+let request = NPSDataRequest.alerts(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.alerts(query: query))
+```
+
+Alerts describe current park conditions as NPS publishes them; the package makes no freshness
+guarantee.
+
 ### Parks
 
 ``NPSDataClient/parks(query:)`` and ``NPSDataClient/parkPages(query:)`` search `/parks` by park
@@ -115,6 +134,11 @@ NPS destination information does not provide live campsite booking availability 
 The package makes no freshness or completeness guarantee.
 
 ## Topics
+
+### Alerts
+
+- ``NPSDataClient/alerts(query:)``
+- ``NPSDataClient/alertPages(query:)``
 
 ### Client and configuration
 

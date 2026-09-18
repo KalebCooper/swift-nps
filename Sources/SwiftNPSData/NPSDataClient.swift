@@ -11,8 +11,9 @@ import SwiftNPSDataModels
 ///
 /// Use ``parks(parkCode:)`` for an everyday lookup, ``value(for:)`` for a reusable request,
 /// or ``send(_:)`` for a typed endpoint. Every entry point uses the same authentication and errors.
-/// Use ``parkPages(query:)`` or ``parks(query:)`` for lazy parks pagination, or ``pages(for:)``
-/// and ``items(for:)`` for any collection request. No retries or redirects are performed
+/// Use ``alertPages(query:)``, ``alerts(query:)``, ``parkPages(query:)``, or ``parks(query:)``
+/// for lazy pagination of one group, or ``pages(for:)`` and ``items(for:)`` for any collection
+/// request. No retries or redirects are performed
 /// automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
@@ -69,6 +70,20 @@ public struct NPSDataClient: Sendable {
       return .request(following)
     }
     return NPSPageSequence(base: pages, resolution: resolution)
+  }
+
+  /// Iterates complete alerts pages with filters and explicit pagination settings.
+  /// - Parameter query: Validated options shared by each request except its advancing offset.
+  /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
+  public func alertPages(query: AlertQuery) -> NPSPageSequence<ParkAlert> {
+    pages(for: .alerts(query: query))
+  }
+
+  /// Iterates individual alerts, fetching the next page only when needed.
+  /// - Parameter query: Validated query options, including page size and starting offset.
+  /// - Returns: Alerts in provider order, without deduplication, throwing ``NPSDataError``.
+  public func alerts(query: AlertQuery) -> NPSItemSequence<ParkAlert> {
+    items(for: .alerts(query: query))
   }
 
   /// Iterates pages from an inspectable parks request without sending during construction.

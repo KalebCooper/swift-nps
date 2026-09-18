@@ -1,0 +1,17 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "F8AFCEAD-7E34-4C99-8AF6-C0B7C376C8FB",
+      "url": "",
+      "title": "Eastern Section of Beech Mountain Loop Road Closed for Repairs",
+      "parkCode": "acad",
+      "description": "Starting Sept 21, the eastern section of the Beech Mountain Loop Trail will be closed for repairs from a junction just beyond the parking lot to just below the summit at the fire tower. Three alternate routes to the summit are available: the outer loop of the Beech Mountain Loop Trail, Beech South Ridge Trail and Beech West Ridge Trail.",
+      "category": "Park Closure",
+      "relatedRoadEvents": [],
+      "lastIndexedDate": "2026-08-24 00:00:00.0"
+    }
+  ]
+}

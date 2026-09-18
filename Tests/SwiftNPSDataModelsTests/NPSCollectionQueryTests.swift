@@ -26,6 +26,26 @@ struct NPSCollectionQueryTests {
     }
   }
 
+  @Test("Recorded alert pages advance without changing query options")
+  func recordedAlertPagesAdvanceWithoutChangingQueryOptions() throws {
+    let first = try JSONDecoder().decode(
+      NPSCollection<ParkAlert>.self, from: Fixture.alertsPageFirst.data())
+    let last = try JSONDecoder().decode(
+      NPSCollection<ParkAlert>.self, from: Fixture.alertsPageLast.data())
+    let empty = try JSONDecoder().decode(
+      NPSCollection<ParkAlert>.self, from: Fixture.alertsEmpty.data())
+    let query = try AlertQuery(
+      limit: 1, parkCodes: [ParkCode("acad")], searchText: "closure", stateCodes: [StateCode("ME")])
+    let following = try #require(try query.next(after: first))
+    #expect(following.start == 1)
+    #expect(following.limit == 1)
+    #expect(following.parkCodes == query.parkCodes)
+    #expect(following.searchText == "closure")
+    #expect(following.stateCodes == query.stateCodes)
+    #expect(try following.next(after: last)?.start == 2)
+    #expect(try AlertQuery(limit: 1).next(after: empty) == nil)
+  }
+
   @Test("Recorded pages advance without changing query options")
   func recordedPagesAdvanceWithoutChangingQueryOptions() throws {
     let first = try JSONDecoder().decode(

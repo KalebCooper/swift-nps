@@ -1,0 +1,17 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "D3E90E5C-ABED-4EDD-B17F-7D4744770978",
+      "url": "",
+      "title": "Southern Section of Ocean Path Closed for Repairs",
+      "parkCode": "acad",
+      "description": "Starting Aug 31, a section of Ocean Path will be closed for repairs from a trailhead across from the Otter Point parking lot to the trail's southern terminus.",
+      "category": "Park Closure",
+      "relatedRoadEvents": [],
+      "lastIndexedDate": "2026-09-16 00:00:00.0"
+    }
+  ]
+}
