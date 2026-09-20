@@ -1,0 +1,1632 @@
+{
+  "road_event_feed_info": {
+    "publisher": "National Park Service",
+    "version": "4.1",
+    "update_date": "2024-01-16T16:49:30.901071Z",
+    "update_frequency": 60,
+    "contact_name": "National Park Service",
+    "contact_email": "asknps@nps.gov",
+    "data_sources": [
+      {
+        "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+        "organization_name": "Delaware Water Gap",
+        "update_date": "2025-05-13T16:22:17.178633Z",
+        "contact_name": "Delaware Water Gap",
+        "contact_email": "dewa_Superintendent@nps.gov"
+      }
+    ],
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "id": "6ba84a20-3be7-4df0-81eb-711eccf84f18"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.8159821,
+            41.2871847
+          ],
+          [
+            -74.8154457,
+            41.2877249
+          ],
+          [
+            -74.8148234,
+            41.288265
+          ],
+          [
+            -74.8129888,
+            41.2898934
+          ],
+          [
+            -74.8110898,
+            41.2914896
+          ],
+          [
+            -74.8101992,
+            41.2921828
+          ],
+          [
+            -74.8095448,
+            41.2926746
+          ],
+          [
+            -74.809062,
+            41.2930937
+          ],
+          [
+            -74.8077638,
+            41.2943109
+          ],
+          [
+            -74.8066266,
+            41.2953185
+          ],
+          [
+            -74.8057361,
+            41.2960521
+          ],
+          [
+            -74.8051138,
+            41.2965438
+          ],
+          [
+            -74.8039873,
+            41.2974063
+          ],
+          [
+            -74.8034508,
+            41.2979463
+          ],
+          [
+            -74.8030753,
+            41.2982445
+          ],
+          [
+            -74.8027106,
+            41.2985105
+          ],
+          [
+            -74.8000927,
+            41.300179
+          ],
+          [
+            -74.7984961,
+            41.3010516
+          ],
+          [
+            -74.7983626,
+            41.3011155
+          ],
+          [
+            -74.7981962,
+            41.3011694
+          ],
+          [
+            -74.7980285,
+            41.3011898
+          ],
+          [
+            -74.7978682,
+            41.3011758
+          ],
+          [
+            -74.7975746,
+            41.3010965
+          ],
+          [
+            -74.7969852,
+            41.3009439
+          ],
+          [
+            -74.7966841,
+            41.3008926
+          ],
+          [
+            -74.7963538,
+            41.3008589
+          ],
+          [
+            -74.7958978,
+            41.3008315
+          ],
+          [
+            -74.7947834,
+            41.3008892
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.794533,
+            41.3009821
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.7945356,
+            41.3008436
+          ],
+          [
+            -74.7945369,
+            41.3008213
+          ],
+          [
+            -74.7945369,
+            41.3008213
+          ],
+          [
+            -74.7945369,
+            41.3008213
+          ],
+          [
+            -74.7945356,
+            41.3008436
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.794533,
+            41.3009821
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.7947834,
+            41.3008892
+          ],
+          [
+            -74.7958978,
+            41.3008315
+          ],
+          [
+            -74.7963538,
+            41.3008589
+          ],
+          [
+            -74.7966841,
+            41.3008926
+          ],
+          [
+            -74.7969852,
+            41.3009439
+          ],
+          [
+            -74.7975746,
+            41.3010965
+          ],
+          [
+            -74.7978682,
+            41.3011758
+          ],
+          [
+            -74.7980285,
+            41.3011898
+          ],
+          [
+            -74.7981962,
+            41.3011694
+          ],
+          [
+            -74.7983626,
+            41.3011155
+          ],
+          [
+            -74.7984961,
+            41.3010516
+          ],
+          [
+            -74.8000927,
+            41.300179
+          ],
+          [
+            -74.8027106,
+            41.2985105
+          ],
+          [
+            -74.8030753,
+            41.2982445
+          ],
+          [
+            -74.8034508,
+            41.2979463
+          ],
+          [
+            -74.8039873,
+            41.2974063
+          ],
+          [
+            -74.8051138,
+            41.2965438
+          ],
+          [
+            -74.8057361,
+            41.2960521
+          ],
+          [
+            -74.8066266,
+            41.2953185
+          ],
+          [
+            -74.8077638,
+            41.2943109
+          ],
+          [
+            -74.809062,
+            41.2930937
+          ],
+          [
+            -74.8095448,
+            41.2926746
+          ],
+          [
+            -74.8101992,
+            41.2921828
+          ],
+          [
+            -74.8110898,
+            41.2914896
+          ],
+          [
+            -74.8129888,
+            41.2898934
+          ],
+          [
+            -74.8148234,
+            41.288265
+          ],
+          [
+            -74.8154457,
+            41.2877249
+          ],
+          [
+            -74.8159821,
+            41.2871847
+          ]
+        ]
+      },
+      "properties": {
+        "types_of_work": [
+          {
+            "type_name": "surface-work"
+          }
+        ],
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "core_details": {
+          "name": "Old Mine Road Between Jager Road and Route 206",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "work-zone",
+          "road_names": [
+            "Old Mine Road"
+          ],
+          "direction": "northbound",
+          "description": "Old Mine Road between Jager Road and Route 206 will close to all traffic beginning on April 6, 2026.\n\nContractors will work to rehabilitate a 3.5-mile stretch of road. The construction area will be closed to all traffic for the safety of park visitor"
+        },
+        "start_date": "2026-04-06T04:00:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "19dc202e-1b68-e3d6-45b1-ccfa6668250b",
+        "_id": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.8159821,
+            41.2871847
+          ],
+          [
+            -74.8154457,
+            41.2877249
+          ],
+          [
+            -74.8148234,
+            41.288265
+          ],
+          [
+            -74.8129888,
+            41.2898934
+          ],
+          [
+            -74.8110898,
+            41.2914896
+          ],
+          [
+            -74.8101992,
+            41.2921828
+          ],
+          [
+            -74.8095448,
+            41.2926746
+          ],
+          [
+            -74.809062,
+            41.2930937
+          ],
+          [
+            -74.8077638,
+            41.2943109
+          ],
+          [
+            -74.8066266,
+            41.2953185
+          ],
+          [
+            -74.8057361,
+            41.2960521
+          ],
+          [
+            -74.8051138,
+            41.2965438
+          ],
+          [
+            -74.8039873,
+            41.2974063
+          ],
+          [
+            -74.8034508,
+            41.2979463
+          ],
+          [
+            -74.8030753,
+            41.2982445
+          ],
+          [
+            -74.8027106,
+            41.2985105
+          ],
+          [
+            -74.8000927,
+            41.300179
+          ],
+          [
+            -74.7984961,
+            41.3010516
+          ],
+          [
+            -74.7983626,
+            41.3011155
+          ],
+          [
+            -74.7981962,
+            41.3011694
+          ],
+          [
+            -74.7980285,
+            41.3011898
+          ],
+          [
+            -74.7978682,
+            41.3011758
+          ],
+          [
+            -74.7975746,
+            41.3010965
+          ],
+          [
+            -74.7969852,
+            41.3009439
+          ],
+          [
+            -74.7966841,
+            41.3008926
+          ],
+          [
+            -74.7963538,
+            41.3008589
+          ],
+          [
+            -74.7958978,
+            41.3008315
+          ],
+          [
+            -74.7947834,
+            41.3008892
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.794533,
+            41.3009821
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.7945356,
+            41.3008436
+          ],
+          [
+            -74.7945369,
+            41.3008213
+          ],
+          [
+            -74.7945369,
+            41.3008213
+          ],
+          [
+            -74.7945369,
+            41.3008213
+          ],
+          [
+            -74.7945356,
+            41.3008436
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.794533,
+            41.3009821
+          ],
+          [
+            -74.7945333,
+            41.300901
+          ],
+          [
+            -74.7947834,
+            41.3008892
+          ],
+          [
+            -74.7958978,
+            41.3008315
+          ],
+          [
+            -74.7963538,
+            41.3008589
+          ],
+          [
+            -74.7966841,
+            41.3008926
+          ],
+          [
+            -74.7969852,
+            41.3009439
+          ],
+          [
+            -74.7975746,
+            41.3010965
+          ],
+          [
+            -74.7978682,
+            41.3011758
+          ],
+          [
+            -74.7980285,
+            41.3011898
+          ],
+          [
+            -74.7981962,
+            41.3011694
+          ],
+          [
+            -74.7983626,
+            41.3011155
+          ],
+          [
+            -74.7984961,
+            41.3010516
+          ],
+          [
+            -74.8000927,
+            41.300179
+          ],
+          [
+            -74.8027106,
+            41.2985105
+          ],
+          [
+            -74.8030753,
+            41.2982445
+          ],
+          [
+            -74.8034508,
+            41.2979463
+          ],
+          [
+            -74.8039873,
+            41.2974063
+          ],
+          [
+            -74.8051138,
+            41.2965438
+          ],
+          [
+            -74.8057361,
+            41.2960521
+          ],
+          [
+            -74.8066266,
+            41.2953185
+          ],
+          [
+            -74.8077638,
+            41.2943109
+          ],
+          [
+            -74.809062,
+            41.2930937
+          ],
+          [
+            -74.8095448,
+            41.2926746
+          ],
+          [
+            -74.8101992,
+            41.2921828
+          ],
+          [
+            -74.8110898,
+            41.2914896
+          ],
+          [
+            -74.8129888,
+            41.2898934
+          ],
+          [
+            -74.8148234,
+            41.288265
+          ],
+          [
+            -74.8154457,
+            41.2877249
+          ],
+          [
+            -74.8159821,
+            41.2871847
+          ]
+        ]
+      },
+      "properties": {
+        "types_of_work": [
+          {
+            "type_name": "surface-work"
+          }
+        ],
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "core_details": {
+          "name": "Old Mine Road Between Jager Road and Route 206",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "work-zone",
+          "road_names": [
+            "Old Mine Road"
+          ],
+          "direction": "southbound",
+          "description": "Old Mine Road between Jager Road and Route 206 will close to all traffic beginning on April 6, 2026.\n\nContractors will work to rehabilitate a 3.5-mile stretch of road. The construction area will be closed to all traffic for the safety of park visitor"
+        },
+        "start_date": "2026-04-06T04:00:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "60d49c1d-113a-692f-21ac-40443b5ad6c6",
+        "_id": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.8279983,
+            41.264658
+          ],
+          [
+            -74.827091,
+            41.266049
+          ],
+          [
+            -74.826909,
+            41.266164
+          ],
+          [
+            -74.826151,
+            41.267216
+          ],
+          [
+            -74.825514,
+            41.268475
+          ],
+          [
+            -74.8254035,
+            41.2687099
+          ],
+          [
+            -74.8237612,
+            41.2721689
+          ],
+          [
+            -74.8236565,
+            41.2724648
+          ],
+          [
+            -74.8233568,
+            41.2734291
+          ],
+          [
+            -74.8230159,
+            41.2749666
+          ],
+          [
+            -74.8227902,
+            41.2755829
+          ],
+          [
+            -74.822404,
+            41.2764691
+          ],
+          [
+            -74.8217198,
+            41.2779906
+          ],
+          [
+            -74.821575,
+            41.2782732
+          ],
+          [
+            -74.821609,
+            41.278542
+          ],
+          [
+            -74.8217345,
+            41.2787968
+          ],
+          [
+            -74.8216976,
+            41.2789701
+          ],
+          [
+            -74.821089,
+            41.279641
+          ],
+          [
+            -74.8209606,
+            41.2804415
+          ],
+          [
+            -74.820858,
+            41.2809465
+          ],
+          [
+            -74.8205398,
+            41.2814912
+          ],
+          [
+            -74.819209,
+            41.283279
+          ],
+          [
+            -74.8168967,
+            41.2861398
+          ],
+          [
+            -74.8168967,
+            41.2861398
+          ],
+          [
+            -74.8168967,
+            41.2861398
+          ],
+          [
+            -74.819209,
+            41.283279
+          ],
+          [
+            -74.8205398,
+            41.2814912
+          ],
+          [
+            -74.820858,
+            41.2809465
+          ],
+          [
+            -74.8209606,
+            41.2804415
+          ],
+          [
+            -74.821089,
+            41.279641
+          ],
+          [
+            -74.8216976,
+            41.2789701
+          ],
+          [
+            -74.8217345,
+            41.2787968
+          ],
+          [
+            -74.821609,
+            41.278542
+          ],
+          [
+            -74.821575,
+            41.2782732
+          ],
+          [
+            -74.8217198,
+            41.2779906
+          ],
+          [
+            -74.822404,
+            41.2764691
+          ],
+          [
+            -74.8227902,
+            41.2755829
+          ],
+          [
+            -74.8230159,
+            41.2749666
+          ],
+          [
+            -74.8233568,
+            41.2734291
+          ],
+          [
+            -74.8236565,
+            41.2724648
+          ],
+          [
+            -74.8237612,
+            41.2721689
+          ],
+          [
+            -74.8254035,
+            41.2687099
+          ],
+          [
+            -74.825514,
+            41.268475
+          ],
+          [
+            -74.826151,
+            41.267216
+          ],
+          [
+            -74.826909,
+            41.266164
+          ],
+          [
+            -74.827091,
+            41.266049
+          ],
+          [
+            -74.8279983,
+            41.264658
+          ]
+        ]
+      },
+      "properties": {
+        "types_of_work": [
+          {
+            "type_name": "surface-work"
+          }
+        ],
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "core_details": {
+          "name": "Old Mine Road Between Jager Road and Route 206",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "work-zone",
+          "road_names": [
+            "Old Mine Road"
+          ],
+          "direction": "northbound",
+          "description": "Old Mine Road between Jager Road and Route 206 will close to all traffic beginning on April 6, 2026.\n\nContractors will work to rehabilitate a 3.5-mile stretch of road. The construction area will be closed to all traffic for the safety of park visitor"
+        },
+        "start_date": "2026-04-06T04:00:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "958539cb-e2f7-47a4-fd7c-4e18a71d3d8f",
+        "_id": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.8279983,
+            41.264658
+          ],
+          [
+            -74.827091,
+            41.266049
+          ],
+          [
+            -74.826909,
+            41.266164
+          ],
+          [
+            -74.826151,
+            41.267216
+          ],
+          [
+            -74.825514,
+            41.268475
+          ],
+          [
+            -74.8254035,
+            41.2687099
+          ],
+          [
+            -74.8237612,
+            41.2721689
+          ],
+          [
+            -74.8236565,
+            41.2724648
+          ],
+          [
+            -74.8233568,
+            41.2734291
+          ],
+          [
+            -74.8230159,
+            41.2749666
+          ],
+          [
+            -74.8227902,
+            41.2755829
+          ],
+          [
+            -74.822404,
+            41.2764691
+          ],
+          [
+            -74.8217198,
+            41.2779906
+          ],
+          [
+            -74.821575,
+            41.2782732
+          ],
+          [
+            -74.821609,
+            41.278542
+          ],
+          [
+            -74.8217345,
+            41.2787968
+          ],
+          [
+            -74.8216976,
+            41.2789701
+          ],
+          [
+            -74.821089,
+            41.279641
+          ],
+          [
+            -74.8209606,
+            41.2804415
+          ],
+          [
+            -74.820858,
+            41.2809465
+          ],
+          [
+            -74.8205398,
+            41.2814912
+          ],
+          [
+            -74.819209,
+            41.283279
+          ],
+          [
+            -74.8168967,
+            41.2861398
+          ],
+          [
+            -74.8168967,
+            41.2861398
+          ],
+          [
+            -74.8168967,
+            41.2861398
+          ],
+          [
+            -74.819209,
+            41.283279
+          ],
+          [
+            -74.8205398,
+            41.2814912
+          ],
+          [
+            -74.820858,
+            41.2809465
+          ],
+          [
+            -74.8209606,
+            41.2804415
+          ],
+          [
+            -74.821089,
+            41.279641
+          ],
+          [
+            -74.8216976,
+            41.2789701
+          ],
+          [
+            -74.8217345,
+            41.2787968
+          ],
+          [
+            -74.821609,
+            41.278542
+          ],
+          [
+            -74.821575,
+            41.2782732
+          ],
+          [
+            -74.8217198,
+            41.2779906
+          ],
+          [
+            -74.822404,
+            41.2764691
+          ],
+          [
+            -74.8227902,
+            41.2755829
+          ],
+          [
+            -74.8230159,
+            41.2749666
+          ],
+          [
+            -74.8233568,
+            41.2734291
+          ],
+          [
+            -74.8236565,
+            41.2724648
+          ],
+          [
+            -74.8237612,
+            41.2721689
+          ],
+          [
+            -74.8254035,
+            41.2687099
+          ],
+          [
+            -74.825514,
+            41.268475
+          ],
+          [
+            -74.826151,
+            41.267216
+          ],
+          [
+            -74.826909,
+            41.266164
+          ],
+          [
+            -74.827091,
+            41.266049
+          ],
+          [
+            -74.8279983,
+            41.264658
+          ]
+        ]
+      },
+      "properties": {
+        "types_of_work": [
+          {
+            "type_name": "surface-work"
+          }
+        ],
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "core_details": {
+          "name": "Old Mine Road Between Jager Road and Route 206",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "work-zone",
+          "road_names": [
+            "Old Mine Road"
+          ],
+          "direction": "southbound",
+          "description": "Old Mine Road between Jager Road and Route 206 will close to all traffic beginning on April 6, 2026.\n\nContractors will work to rehabilitate a 3.5-mile stretch of road. The construction area will be closed to all traffic for the safety of park visitor"
+        },
+        "start_date": "2026-04-06T04:00:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "afdfbc12-4d9d-49bc-d9a0-97ff77899714",
+        "_id": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.876741,
+            41.1571551
+          ],
+          [
+            -74.8768818,
+            41.1571151
+          ],
+          [
+            -74.8769418,
+            41.1571014
+          ],
+          [
+            -74.8770019,
+            41.157091
+          ],
+          [
+            -74.8770366,
+            41.1570875
+          ],
+          [
+            -74.8770713,
+            41.1570916
+          ],
+          [
+            -74.8770971,
+            41.1570971
+          ],
+          [
+            -74.8771175,
+            41.1571068
+          ],
+          [
+            -74.8771527,
+            41.1571312
+          ],
+          [
+            -74.8773045,
+            41.157281
+          ],
+          [
+            -74.8773351,
+            41.1573094
+          ],
+          [
+            -74.8773711,
+            41.1573343
+          ],
+          [
+            -74.8774183,
+            41.1573551
+          ],
+          [
+            -74.8774664,
+            41.1573687
+          ],
+          [
+            -74.8775358,
+            41.1573821
+          ],
+          [
+            -74.8775825,
+            41.1573858
+          ]
+        ]
+      },
+      "properties": {
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "types_of_incident": [
+          {
+            "incident_category": "crash",
+            "incident_type": "crash",
+            "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+          }
+        ],
+        "core_details": {
+          "name": "Road Closures in New Jersey",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "incident",
+          "road_names": [
+            "Main Street and Route 615"
+          ],
+          "direction": "westbound",
+          "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+        },
+        "start_date": "2023-05-31T16:48:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "2557b97e-0b25-60f2-ef89-5d36d21c2cd3",
+        "_id": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.9615528,
+            41.1023274
+          ],
+          [
+            -74.9615221,
+            41.1024183
+          ],
+          [
+            -74.9614511,
+            41.1026681
+          ],
+          [
+            -74.961361,
+            41.1029457
+          ],
+          [
+            -74.9613004,
+            41.1031261
+          ],
+          [
+            -74.961228,
+            41.1033105
+          ],
+          [
+            -74.9611555,
+            41.1034491
+          ],
+          [
+            -74.9610711,
+            41.1035896
+          ],
+          [
+            -74.9608669,
+            41.103898
+          ],
+          [
+            -74.9606522,
+            41.1042073
+          ],
+          [
+            -74.9605728,
+            41.1043135
+          ],
+          [
+            -74.9604938,
+            41.1044007
+          ],
+          [
+            -74.9604055,
+            41.1044889
+          ],
+          [
+            -74.9603016,
+            41.1045802
+          ],
+          [
+            -74.9601753,
+            41.1046667
+          ],
+          [
+            -74.9599429,
+            41.1047998
+          ],
+          [
+            -74.9598,
+            41.1048704
+          ],
+          [
+            -74.9596592,
+            41.104926
+          ],
+          [
+            -74.9595372,
+            41.1049588
+          ],
+          [
+            -74.9594059,
+            41.1049862
+          ],
+          [
+            -74.9592779,
+            41.1050005
+          ],
+          [
+            -74.9591479,
+            41.1050075
+          ],
+          [
+            -74.9589953,
+            41.105009
+          ],
+          [
+            -74.9588413,
+            41.105006
+          ],
+          [
+            -74.9586566,
+            41.104989
+          ],
+          [
+            -74.9583011,
+            41.1049354
+          ],
+          [
+            -74.9579777,
+            41.1048853
+          ],
+          [
+            -74.9578122,
+            41.104867
+          ],
+          [
+            -74.9576477,
+            41.1048569
+          ],
+          [
+            -74.9574869,
+            41.1048588
+          ],
+          [
+            -74.9573439,
+            41.1048689
+          ],
+          [
+            -74.9571771,
+            41.1048872
+          ]
+        ]
+      },
+      "properties": {
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "types_of_incident": [
+          {
+            "incident_category": "crash",
+            "incident_type": "crash",
+            "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+          }
+        ],
+        "core_details": {
+          "name": "Road Closures in New Jersey",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "incident",
+          "road_names": [
+            "Main Street and Route 615"
+          ],
+          "direction": "eastbound",
+          "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+        },
+        "start_date": "2023-05-31T16:48:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "40b38990-9031-2434-e690-9ae6bfa6305f",
+        "_id": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.8775825,
+            41.1573858
+          ],
+          [
+            -74.8775358,
+            41.1573821
+          ],
+          [
+            -74.8774664,
+            41.1573687
+          ],
+          [
+            -74.8774183,
+            41.1573551
+          ],
+          [
+            -74.8773711,
+            41.1573343
+          ],
+          [
+            -74.8773351,
+            41.1573094
+          ],
+          [
+            -74.8773045,
+            41.157281
+          ],
+          [
+            -74.8771527,
+            41.1571312
+          ],
+          [
+            -74.8771175,
+            41.1571068
+          ],
+          [
+            -74.8770971,
+            41.1570971
+          ],
+          [
+            -74.8770713,
+            41.1570916
+          ],
+          [
+            -74.8770366,
+            41.1570875
+          ],
+          [
+            -74.8770019,
+            41.157091
+          ],
+          [
+            -74.8769418,
+            41.1571014
+          ],
+          [
+            -74.8768818,
+            41.1571151
+          ],
+          [
+            -74.876741,
+            41.1571551
+          ]
+        ]
+      },
+      "properties": {
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "types_of_incident": [
+          {
+            "incident_category": "crash",
+            "incident_type": "crash",
+            "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+          }
+        ],
+        "core_details": {
+          "name": "Road Closures in New Jersey",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "incident",
+          "road_names": [
+            "Main Street and Route 615"
+          ],
+          "direction": "eastbound",
+          "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+        },
+        "start_date": "2023-05-31T16:48:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "6f0d0310-5e5f-4a79-abd6-1a8965229884",
+        "_id": 6
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.9571771,
+            41.1048872
+          ],
+          [
+            -74.9573439,
+            41.1048689
+          ],
+          [
+            -74.9574869,
+            41.1048588
+          ],
+          [
+            -74.9576477,
+            41.1048569
+          ],
+          [
+            -74.9578122,
+            41.104867
+          ],
+          [
+            -74.9579777,
+            41.1048853
+          ],
+          [
+            -74.9583011,
+            41.1049354
+          ],
+          [
+            -74.9586566,
+            41.104989
+          ],
+          [
+            -74.9588413,
+            41.105006
+          ],
+          [
+            -74.9589953,
+            41.105009
+          ],
+          [
+            -74.9591479,
+            41.1050075
+          ],
+          [
+            -74.9592779,
+            41.1050005
+          ],
+          [
+            -74.9594059,
+            41.1049862
+          ],
+          [
+            -74.9595372,
+            41.1049588
+          ],
+          [
+            -74.9596592,
+            41.104926
+          ],
+          [
+            -74.9598,
+            41.1048704
+          ],
+          [
+            -74.9599429,
+            41.1047998
+          ],
+          [
+            -74.9601753,
+            41.1046667
+          ],
+          [
+            -74.9603016,
+            41.1045802
+          ],
+          [
+            -74.9604055,
+            41.1044889
+          ],
+          [
+            -74.9604938,
+            41.1044007
+          ],
+          [
+            -74.9605728,
+            41.1043135
+          ],
+          [
+            -74.9606522,
+            41.1042073
+          ],
+          [
+            -74.9608669,
+            41.103898
+          ],
+          [
+            -74.9610711,
+            41.1035896
+          ],
+          [
+            -74.9611555,
+            41.1034491
+          ],
+          [
+            -74.961228,
+            41.1033105
+          ],
+          [
+            -74.9613004,
+            41.1031261
+          ],
+          [
+            -74.961361,
+            41.1029457
+          ],
+          [
+            -74.9614511,
+            41.1026681
+          ],
+          [
+            -74.9615221,
+            41.1024183
+          ],
+          [
+            -74.9615528,
+            41.1023274
+          ]
+        ]
+      },
+      "properties": {
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "types_of_incident": [
+          {
+            "incident_category": "crash",
+            "incident_type": "crash",
+            "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+          }
+        ],
+        "core_details": {
+          "name": "Road Closures in New Jersey",
+          "data_source_id": "c8a6b124-d7a0-49fd-2c61-08d4c7ad36e2",
+          "event_type": "incident",
+          "road_names": [
+            "Main Street and Route 615"
+          ],
+          "direction": "westbound",
+          "description": "The bridge on Main Street in Walpack Center is closed indefinitely due to structural damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to landslide and active slope failure."
+        },
+        "start_date": "2023-05-31T16:48:00Z",
+        "location_method": "unknown",
+        "vehicle_impact": "all-lanes-closed",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "7ac6b430-112e-b795-94b0-bba542dbecdb",
+        "_id": 7
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

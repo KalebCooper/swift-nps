@@ -5,7 +5,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-campgrounds, parks, places, things to do, tours, visitor centers, and webcams are the implemented endpoint groups, built on a generic
+campgrounds, parks, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups, built on a generic
 core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -233,6 +233,30 @@ send it as a JSON number. ``NPSImageCrop`` stores either form as text and derive
 Real responses were recorded on September 20, 2026, and every sort value tried against the live
 endpoint answered HTTP 400.
 
+### Road Events
+
+``Endpoint/roadEvents(parkCode:type:)`` and ``NPSDataRequest/roadEvents(parkCode:type:)`` describe
+`/roadevents`, which returns a WZDx 4.1 GeoJSON feed rather than the paged envelope, decoded as one
+``RoadEventFeed`` with no pagination. Omitted parameters are not sent. ``RoadEventType`` is a closed
+set because the provider answers any other value with HTTP 400, and each case sends the provider's
+own spelling: the provider rejects the WZDx spelling `work-zone` and accepts `WorkZone`. A valid
+type with no matching events returns an empty feed rather than an error. The provider silently
+ignores a park code it does not recognize, including a comma-separated list, and returns every
+park's events, while a recognized code with no events returns an empty feed, which is what most
+parks return.
+
+Keys are remapped from the provider's snake_case, and every value is kept as sent: timestamps stay
+text, vocabulary such as ``RoadEventDetails/CoreDetails/eventType`` stays an open string in WZDx
+spelling, and ``RoadEventFeature/Geometry`` keeps GeoJSON `[longitude, latitude]` positions.
+``RoadEventDetails`` preserves both identifiers the provider sends, `Id` as
+``RoadEventDetails/id`` and `_id` as ``RoadEventDetails/numericId``. Incidents carry
+``RoadEventDetails/typesOfIncident`` and work zones ``RoadEventDetails/typesOfWork``, neither
+guaranteed. The feed is published by the National Park Service, named in
+``RoadEventFeedInfo/publisher``, under the license URL in ``RoadEventFeedInfo/license``, which this
+package's license does not cover. It is not an authoritative live closure service.
+
+Real responses were recorded on September 20, 2026.
+
 ### Things to Do
 
 ``ThingToDoQuery`` describes all seven documented things to do parameters: identifiers, park
@@ -383,6 +407,15 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``Place``
 - ``PlaceQuery``
+
+### Road Events
+
+- ``RoadEventDataSource``
+- ``RoadEventDetails``
+- ``RoadEventFeature``
+- ``RoadEventFeed``
+- ``RoadEventFeedInfo``
+- ``RoadEventType``
 
 ### Shared park and facility details
 

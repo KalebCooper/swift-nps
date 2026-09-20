@@ -117,6 +117,21 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 20, 2026.
   case placesSearch = "places-search"
 
+  /// GET /api/v1/roadevents?parkCode=dewa; HTTP 200 with eight features.
+  /// Recorded September 20, 2026.
+  case roadEventsDelawareWaterGap = "roadevents-dewa"
+
+  /// GET /api/v1/roadevents?parkCode=acad; HTTP 200 with no features.
+  /// Recorded September 20, 2026.
+  case roadEventsEmpty = "roadevents-empty"
+
+  /// GET /api/v1/roadevents?parkCode=yell&type=WorkZone; HTTP 200. Recorded September 20, 2026.
+  case roadEventsType = "roadevents-type"
+
+  /// GET /api/v1/roadevents?parkCode=yell; HTTP 200 with two features.
+  /// Recorded September 20, 2026.
+  case roadEventsYellowstone = "roadevents-yell"
+
   /// GET /api/v1/thingstodo?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 17, 2026.
   case thingsToDoEmpty = "thingstodo-empty"

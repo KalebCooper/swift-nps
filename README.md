@@ -19,7 +19,9 @@ entry. Campgrounds queries support park codes, state codes, text search, sorting
 through lazy `campgroundPages` and `campgrounds` sequences; published site counts and fees are not
 live availability. Places queries support park codes, state codes, text search, and pagination
 through lazy `placePages` and `places` sequences; the endpoint rejects every sort value with
-HTTP 400, so the query offers none. Things to do queries support identifiers, park codes, state codes, text search,
+HTTP 400, so the query offers none. Road events come from `roadEvents`, one WZDx 4.1 feed
+optionally narrowed to one park code and one event type; most parks return an empty feed, and an
+unrecognized park code returns every park's events. Things to do queries support identifiers, park codes, state codes, text search,
 sorting, and pagination through lazy `thingToDoPages` and `thingsToDo` sequences; NPS documents only
 `relevanceScore` as a things to do sort field and rejects others with HTTP 400. Tours queries
 support identifiers, park codes, state codes, text search, sorting, and pagination through lazy
@@ -129,8 +131,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, places, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, place, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 

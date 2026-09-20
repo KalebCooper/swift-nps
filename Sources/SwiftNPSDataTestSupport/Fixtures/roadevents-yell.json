@@ -1,0 +1,114 @@
+{
+  "road_event_feed_info": {
+    "publisher": "National Park Service",
+    "version": "4.1",
+    "update_date": "2024-01-16T16:49:30.901071Z",
+    "update_frequency": 60,
+    "contact_name": "National Park Service",
+    "contact_email": "asknps@nps.gov",
+    "data_sources": [
+      {
+        "data_source_id": "aff55cd7-4a32-46dd-2e35-08d4c7ad36e2",
+        "organization_name": "Yellowstone National Park",
+        "update_date": "2023-07-11T16:58:05.597353Z",
+        "contact_name": "Yellowstone National Park",
+        "contact_email": "YELL_Superintendent@nps.gov"
+      }
+    ],
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "id": "6ba84a20-3be7-4df0-81eb-711eccf84f18"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -110.6791841,
+            44.9579849
+          ],
+          [
+            -110.6792844,
+            44.9580566
+          ]
+        ]
+      },
+      "properties": {
+        "types_of_work": [
+          {
+            "type_name": "barrier-work"
+          }
+        ],
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "core_details": {
+          "name": "Traffic Delays - Gardner River High Bridge",
+          "data_source_id": "aff55cd7-4a32-46dd-2e35-08d4c7ad36e2",
+          "event_type": "work-zone",
+          "road_names": [],
+          "direction": "westbound",
+          "description": "Expect a single lane of traffic with up to 15-minute delays, 24 hours a day, seven days a week, from April 1 through late October 2026. No oversized/overweight vehicles (8'6\"+ wide, 75'+ long, 80,000 lbs+ gross vehicle weight) will be able to cross."
+        },
+        "start_date": "2026-04-01T06:00:00Z",
+        "end_date": "2026-11-01T05:59:59Z",
+        "location_method": "unknown",
+        "vehicle_impact": "alternating-one-way",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "36856bd9-bccd-34b6-452c-4384c3dc9277",
+        "_id": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -110.6792844,
+            44.9580566
+          ],
+          [
+            -110.6791841,
+            44.9579849
+          ]
+        ]
+      },
+      "properties": {
+        "types_of_work": [
+          {
+            "type_name": "barrier-work"
+          }
+        ],
+        "is_start_date_verified": false,
+        "is_end_date_verified": false,
+        "is_start_position_verified": false,
+        "is_end_position_verified": false,
+        "core_details": {
+          "name": "Traffic Delays - Gardner River High Bridge",
+          "data_source_id": "aff55cd7-4a32-46dd-2e35-08d4c7ad36e2",
+          "event_type": "work-zone",
+          "road_names": [],
+          "direction": "eastbound",
+          "description": "Expect a single lane of traffic with up to 15-minute delays, 24 hours a day, seven days a week, from April 1 through late October 2026. No oversized/overweight vehicles (8'6\"+ wide, 75'+ long, 80,000 lbs+ gross vehicle weight) will be able to cross."
+        },
+        "start_date": "2026-04-01T06:00:00Z",
+        "end_date": "2026-11-01T05:59:59Z",
+        "location_method": "unknown",
+        "vehicle_impact": "alternating-one-way",
+        "beginning_accuracy": "estimated",
+        "ending_accuracy": "estimated",
+        "start_date_accuracy": "estimated",
+        "end_date_accuracy": "estimated",
+        "Id": "f15141d8-695c-ef76-0e74-804b56bba982",
+        "_id": 1
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

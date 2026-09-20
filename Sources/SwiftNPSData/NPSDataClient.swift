@@ -9,8 +9,9 @@ import SwiftNPSDataModels
 
 /// A Sendable client for collection lookups in the National Park Service Data API.
 ///
-/// Use ``parks(parkCode:)`` for an everyday lookup, ``value(for:)`` for a reusable request,
-/// or ``send(_:)`` for a typed endpoint. Every entry point uses the same authentication and errors.
+/// Use ``parks(parkCode:)`` for an everyday lookup, ``roadEvents(parkCode:type:)`` for the road
+/// events feed, ``value(for:)`` for a reusable request, or ``send(_:)`` for a typed endpoint.
+/// Every entry point uses the same authentication and errors.
 /// Use ``alertPages(query:)``, ``alerts(query:)``, ``amenities(query:)``,
 /// ``amenityPages(query:)``, ``amenityParkPlacePages(query:)``, ``amenityParkPlaces(query:)``,
 /// ``amenityParkVisitorCenterPages(query:)``, ``amenityParkVisitorCenters(query:)``,
@@ -209,6 +210,21 @@ public struct NPSDataClient: Sendable {
   /// - Returns: Places in provider order, without deduplication, throwing ``NPSDataError``.
   public func places(query: PlaceQuery) -> NPSItemSequence<Place> {
     items(for: .places(query: query))
+  }
+
+  /// Fetches the road events feed, optionally narrowed to one park and one event type.
+  ///
+  /// The feed is one response with no pagination, and most parks return an empty feed. The
+  /// provider silently ignores a park code it does not recognize and returns every park's events.
+  /// - Parameters:
+  ///   - parkCode: One park code, or nil for every park.
+  ///   - type: One event type sent in the provider's spelling, or nil for every type.
+  /// - Returns: The complete WZDx feed, with its metadata and features kept as sent.
+  /// - Throws: The same ``NPSDataError`` as ``value(for:)``.
+  public func roadEvents(
+    parkCode: ParkCode? = nil, type: RoadEventType? = nil
+  ) async throws(NPSDataError) -> RoadEventFeed {
+    try await value(for: .roadEvents(parkCode: parkCode, type: type))
   }
 
   /// Iterates complete things to do pages with identifiers, filters, sorting, and pagination.

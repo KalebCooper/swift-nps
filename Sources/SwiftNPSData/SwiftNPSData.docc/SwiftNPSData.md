@@ -20,8 +20,10 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, campgrounds, parks, places, things to do, tours, visitor centers, and webcams are the implemented
-endpoint groups. They are built on a generic collection core that executes any offset-paginated NPS collection the same way.
+Alerts, amenities, campgrounds, parks, places, road events, things to do, tours, visitor centers,
+and webcams are the implemented endpoint groups. The collection groups are built on a generic
+collection core that executes any offset-paginated NPS collection the same way; road events are a
+single response.
 
 ### Collection execution
 
@@ -174,6 +176,28 @@ let samePage = try await client.send(.places(query: query))
 
 Coordinates, flags, and descriptions are published text kept as sent, not parsed values.
 
+### Road Events
+
+``NPSDataClient/roadEvents(parkCode:type:)`` fetches `/roadevents`, a WZDx 4.1 GeoJSON feed
+returned as one `RoadEventFeed` with no pagination. Both parameters are optional; `RoadEventType`
+sends the provider's own spelling, so work zones are `WorkZone`, not the WZDx `work-zone`, which
+the provider rejects:
+
+```swift
+let feed = try await client.roadEvents(parkCode: ParkCode("yell"), type: .workZone)
+for feature in feed.features ?? [] {
+  print(feature.properties?.coreDetails?.name ?? "", feature.properties?.startDate ?? "")
+}
+let request = NPSDataRequest.roadEvents(parkCode: try ParkCode("yell"))
+let sameFeed = try await client.value(for: request)
+```
+
+Most parks return an empty feed, and a valid type with no matching events also returns an empty
+feed rather than an error. The provider silently ignores a park code it does not recognize and
+returns every park's events. The feed is published by the National Park Service under the license
+its metadata names, which this package's license does not cover, and it is not an authoritative
+live closure service.
+
 ### Things to Do
 
 ``NPSDataClient/thingsToDo(query:)`` and ``NPSDataClient/thingToDoPages(query:)`` search
@@ -325,6 +349,10 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/places(query:)``
 - ``NPSDataClient/placePages(query:)``
+
+### Road Events
+
+- ``NPSDataClient/roadEvents(parkCode:type:)``
 
 ### Things to Do
 

@@ -2,7 +2,7 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(places, tours, and webcams) using the application identity
+(places, road events, tours, and webcams) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -38,6 +38,10 @@ not examples copied from the specification. Tests read them locally and never co
 | places-page-first.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=acad&start=0 | 200 |
 | places-page-last.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=acad&start=1 | 200 |
 | places-search.json | GET https://developer.nps.gov/api/v1/places?limit=2&q=Redoubt&start=0&stateCode=FL | 200 |
+| roadevents-dewa.json | GET https://developer.nps.gov/api/v1/roadevents?parkCode=dewa | 200 |
+| roadevents-empty.json | GET https://developer.nps.gov/api/v1/roadevents?parkCode=acad | 200 |
+| roadevents-type.json | GET https://developer.nps.gov/api/v1/roadevents?parkCode=yell&type=WorkZone | 200 |
+| roadevents-yell.json | GET https://developer.nps.gov/api/v1/roadevents?parkCode=yell | 200 |
 | thingstodo-empty.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=zzzz&start=0 | 200 |
 | thingstodo-page-first.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=0 | 200 |
 | thingstodo-page-last.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=1 | 200 |
@@ -109,6 +113,12 @@ and `1.0` as written. They are ASCII throughout and contain no escapes. The empt
 byte-identical to the other empty recordings. Decoded values were compared with the downloads and
 are identical.
 
+The road events recordings arrived as single-line JSON and are reindented the same way, keeping
+the provider's key order, the escaped quotation marks in the Yellowstone descriptions, the escaped
+line breaks in the Delaware Water Gap descriptions, and every coordinate as written. They are ASCII
+throughout. The type-filtered recording is byte-identical to the unfiltered Yellowstone recording.
+Decoded values were compared with the downloads and are identical.
+
 The webcams recordings arrived with CRLF line endings, blank lines, and commas leading each line,
 and are reindented the same way, keeping the provider's key order, the escaped quotation marks in
 the search description, and the coordinates and `null` values as written. They are ASCII
@@ -152,6 +162,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | places-page-first.json | 2d4185659bf11787379b87de608bf9c0f0934642371d82bb11049c7bb60ca9e5 |
 | places-page-last.json | 1841b65ddf50d5d7df1539dab6c00d420ca08d21e037e989abc52c7c3f00458b |
 | places-search.json | b4b940c583c90d689bdb6d53e50f6a66659021e0b5350b79a881ab9a6ebe3315 |
+| roadevents-dewa.json | 7c5ca3c1117d17602c5702aec50d43014221d28bd3d38db995759c15dcbe002e |
+| roadevents-empty.json | ccd96cccefd745c1a653313292682c0372d8b6ccec56f500c27f93a6d9673a38 |
+| roadevents-type.json | cd5673cafa44893e0161a4c1c35e0c21794492e52f4ff11a59b7db4250f7b5c9 |
+| roadevents-yell.json | cd5673cafa44893e0161a4c1c35e0c21794492e52f4ff11a59b7db4250f7b5c9 |
 | thingstodo-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | thingstodo-page-first.json | 84da2d8510aca676afc2d8fca68f82c358c3bf79c9687cf160304e8de1c14544 |
 | thingstodo-page-last.json | 844a678ac81713b3128ed806fad66718223cf39bd9c83d4e1efa37064fa55c50 |
@@ -262,6 +276,26 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   specification types related organizations as untyped objects and omits amenities, so their
   element shape is unknown; the typed model does not decode either field, and they are ignored like
   other unknown fields.
+- `/roadevents` sends no NPS envelope. It returns a WZDx 4.1 GeoJSON `FeatureCollection` with
+  `road_event_feed_info`, `features`, and `type`, snake_case keys throughout, and no pagination.
+  The specification lists `parkCode` and `type`; both are optional, and a request with neither
+  returns every park's events. `type` accepts `WorkZone`, `Detour`, `Restriction`, and `Incident`
+  case-insensitively and answers `work-zone`, the WZDx spelling, and other values with HTTP 400.
+  A valid type with no matches, such as `Detour` for yell, returns an empty feed with HTTP 200.
+- `parkCode` takes one code. An unrecognized code, including a comma-separated list such as
+  `yell,mora`, is ignored and the response is the full feed of every park, 607,279 bytes and 68
+  features from 13 data sources when measured, while a recognized code with no events, such as
+  acad, returns an empty feed. The dewa recording is one park's feed of 8 features.
+- Every recorded geometry is a `LineString` of two-number `[longitude, latitude]` positions. Each
+  feature's `properties` carry both `Id`, a UUID string, and `_id`, a number. `_id` counts from 0
+  within a response: a dewa feature carries 0 in its park's feed and 51 in the full feed, so it is
+  not a stable identifier. `end_date` is absent from some features. Incidents carry
+  `types_of_incident`, an array of `{description, incident_category, incident_type}` the
+  specification does not describe; one of 37 incidents in the full feed omits it. Work zones carry
+  `types_of_work`, an array of `{type_name}`. `road_names` is an array of strings.
+- The feed and data source contacts are organizational mailboxes such as `asknps@nps.gov` and
+  `dewa_Superintendent@nps.gov`, kept as sent. The feed `update_date` predates its events. The data
+  is licensed under the Creative Commons URL in `license`.
 - The live tours body uses the same envelope. `/tours` accepts id, parkCode, stateCode, q, limit,
   start, and sort; `relevanceScore` is the only sort field the live service accepts, and the
   search recording sends `-relevanceScore` alongside every filter. The cavo pages report total 4,

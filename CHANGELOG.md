@@ -19,6 +19,12 @@ All notable changes are documented here. This project follows
   endpoint rejects every sort value with HTTP 400, so PlaceQuery has no sort parameter. Place keeps
   the provider's four string flags, all three coordinate representations, and both image crop
   forms, which one places response sends together.
+- Road events: RoadEventFeed, RoadEventFeedInfo, RoadEventDataSource, RoadEventFeature,
+  RoadEventDetails, RoadEventType, Endpoint.roadEvents(parkCode:type:),
+  NPSDataRequest.roadEvents(parkCode:type:), and NPSDataClient.roadEvents(parkCode:type:), a single
+  response decoding the WZDx 4.1 feed with recorded responses. RoadEventType sends the provider's
+  spelling, such as `WorkZone`. RoadEventDetails keeps both provider identifiers, `Id` and `_id`,
+  and incident and work types.
 - Tours: Tour, Tour.Stop, TourQuery, Endpoint.tours(query:), NPSDataRequest.tours(query:), and
   the lazy NPSDataClient.tourPages(query:) and tours(query:), with recorded tours responses.
   TourQuery sorts by `relevanceScore`, the only field the live service accepts, and sends sort
