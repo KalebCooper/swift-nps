@@ -28,27 +28,40 @@ public struct AmenityParkPlaces: Codable, Hashable, Sendable {
   }
 
   /// A park offering the amenity, as NPS summarizes it, with the places that offer it.
+  ///
+  /// The provider sends one flat object: the ``NPSRelatedPark`` fields alongside `places`. The
+  /// park summary decodes from that same object, so `park` is never nil, and the places array
+  /// is kept in provider order.
   public struct RelatedPark: Codable, Hashable, Sendable {
-    /// The park designation, such as `"National Park"`.
-    public let designation: String?
+    private enum CodingKeys: String, CodingKey {
+      case places
+    }
 
-    /// The full park name, including its designation.
-    public let fullName: String?
-
-    /// The short park name.
-    public let name: String?
-
-    /// The park code text, including codes unknown to this package.
-    public let parkCode: String?
+    /// The park summary, read from the same object as the places.
+    public let park: NPSRelatedPark
 
     /// Places in the park offering the amenity, in provider order.
     public let places: [Place]?
 
-    /// The comma-separated state text, without splitting or sorting.
-    public let states: String?
+    /// Decodes the park summary and its places from one provider object.
+    ///
+    /// - Parameter decoder: The decoder positioned at the park entry.
+    /// - Throws: `DecodingError` when the object is malformed.
+    public init(from decoder: any Decoder) throws {
+      park = try NPSRelatedPark(from: decoder)
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+      places = try container.decodeIfPresent([Place].self, forKey: .places)
+    }
 
-    /// The park's public website URL text.
-    public let url: String?
+    /// Encodes the park summary and its places into one object, matching the provider's shape.
+    ///
+    /// - Parameter encoder: The encoder to write the park entry into.
+    /// - Throws: `EncodingError` when a value cannot be encoded.
+    public func encode(to encoder: any Encoder) throws {
+      try park.encode(to: encoder)
+      var container = encoder.container(keyedBy: CodingKeys.self)
+      try container.encodeIfPresent(places, forKey: .places)
+    }
   }
 
   /// The provider's amenity identifier, preserved as sent.

@@ -4,24 +4,6 @@
 /// null values without substituting empty strings or arrays. Codes, coordinates, costs, links,
 /// and dates retain their provider representation. Unknown JSON fields are ignored by Codable.
 public struct Park: Codable, Hashable, Sendable {
-  /// An image reference, including its attribution and accessibility text.
-  public struct Image: Codable, Hashable, Sendable {
-    /// The alternative text.
-    public let altText: String?
-
-    /// The original caption.
-    public let caption: String?
-
-    /// The attribution; upstream rights still apply.
-    public let credit: String?
-
-    /// The image title.
-    public let title: String?
-
-    /// The image URL text, not an API endpoint.
-    public let url: String?
-  }
-
   /// Activities identified by NPS.
   public let activities: [NPSNamedItem]?
 
@@ -55,8 +37,8 @@ public struct Park: Codable, Hashable, Sendable {
   /// The park identifier, preserved without UUID parsing.
   public let id: String
 
-  /// Image references and attribution.
-  public let images: [Image]?
+  /// Image references and attribution, without crops or descriptions on this path.
+  public let images: [NPSImage]?
 
   /// The combined coordinate text without parsing.
   public let latLong: String?

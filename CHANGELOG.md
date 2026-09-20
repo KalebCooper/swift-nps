@@ -6,6 +6,29 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+### Added
+
+- NPSRelatedPark, the park summary NPS attaches to records from other groups, with `states` kept
+  as the provider's comma-joined text.
+- NPSImage.description and NPSImageCrop.ratio, the aspect ratio parsed as a number when the
+  provider's text is numeric.
+- NPSQuickFact, NPSRelatedOrganization, and NPSConstraintsInfo, decoded shapes for groups not yet
+  queried.
+
+### Changed
+
+- NPSImageCrop.aspectRatio is `String?`: a JSON string is stored exactly as sent and a JSON number
+  as its decimal text, because NPS sends both forms across and within responses.
+- Replace NPSPassportStampImage with NPSImage; Campground.passportStampImages and
+  VisitorCenter.passportStampImages are `[NPSImage]?`.
+- Replace Park.Image with NPSImage; Park.images is `[NPSImage]?`.
+- Replace ThingToDo.Image and ThingToDo.ImageCrop with NPSImage and NPSImageCrop;
+  ThingToDo.images is `[NPSImage]?`.
+- Replace ThingToDo.RelatedPark with NPSRelatedPark; ThingToDo.relatedParks is `[NPSRelatedPark]?`.
+- AmenityParkPlaces.RelatedPark and AmenityParkVisitorCenters.RelatedPark hold the park summary as
+  `park: NPSRelatedPark` beside their `places` or `visitorCenters` array instead of restating its
+  fields.
+
 ## [0.3.0] - 2026-09-20
 
 ### Added

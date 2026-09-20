@@ -138,7 +138,8 @@ struct VisitorCenterTests {
         == "https://www.nps.gov/common/uploads/passport_stamps/A9AB785F-C6A1-6E84-86ABC93D2D3DB797.jpeg"
     )
     let crop = try #require(stamp.crops?.first)
-    #expect(crop.aspectRatio == 1.0)
+    #expect(crop.aspectRatio == "1.0")
+    #expect(crop.ratio == 1.0)
     #expect(
       crop.url
         == "https://www.nps.gov/common/uploads/passport_stamps/primary/"

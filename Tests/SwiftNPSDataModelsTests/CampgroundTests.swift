@@ -72,7 +72,7 @@ struct CampgroundTests {
     let campground = try #require(try decode(.campgroundsPageLast).data.first)
     let fees: [[NPSFee]?] = [park.entranceFees, park.entrancePasses, campground.fees]
     let images: [[NPSImage]?] = [center.images, campground.images]
-    let stamps: [[NPSPassportStampImage]?] = [
+    let stamps: [[NPSImage]?] = [
       center.passportStampImages, campground.passportStampImages,
     ]
     let addresses: [[NPSAddress]?] = [park.addresses, center.addresses, campground.addresses]
@@ -184,7 +184,8 @@ struct CampgroundTests {
     #expect(stamp.credit == "")
     #expect(stamp.description == "")
     let crop = try #require(stamp.crops?.first)
-    #expect(crop.aspectRatio == 1.0)
+    #expect(crop.aspectRatio == "1.0")
+    #expect(crop.ratio == 1.0)
     #expect(
       crop.url
         == "https://www.nps.gov/common/uploads/passport_stamps/primary/"

@@ -192,7 +192,8 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   live body. The specification spells `arePetsPermittedwithRestrictions`; the live key is
   `arePetsPermittedWithRestrictions`. The specification spells the crop key `aspectratio` and types
   it as an integer; the live key is `aspectRatio` and its value is a string such as `"1.78"` or
-  `"1"`. Live images also carry a `description`, and the live body sends `credit` and `amenities`,
+  `"1"`. The visitor center and campground notes above record the other half of this divergence:
+  those paths send a JSON number. Live images also carry a `description`, and the live body sends `credit` and `amenities`,
   none of which the specification lists. Flags such as `isReservationRequired` are the strings
   `"true"` and `"false"`, and coordinates, `age`, `duration`, and `geometryPoiId` are often empty
   strings.

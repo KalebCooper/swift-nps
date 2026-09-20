@@ -98,6 +98,20 @@ offset-paginated endpoint. The last three are strings in recorded NPS responses.
 decoding preserves metadata even when it cannot be used for pagination, and never selects a
 first result automatically.
 
+### Shared shapes
+
+Shapes the provider sends identically across groups are top-level `NPS` types. ``NPSImage`` is
+the one image type: every image object NPS sends is a variant that differs only by whether
+`crops` and `description` are present, and each missing key decodes to nil. Its crops are
+``NPSImageCrop``, whose ``NPSImageCrop/aspectRatio`` is text because the provider sends a JSON
+number on some paths (`/parks`, `/campgrounds`, `/visitorcenters`) and a JSON string on others
+(`/thingstodo`), and can mix both in one response; a string is stored exactly as sent and a number
+as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric. ``NPSRelatedPark`` is
+the park summary attached to records from other groups, with `states` kept as the provider's
+comma-joined text. ``NPSQuickFact``, ``NPSRelatedOrganization``, and ``NPSConstraintsInfo`` are
+decoded shapes for groups this package does not yet query; they are documented only as the
+provider sends them.
+
 ### Alerts
 
 ``AlertQuery`` describes all five documented alerts parameters: park codes, state codes, text
@@ -129,10 +143,11 @@ extra array: every element of a page's `data` is one amenity's group, observed s
 entry each. Their pages are therefore `NPSCollection<[AmenityParkPlaces]>` and
 `NPSCollection<[AmenityParkVisitorCenters]>`, kept as sent; ``NPSCollectionQuery/next(after:)``
 advances by the number of groups, which the live service counts against `limit`. Each entry lists
-parks as ``AmenityParkPlaces/RelatedPark`` or ``AmenityParkVisitorCenters/RelatedPark`` summaries
-carrying ``AmenityParkPlaces/Place`` or ``AmenityParkVisitorCenters/VisitorCenterSummary`` values,
-read from the lowercase `visitorcenters` key. These summaries carry links, so they are not
-``NPSNamedItem``. Unknown JSON fields are ignored.
+parks as ``AmenityParkPlaces/RelatedPark`` or ``AmenityParkVisitorCenters/RelatedPark`` entries,
+each holding an ``NPSRelatedPark`` summary decoded from the same flat provider object alongside
+``AmenityParkPlaces/Place`` or ``AmenityParkVisitorCenters/VisitorCenterSummary`` values, read
+from the lowercase `visitorcenters` key. Places and visitor center summaries carry links, so they
+are not ``NPSNamedItem``. Unknown JSON fields are ignored.
 
 The specification and real responses were checked on September 17, 2026. The live responses carry
 `categories` on amenities and the extra group array on the park endpoints, and the models follow
@@ -151,7 +166,8 @@ Campgrounds pages are `NPSCollection<Campground>`, from ``Endpoint/campgrounds(q
 unknown JSON fields are ignored. Addresses, contacts, multimedia, and operating hours use the
 shared ``NPSAddress``, ``NPSContacts``, ``NPSMultimedia``, and ``NPSOperatingHours`` types.
 Fees are ``NPSFee``, the same shape as park entrance fees and passes; images and passport stamp
-images are ``NPSImage`` and ``NPSPassportStampImage``, the same as visitor centers.
+images are both ``NPSImage``, the same as visitor centers, with numeric crop aspect ratios stored
+as text.
 ``Campground/Accessibility``, ``Campground/Amenities``, and ``Campground/Campsites`` keep every
 value as sent: flags such as `rvAllowed` stay `"0"` or `"1"`, lengths and site counts stay text,
 and amenity descriptions such as `"Yes - seasonal"` stay open strings. The provider's lowercase
@@ -179,7 +195,8 @@ no continuation.
 ``Park`` requires identity and names, while other documented fields remain optional.
 Missing and null optional fields decode to nil; empty strings and arrays stay empty.
 Coordinates, costs, dates, links, and comma-separated states stay in their provider form.
-Activities and topics are ``NPSNamedItem`` values, the same shape things to do use. Open address,
+Activities and topics are ``NPSNamedItem`` values, the same shape things to do use. Images are
+``NPSImage`` values without crops or descriptions on this path. Open address,
 phone, activity, and topic identifiers are not closed enums. Unknown JSON fields,
 including the currently undocumented `fees` field, are ignored by the typed model.
 
@@ -205,9 +222,9 @@ fields are still sent without validation, so that failure comes from NPS rather 
 
 ``ThingToDo`` requires an identifier and title; other documented fields remain optional, and
 unknown JSON fields are ignored. Activities and topics are ``NPSNamedItem``, the same as parks.
-Images carry a description and crops whose aspect ratio is text such as `"1.78"`, so they are
-``ThingToDo/Image`` and ``ThingToDo/ImageCrop`` rather than the shared ``NPSImage``. Related parks
-are ``ThingToDo/RelatedPark`` summaries. Flags such as `isReservationRequired` and `doFeesApply`
+Images are the shared ``NPSImage``; on this path they carry a description and crops whose aspect
+ratio arrives as text such as `"1.78"`, which ``NPSImageCrop`` keeps as sent. Related parks are
+``NPSRelatedPark`` summaries. Flags such as `isReservationRequired` and `doFeesApply`
 stay the provider's `"true"` or `"false"` text, and coordinates, durations, and descriptions stay
 as sent, including empty strings and HTML. The `relatedOrganizations` and `amenities` arrays are
 empty in every recorded response, so their element shape is unknown and they are not decoded.
@@ -229,8 +246,8 @@ text. Visitor centers pages are `NPSCollection<VisitorCenter>`, from
 ``VisitorCenter`` requires an identifier and name; other documented fields remain optional, and
 unknown JSON fields are ignored. Addresses, contacts, multimedia, and operating hours use the same
 ``NPSAddress``, ``NPSContacts``, ``NPSMultimedia``, and ``NPSOperatingHours`` types as ``Park``.
-Visitor center images add published crops, so they are the shared ``NPSImage`` rather than the
-park image type, and passport stamp images are ``NPSPassportStampImage``. The passport stamp flag
+Visitor center images and passport stamp images are both the shared ``NPSImage``; stamp crops
+carry a numeric aspect ratio the crop stores as text. The passport stamp flag
 stays the provider's `"0"` or `"1"` string, and coordinates, links, and `lastIndexedDate` stay as
 sent, including empty strings. The specification and real responses were checked on September 17,
 2026. The specification declares `contacts` an array of strings and the passport stamp flag a
@@ -292,6 +309,7 @@ NPS data describes destinations, not live reservation availability, freshness, o
 ### Shared park and facility details
 
 - ``NPSAddress``
+- ``NPSConstraintsInfo``
 - ``NPSContacts``
 - ``NPSEmailAddress``
 - ``NPSFee``
@@ -301,8 +319,10 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``NPSNamedItem``
 - ``NPSOperatingHours``
 - ``NPSOperatingHoursException``
-- ``NPSPassportStampImage``
 - ``NPSPhoneNumber``
+- ``NPSQuickFact``
+- ``NPSRelatedOrganization``
+- ``NPSRelatedPark``
 
 ### Things to Do
 

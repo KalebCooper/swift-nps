@@ -17,38 +17,43 @@
 /// ```
 public struct AmenityParkVisitorCenters: Codable, Hashable, Sendable {
   /// A park offering the amenity, as NPS summarizes it, with the visitor centers that offer it.
+  ///
+  /// The provider sends one flat object: the ``NPSRelatedPark`` fields alongside the lowercase
+  /// `visitorcenters` key. The park summary decodes from that same object, so `park` is never
+  /// nil, and the visitor centers array is kept in provider order.
   public struct RelatedPark: Codable, Hashable, Sendable {
     private enum CodingKeys: String, CodingKey {
-      case designation
-      case fullName
-      case name
-      case parkCode
-      case states
-      case url
       case visitorCenters = "visitorcenters"
     }
 
-    /// The park designation, such as `"National Park"`.
-    public let designation: String?
-
-    /// The full park name, including its designation.
-    public let fullName: String?
-
-    /// The short park name.
-    public let name: String?
-
-    /// The park code text, including codes unknown to this package.
-    public let parkCode: String?
-
-    /// The comma-separated state text, without splitting or sorting.
-    public let states: String?
-
-    /// The park's public website URL text.
-    public let url: String?
+    /// The park summary, read from the same object as the visitor centers.
+    public let park: NPSRelatedPark
 
     /// Visitor centers in the park offering the amenity, in provider order, from the lowercase
     /// `visitorcenters` key.
     public let visitorCenters: [VisitorCenterSummary]?
+
+    /// Decodes the park summary and its visitor centers from one provider object.
+    ///
+    /// - Parameter decoder: The decoder positioned at the park entry.
+    /// - Throws: `DecodingError` when the object is malformed.
+    public init(from decoder: any Decoder) throws {
+      park = try NPSRelatedPark(from: decoder)
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+      visitorCenters = try container.decodeIfPresent(
+        [VisitorCenterSummary].self, forKey: .visitorCenters)
+    }
+
+    /// Encodes the park summary and its visitor centers into one object, matching the
+    /// provider's shape.
+    ///
+    /// - Parameter encoder: The encoder to write the park entry into.
+    /// - Throws: `EncodingError` when a value cannot be encoded.
+    public func encode(to encoder: any Encoder) throws {
+      try park.encode(to: encoder)
+      var container = encoder.container(keyedBy: CodingKeys.self)
+      try container.encodeIfPresent(visitorCenters, forKey: .visitorCenters)
+    }
   }
 
   /// A visitor center where NPS lists the amenity, as NPS summarizes it.

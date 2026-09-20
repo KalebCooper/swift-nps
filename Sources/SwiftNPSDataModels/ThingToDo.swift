@@ -17,65 +17,6 @@
 /// }
 /// ```
 public struct ThingToDo: Codable, Hashable, Sendable {
-  /// An image reference with attribution, accessibility text, and published crops.
-  ///
-  /// Things to do images carry a description and crops whose aspect ratio is text, so they are not
-  /// the shared ``NPSImage``. Upstream rights still apply.
-  public struct Image: Codable, Hashable, Sendable {
-    /// The alternative text.
-    public let altText: String?
-
-    /// The original caption, including an empty string.
-    public let caption: String?
-
-    /// The attribution, including an empty string; upstream rights still apply.
-    public let credit: String?
-
-    /// Published crops, including an empty array, or nil when absent.
-    public let crops: [ImageCrop]?
-
-    /// The provider's description, including an empty string.
-    public let description: String?
-
-    /// The image title.
-    public let title: String?
-
-    /// The image URL text, not an API endpoint.
-    public let url: String?
-  }
-
-  /// A published crop of a things to do image.
-  ///
-  /// The aspect ratio arrives as text, such as `"1.78"`, and is kept as sent.
-  public struct ImageCrop: Codable, Hashable, Sendable {
-    /// The width-to-height ratio text, without numeric conversion.
-    public let aspectRatio: String?
-
-    /// The cropped image URL text, not an API endpoint.
-    public let url: String?
-  }
-
-  /// A park associated with a thing to do, as NPS summarizes it.
-  public struct RelatedPark: Codable, Hashable, Sendable {
-    /// The park designation, such as `"National Park"`.
-    public let designation: String?
-
-    /// The full park name, including its designation.
-    public let fullName: String?
-
-    /// The short park name.
-    public let name: String?
-
-    /// The park code text, including codes unknown to this package.
-    public let parkCode: String?
-
-    /// The comma-separated state text, without splitting or sorting.
-    public let states: String?
-
-    /// The park's public website URL text.
-    public let url: String?
-  }
-
   /// Accessibility information, which may contain HTML.
   public let accessibilityInformation: String?
 
@@ -118,8 +59,8 @@ public struct ThingToDo: Codable, Hashable, Sendable {
   /// The provider's thing to do identifier.
   public let id: String
 
-  /// Published images.
-  public let images: [Image]?
+  /// Published images, whose crop aspect ratios arrive as text on this path.
+  public let images: [NPSImage]?
 
   /// The provider's `"true"` or `"false"` text for whether a reservation is required.
   public let isReservationRequired: String?
@@ -143,7 +84,7 @@ public struct ThingToDo: Codable, Hashable, Sendable {
   public let petsDescription: String?
 
   /// Parks associated with this thing to do.
-  public let relatedParks: [RelatedPark]?
+  public let relatedParks: [NPSRelatedPark]?
 
   /// The provider's numeric relevance score, when supplied.
   public let relevanceScore: Double?

@@ -70,7 +70,7 @@ public struct VisitorCenter: Codable, Hashable, Sendable {
   public let parkCode: String?
 
   /// Passport stamp images, including an empty array, or nil when absent.
-  public let passportStampImages: [NPSPassportStampImage]?
+  public let passportStampImages: [NPSImage]?
 
   /// The provider's passport stamp description, including an empty string.
   public let passportStampLocationDescription: String?
