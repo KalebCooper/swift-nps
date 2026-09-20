@@ -163,6 +163,20 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 17, 2026.
   case visitorCentersSearch = "visitorcenters-search"
 
+  /// GET /api/v1/webcams?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 20, 2026.
+  case webcamsEmpty = "webcams-empty"
+
+  /// GET /api/v1/webcams?limit=1&parkCode=grte&start=0; HTTP 200. Recorded September 20, 2026.
+  case webcamsPageFirst = "webcams-page-first"
+
+  /// GET /api/v1/webcams?limit=1&parkCode=grte&start=1; HTTP 200. Recorded September 20, 2026.
+  case webcamsPageLast = "webcams-page-last"
+
+  /// GET /api/v1/webcams?id=9849DE2B-BC23-1110-33CED7C04E8AAF05&limit=2&parkCode=gumo&q=Capitan
+  /// &start=0&stateCode=TX; HTTP 200. Recorded September 20, 2026.
+  case webcamsSearch = "webcams-search"
+
   /// Reads the recorded JSON response; see Fixtures/README.md for lossless escaping.
   package func data() throws -> Data {
     guard

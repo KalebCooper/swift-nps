@@ -26,7 +26,11 @@ support identifiers, park codes, state codes, text search, sorting, and paginati
 `tourPages` and `tours` sequences; `relevanceScore` is the only sort field the live service
 accepts. Each tour links one park, and durations and stop ordinals stay provider text. Visitor centers
 queries support park codes, state codes, text search, sorting, and pagination through lazy
-`visitorCenterPages` and `visitorCenters` sequences. The package includes required API-key
+`visitorCenterPages` and `visitorCenters` sequences. Webcams queries support identifiers, park
+codes, state codes, text search, and pagination through lazy `webcamPages` and `webcams`
+sequences; the endpoint rejects every sort value with HTTP 400, so the query offers none. The
+streaming flag stays a Boolean and coordinates stay numbers or null, and a webcam's coordinates
+are not guaranteed to locate the camera. The package includes required API-key
 configuration, typed failures, and recorded-response tests. Other endpoint groups are not
 implemented.
 
@@ -125,8 +129,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, places, things to do, tours, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, place, thing to do, tour, visitor center, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, places, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, place, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 

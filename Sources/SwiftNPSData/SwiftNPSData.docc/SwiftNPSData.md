@@ -20,7 +20,7 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, campgrounds, parks, places, things to do, tours, and visitor centers are the implemented
+Alerts, amenities, campgrounds, parks, places, things to do, tours, visitor centers, and webcams are the implemented
 endpoint groups. They are built on a generic collection core that executes any offset-paginated NPS collection the same way.
 
 ### Collection execution
@@ -234,6 +234,25 @@ let samePage = try await client.send(.visitorCenters(query: query))
 
 Published operating hours are descriptive text, not a live open-or-closed status.
 
+### Webcams
+
+``NPSDataClient/webcams(query:)`` and ``NPSDataClient/webcamPages(query:)`` search `/webcams` by
+identifiers, park codes, state codes, and text. Each page is `NPSCollection<Webcam>`. The live
+endpoint answers every sort value with HTTP 400, so `WebcamQuery` has no sort parameter:
+
+```swift
+let query = try WebcamQuery(parkCodes: [ParkCode("grte")])
+for try await webcam in client.webcams(query: query) {
+  print(webcam.title, webcam.status ?? "", webcam.isStreaming ?? false)
+}
+let request = NPSDataRequest.webcams(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.webcams(query: query))
+```
+
+A webcam's status and streaming flag are published values, not a live check that the camera is
+reachable, and its coordinates are not guaranteed to locate the camera.
+
 ### Authentication and failures
 
 [NPS requires an API key](https://www.nps.gov/subjects/developer/guides.htm).
@@ -321,6 +340,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/visitorCenters(query:)``
 - ``NPSDataClient/visitorCenterPages(query:)``
+
+### Webcams
+
+- ``NPSDataClient/webcams(query:)``
+- ``NPSDataClient/webcamPages(query:)``
 
 ### Errors
 

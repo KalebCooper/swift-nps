@@ -2,7 +2,7 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(places and tours) using the application identity
+(places, tours, and webcams) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -50,6 +50,10 @@ not examples copied from the specification. Tests read them locally and never co
 | visitorcenters-page-first.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | visitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | visitorcenters-search.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=2&q=museum&sort=name&start=0&stateCode=ME,MA | 200 |
+| webcams-empty.json | GET https://developer.nps.gov/api/v1/webcams?limit=1&parkCode=zzzz&start=0 | 200 |
+| webcams-page-first.json | GET https://developer.nps.gov/api/v1/webcams?limit=1&parkCode=grte&start=0 | 200 |
+| webcams-page-last.json | GET https://developer.nps.gov/api/v1/webcams?limit=1&parkCode=grte&start=1 | 200 |
+| webcams-search.json | GET https://developer.nps.gov/api/v1/webcams?id=9849DE2B-BC23-1110-33CED7C04E8AAF05&limit=2&parkCode=gumo&q=Capitan&start=0&stateCode=TX | 200 |
 
 Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
 visitor centers recordings used the service's public demonstration credential, which reported a
@@ -105,6 +109,12 @@ and `1.0` as written. They are ASCII throughout and contain no escapes. The empt
 byte-identical to the other empty recordings. Decoded values were compared with the downloads and
 are identical.
 
+The webcams recordings arrived with CRLF line endings, blank lines, and commas leading each line,
+and are reindented the same way, keeping the provider's key order, the escaped quotation marks in
+the search description, and the coordinates and `null` values as written. They are ASCII
+throughout. The empty recording is byte-identical to the other empty recordings. Decoded values
+were compared with the downloads and are identical.
+
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -154,6 +164,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | visitorcenters-page-first.json | 74e3a748da6a6cef310f6f4264681303e5fef66b8372a3bdbf3acc7665f8c7d8 |
 | visitorcenters-page-last.json | 5584ce01ec607b53c20dc90e5faa0e8037edff031c7e37499e37c46f15d0eb7e |
 | visitorcenters-search.json | 1202e83cb3141b0e2fd4c0ba8b03b9cc1338b168f1eb0640ba0376140cb5c441 |
+| webcams-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| webcams-page-first.json | 2d10a5360308523cdf982b1154ca717a90ac145e37f850735a7bba39cee91c90 |
+| webcams-page-last.json | 630a3097d90d640fccf795eaaf5a41a25a6c3241c6c6d7c5868f1e03136ce1c4 |
+| webcams-search.json | a721995468f50de86e66be08134e4313debd7312e8c631d9862d03e9b5b6b6fe |
 
 ## Contract notes
 
@@ -261,6 +275,16 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   as recorded. Every recorded stop `assetType` is `"places"`; a scan of 500 live tours also found
   `"visitorcenters"` and `"campgrounds"`, and `durationUnit` values `"m"`, `"h"`, and `"d"`, so both
   stay open strings.
+- The live webcams body uses the same envelope. `/webcams` accepts id, parkCode, stateCode, q,
+  limit, and start; every `sort` value tried answers HTTP 400, so the query sends none. The grte
+  pages report total 3, so the two recorded pages are the first two of three, and the search
+  reports total 1.
+- `isStreaming` is a JSON boolean: `true` on the first grte page and `false` on the second and in
+  the search. `latitude` and `longitude` are JSON numbers, such as `31.923355102539062`, or JSON
+  `null`, as both grte cameras send. Several cameras in one park can share a coordinate, so a
+  coordinate is not a per-camera location. `status` is `"Active"` or `"Inactive"` in these
+  recordings and stays an open string. The search image carries `crops: []`, an empty
+  `description`, and a `url` beginning `https://www.nps.govhttps://www.nps.gov/`, all as sent.
 - The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,
   with no park, state, or sort parameter. The specification lists `id` and `name` for an amenity;
   the live body also sends a `categories` array of strings, such as `["Convenience", "Souvenirs

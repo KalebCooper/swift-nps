@@ -5,7 +5,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-campgrounds, parks, places, things to do, tours, and visitor centers are the implemented endpoint groups, built on a generic
+campgrounds, parks, places, things to do, tours, visitor centers, and webcams are the implemented endpoint groups, built on a generic
 core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -306,6 +306,26 @@ sent, including empty strings. The specification and real responses were checked
 2026. The specification declares `contacts` an array of strings and the passport stamp flag a
 Boolean; the live responses send a contacts object and a string flag, which the model follows.
 
+### Webcams
+
+``WebcamQuery`` describes all six webcams parameters: identifiers, park codes, state codes, text
+search, page limit, and start offset. Identifiers are ``NPSIdentifier`` values sent as `id`. Empty
+identifier and code arrays omit the parameter, and search text is preserved and percent encoded,
+including empty text. Webcams pages are `NPSCollection<Webcam>`, from ``Endpoint/webcams(query:)``
+or ``NPSDataRequest/webcams(query:)``. The live endpoint answers every sort value with HTTP 400, so
+the query has no sort parameter.
+
+``Webcam`` requires an identifier and title; other documented fields remain optional, and unknown
+JSON fields are ignored. Each field keeps the provider's own JSON type. ``Webcam/isStreaming`` is a
+JSON Boolean, unlike the `"0"` and `"1"` text flags places send. ``Webcam/latitude`` and
+``Webcam/longitude`` are JSON numbers or `null`, unlike the coordinate text places send; no shared
+coordinate type exists. The API does not guarantee a per-camera location: several cameras in one
+park can share one coordinate, which is kept as sent. ``Webcam/status`` is open text such as
+`"Active"` or `"Inactive"`. Parks are ``NPSRelatedPark`` values in ``Webcam/relatedParks``, tags
+are strings, and images are the shared ``NPSImage`` with its URL text kept exactly as sent.
+
+Real responses were recorded on September 20, 2026.
+
 ### Endpoint boundaries
 
 ``Endpoint/init(path:)`` accepts only relative paths without fragments, traversal, or an
@@ -396,3 +416,8 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``VisitorCenter``
 - ``VisitorCenterQuery``
+
+### Webcams
+
+- ``Webcam``
+- ``WebcamQuery``

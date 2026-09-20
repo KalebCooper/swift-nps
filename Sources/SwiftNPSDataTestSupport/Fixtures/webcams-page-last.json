@@ -1,0 +1,32 @@
+{
+  "total": "3",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "81B46A95-1DD8-B71B-0B8F152DC0EE9CB0",
+      "url": "https://www.nps.gov/media/webcam/view.htm?id=81B46A95-1DD8-B71B-0B8F152DC0EE9CB0",
+      "title": "NPS Air Resources",
+      "description": "The NPS Air Resources Division maintains a webcam on the east side of Grand Teton National Park, near Teton Science Schools Kelly Campus.",
+      "images": [],
+      "relatedParks": [
+        {
+          "states": "WY",
+          "parkCode": "grte",
+          "designation": "National Park",
+          "fullName": "Grand Teton National Park",
+          "url": "https://www.nps.gov/grte/index.htm",
+          "name": "Grand Teton"
+        }
+      ],
+      "status": "Inactive",
+      "statusMessage": "",
+      "isStreaming": false,
+      "tags": [],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "credit": ""
+    }
+  ]
+}

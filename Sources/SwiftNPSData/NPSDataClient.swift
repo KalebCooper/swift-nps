@@ -16,10 +16,10 @@ import SwiftNPSDataModels
 /// ``amenityParkVisitorCenterPages(query:)``, ``amenityParkVisitorCenters(query:)``,
 /// ``campgroundPages(query:)``, ``campgrounds(query:)``, ``parkPages(query:)``, ``parks(query:)``,
 /// ``placePages(query:)``, ``places(query:)``, ``thingToDoPages(query:)``, ``thingsToDo(query:)``,
-/// ``tourPages(query:)``, ``tours(query:)``, ``visitorCenterPages(query:)``, or
-/// ``visitorCenters(query:)`` for lazy pagination of one group, or ``pages(for:)`` and
-/// ``items(for:)`` for any collection request. No retries or redirects are performed
-/// automatically.
+/// ``tourPages(query:)``, ``tours(query:)``, ``visitorCenterPages(query:)``,
+/// ``visitorCenters(query:)``, ``webcamPages(query:)``, or ``webcams(query:)`` for lazy
+/// pagination of one group, or ``pages(for:)`` and ``items(for:)`` for any collection request. No
+/// retries or redirects are performed automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration
@@ -252,6 +252,20 @@ public struct NPSDataClient: Sendable {
   ///   ``NPSDataError``.
   public func visitorCenters(query: VisitorCenterQuery) -> NPSItemSequence<VisitorCenter> {
     items(for: .visitorCenters(query: query))
+  }
+
+  /// Iterates complete webcams pages with identifiers, filters, and explicit pagination.
+  /// - Parameter query: Validated options shared by each request except its advancing offset.
+  /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
+  public func webcamPages(query: WebcamQuery) -> NPSPageSequence<Webcam> {
+    pages(for: .webcams(query: query))
+  }
+
+  /// Iterates individual webcams, fetching the next page only when needed.
+  /// - Parameter query: Validated query options, including page size and starting offset.
+  /// - Returns: Webcams in provider order, without deduplication, throwing ``NPSDataError``.
+  public func webcams(query: WebcamQuery) -> NPSItemSequence<Webcam> {
+    items(for: .webcams(query: query))
   }
 
   /// Sends one endpoint and decodes its body as the endpoint's response type.

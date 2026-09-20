@@ -1,0 +1,45 @@
+{
+  "total": "1",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "9849DE2B-BC23-1110-33CED7C04E8AAF05",
+      "url": "https://www.nps.gov/media/webcam/view.htm?id=9849DE2B-BC23-1110-33CED7C04E8AAF05",
+      "title": "El Capitan View",
+      "description": "View from the Pine Springs area towards the southwest and the profile of El Capitan - \"View Webcam\" link opens a larger picture that updates every 30 seconds.",
+      "images": [
+        {
+          "url": "https://www.nps.govhttps://www.nps.gov/common/uploads/cropped_image/357C0EB9-B5B4-D7E7-9AC756993AC6DD18.jpg",
+          "credit": "",
+          "altText": "El Capitan View View from the Pine Springs area towards the southwest",
+          "title": "",
+          "description": "",
+          "caption": "",
+          "crops": []
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "TX",
+          "parkCode": "gumo",
+          "designation": "National Park",
+          "fullName": "Guadalupe Mountains National Park",
+          "url": "https://www.nps.gov/gumo/index.htm",
+          "name": "Guadalupe Mountains"
+        }
+      ],
+      "status": "Active",
+      "statusMessage": "",
+      "isStreaming": false,
+      "tags": [
+        "Texas",
+        "Guadalupe Mountains"
+      ],
+      "latitude": 31.923355102539062,
+      "longitude": -104.87138366699219,
+      "geometryPoiId": "",
+      "credit": ""
+    }
+  ]
+}

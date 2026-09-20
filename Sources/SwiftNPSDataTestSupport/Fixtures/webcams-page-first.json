@@ -1,0 +1,32 @@
+{
+  "total": "3",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "9603ED1D-F805-714D-AC4557683B558B00",
+      "url": "https://www.nps.gov/media/webcam/view.htm?id=9603ED1D-F805-714D-AC4557683B558B00",
+      "title": "Current view from the Craig Thomas Discovery & Visitor Center in Moose, WY",
+      "description": "This live webcam, made possible by Grand Teton National Park Foundation, offers a real-time view of the iconic Teton Range from Moose, Wyoming. Whether you're planning your next visit or simply seeking a moment of inspiration, we hope you enjoy the view of Grand Teton National Park from wherever you are!",
+      "images": [],
+      "relatedParks": [
+        {
+          "states": "WY",
+          "parkCode": "grte",
+          "designation": "National Park",
+          "fullName": "Grand Teton National Park",
+          "url": "https://www.nps.gov/grte/index.htm",
+          "name": "Grand Teton"
+        }
+      ],
+      "status": "Active",
+      "statusMessage": "",
+      "isStreaming": true,
+      "tags": [],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "credit": ""
+    }
+  ]
+}

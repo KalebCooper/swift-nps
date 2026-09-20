@@ -24,6 +24,11 @@ All notable changes are documented here. This project follows
   TourQuery sorts by `relevanceScore`, the only field the live service accepts, and sends sort
   fields without validation. Tour keeps its singular `park`, string durations and duration unit,
   and each stop's string `ordinal`.
+- Webcams: Webcam, WebcamQuery, Endpoint.webcams(query:), NPSDataRequest.webcams(query:), and the
+  lazy NPSDataClient.webcamPages(query:) and webcams(query:), with recorded webcams responses. The
+  live endpoint rejects every sort value with HTTP 400, so WebcamQuery has no sort parameter.
+  Webcam keeps the provider's Boolean `isStreaming`, numeric or null coordinates, and open `status`
+  text.
 
 ### Changed
 
