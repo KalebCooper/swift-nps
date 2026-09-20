@@ -5,7 +5,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-campgrounds, parks, things to do, and visitor centers are the implemented endpoint groups, built on a generic
+campgrounds, parks, places, things to do, tours, and visitor centers are the implemented endpoint groups, built on a generic
 core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -104,7 +104,7 @@ Shapes the provider sends identically across groups are top-level `NPS` types. `
 the one image type: every image object NPS sends is a variant that differs only by whether
 `crops` and `description` are present, and each missing key decodes to nil. Its crops are
 ``NPSImageCrop``, whose ``NPSImageCrop/aspectRatio`` is text because the provider sends a JSON
-number on some paths (`/parks`, `/campgrounds`, `/visitorcenters`) and a JSON string on others
+number on some paths (`/parks`, `/campgrounds`, `/tours`, `/visitorcenters`) and a JSON string on others
 (`/thingstodo`), and can mix both in one response; a string is stored exactly as sent and a number
 as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric. ``NPSRelatedPark`` is
 the park summary attached to records from other groups, with `states` kept as the provider's
@@ -262,6 +262,31 @@ The specification and real responses were checked on September 17, 2026. The spe
 integer, omits image descriptions, `credit`, and `amenities`, and says an invalid sort property is
 ignored; the live responses differ, and the model follows them.
 
+### Tours
+
+``TourQuery`` describes all seven tours parameters: identifiers, park codes, state codes, text
+search, sort criteria, page limit, and start offset. Identifiers are ``NPSIdentifier`` values sent
+as `id`. Empty identifier, code, and sort arrays omit the parameter, and search text is preserved
+and percent encoded, including empty text. Tours pages are `NPSCollection<Tour>`, from
+``Endpoint/tours(query:)`` or ``NPSDataRequest/tours(query:)``. `relevanceScore` is the only sort
+field the live service accepts; it answers other fields with HTTP 400. Sort fields are sent without
+validation, so that failure comes from NPS rather than the query.
+
+``Tour`` requires an identifier and title; other documented fields remain optional, and unknown
+JSON fields are ignored. A tour links one park through ``Tour/park``, a single ``NPSRelatedPark``
+rather than the array other groups send. ``Tour/durationMin`` and ``Tour/durationMax`` stay the
+provider's numeric text, measured in the separate ``Tour/durationUnit`` code such as `"m"`, `"h"`,
+or `"d"`, and nothing is converted to a duration. Activities and topics are ``NPSNamedItem``.
+Stops are ``Tour/Stop`` values in provider order: ``Tour/Stop/ordinal`` is text such as `"1"`,
+``Tour/Stop/assetType`` names the collection its ``Tour/Stop/assetId`` belongs to, such as
+`"places"` or `"visitorcenters"`, and every stop field is optional and keeps empty strings as sent.
+
+Images are the shared ``NPSImage``, without a description on this path. Tours crops send the aspect
+ratio as a JSON number, the opposite of places images, and ``NPSImageCrop`` stores it as its
+decimal text, so `1.78` becomes `"1.78"` with ``NPSImageCrop/ratio`` `1.78`.
+
+Real responses were recorded on September 20, 2026.
+
 ### Visitor Centers
 
 ``VisitorCenterQuery`` describes all six documented visitor centers parameters: park codes, state
@@ -361,6 +386,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``ThingToDo``
 - ``ThingToDoQuery``
+
+### Tours
+
+- ``Tour``
+- ``TourQuery``
 
 ### Visitor Centers
 

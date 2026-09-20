@@ -2,7 +2,7 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(places) using the application identity
+(places and tours) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -42,6 +42,10 @@ not examples copied from the specification. Tests read them locally and never co
 | thingstodo-page-first.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=0 | 200 |
 | thingstodo-page-last.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=1 | 200 |
 | thingstodo-search.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=2&q=hike&sort=-relevanceScore&start=0&stateCode=ME | 200 |
+| tours-empty.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=zzzz&start=0 | 200 |
+| tours-page-first.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=cavo&start=0 | 200 |
+| tours-page-last.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=cavo&start=1 | 200 |
+| tours-search.json | GET https://developer.nps.gov/api/v1/tours?id=7F1D5880-0FE9-5B95-492B8497DB1992A1&limit=2&parkCode=foma&q=Virtual&sort=-relevanceScore&start=0&stateCode=FL | 200 |
 | visitorcenters-empty.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=zzzz&start=0 | 200 |
 | visitorcenters-page-first.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | visitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1 | 200 |
@@ -95,6 +99,12 @@ and are left as sent; the one em dash the provider sends already arrives as the 
 The empty recording is byte-identical to the other empty recordings. Decoded values were compared
 with the downloads and are identical.
 
+The tours recordings arrived with CRLF line endings, blank lines, and commas leading each line, and
+are reindented the same way, keeping the provider's key order and the numeric aspect ratios `1.78`
+and `1.0` as written. They are ASCII throughout and contain no escapes. The empty recording is
+byte-identical to the other empty recordings. Decoded values were compared with the downloads and
+are identical.
+
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -136,6 +146,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | thingstodo-page-first.json | 84da2d8510aca676afc2d8fca68f82c358c3bf79c9687cf160304e8de1c14544 |
 | thingstodo-page-last.json | 844a678ac81713b3128ed806fad66718223cf39bd9c83d4e1efa37064fa55c50 |
 | thingstodo-search.json | df1700c73e585d46183566bcd56b9964bb7b0ca3def44c316af85428cac46731 |
+| tours-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| tours-page-first.json | fcdc5d7a9ce2645424fa3493574e72e6339cd021b591e53593cb80fecc60725e |
+| tours-page-last.json | c5e2ab0840633bc7195de8158b213196af7d672140bac8c8770de1819daa0443 |
+| tours-search.json | d7907082f538d779a24ad9f68dc768669139861fce954ed1c61d456665b1318f |
 | visitorcenters-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | visitorcenters-page-first.json | 74e3a748da6a6cef310f6f4264681303e5fef66b8372a3bdbf3acc7665f8c7d8 |
 | visitorcenters-page-last.json | 5584ce01ec607b53c20dc90e5faa0e8037edff031c7e37499e37c46f15d0eb7e |
@@ -234,6 +248,19 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   specification types related organizations as untyped objects and omits amenities, so their
   element shape is unknown; the typed model does not decode either field, and they are ignored like
   other unknown fields.
+- The live tours body uses the same envelope. `/tours` accepts id, parkCode, stateCode, q, limit,
+  start, and sort; `relevanceScore` is the only sort field the live service accepts, and the
+  search recording sends `-relevanceScore` alongside every filter. The cavo pages report total 4,
+  so the two recorded pages are the first two of four. The search reports total 1 with a score of
+  19.48063.
+- A tour links one park through a singular `park` object rather than a `relatedParks` array. Every
+  stop `ordinal` is a string such as `"1"`, and `durationMin` and `durationMax` are strings with a
+  separate `durationUnit`. Image crops carry `aspectRatio` as the numbers `1.78` and `1.0`, and no
+  image has a `description`. Empty `significance`, `directionsToNextStop`, `audioTranscript`, and
+  `audioFileUrl` strings and the search's empty `tags`, `activities`, and `topics` arrays are sent
+  as recorded. Every recorded stop `assetType` is `"places"`; a scan of 500 live tours also found
+  `"visitorcenters"` and `"campgrounds"`, and `durationUnit` values `"m"`, `"h"`, and `"d"`, so both
+  stay open strings.
 - The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,
   with no park, state, or sort parameter. The specification lists `id` and `name` for an amenity;
   the live body also sends a `categories` array of strings, such as `["Convenience", "Souvenirs

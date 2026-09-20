@@ -1,0 +1,112 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "5CCCDD98-AAA5-3105-FC512D83E4B4E076",
+      "title": "Crater Vent Trail",
+      "description": "Take a hike down to the vent that Capulin Volcano erupted from in the center of the crater! This short quarter mile trail descends 100 feet (around 30 meters) in elevation from the parking area at the top of the volcano down into the center of the crater.",
+      "park": {
+        "states": "NM",
+        "parkCode": "cavo",
+        "designation": "National Monument",
+        "fullName": "Capulin Volcano National Monument",
+        "url": "https://www.nps.gov/cavo/index.htm",
+        "name": "Capulin Volcano"
+      },
+      "tags": [
+        "volcano",
+        "trail",
+        "hiking",
+        "short hike",
+        "lava rock",
+        "volcanic vent"
+      ],
+      "type": "Standard",
+      "activities": [
+        {
+          "id": "BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA",
+          "name": "Hiking"
+        },
+        {
+          "id": "45261C0A-00D8-4C27-A1F8-029F933A0D34",
+          "name": "Front-Country Hiking"
+        }
+      ],
+      "topics": [
+        {
+          "id": "F0F97E32-2F29-41B4-AF98-9FBE8DAB36B1",
+          "name": "Geology"
+        },
+        {
+          "id": "101F4D51-F99D-45A6-BBB6-CD481E5FACED",
+          "name": "Mountains"
+        },
+        {
+          "id": "4244F489-6813-4B7A-9D0C-20CE098C8FFF",
+          "name": "Rock Landscapes and Features"
+        },
+        {
+          "id": "9C9FCBB6-360B-4743-8155-6F9341CBE01B",
+          "name": "Scenic Views"
+        },
+        {
+          "id": "5BE55D7F-BDB6-4E3D-AC35-2D8EBB974417",
+          "name": "Trails"
+        },
+        {
+          "id": "90F8744F-CD10-4925-955C-064CB1A17EB0",
+          "name": "Volcanoes"
+        }
+      ],
+      "durationMin": "10",
+      "durationMax": "30",
+      "durationUnit": "m",
+      "stops": [
+        {
+          "significance": "",
+          "assetId": "C872685F-BC9E-4480-A890-BBD9AE883330",
+          "assetName": "Volcano Road Parking",
+          "assetType": "places",
+          "id": "5CD9DE91-BEEC-A871-FA7D39C8B856A642",
+          "ordinal": "1",
+          "directionsToNextStop": "",
+          "audioTranscript": "",
+          "audioFileUrl": ""
+        },
+        {
+          "significance": "",
+          "assetId": "7AE3C1AE-1B2C-45CA-BB97-96A886EECF25",
+          "assetName": "Crater Vent at Capulin Volcano",
+          "assetType": "places",
+          "id": "5CDD53FF-AEE3-1F5D-89BA4C2AC153B6DF",
+          "ordinal": "2",
+          "directionsToNextStop": "",
+          "audioTranscript": "",
+          "audioFileUrl": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo",
+          "crops": [
+            {
+              "aspectRatio": 1.78,
+              "url": "https://www.nps.gov/common/uploads/tours/primary/5D4CA264-09FF-D954-79B8D1A18E22F92F.jpg"
+            },
+            {
+              "aspectRatio": 1.00,
+              "url": "https://www.nps.gov/common/uploads/tours/secondary/5D4CA264-09FF-D954-79B8D1A18E22F92F.jpg"
+            }
+          ],
+          "title": "Crater of Capulin Volcano in Fall",
+          "altText": "Trail down into the crater of Capulin Volcano lined by green, yellow, and red oak brush",
+          "caption": "Crater of Capulin Volcano in Fall",
+          "url": "https://www.nps.gov/common/uploads/tours/5D4CA264-09FF-D954-79B8D1A18E22F92F.jpg"
+        }
+      ],
+      "relevanceScore": 1.0
+    }
+  ]
+}

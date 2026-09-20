@@ -19,6 +19,11 @@ All notable changes are documented here. This project follows
   endpoint rejects every sort value with HTTP 400, so PlaceQuery has no sort parameter. Place keeps
   the provider's four string flags, all three coordinate representations, and both image crop
   forms, which one places response sends together.
+- Tours: Tour, Tour.Stop, TourQuery, Endpoint.tours(query:), NPSDataRequest.tours(query:), and
+  the lazy NPSDataClient.tourPages(query:) and tours(query:), with recorded tours responses.
+  TourQuery sorts by `relevanceScore`, the only field the live service accepts, and sends sort
+  fields without validation. Tour keeps its singular `park`, string durations and duration unit,
+  and each stop's string `ordinal`.
 
 ### Changed
 

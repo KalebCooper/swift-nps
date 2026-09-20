@@ -16,9 +16,10 @@ import SwiftNPSDataModels
 /// ``amenityParkVisitorCenterPages(query:)``, ``amenityParkVisitorCenters(query:)``,
 /// ``campgroundPages(query:)``, ``campgrounds(query:)``, ``parkPages(query:)``, ``parks(query:)``,
 /// ``placePages(query:)``, ``places(query:)``, ``thingToDoPages(query:)``, ``thingsToDo(query:)``,
-/// ``visitorCenterPages(query:)``, or ``visitorCenters(query:)`` for lazy pagination of one group,
-/// or ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or redirects are
-/// performed automatically.
+/// ``tourPages(query:)``, ``tours(query:)``, ``visitorCenterPages(query:)``, or
+/// ``visitorCenters(query:)`` for lazy pagination of one group, or ``pages(for:)`` and
+/// ``items(for:)`` for any collection request. No retries or redirects are performed
+/// automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration
@@ -222,6 +223,20 @@ public struct NPSDataClient: Sendable {
   /// - Returns: Things to do in provider order, without deduplication, throwing ``NPSDataError``.
   public func thingsToDo(query: ThingToDoQuery) -> NPSItemSequence<ThingToDo> {
     items(for: .thingsToDo(query: query))
+  }
+
+  /// Iterates complete tours pages with identifiers, filters, sorting, and pagination.
+  /// - Parameter query: Validated options shared by each request except its advancing offset.
+  /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
+  public func tourPages(query: TourQuery) -> NPSPageSequence<Tour> {
+    pages(for: .tours(query: query))
+  }
+
+  /// Iterates individual tours, fetching the next page only when needed.
+  /// - Parameter query: Validated query options, including page size and starting offset.
+  /// - Returns: Tours in provider order, without deduplication, throwing ``NPSDataError``.
+  public func tours(query: TourQuery) -> NPSItemSequence<Tour> {
+    items(for: .tours(query: query))
   }
 
   /// Iterates complete visitor centers pages with filters, sorting, and explicit pagination.

@@ -20,7 +20,7 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, campgrounds, parks, things to do, and visitor centers are the implemented
+Alerts, amenities, campgrounds, parks, places, things to do, tours, and visitor centers are the implemented
 endpoint groups. They are built on a generic collection core that executes any offset-paginated NPS collection the same way.
 
 ### Collection execution
@@ -196,6 +196,26 @@ let samePage = try await client.send(.thingsToDo(query: query))
 Reservation, fee, and season fields are published descriptions, not live availability or a
 booking service.
 
+### Tours
+
+``NPSDataClient/tours(query:)`` and ``NPSDataClient/tourPages(query:)`` search `/tours` by
+identifiers, park codes, state codes, text, and sorting. Each page is `NPSCollection<Tour>`.
+`relevanceScore` is the only sort field the live service accepts; it answers other fields with
+HTTP 400, which the client reports as an ``NPSDataError`` without retrying:
+
+```swift
+let query = try TourQuery(
+  parkCodes: [ParkCode("cavo")], sort: [.descending("relevanceScore")])
+for try await tour in client.tours(query: query) {
+  print(tour.title, tour.stops?.map(\.ordinal) ?? [])
+}
+let request = NPSDataRequest.tours(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.tours(query: query))
+```
+
+Durations and stop ordinals are published text kept as sent, and each tour links one park.
+
 ### Visitor Centers
 
 ``NPSDataClient/visitorCenters(query:)`` and ``NPSDataClient/visitorCenterPages(query:)`` search
@@ -291,6 +311,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/thingsToDo(query:)``
 - ``NPSDataClient/thingToDoPages(query:)``
+
+### Tours
+
+- ``NPSDataClient/tours(query:)``
+- ``NPSDataClient/tourPages(query:)``
 
 ### Visitor Centers
 

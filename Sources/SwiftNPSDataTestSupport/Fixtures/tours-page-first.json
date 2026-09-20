@@ -1,0 +1,122 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "5E1E3F5E-BEE0-F773-443B2B7F25CE354E",
+      "title": "Crater Rim Trail",
+      "description": "Come take a hike around the rim of Capulin Volcano! With amazing views of the surrounding landscape, this 1 mile (1.6 kilometer) loop trail skirts the rim of the crater at the top of Capulin Volcano and takes you to the tallest point of the mountain at 8182 feet (2494 meters) elevation.",
+      "park": {
+        "states": "NM",
+        "parkCode": "cavo",
+        "designation": "National Monument",
+        "fullName": "Capulin Volcano National Monument",
+        "url": "https://www.nps.gov/cavo/index.htm",
+        "name": "Capulin Volcano"
+      },
+      "tags": [
+        "scenic views",
+        "volcanoes",
+        "trail",
+        "hiking"
+      ],
+      "type": "Standard",
+      "activities": [
+        {
+          "id": "BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA",
+          "name": "Hiking"
+        },
+        {
+          "id": "45261C0A-00D8-4C27-A1F8-029F933A0D34",
+          "name": "Front-Country Hiking"
+        },
+        {
+          "id": "0B685688-3405-4E2A-ABBA-E3069492EC50",
+          "name": "Wildlife Watching"
+        }
+      ],
+      "topics": [
+        {
+          "id": "0D00073E-18C3-46E5-8727-2F87B112DDC6",
+          "name": "Animals"
+        },
+        {
+          "id": "F0F97E32-2F29-41B4-AF98-9FBE8DAB36B1",
+          "name": "Geology"
+        },
+        {
+          "id": "101F4D51-F99D-45A6-BBB6-CD481E5FACED",
+          "name": "Mountains"
+        },
+        {
+          "id": "F8C2FE93-DEB3-4B12-9A87-913E3E6B448D",
+          "name": "Natural Sounds"
+        },
+        {
+          "id": "4244F489-6813-4B7A-9D0C-20CE098C8FFF",
+          "name": "Rock Landscapes and Features"
+        },
+        {
+          "id": "9C9FCBB6-360B-4743-8155-6F9341CBE01B",
+          "name": "Scenic Views"
+        },
+        {
+          "id": "5BE55D7F-BDB6-4E3D-AC35-2D8EBB974417",
+          "name": "Trails"
+        },
+        {
+          "id": "90F8744F-CD10-4925-955C-064CB1A17EB0",
+          "name": "Volcanoes"
+        }
+      ],
+      "durationMin": "30",
+      "durationMax": "75",
+      "durationUnit": "m",
+      "stops": [
+        {
+          "significance": "",
+          "assetId": "C872685F-BC9E-4480-A890-BBD9AE883330",
+          "assetName": "Volcano Road Parking",
+          "assetType": "places",
+          "id": "5E39F336-E93A-CF27-9367B418989B2845",
+          "ordinal": "1",
+          "directionsToNextStop": "",
+          "audioTranscript": "",
+          "audioFileUrl": ""
+        },
+        {
+          "significance": "",
+          "assetId": "4E67E95B-CBBC-4CF2-A0D4-9417C42A187C",
+          "assetName": "Top of Capulin Volcano",
+          "assetType": "places",
+          "id": "5E3C3703-DE8D-476F-E90146C657826FC9",
+          "ordinal": "2",
+          "directionsToNextStop": "",
+          "audioTranscript": "",
+          "audioFileUrl": ""
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo",
+          "crops": [
+            {
+              "aspectRatio": 1.78,
+              "url": "https://www.nps.gov/common/uploads/tours/primary/C9E0CDD9-0554-0965-07BE2FB5BD69DA59.jpg"
+            },
+            {
+              "aspectRatio": 1.00,
+              "url": "https://www.nps.gov/common/uploads/tours/secondary/C9E0CDD9-0554-0965-07BE2FB5BD69DA59.jpg"
+            }
+          ],
+          "title": "Fall Leaves on the Crater Rim Trail",
+          "altText": "Yellow oak leaves along a trail with views of volcanoes in the distance",
+          "caption": "Fall Leaves on the Crater Rim Trail",
+          "url": "https://www.nps.gov/common/uploads/tours/C9E0CDD9-0554-0965-07BE2FB5BD69DA59.jpg"
+        }
+      ],
+      "relevanceScore": 1.0
+    }
+  ]
+}
