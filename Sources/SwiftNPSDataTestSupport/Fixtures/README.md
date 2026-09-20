@@ -2,7 +2,7 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(places, road events, tours, and webcams) using the application identity
+(park boundaries, places, road events, tours, and webcams) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -27,6 +27,9 @@ not examples copied from the specification. Tests read them locally and never co
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | campgrounds-search.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=2&q=lake&sort=name&start=0&stateCode=WY | 200 |
+| parkboundaries-drto.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/drto | 200 |
+| parkboundaries-unknown.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/zzzz | 404 |
+| parkboundaries-yell.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/yell | 200 |
 | parks-acad.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 | 200 |
 | parks-beyond.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=2 | 200 |
 | parks-empty.json | GET https://developer.nps.gov/api/v1/parks?parkCode=zzzz&limit=1&start=0 | 200 |
@@ -151,6 +154,9 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
 | campgrounds-search.json | e1f09e544bd067518b0a5b8561c5f360d884818dcb0c0f12d7c1e291fa926f77 |
+| parkboundaries-drto.json | 8c87bc141d6bdf4580cf166a902a2700ba810c8bd17327489e87d72a454c7885 |
+| parkboundaries-unknown.json | c4e912cc04e9b3426cd17b27a5d01eba6442efc6fb3c5be30181679fb996330b |
+| parkboundaries-yell.json | 96a49dd65006cfb7901a035ba26a6aa22d0bcfc70577f1aad25f36b1e03a70ed |
 | parks-acad.json | 190b90f17bff221b71e564247b265a581844143b4eeca8455674ad47154f4632 |
 | parks-beyond.json | bc6e94934ea41746830b8df13e264efc9eef42d9fe23ace5e61d81c6d728996d |
 | parks-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
@@ -276,6 +282,20 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   specification types related organizations as untyped objects and omits amenities, so their
   element shape is unknown; the typed model does not decode either field, and they are ignored like
   other unknown fields.
+- `/mapdata/parkboundaries/{sitecode}` sends no NPS envelope. It returns a bare GeoJSON
+  `FeatureCollection` with one feature, takes the park code as a path segment and no query
+  parameters, and has no pagination. The code matched case-insensitively: `YELL` returned the same
+  bytes as `yell`. An unknown code such as `zzzz` returns HTTP 404 with an
+  `application/problem+json` body of `type`, `title`, `status`, and `traceId`, not the NPS error
+  envelope, so the client reports it as a transport HTTP status failure.
+- Park boundary geometry is usually a `MultiPolygon` nested four deep: most parks sampled, from 2
+  polygons for drto to 51 for acad. Yellowstone and Glacier returned a `Polygon` nested three deep; the yell ring holds 1,494 positions and is closed. Every recorded position is
+  two numbers, `[longitude, latitude]`, each written with a decimal point.
+- Each boundary feature carries an `id`, which no specification lists; in the recordings it equals
+  the park's identifier, also sent as each alias's `parkId`. Feature `properties` hold `aliases`
+  (`{parkId, current, name, id}`, `current` a JSON Boolean and `name` the uppercase park code),
+  `alternateName`, `designation` (`{abbreviation, parkDesignationCategoryId, name, description,
+  id}`), `designationId`, `fullName`, and `name`. There is no park code, state list, or URL.
 - `/roadevents` sends no NPS envelope. It returns a WZDx 4.1 GeoJSON `FeatureCollection` with
   `road_event_feed_info`, `features`, and `type`, snake_case keys throughout, and no pagination.
   The specification lists `parkCode` and `type`; both are optional, and a request with neither

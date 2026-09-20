@@ -9,9 +9,10 @@ import SwiftNPSDataModels
 
 /// A Sendable client for collection lookups in the National Park Service Data API.
 ///
-/// Use ``parks(parkCode:)`` for an everyday lookup, ``roadEvents(parkCode:type:)`` for the road
-/// events feed, ``value(for:)`` for a reusable request, or ``send(_:)`` for a typed endpoint.
-/// Every entry point uses the same authentication and errors.
+/// Use ``parks(parkCode:)`` for an everyday lookup, ``parkBoundary(parkCode:)`` for one park's
+/// boundary, ``roadEvents(parkCode:type:)`` for the road events feed, ``value(for:)`` for a
+/// reusable request, or ``send(_:)`` for a typed endpoint. Every entry point uses the same
+/// authentication and errors.
 /// Use ``alertPages(query:)``, ``alerts(query:)``, ``amenities(query:)``,
 /// ``amenityPages(query:)``, ``amenityParkPlacePages(query:)``, ``amenityParkPlaces(query:)``,
 /// ``amenityParkVisitorCenterPages(query:)``, ``amenityParkVisitorCenters(query:)``,
@@ -160,6 +161,18 @@ public struct NPSDataClient: Sendable {
   /// - Returns: Campgrounds in provider order, without deduplication, throwing ``NPSDataError``.
   public func campgrounds(query: CampgroundQuery) -> NPSItemSequence<Campground> {
     items(for: .campgrounds(query: query))
+  }
+
+  /// Fetches one park's boundary as a GeoJSON feature collection.
+  ///
+  /// The boundary is one response with no pagination. An unknown park code fails with HTTP 404 and
+  /// an `application/problem+json` body, which is not the NPS error envelope, so it surfaces as
+  /// ``NPSDataError/transport(_:)`` holding the HTTP status failure.
+  /// - Parameter parkCode: The park whose boundary is fetched, sent as given.
+  /// - Returns: The complete feature collection, with coordinates kept as sent.
+  /// - Throws: The same ``NPSDataError`` as ``value(for:)``.
+  public func parkBoundary(parkCode: ParkCode) async throws(NPSDataError) -> ParkBoundary {
+    try await value(for: .parkBoundary(parkCode: parkCode))
   }
 
   /// Iterates pages from an inspectable parks request without sending during construction.

@@ -14,6 +14,11 @@ All notable changes are documented here. This project follows
   provider's text is numeric.
 - NPSQuickFact, NPSRelatedOrganization, and NPSConstraintsInfo, decoded shapes for groups not yet
   queried.
+- Park boundaries: ParkBoundary, ParkBoundaryFeature, ParkBoundaryDetails, NPSGeometry,
+  NPSCoordinateTree, Endpoint.parkBoundary(parkCode:), NPSDataRequest.parkBoundary(parkCode:), and
+  NPSDataClient.parkBoundary(parkCode:), a single response decoding one park's GeoJSON boundary with
+  recorded responses. NPSCoordinateTree keeps coordinates of any depth as sent, and
+  NPSGeometry.polygon and multiPolygon return typed arrays, or nil when the type or depth differs.
 - Places: Place, PlaceQuery, Endpoint.places(query:), NPSDataRequest.places(query:), and the lazy
   NPSDataClient.placePages(query:) and places(query:), with recorded places responses. The live
   endpoint rejects every sort value with HTTP 400, so PlaceQuery has no sort parameter. Place keeps

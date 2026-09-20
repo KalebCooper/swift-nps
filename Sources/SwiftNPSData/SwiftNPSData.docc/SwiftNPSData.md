@@ -20,10 +20,10 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, campgrounds, parks, places, road events, things to do, tours, visitor centers,
-and webcams are the implemented endpoint groups. The collection groups are built on a generic
-collection core that executes any offset-paginated NPS collection the same way; road events are a
-single response.
+Alerts, amenities, campgrounds, park boundaries, parks, places, road events, things to do, tours,
+visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
+on a generic collection core that executes any offset-paginated NPS collection the same way; park
+boundaries and road events are single responses.
 
 ### Collection execution
 
@@ -141,6 +141,29 @@ let samePage = try await client.send(.campgrounds(query: query))
 
 Published site counts, fees, and reservation links describe the campground; they are not live
 campsite availability, and the package provides no booking or reservation support.
+
+### Park Boundaries
+
+``NPSDataClient/parkBoundary(parkCode:)`` fetches `/mapdata/parkboundaries/{sitecode}`, one park's
+boundary as a GeoJSON feature collection returned as one `ParkBoundary` with no pagination. Most
+parks send a `MultiPolygon` and a few a `Polygon`, so read both typed accessors:
+
+```swift
+let boundary = try await client.parkBoundary(parkCode: ParkCode("drto"))
+let geometry = boundary.features?.first?.geometry
+if let polygons = geometry?.multiPolygon {
+  print(polygons.count)
+} else if let rings = geometry?.polygon {
+  print(rings.first?.count ?? 0)
+}
+let request = NPSDataRequest.parkBoundary(parkCode: try ParkCode("drto"))
+let sameBoundary = try await client.value(for: request)
+```
+
+An unknown park code fails with HTTP 404 and an `application/problem+json` body rather than the NPS
+error envelope, so it surfaces as ``NPSDataError/transport(_:)`` holding the HTTP status failure
+and its original body. Boundary geometry is published cartographic data, not a survey or a legal
+record.
 
 ### Parks
 
@@ -336,6 +359,10 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/send(_:)``
 - ``NPSPageSequence``
 - ``NPSItemSequence``
+
+### Park Boundaries
+
+- ``NPSDataClient/parkBoundary(parkCode:)``
 
 ### Parks
 

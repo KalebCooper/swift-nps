@@ -75,6 +75,18 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 17, 2026.
   case campgroundsSearch = "campgrounds-search"
 
+  /// GET /api/v1/mapdata/parkboundaries/drto; HTTP 200 with one MultiPolygon feature of two
+  /// polygons. Recorded September 20, 2026.
+  case parkBoundaryDryTortugas = "parkboundaries-drto"
+
+  /// GET /api/v1/mapdata/parkboundaries/zzzz; HTTP 404 with an application/problem+json body.
+  /// Recorded September 20, 2026.
+  case parkBoundaryUnknown = "parkboundaries-unknown"
+
+  /// GET /api/v1/mapdata/parkboundaries/yell; HTTP 200 with one Polygon feature.
+  /// Recorded September 20, 2026.
+  case parkBoundaryYellowstone = "parkboundaries-yell"
+
   /// GET /api/v1/parks?parkCode=acad&limit=1&start=0; HTTP 200.
   /// Recorded September 13, 2026.
   case parksAcadia = "parks-acad"

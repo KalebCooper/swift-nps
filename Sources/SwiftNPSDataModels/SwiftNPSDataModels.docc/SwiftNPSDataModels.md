@@ -5,7 +5,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-campgrounds, parks, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups, built on a generic
+campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups, built on a generic
 core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
 the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
 transport or holds credentials.
@@ -178,6 +178,30 @@ availability or a booking service. The specification and real responses were che
 September 17, 2026. The specification spells nested keys in lowercase, names the reservation
 fields differently, and declares fees, images, and operating hours as arrays of strings; the live
 responses send camelCase keys and objects, and add passport stamp fields, which the model follows.
+
+### Park Boundaries
+
+``Endpoint/parkBoundary(parkCode:)`` and ``NPSDataRequest/parkBoundary(parkCode:)`` describe
+`/mapdata/parkboundaries/{sitecode}`, which takes the park code as a path segment and no query
+parameters and returns a bare GeoJSON feature collection, decoded as one ``ParkBoundary`` with no
+pagination. Every recorded park returned exactly one ``ParkBoundaryFeature``. An unknown park code
+returns HTTP 404 with an `application/problem+json` body, not the NPS error envelope.
+
+Geometry is usually a `MultiPolygon` nested four levels deep, from 2 polygons for Dry Tortugas to 51
+for Acadia, and occasionally a `Polygon` nested three deep, as for Yellowstone. ``NPSGeometry``
+therefore keeps its coordinates as an ``NPSCoordinateTree`` of any depth, so a geometry kind this
+package does not name keeps every coordinate, and offers ``NPSGeometry/polygon`` and
+``NPSGeometry/multiPolygon`` as typed arrays. Each returns nil rather than trapping when the declared
+type or the nesting depth does not match. Positions stay GeoJSON `[longitude, latitude]` arrays as
+sent, whatever their length.
+
+``ParkBoundaryDetails`` carries the park's names, ``ParkBoundaryDetails/Alias`` entries such as the
+uppercase park code, and a ``ParkBoundaryDetails/Designation`` object; it is not the park summary
+shape other groups attach. ``ParkBoundaryFeature/id`` matched the park's identifier in the
+recordings, which is an observation, not a guarantee. Boundary geometry is published cartographic
+data, not a survey or a legal record.
+
+Real responses were recorded on September 20, 2026.
 
 ### Parks
 
@@ -395,6 +419,14 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``NPSPaginationError``
 - ``NPSQueryItem``
 - ``NPSSort``
+
+### Park Boundaries
+
+- ``NPSCoordinateTree``
+- ``NPSGeometry``
+- ``ParkBoundary``
+- ``ParkBoundaryDetails``
+- ``ParkBoundaryFeature``
 
 ### Parks
 
