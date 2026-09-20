@@ -6,7 +6,7 @@ Find and browse parks through the National Park Service Data API.
 
 ## Status
 
-Released as 0.2.0. Parks queries support multiple park codes, state codes, text search, sorting, and
+Released as 0.3.0. Parks queries support multiple park codes, state codes, text search, sorting, and
 pagination. Lazy `parkPages` and `parks` sequences provide complete pages or individual parks using
 swifty-networking 1.1.0. Reusable typed requests and transport-independent endpoints remain
 available for single-page execution. Alerts queries support multiple park codes, state codes, text
@@ -136,7 +136,7 @@ duplicate local-package resolution in Xcode.
 Add the package dependency and select either product:
 
 ```swift
-.package(url: "https://github.com/KalebCooper/swift-nps.git", from: "0.2.0")
+.package(url: "https://github.com/KalebCooper/swift-nps.git", from: "0.3.0")
 ```
 
 The repository is [KalebCooper/swift-nps](https://github.com/KalebCooper/swift-nps).
