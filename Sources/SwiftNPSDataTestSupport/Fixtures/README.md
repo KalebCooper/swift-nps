@@ -1,7 +1,8 @@
 # Recorded responses
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
-2026 (alerts, amenities, campgrounds, things to do, and visitor centers) using the application identity
+2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
+(places) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -33,6 +34,10 @@ not examples copied from the specification. Tests read them locally and never co
 | parks-page-last.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1 | 200 |
 | parks-search.json | GET https://developer.nps.gov/api/v1/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA | 200 |
 | parks-yell.json | GET https://developer.nps.gov/api/v1/parks?parkCode=yell&limit=1&start=0 | 200 |
+| places-empty.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=zzzz&start=0 | 200 |
+| places-page-first.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=acad&start=0 | 200 |
+| places-page-last.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=acad&start=1 | 200 |
+| places-search.json | GET https://developer.nps.gov/api/v1/places?limit=2&q=Redoubt&start=0&stateCode=FL | 200 |
 | thingstodo-empty.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=zzzz&start=0 | 200 |
 | thingstodo-page-first.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=0 | 200 |
 | thingstodo-page-last.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=1 | 200 |
@@ -82,6 +87,14 @@ recordings are byte-identical to the other empty recordings. Decoded values were
 downloads and are identical. The park places and park visitor centers first pages were also
 recorded a second time under a different name; those copies were byte-identical and are not kept.
 
+The places recordings arrived with blank lines, trailing spaces, and commas leading each line, and
+are reindented the same way, keeping the provider's key order, escaped quotation marks, and both
+aspect ratio forms, the string `"1.78"` and the number `1.0`, in one body. Their non-ASCII
+characters, no-break spaces, a degree sign, and curly quotation marks, are the provider's own bytes
+and are left as sent; the one em dash the provider sends already arrives as the escape `\u2014`.
+The empty recording is byte-identical to the other empty recordings. Decoded values were compared
+with the downloads and are identical.
+
 The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
 escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -115,6 +128,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | parks-page-last.json | 76e1eeea6fde0f15c64aab4f073f068002f1dde043b332aa197725798da0f8d2 |
 | parks-search.json | 1302400226103d947077e3d10908462b433ffc6b1e69511807af852640a67009 |
 | parks-yell.json | 243bbc33c1ffee6ff2d86794e2b546d32da28c9a9f605449aa2e88968697b53d |
+| places-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| places-page-first.json | 2d4185659bf11787379b87de608bf9c0f0934642371d82bb11049c7bb60ca9e5 |
+| places-page-last.json | 1841b65ddf50d5d7df1539dab6c00d420ca08d21e037e989abc52c7c3f00458b |
+| places-search.json | b4b940c583c90d689bdb6d53e50f6a66659021e0b5350b79a881ab9a6ebe3315 |
 | thingstodo-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | thingstodo-page-first.json | 84da2d8510aca676afc2d8fca68f82c358c3bf79c9687cf160304e8de1c14544 |
 | thingstodo-page-last.json | 844a678ac81713b3128ed806fad66718223cf39bd9c83d4e1efa37064fa55c50 |
@@ -180,6 +197,22 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   the specification's campground schema (`id`, `title`, `type`, `url`), the same as parks.
   Campground image crops are empty; passport stamp crops carry a numeric `aspectRatio`. Site counts,
   lengths, and flags are strings, including `"0"`, and `lastIndexedDate` is an empty string.
+- The live places body uses the same envelope. `/places` accepts parkCode, stateCode, q, limit, and
+  start. Every sort value tried against it answered HTTP 400 with an envelope carrying empty
+  `total`, `start`, and `data`, so the query sends no sort parameter and the specification was not
+  relied on for one. Recorded results arrive ordered by `title`, and `q` narrows the set without
+  reordering it. The acad pages report total 181, so the two recorded pages are the first two of
+  181. The FL Redoubt search reports total 27, with scores 16.06786 and 10.787928.
+- The live places body sends both image crop forms in one response: `images` crops carry
+  `aspectRatio` as the string `"1.78"`, while `passportStampImages` crops carry it as the number
+  `1.0`. The four flags `isManagedByNps`, `isMapPinHidden`, `isOpenToPublic`, and
+  `isPassportStampLocation` are the strings `"0"` and `"1"`. The searched place publishes a
+  passport stamp image while sending `"0"` for `isPassportStampLocation`, so the two are
+  independent. Coordinates arrive as three separate strings, `latitude`, `longitude`, and
+  `latLong`, empty on the acad pages and populated in the search. `bodyText` and
+  `audioDescription` carry HTML. Every recorded `relatedOrganizations` and `multimedia` array is
+  empty, so those element shapes rest on the groups that populate them rather than on these
+  recordings.
 - The live things to do body uses the same envelope. Things to do accept id, parkCode, stateCode,
   q, limit, start, and sort. The specification documents `relevanceScore` as the only sort option,
   with descending date last modified as the default, and says an invalid sort property is

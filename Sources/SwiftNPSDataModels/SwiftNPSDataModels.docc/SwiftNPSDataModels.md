@@ -205,6 +205,34 @@ and real responses were checked on September 13, 2026. Its outer parks array dec
 not match the live object envelope. The live recordings confirm the envelope and nested objects;
 the schema's illustrative examples also differ in places from its property definitions.
 
+### Places
+
+``PlaceQuery`` describes all five documented places parameters: park codes, state codes, text
+search, page limit, and start offset. Empty code arrays omit the filter, and search text is
+preserved and percent encoded, including empty text. Places pages are `NPSCollection<Place>`, from
+``Endpoint/places(query:)`` or ``NPSDataRequest/places(query:)``. The live service answers every
+`sort` value with HTTP 400 and an empty envelope, so this query has no sort parameter at all.
+
+``Place`` requires an identifier and title; other documented fields remain optional, and unknown
+JSON fields are ignored. The provider publishes three coordinate representations in one item,
+``Place/latitude``, ``Place/longitude``, and ``Place/latLong``, and each keeps its own text without
+parsing or cross-checking. Flags such as ``Place/isOpenToPublic``, ``Place/isMapPinHidden``,
+``Place/isManagedByNps``, and ``Place/isPassportStampLocation`` stay the provider's `"0"` or `"1"`
+text; a place can publish ``Place/passportStampImages`` while sending `"0"` for
+``Place/isPassportStampLocation``, so the two are independent values. ``Place/bodyText`` and
+``Place/audioDescription`` carry HTML, ``Place/relevanceScore`` is a real number, and
+``Place/amenities`` and ``Place/tags`` are plain strings in provider order. Quick facts are
+``NPSQuickFact``, related organizations ``NPSRelatedOrganization``, and related parks
+``NPSRelatedPark`` summaries.
+
+Images are the shared ``NPSImage``. One places response mixes both crop forms: ``Place/images``
+crops send the aspect ratio as text such as `"1.78"`, while ``Place/passportStampImages`` crops
+send it as a JSON number. ``NPSImageCrop`` stores either form as text and derives
+``NPSImageCrop/ratio`` from it.
+
+Real responses were recorded on September 20, 2026, and every sort value tried against the live
+endpoint answered HTTP 400.
+
 ### Things to Do
 
 ``ThingToDoQuery`` describes all seven documented things to do parameters: identifiers, park
@@ -305,6 +333,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkCode``
 - ``ParkQuery``
 - ``StateCode``
+
+### Places
+
+- ``Place``
+- ``PlaceQuery``
 
 ### Shared park and facility details
 

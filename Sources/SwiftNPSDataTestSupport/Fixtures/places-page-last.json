@@ -1,0 +1,82 @@
+{
+  "total": "181",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "B24187C1-432C-4068-B97C-BB5F71DCAED4",
+      "url": "https://www.nps.gov/places/acadia-earthcache-stop-four.htm",
+      "title": "Acadia Earthcache Course Stop Four: Gorham Mountain Trail",
+      "listingDescription": "The fourth stop on Acadia National Park's Geocache course.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/D8E6280C-0A57-2E29-939162E9DA9F6BFD.jpg",
+          "credit": "Photo by Serena Caraly, Friends of Acadia.",
+          "altText": "stone steps lead the path into a crack in the rocks",
+          "title": "Gorham Mountain Trail stairs",
+          "description": "",
+          "caption": "Stone steps up to an old sea cliff on the Gorham Mountain Trail",
+          "crops": [
+            {
+              "aspectRatio": "1.78",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/D8E6280C-0A57-2E29-939162E9DA9F6BFD.jpg"
+            },
+            {
+              "aspectRatio": "1.33",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/D8E6280C-0A57-2E29-939162E9DA9F6BFD.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ME",
+          "parkCode": "acad",
+          "designation": "National Park",
+          "fullName": "Acadia National Park",
+          "url": "https://www.nps.gov/acad/index.htm",
+          "name": "Acadia"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "geocache",
+        "geocaching"
+      ],
+      "latitude": "",
+      "longitude": "",
+      "latLong": "",
+      "bodyText": "The fourth stop on the <a href=\"https://www.nps.gov/thingstodo/go-geocaching-at-acadia.htm\">Acadia Geocache Course</a> is along Gorham Mountain Trail. <br /> <br /> N 44° 19.004’<br /> W 68° 11.522’ <h2> </h2> <h2>Reading</h2> Up until now, our story of glaciers has taken you to sites that demonstrate their horizontal movement. The sheer immensity of the last glacial ice sheet, estimated to have been about one-mile thick, also had a tremendous vertical impact on the land.<br /> <br /> When you step into a boat, you displace water. Similarly, when a tremendous amount of weight is placed upon the earth’s surface, the crust sinks. How much weight would it take to compress Mount Desert Island? To give you an idea, the mass of one square inch of ice that extendes one mile high is more than one ton, which menas one square foot of land could have more that 144 tons exerted upon it. When you consider how many square feet of land were covered by the last glacier, you get an idea of the tremendous strain placed upon the landscape\u2014weight sufficient to compress the earth’s crust. Due to this significant weight, Mount Desert Island was pushed down and made into a series of islands surrounded by the sea. As the glacier melted, the weight decreased and consequently released the pressure, allowing hte land to once again rise above sea level.<br /> <br /> At this stop, you are given the opportunity to compare today’s sea level with the sea level near the end of the last ice age. Begin by cross Park Loop Road and walking along Ocean Path to the rock wall. From the path, look down into Monument Cove. There you will find a sea stack, a pillar of rock formed by water and wave activity.Now hike up Gorham Mountain Trail for a distance of 0.2 miles. At the “Pathmaker” plaque, the trail splits. Take the right for to Cadillac Cliffs, about 0.1 miles farther. Stop at the following coordinates:<br /> <br /> N 44° 19.284’<br /> W 68° 11.545’<br /> <br /> At this site you will see a landform that looks remarkably similar to the sea stack in Monument Cove. Observe the cliffs and the ancient sea cave. They were carved by waves more than 12,000 years ago! At the end of the last glacial period, this site was at sea level. <h2>Next Clue</h2> Use your GPS unit to determine the elevation of the old sea level at Cadillac Cliffs. Fill in the blank:<br /> <br /> The old sea level was _65 feet above the current sea level.<br /> <br /> Use that same number to fill in the blanks below to uncover the final coordinate<br /> N 44° _1.560’<br /> W 68° 1_.362’",
+      "audioDescription": "The fourth stop on the Acadia Geocache Course is along an old natural cliff. The trail hugs the cliffside and on one side is a high wall with various outcrops, on the other side, the land drops off.",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "managedByUrl": "",
+      "isOpenToPublic": "1",
+      "isMapPinHidden": "0",
+      "npmapId": "",
+      "geometryPoiId": "",
+      "isManagedByNps": "1",
+      "associatedIcon": "",
+      "amenities": [],
+      "managedByOrg": "",
+      "quickFacts": [
+        {
+          "id": "5C252B96-2DEB-4EF4-91D1-B5D2B202FCD7",
+          "value": "Gorham Mountain Trail, old sea cliff",
+          "name": "Location"
+        },
+        {
+          "id": "208F1B3C-44DC-4CF5-9A61-9B26A364D701",
+          "value": "Fourth stop on the Acadia Earthcache Course",
+          "name": "Significance"
+        }
+      ],
+      "location": "",
+      "locationDescription": "",
+      "credit": "",
+      "multimedia": [],
+      "relevanceScore": 1.0
+    }
+  ]
+}

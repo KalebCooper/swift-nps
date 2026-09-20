@@ -15,9 +15,10 @@ import SwiftNPSDataModels
 /// ``amenityPages(query:)``, ``amenityParkPlacePages(query:)``, ``amenityParkPlaces(query:)``,
 /// ``amenityParkVisitorCenterPages(query:)``, ``amenityParkVisitorCenters(query:)``,
 /// ``campgroundPages(query:)``, ``campgrounds(query:)``, ``parkPages(query:)``, ``parks(query:)``,
-/// ``thingToDoPages(query:)``, ``thingsToDo(query:)``, ``visitorCenterPages(query:)``, or
-/// ``visitorCenters(query:)`` for lazy pagination of one group, or ``pages(for:)`` and
-/// ``items(for:)`` for any collection request. No retries or redirects are performed automatically.
+/// ``placePages(query:)``, ``places(query:)``, ``thingToDoPages(query:)``, ``thingsToDo(query:)``,
+/// ``visitorCenterPages(query:)``, or ``visitorCenters(query:)`` for lazy pagination of one group,
+/// or ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or redirects are
+/// performed automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration
@@ -193,6 +194,20 @@ public struct NPSDataClient: Sendable {
   /// - Returns: Parks in provider order, without deduplication, throwing ``NPSDataError``.
   public func parks(query: ParkQuery) -> NPSItemSequence<Park> {
     items(for: .parks(query: query))
+  }
+
+  /// Iterates complete places pages with filters, text search, and explicit pagination.
+  /// - Parameter query: Validated options shared by each request except its advancing offset.
+  /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
+  public func placePages(query: PlaceQuery) -> NPSPageSequence<Place> {
+    pages(for: .places(query: query))
+  }
+
+  /// Iterates individual places, fetching the next page only when needed.
+  /// - Parameter query: Validated query options, including page size and starting offset.
+  /// - Returns: Places in provider order, without deduplication, throwing ``NPSDataError``.
+  public func places(query: PlaceQuery) -> NPSItemSequence<Place> {
+    items(for: .places(query: query))
   }
 
   /// Iterates complete things to do pages with identifiers, filters, sorting, and pagination.

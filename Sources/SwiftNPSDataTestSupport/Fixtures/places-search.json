@@ -1,0 +1,181 @@
+{
+  "total": "27",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "80F024C5-27B0-48B7-8098-30E10EE5AB61",
+      "url": "https://www.nps.gov/places/000/advanced-redoubt.htm",
+      "title": "Advanced Redoubt",
+      "listingDescription": "The Advanced Redoubt was built between 1845 and 1870 as a part of the Fort Barrancas network to protect the Pensacola Navy Yard. While the primary mission of Barrancas was to guard the harbor entrance, the redoubt's mission was to defend the north side of the peninsula from a land attack. The redoubt was the only Third System fort that did not defend the coast. View the exhibits on the south side of the redoubt and then walk along the Trench Trail-or drive-to Fort Barrancas",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/F6C8A148-C308-D576-38AABF031D487924.jpg",
+          "credit": "NPS Photo / Kiss",
+          "altText": "A large Civil War era fort with red brick walls and a drawbridge stands atop a grassy plain.",
+          "title": "Advanced Redoubt",
+          "description": "",
+          "caption": "Advanced Redoubt",
+          "crops": [
+            {
+              "aspectRatio": "1.78",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/F6C8A148-C308-D576-38AABF031D487924.jpg"
+            },
+            {
+              "aspectRatio": "1.33",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/F6C8A148-C308-D576-38AABF031D487924.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "FL,MS",
+          "parkCode": "guis",
+          "designation": "National Seashore",
+          "fullName": "Gulf Islands National Seashore",
+          "url": "https://www.nps.gov/guis/index.htm",
+          "name": "Gulf Islands"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Civil War",
+        "Naval Yard Pensacola",
+        "Naval Air Station Pensacola",
+        "Third System fort",
+        "trail access",
+        "Network to Freedom"
+      ],
+      "latitude": "30.354663",
+      "longitude": "-87.29756",
+      "latLong": "30.354663,-87.29756",
+      "bodyText": "<p>The Advanced Redoubt was built between 1845 and 1870 as a part of the Fort Barrancas Area to protect the Pensacola Navy Yard. While the primary mission of Barrancas was to guard the harbor entrance, the redoubt's mission was to defend the north side of the peninsula from a land attack.<br /> <br /> View the exhibits on the south side of the redoubt and then walk along the Trench Trail-or drive-to Fort Barrancas. If you are interested in tours visit the Fort Barrancas Visitor Center.<br /> <br /> <b>Safety Precautions: </b> Be aware of uneven and slippery surfaces. Stay off walls and historic objects. Watch children closely. Carry a flashlight while visiting the fort, which has dark corridors. Watch your step; snakes may be present.</p>",
+      "audioDescription": "Fort Barrancas Advanced Redoubt. 133 words.Here at the north east corner of the small paved parking lot is a dirt path that leads 250 feet up a gentle slope to the south wall of the fort. The fort is surrounded by grassy lawns with scattered live oak trees. A short distance to the right is a road. Near the end of the path along the outer wall of the fort are a couple of benches.From this location only the very top of the fort's main wall can be seen with its mound of earth or berm on top. The parking lot stretches out to the left. Over your right shoulder 25 yards away on the far side of the entrance drive is the entrance to the Trench Trail through the woods.End of Description.",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "Network to Freedom passport stamp can be picked up at the Fort Barrancas Visitor's Center.",
+      "passportStampImages": [
+        {
+          "credit": "",
+          "description": "",
+          "crops": [
+            {
+              "aspectRatio": 1.0,
+              "url": "https://www.nps.gov/common/uploads/passport_stamps/primary/D7FC2A50-E9FB-CF18-6867C7A8B6F12130.jpg"
+            }
+          ],
+          "altText": "Fort Barrancas Area ",
+          "title": "Fort Barrancas Area",
+          "caption": "",
+          "url": "https://www.nps.gov/common/uploads/passport_stamps/D7FC2A50-E9FB-CF18-6867C7A8B6F12130.jpg"
+        }
+      ],
+      "managedByUrl": "https://www.nps.gov/guis/learn/historyculture/advanced-redoubt.htm",
+      "isOpenToPublic": "1",
+      "isMapPinHidden": "0",
+      "npmapId": "",
+      "geometryPoiId": "",
+      "isManagedByNps": "1",
+      "associatedIcon": "",
+      "amenities": [
+        "Benches/Seating",
+        "Historical/Interpretive Information/Exhibits",
+        "Parking - Auto",
+        "Scenic View/Photo Spot",
+        "Trailhead"
+      ],
+      "managedByOrg": "",
+      "quickFacts": [
+        {
+          "id": "5C252B96-2DEB-4EF4-91D1-B5D2B202FCD7",
+          "value": "Naval Air Station, Pensacola",
+          "name": "Location"
+        },
+        {
+          "id": "208F1B3C-44DC-4CF5-9A61-9B26A364D701",
+          "value": "Civil War; Network to Freedom site",
+          "name": "Significance"
+        }
+      ],
+      "location": "",
+      "locationDescription": "",
+      "credit": "",
+      "multimedia": [],
+      "relevanceScore": 16.06786
+    },
+    {
+      "id": "02E85F7F-2454-4B71-9372-AD71813FA80B",
+      "url": "https://www.nps.gov/places/advanced-redoubt-tour-stop-1-the-glacis.htm",
+      "title": "Advanced Redoubt Tour Stop 1: The Glacis",
+      "listingDescription": "",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/F6EC1404-CC42-EF09-38425C4F921F7EAB.jpg",
+          "credit": "NPS Photo / Kiss",
+          "altText": "A gently sloping grass hill with a road in front lies next to a brick fort.",
+          "title": "Advanced Redoubt Glacis",
+          "description": "",
+          "caption": "Advanced Redoubt Glacis",
+          "crops": [
+            {
+              "aspectRatio": "1.78",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/F6EC1404-CC42-EF09-38425C4F921F7EAB.jpg"
+            },
+            {
+              "aspectRatio": "1.33",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/F6EC1404-CC42-EF09-38425C4F921F7EAB.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "FL,MS",
+          "parkCode": "guis",
+          "designation": "National Seashore",
+          "fullName": "Gulf Islands National Seashore",
+          "url": "https://www.nps.gov/guis/index.htm",
+          "name": "Gulf Islands"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "fort",
+        "advanced",
+        "redoubt",
+        "Advanced Redoubt",
+        "history",
+        "Gulf Islands"
+      ],
+      "latitude": "30.355243361903447",
+      "longitude": "-87.29728102678564",
+      "latLong": "30.355243361903447,-87.29728102678564",
+      "bodyText": "You are on an open slope called the glacis. As an attacker, you are exposed to cannon and musket fire from the main wall (scarp) as well as musket fire from the top of the outer wall (counterscarp). The solution is to dig a series of tenches to provide cover. The trenches must be big enough for cannon and infantry to advance.",
+      "audioDescription": "A gently sloping grass plain spans in front of and behind you. Beyond, there is a large brick Civil War era fort waiting to be explored.",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "managedByUrl": "",
+      "isOpenToPublic": "1",
+      "isMapPinHidden": "0",
+      "npmapId": "",
+      "geometryPoiId": "",
+      "isManagedByNps": "1",
+      "associatedIcon": "",
+      "amenities": [],
+      "managedByOrg": "",
+      "quickFacts": [
+        {
+          "id": "5C252B96-2DEB-4EF4-91D1-B5D2B202FCD7",
+          "value": "Advanced Redoubt, FL",
+          "name": "Location"
+        }
+      ],
+      "location": "",
+      "locationDescription": "",
+      "credit": "",
+      "multimedia": [],
+      "relevanceScore": 10.787928
+    }
+  ]
+}

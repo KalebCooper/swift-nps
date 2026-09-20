@@ -17,7 +17,9 @@ support identifiers, park codes, text search, sorting, and pagination; their pag
 provider's per-amenity groups, and `amenityParkPlaces` and `amenityParkVisitorCenters` yield each
 entry. Campgrounds queries support park codes, state codes, text search, sorting, and pagination
 through lazy `campgroundPages` and `campgrounds` sequences; published site counts and fees are not
-live availability. Things to do queries support identifiers, park codes, state codes, text search,
+live availability. Places queries support park codes, state codes, text search, and pagination
+through lazy `placePages` and `places` sequences; the endpoint rejects every sort value with
+HTTP 400, so the query offers none. Things to do queries support identifiers, park codes, state codes, text search,
 sorting, and pagination through lazy `thingToDoPages` and `thingsToDo` sequences; NPS documents only
 `relevanceScore` as a things to do sort field and rejects others with HTTP 400. Visitor centers
 queries support park codes, state codes, text search, sorting, and pagination through lazy
@@ -120,8 +122,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, things to do, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, thing to do, visitor center, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, parks, places, things to do, and visitor centers conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park, place, thing to do, visitor center, and shared detail models. | None. |
 
 ## Requirements
 

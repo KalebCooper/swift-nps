@@ -1,0 +1,83 @@
+{
+  "total": "181",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "C9F643CF-FC98-4E28-B36E-E1B3D3771DDF",
+      "url": "https://www.nps.gov/places/acadia-earthcache-stop-five.htm",
+      "title": "Acadia Earthcache Course Stop Five: Champlain Mountain",
+      "listingDescription": "Stop five on the Acadia Geocache course.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/D9A3B83A-BDA9-A20A-6C78FD74410DC397.jpg",
+          "credit": "NPSPhoto.",
+          "altText": "dark rocks that are shiny and reflecting the sun",
+          "title": "Glacial Polish at Champlain Mountain",
+          "description": "",
+          "caption": "Glacial Polish is easy to spot once you can recognize it.",
+          "crops": [
+            {
+              "aspectRatio": "1.78",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/D9A3B83A-BDA9-A20A-6C78FD74410DC397.jpg"
+            },
+            {
+              "aspectRatio": "1.33",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/D9A3B83A-BDA9-A20A-6C78FD74410DC397.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ME",
+          "parkCode": "acad",
+          "designation": "National Park",
+          "fullName": "Acadia National Park",
+          "url": "https://www.nps.gov/acad/index.htm",
+          "name": "Acadia"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "geocache",
+        "geocaching",
+        "Glacial Polish"
+      ],
+      "latitude": "",
+      "longitude": "",
+      "latLong": "",
+      "bodyText": "Stop five on the <a href=\"https://www.nps.gov/thingstodo/acadia-earthcache.htm\">Acadia Earthcache Course</a> highlights 'glacial polish' at the base of Champlain Mountain. <br /> <br /> N 44° 21.560’<br /> W 68° 12.362’ <h2>Reading</h2> If glaciers were composed only of ice, they might cause less damage than they do. Glacial ice, however, is embedded with sand, rocks, and boulders. The ice and stone work together like a sheet of sandpaper on the landscape. Debris carried along the bottom of the glacier abrades and polishes bedrock surfaces. Rock fragments frozen into the glacier gouge scratches and grooves in the rock surface. These scratches, or striations, provide evidence of the glacier’s path, though not necessarily its direction of travel.<br /> <br /> The exposed mountain face across the road has been polished by glacial gravel. Comparing its color and texture with Champlain Mountain in the distance, it appears the two are composed of different rock types. The nearby mountain face is light yellow-pink in color, and the mountain in the distance is a darker green-grey color. This color variation is not due to different rock types, but to the different appearances of clean, polished granite versus weathered, lichen-covered granite. Much of the granite on the island may have been polished by glaciers, but exposure to the elements and plant life has weather and eroded exposed rock faces, erasing their polished surfaces. The mountain face before you, however, was covered by a protective layer of soil until the 1900s, when the soil eroded away and the polished surface became visible.<br /> <br /> The rock face is slick and dangerous; even lichens cannot cling to the polished rock surface. For your protection and the preservation of the rock face, please keep off the rock. <h2>Congratulations</h2> This last site, along with previous stops in the EarthCache Program, shows the wide variety of impacts that glaciers have had on this land. You observed a glacier’s ability to cause reorientation of the mountains, to create Somes Sound, and to develop the ponds and lakes that characterize this region. You also experienced the signatures of glacial activity\u2014glacial erratics and glacial plucking. Finally, you learned how the land was forced underwater from the enormous burden of ice upon it, then how it rebounded as the glacier retreated.<br /> <br /> Individually these sites are intriguing. Together they help tell the story of glaciation and provide a window into the past. Although the glaciers are no longer here for us to observe, the signs they left behind are part of what makes Acadia National Park so special. <h2>Final Clue</h2> On this journey, you have visited five glacially impacted areas. Using the map on the park brochure, locate the places you have been. Stops 1, 2, 3, and 5 form a line. Retracing the stops in order and using the compass in the map legend, in which direction does this line head? This is your final answer. <h3>What’s next?</h3> To get an imprint from a hand-carved stamp that proves course completion and to log your name, recount your experience, and add your letterbox stamp to the logbook, proceed to the Information Desk inside the <a href=\"https://www.nps.gov/places/hulls-cove-visitor-center.htm\">Hulls Cove Visitor Center</a>, 25 Visitor Center Road, Bar Harbor, ME, off Route 3. Tell the ranger that you are participating in the EarthCache Program and give them your answer to the final clue. With your correct answer, you are given the opportunity to sign the logbook and receive the Acadia National Park EarthCache Program official stamp imprint.<br /> <br /> We hope you enjoyed your journey along the stops in the EarthCache program. Thank you for participating.<br /> <br /> <br />  ",
+      "audioDescription": "Standing on the road you are facing a giant mountain face with various boulders and cliffs. Evident in front of you are ripple marks and gashes as well as rock that is visibly shinier than the surrounding rock.",
+      "isPassportStampLocation": "0",
+      "passportStampLocationDescription": "",
+      "passportStampImages": [],
+      "managedByUrl": "",
+      "isOpenToPublic": "1",
+      "isMapPinHidden": "0",
+      "npmapId": "",
+      "geometryPoiId": "",
+      "isManagedByNps": "1",
+      "associatedIcon": "",
+      "amenities": [],
+      "managedByOrg": "",
+      "quickFacts": [
+        {
+          "id": "5C252B96-2DEB-4EF4-91D1-B5D2B202FCD7",
+          "value": "Base of Champlain Mountain",
+          "name": "Location"
+        },
+        {
+          "id": "208F1B3C-44DC-4CF5-9A61-9B26A364D701",
+          "value": "Final Stop on the Acadia Earthcache Course. ",
+          "name": "Significance"
+        }
+      ],
+      "location": "",
+      "locationDescription": "",
+      "credit": "",
+      "multimedia": [],
+      "relevanceScore": 1.0
+    }
+  ]
+}

@@ -156,6 +156,24 @@ let anotherPage = try await client.send(.parks(parkCode: code))
 An unknown code can return an empty data array. No first result is selected, no next page is
 fetched, and no retries or redirects are performed.
 
+### Places
+
+``NPSDataClient/places(query:)`` and ``NPSDataClient/placePages(query:)`` search `/places` by park
+codes, state codes, and text. Each page is `NPSCollection<Place>`. The endpoint accepts no sort
+parameter, and the query offers none:
+
+```swift
+let query = try PlaceQuery(parkCodes: [ParkCode("acad")], searchText: "trail")
+for try await place in client.places(query: query) {
+  print(place.title, place.latLong ?? "")
+}
+let request = NPSDataRequest.places(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.places(query: query))
+```
+
+Coordinates, flags, and descriptions are published text kept as sent, not parsed values.
+
 ### Things to Do
 
 ``NPSDataClient/thingsToDo(query:)`` and ``NPSDataClient/thingToDoPages(query:)`` search
@@ -263,6 +281,11 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/parks(for:)``
 - ``NPSDataClient/parkPages(for:)``
 - ``NPSDataClient/parks(parkCode:)``
+
+### Places
+
+- ``NPSDataClient/places(query:)``
+- ``NPSDataClient/placePages(query:)``
 
 ### Things to Do
 
