@@ -88,11 +88,11 @@ public struct Tour: Codable, Hashable, Sendable {
   /// Provider tags in the order sent, including an empty array.
   public let tags: [String]?
 
-  /// Topics NPS associates with the tour, in provider order.
-  public let topics: [NPSNamedItem]?
-
   /// The tour's display title.
   public let title: String
+
+  /// Topics NPS associates with the tour, in provider order.
+  public let topics: [NPSNamedItem]?
 
   /// The provider's tour type, such as `"Standard"`, kept as an open string.
   public let type: String?

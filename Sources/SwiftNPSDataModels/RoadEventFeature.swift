@@ -1,27 +1,19 @@
 /// One road event in a feed: a GeoJSON feature with a geometry and event details.
 ///
+/// Every recorded feature is a `LineString`, read through ``NPSGeometry/lineString`` as
+/// `[longitude, latitude]` positions in provider order. The geometry is the open ``NPSGeometry``
+/// rather than a closed list of positions, so a feature sent at another depth still decodes with
+/// its coordinates intact instead of failing the whole feed.
+///
 /// ```swift
 /// for feature in feed.features ?? [] {
-///   let points = feature.geometry?.coordinates ?? []
+///   let points = feature.geometry?.lineString ?? []
 ///   print(feature.properties?.coreDetails?.eventType ?? "", points.count)
 /// }
 /// ```
 public struct RoadEventFeature: Codable, Hashable, Sendable {
-  /// The WZDx geometry of a road event, with coordinates kept as GeoJSON `[longitude, latitude]`.
-  ///
-  /// Every recorded feature is a `LineString` whose coordinates are an array of two-number
-  /// positions. Positions are kept in provider order and longitude-first, without reordering or
-  /// conversion to a coordinate type.
-  public struct Geometry: Codable, Hashable, Sendable {
-    /// The positions along the road, each a `[longitude, latitude]` array as sent.
-    public let coordinates: [[Double]]?
-
-    /// The GeoJSON geometry type, such as `"LineString"`, kept as an open string.
-    public let type: String?
-  }
-
   /// Where the event applies along the road.
-  public let geometry: Geometry?
+  public let geometry: NPSGeometry?
 
   /// The event's details, timing, and identifiers.
   public let properties: RoadEventDetails?

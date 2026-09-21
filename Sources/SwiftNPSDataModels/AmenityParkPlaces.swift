@@ -15,8 +15,10 @@
 /// }
 /// ```
 public struct AmenityParkPlaces: Codable, Hashable, Sendable {
-  /// A place in a park where NPS lists the amenity.
-  public struct Place: Codable, Hashable, Sendable {
+  /// A place in a park where NPS lists the amenity, as NPS summarizes it.
+  ///
+  /// This is a summary, not the full ``Place`` from the places endpoint.
+  public struct PlaceSummary: Codable, Hashable, Sendable {
     /// The provider's place identifier, preserved as sent.
     public let id: String?
 
@@ -41,7 +43,7 @@ public struct AmenityParkPlaces: Codable, Hashable, Sendable {
     public let park: NPSRelatedPark
 
     /// Places in the park offering the amenity, in provider order.
-    public let places: [Place]?
+    public let places: [PlaceSummary]?
 
     /// Decodes the park summary and its places from one provider object.
     ///
@@ -50,7 +52,7 @@ public struct AmenityParkPlaces: Codable, Hashable, Sendable {
     public init(from decoder: any Decoder) throws {
       park = try NPSRelatedPark(from: decoder)
       let container = try decoder.container(keyedBy: CodingKeys.self)
-      places = try container.decodeIfPresent([Place].self, forKey: .places)
+      places = try container.decodeIfPresent([PlaceSummary].self, forKey: .places)
     }
 
     /// Encodes the park summary and its places into one object, matching the provider's shape.

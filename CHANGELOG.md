@@ -12,13 +12,14 @@ All notable changes are documented here. This project follows
   as the provider's comma-joined text.
 - NPSImage.description and NPSImageCrop.ratio, the aspect ratio parsed as a number when the
   provider's text is numeric.
-- NPSQuickFact, NPSRelatedOrganization, and NPSConstraintsInfo, decoded shapes for groups not yet
-  queried.
+- NPSQuickFact and NPSRelatedOrganization, the labeled facts and linked organizations a place
+  publishes, kept as the provider sends them.
 - Park boundaries: ParkBoundary, ParkBoundaryFeature, ParkBoundaryDetails, NPSGeometry,
   NPSCoordinateTree, Endpoint.parkBoundary(parkCode:), NPSDataRequest.parkBoundary(parkCode:), and
   NPSDataClient.parkBoundary(parkCode:), a single response decoding one park's GeoJSON boundary with
   recorded responses. NPSCoordinateTree keeps coordinates of any depth as sent, and
-  NPSGeometry.polygon and multiPolygon return typed arrays, or nil when the type or depth differs.
+  NPSGeometry.lineString, polygon, and multiPolygon return typed arrays, or nil when the type or
+  depth differs.
 - Places: Place, PlaceQuery, Endpoint.places(query:), NPSDataRequest.places(query:), and the lazy
   NPSDataClient.placePages(query:) and places(query:), with recorded places responses. The live
   endpoint rejects every sort value with HTTP 400, so PlaceQuery has no sort parameter. Place keeps
@@ -28,8 +29,10 @@ All notable changes are documented here. This project follows
   RoadEventDetails, RoadEventType, Endpoint.roadEvents(parkCode:type:),
   NPSDataRequest.roadEvents(parkCode:type:), and NPSDataClient.roadEvents(parkCode:type:), a single
   response decoding the WZDx 4.1 feed with recorded responses. RoadEventType sends the provider's
-  spelling, such as `WorkZone`. RoadEventDetails keeps both provider identifiers, `Id` and `_id`,
-  and incident and work types.
+  spelling, such as `WorkZone`. RoadEventFeature.geometry is the shared NPSGeometry, whose
+  positions are read through NPSGeometry.lineString, so a feature sent at another depth still
+  decodes with its coordinates rather than failing the feed. RoadEventDetails keeps both provider
+  identifiers, `Id` and `_id`, and incident and work types.
 - Tours: Tour, Tour.Stop, TourQuery, Endpoint.tours(query:), NPSDataRequest.tours(query:), and
   the lazy NPSDataClient.tourPages(query:) and tours(query:), with recorded tours responses.
   TourQuery sorts by `relevanceScore`, the only field the live service accepts, and sends sort
@@ -56,6 +59,8 @@ All notable changes are documented here. This project follows
 - AmenityParkPlaces.RelatedPark and AmenityParkVisitorCenters.RelatedPark hold the park summary as
   `park: NPSRelatedPark` beside their `places` or `visitorCenters` array instead of restating its
   fields.
+- Rename AmenityParkPlaces.Place to AmenityParkPlaces.PlaceSummary, matching the sibling
+  AmenityParkVisitorCenters.VisitorCenterSummary and leaving the top-level Place unshadowed.
 
 ## [0.3.0] - 2026-09-20
 

@@ -54,6 +54,21 @@ struct RoadEventTests {
     #expect(details.endDate == nil)
   }
 
+  @Test("A feature nested deeper than a line of positions keeps its coordinates")
+  func aFeatureNestedDeeperThanALineOfPositionsKeepsItsCoordinates() throws {
+    // Constructed, not recorded: every recorded feature is a LineString. A feed carrying one
+    // feature of another shape must still decode in full.
+    let json = Data(
+      #"""
+      {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[1.5,2.5],[3.5,4.5]]]},
+      "properties":{"Id":"a"}}
+      """#.utf8)
+    let feature = try JSONDecoder().decode(RoadEventFeature.self, from: json)
+    #expect(feature.geometry?.lineString == nil)
+    #expect(feature.geometry?.polygon == [[[1.5, 2.5], [3.5, 4.5]]])
+    #expect(feature.properties?.id == "a")
+  }
+
   @Test("Incidents and work zones decode from a populated recorded feed")
   func incidentsAndWorkZonesDecodeFromAPopulatedRecordedFeed() throws {
     let feed = try decode(.roadEventsDelawareWaterGap)
@@ -75,8 +90,8 @@ struct RoadEventTests {
     let workZone = try #require(features.first)
     #expect(workZone.type == "Feature")
     #expect(workZone.geometry?.type == "LineString")
-    #expect(workZone.geometry?.coordinates?.count == 67)
-    #expect(workZone.geometry?.coordinates?.first == [-74.8159821, 41.2871847])
+    #expect(workZone.geometry?.lineString?.count == 67)
+    #expect(workZone.geometry?.lineString?.first == [-74.8159821, 41.2871847])
     let work = try #require(workZone.properties)
     #expect(work.id == "19dc202e-1b68-e3d6-45b1-ccfa6668250b")
     #expect(work.typesOfWork?.map(\.typeName) == ["surface-work"])
@@ -105,7 +120,7 @@ struct RoadEventTests {
         == "The bridge on Main Street in Walpack Center is closed indefinitely due to structural"
         + " damage from a vehicle collision.\n\nRoute 615 is closed in Flatbrookville due to"
         + " landslide and active slope failure.")
-    #expect(features[4].geometry?.coordinates?.first == [-74.876741, 41.1571551])
+    #expect(features[4].geometry?.lineString?.first == [-74.876741, 41.1571551])
   }
 
   @Test("A small recorded feed keeps every property as sent")
@@ -119,11 +134,11 @@ struct RoadEventTests {
     let features = try #require(feed.features)
     #expect(features.count == 2)
     #expect(
-      features[0].geometry?.coordinates == [
+      features[0].geometry?.lineString == [
         [-110.6791841, 44.9579849], [-110.6792844, 44.9580566],
       ])
     #expect(
-      features[1].geometry?.coordinates == [
+      features[1].geometry?.lineString == [
         [-110.6792844, 44.9580566], [-110.6791841, 44.9579849],
       ])
     let details = try #require(features[0].properties)

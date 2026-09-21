@@ -106,14 +106,14 @@ Shapes the provider sends identically across groups are top-level `NPS` types. `
 the one image type: every image object NPS sends is a variant that differs only by whether
 `crops` and `description` are present, and each missing key decodes to nil. Its crops are
 ``NPSImageCrop``, whose ``NPSImageCrop/aspectRatio`` is text because the provider sends a JSON
-number on some paths (`/campgrounds`, `/tours`, `/visitorcenters`) and a JSON string on others
-(`/thingstodo`), and mixes both in one `/places` response, where `images` crops carry text and
-`passportStampImages` crops a number; a string is stored exactly as sent and a number as its
-decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric. ``NPSRelatedPark`` is
-the park summary attached to records from other groups, with `states` kept as the provider's
-comma-joined text. ``NPSQuickFact``, ``NPSRelatedOrganization``, and ``NPSConstraintsInfo`` are
-decoded shapes for groups this package does not yet query; they are documented only as the
-provider sends them.
+number on some paths and a JSON string on others: `/tours` sends the number under `images`,
+`/campgrounds` and `/visitorcenters` send empty `images` crops and the number under
+`passportStampImages`, `/thingstodo` sends a string, and one `/places` response mixes both, text
+under `images` and a number under `passportStampImages`; a string is stored exactly as sent and a
+number as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric.
+``NPSRelatedPark`` is the park summary attached to records from other groups, with `states` kept
+as the provider's comma-joined text. ``NPSQuickFact`` and ``NPSRelatedOrganization`` are the
+labeled facts and linked organizations ``Place`` declares, kept as the provider sends them.
 
 ### Alerts
 
@@ -148,9 +148,9 @@ entry each. Their pages are therefore `NPSCollection<[AmenityParkPlaces]>` and
 advances by the number of groups, which the live service counts against `limit`. Each entry lists
 parks as ``AmenityParkPlaces/RelatedPark`` or ``AmenityParkVisitorCenters/RelatedPark`` entries,
 each holding an ``NPSRelatedPark`` summary decoded from the same flat provider object alongside
-``AmenityParkPlaces/Place`` or ``AmenityParkVisitorCenters/VisitorCenterSummary`` values, read
-from the lowercase `visitorcenters` key. Places and visitor center summaries carry links, so they
-are not ``NPSNamedItem``. Unknown JSON fields are ignored.
+``AmenityParkPlaces/PlaceSummary`` or ``AmenityParkVisitorCenters/VisitorCenterSummary`` values,
+read from the lowercase `visitorcenters` key. Places and visitor center summaries carry links, so
+they are not ``NPSNamedItem``. Unknown JSON fields are ignored.
 
 The specification and real responses were checked on September 17, 2026. The live responses carry
 `categories` on amenities and the extra group array on the park endpoints, and the models follow
@@ -169,8 +169,8 @@ Campgrounds pages are `NPSCollection<Campground>`, from ``Endpoint/campgrounds(q
 unknown JSON fields are ignored. Addresses, contacts, multimedia, and operating hours use the
 shared ``NPSAddress``, ``NPSContacts``, ``NPSMultimedia``, and ``NPSOperatingHours`` types.
 Fees are ``NPSFee``, the same shape as park entrance fees and passes; images and passport stamp
-images are both ``NPSImage``, the same as visitor centers, with numeric crop aspect ratios stored
-as text.
+images are both ``NPSImage``, the same as visitor centers. Every recorded `images` crop array is
+empty, and the numeric aspect ratio arrives under `passportStampImages`, stored as text.
 ``Campground/Accessibility``, ``Campground/Amenities``, and ``Campground/Campsites`` keep every
 value as sent: flags such as `rvAllowed` stay `"0"` or `"1"`, lengths and site counts stay text,
 and amenity descriptions such as `"Yes - seasonal"` stay open strings. The provider's lowercase
@@ -190,8 +190,9 @@ parameters and returns a bare GeoJSON feature collection, decoded as one ``ParkB
 pagination. Every recorded park returned exactly one ``ParkBoundaryFeature``. An unknown park code
 returns HTTP 404 with an `application/problem+json` body, not the NPS error envelope.
 
-Geometry is usually a `MultiPolygon` nested four levels deep, from 2 polygons for Dry Tortugas to 51
-for Acadia, and occasionally a `Polygon` nested three deep, as for Yellowstone. ``NPSGeometry``
+Geometry is usually a `MultiPolygon` nested four levels deep: the recorded Dry Tortugas boundary
+sends 2 polygons, and a live probe of Acadia returned 51. It is occasionally a `Polygon` nested
+three deep, as the recorded Yellowstone boundary sends. ``NPSGeometry``
 therefore keeps its coordinates as an ``NPSCoordinateTree`` of any depth, so a geometry kind this
 package does not name keeps every coordinate, and offers ``NPSGeometry/polygon`` and
 ``NPSGeometry/multiPolygon`` as typed arrays. Each returns nil rather than trapping when the
@@ -274,7 +275,10 @@ parks return.
 
 Keys are remapped from the provider's snake_case, and every value is kept as sent: timestamps stay
 text, vocabulary such as ``RoadEventDetails/CoreDetails/eventType`` stays an open string in WZDx
-spelling, and ``RoadEventFeature/Geometry`` keeps GeoJSON `[longitude, latitude]` positions.
+spelling, and ``RoadEventFeature/geometry`` is the shared ``NPSGeometry``, whose GeoJSON
+`[longitude, latitude]` positions are read through ``NPSGeometry/lineString``. Every recorded
+feature is a `LineString`; one sent at another depth keeps its coordinates rather than failing the
+feed.
 ``RoadEventDetails`` preserves both identifiers the provider sends, `Id` as
 ``RoadEventDetails/id`` and `_id` as ``RoadEventDetails/numericId``. Incidents carry
 ``RoadEventDetails/typesOfIncident`` and work zones ``RoadEventDetails/typesOfWork``, neither
@@ -370,8 +374,9 @@ the query has no sort parameter.
 JSON fields are ignored. Each field keeps the provider's own JSON type. ``Webcam/isStreaming`` is a
 JSON Boolean, unlike the `"0"` and `"1"` text flags places send. ``Webcam/latitude`` and
 ``Webcam/longitude`` are JSON numbers or `null`, unlike the coordinate text places send; no shared
-coordinate type exists. The API does not guarantee a per-camera location: several cameras in one
-park can share one coordinate, which is kept as sent. ``Webcam/status`` is open text such as
+coordinate type exists. The API does not guarantee a per-camera location: both recorded Grand Teton
+cameras send `null`, and a live probe found cameras in one park sharing one coordinate. Whatever
+arrives is kept as sent. ``Webcam/status`` is open text such as
 `"Active"` or `"Inactive"`. Parks are ``NPSRelatedPark`` values in ``Webcam/relatedParks``, tags
 are strings, and images are the shared ``NPSImage`` with its URL text kept exactly as sent.
 
@@ -455,7 +460,6 @@ NPS data describes destinations, not live reservation availability, freshness, o
 ### Shared park and facility details
 
 - ``NPSAddress``
-- ``NPSConstraintsInfo``
 - ``NPSContacts``
 - ``NPSEmailAddress``
 - ``NPSFee``

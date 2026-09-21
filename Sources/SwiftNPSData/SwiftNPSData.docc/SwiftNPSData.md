@@ -185,8 +185,8 @@ fetched, and no retries or redirects are performed.
 ### Places
 
 ``NPSDataClient/places(query:)`` and ``NPSDataClient/placePages(query:)`` search `/places` by park
-codes, state codes, and text. Each page is `NPSCollection<Place>`. The endpoint accepts no sort
-parameter, and the query offers none:
+codes, state codes, and text. Each page is `NPSCollection<Place>`. The endpoint answers every sort
+value with HTTP 400, so the query offers no sort parameter:
 
 ```swift
 let query = try PlaceQuery(parkCodes: [ParkCode("acad")], searchText: "trail")
@@ -210,17 +210,19 @@ the provider rejects:
 ```swift
 let feed = try await client.roadEvents(parkCode: ParkCode("yell"), type: .workZone)
 for feature in feed.features ?? [] {
-  print(feature.properties?.coreDetails?.name ?? "", feature.properties?.startDate ?? "")
+  print(feature.properties?.coreDetails?.name ?? "", feature.geometry?.lineString?.count ?? 0)
 }
 let request = NPSDataRequest.roadEvents(parkCode: try ParkCode("yell"))
 let sameFeed = try await client.value(for: request)
 ```
 
-Most parks return an empty feed, and a valid type with no matching events also returns an empty
-feed rather than an error. The provider silently ignores a park code it does not recognize and
-returns every park's events. The feed is published by the National Park Service under the license
-its metadata names, which this package's license does not cover, and it is not an authoritative
-live closure service.
+Every recorded feature is a `LineString`, read as `[longitude, latitude]` positions through
+``/SwiftNPSDataModels/NPSGeometry/lineString``; a feature sent at another depth keeps its
+coordinates rather than failing the feed. Most parks return an empty feed, and a valid type with
+no matching events also returns an empty feed rather than an error. The provider silently ignores
+a park code it does not recognize and returns every park's events. The feed is published by the
+National Park Service under the license its metadata names, which this package's license does not
+cover, and it is not an authoritative live closure service.
 
 ### Things to Do
 

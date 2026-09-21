@@ -15,14 +15,38 @@ struct NPSCoordinateTreeTests {
     #expect(try geometry("MultiPolygon", "[[]]").multiPolygon == [[]])
   }
 
+  @Test("A four level MultiPolygon reads every polygon, ring, and position")
+  func aFourLevelMultiPolygonReadsEveryPolygonRingAndPosition() throws {
+    let polygons = try geometry(
+      "MultiPolygon",
+      "[[[[1.5,2.5],[3.5,4.5],[1.5,2.5]],[[5.5,6.5],[7.5,8.5],[5.5,6.5]]],[[[9.5,10.5]]]]"
+    ).multiPolygon
+    #expect(
+      polygons == [
+        [[[1.5, 2.5], [3.5, 4.5], [1.5, 2.5]], [[5.5, 6.5], [7.5, 8.5], [5.5, 6.5]]],
+        [[[9.5, 10.5]]],
+      ])
+  }
+
   @Test("An empty list is never accepted where a position belongs")
   func anEmptyListIsNeverAcceptedWhereAPositionBelongs() throws {
     #expect(try geometry("Polygon", "[[[]]]").polygon == nil)
     #expect(try geometry("MultiPolygon", "[[[[]]]]").multiPolygon == nil)
   }
 
+  @Test("A LineString reads its positions in the order sent")
+  func aLineStringReadsItsPositionsInTheOrderSent() throws {
+    let line = try geometry("LineString", "[[1.5,2.5],[3.5,4.5],[5.5,6.5]]")
+    #expect(line.lineString == [[1.5, 2.5], [3.5, 4.5], [5.5, 6.5]])
+    #expect(line.polygon == nil)
+    #expect(line.multiPolygon == nil)
+    #expect(try geometry("LineString", "[]").lineString == [])
+  }
+
   @Test("Accessors return nil when the depth does not match the declared type")
   func accessorsReturnNilWhenTheDepthDoesNotMatchTheDeclaredType() throws {
+    #expect(try geometry("LineString", "[[[1.5,2.5]]]").lineString == nil)
+    #expect(try geometry("LineString", "[1.5,2.5]").lineString == nil)
     #expect(try geometry("Polygon", "[[[[1.5,2.5]]]]").polygon == nil)
     #expect(try geometry("Polygon", "[[1.5,2.5]]").polygon == nil)
     #expect(try geometry("MultiPolygon", "[[[1.5,2.5]]]").multiPolygon == nil)
@@ -36,6 +60,7 @@ struct NPSCoordinateTreeTests {
     let polygons = try geometry("Polygon", "[[[[1.5,2.5]]]]")
     #expect(polygons.multiPolygon == nil)
     #expect(try geometry("polygon", "[[[1.5,2.5]]]").polygon == nil)
+    #expect(try geometry("MultiLineString", "[[1.5,2.5]]").lineString == nil)
   }
 
   @Test("Accessors return nil when the type or coordinates are missing")
@@ -43,6 +68,7 @@ struct NPSCoordinateTreeTests {
     let untyped = try JSONDecoder().decode(
       NPSGeometry.self, from: Data(#"{"coordinates":[[[1.5,2.5]]]}"#.utf8))
     #expect(untyped.type == nil)
+    #expect(untyped.lineString == nil)
     #expect(untyped.polygon == nil)
     #expect(untyped.multiPolygon == nil)
     let empty = try JSONDecoder().decode(
@@ -73,7 +99,7 @@ struct NPSCoordinateTreeTests {
     "Values that are not coordinate arrays fail to decode",
     arguments: [
       #""text""#, #"{"x":1}"#, "true", "null", "1.5", "[1.5,[2.5]]", "[[1.5],2.5]",
-      "[null]", #"["1.5"]"#,
+      "[null]", #"["1.5"]"#, "[true]", "[true,false]",
     ])
   func valuesThatAreNotCoordinateArraysFailToDecode(_ json: String) {
     #expect(throws: DecodingError.self) { try tree(json) }
@@ -94,13 +120,14 @@ struct NPSCoordinateTreeTests {
 
   @Test("Unknown geometry types keep their coordinates without typed accessors")
   func unknownGeometryTypesKeepTheirCoordinatesWithoutTypedAccessors() throws {
-    let line = try geometry("LineString", "[[1.5,2.5],[3.5,4.5]]")
-    #expect(line.type == "LineString")
-    #expect(line.coordinates == .nested([.position([1.5, 2.5]), .position([3.5, 4.5])]))
-    #expect(line.polygon == nil)
-    #expect(line.multiPolygon == nil)
-    let encoded = try JSONEncoder().encode(line)
-    #expect(try JSONDecoder().decode(NPSGeometry.self, from: encoded) == line)
+    let unnamed = try geometry("GeometryCollection", "[[1.5,2.5],[3.5,4.5]]")
+    #expect(unnamed.type == "GeometryCollection")
+    #expect(unnamed.coordinates == .nested([.position([1.5, 2.5]), .position([3.5, 4.5])]))
+    #expect(unnamed.lineString == nil)
+    #expect(unnamed.polygon == nil)
+    #expect(unnamed.multiPolygon == nil)
+    let encoded = try JSONEncoder().encode(unnamed)
+    #expect(try JSONDecoder().decode(NPSGeometry.self, from: encoded) == unnamed)
   }
 
   private func geometry(_ type: String, _ coordinates: String) throws -> NPSGeometry {

@@ -151,8 +151,8 @@ struct SharedShapeTests {
       ])
   }
 
-  @Test("Quick facts, related organizations, and constraints decode as sent")
-  func quickFactsRelatedOrganizationsAndConstraintsDecodeAsSent() throws {
+  @Test("Quick facts and related organizations decode as sent")
+  func quickFactsAndRelatedOrganizationsDecodeAsSent() throws {
     let fact = try JSONDecoder().decode(
       NPSQuickFact.self, from: Data(#"{"id":"F1","name":"Significance","value":""}"#.utf8))
     #expect(fact.id == "F1")
@@ -163,14 +163,10 @@ struct SharedShapeTests {
     #expect(organization.id == "O1")
     #expect(organization.name == nil)
     #expect(organization.url == "u")
-    let constraints = try JSONDecoder().decode(
-      NPSConstraintsInfo.self,
-      from: Data(#"{"constraint":"Public domain","grantingRights":"Full"}"#.utf8))
-    #expect(constraints.constraint == "Public domain")
-    #expect(constraints.grantingRights == "Full")
-    let empty = try JSONDecoder().decode(NPSConstraintsInfo.self, from: Data("{}".utf8))
-    #expect(empty.constraint == nil)
-    #expect(empty.grantingRights == nil)
+    let empty = try JSONDecoder().decode(NPSQuickFact.self, from: Data("{}".utf8))
+    #expect(empty.id == nil)
+    #expect(empty.name == nil)
+    #expect(empty.value == nil)
   }
 
   /// A minimal JSON tree used to inspect encoded output without depending on key order.
