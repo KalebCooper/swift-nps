@@ -10,7 +10,9 @@ struct ContentView: View {
   @State private var message = "Enter your private NPS API key to search."
   @State private var pageSize = 1
   @State private var pager: (any ResultPaging)?
+  @State private var parkCode = "yell"
   @State private var parkCodes = "acad,yell"
+  @State private var roadEventType: RoadEventType?
   @State private var rows: [ResultRow] = []
   @State private var searchText = ""
   @State private var stateCodes = ""
@@ -30,18 +32,38 @@ struct ContentView: View {
             .textContentType(.password)
             .textInputAutocapitalization(.never)
             .autocorrectionDisabled()
-          if group.filtersByCode {
+          switch group.filters {
+          case .codeListsAndText:
             TextField("Park codes, separated by commas", text: $parkCodes)
               .textInputAutocapitalization(.never)
               .autocorrectionDisabled()
             TextField("State codes, separated by commas", text: $stateCodes)
               .textInputAutocapitalization(.characters)
               .autocorrectionDisabled()
+          case .optionalParkCodeAndType:
+            TextField("Park code, or empty for every park", text: $parkCode)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+            Picker("Event type", selection: $roadEventType) {
+              Text("Any").tag(RoadEventType?.none)
+              ForEach(RoadEventType.allCases, id: \.self) { type in
+                Text(type.rawValue).tag(RoadEventType?.some(type))
+              }
+            }
+            .pickerStyle(.menu)
+          case .requiredParkCode:
+            TextField("Park code", text: $parkCode)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+          case .textOnly:
+            EmptyView()
           }
-          TextField("Search text", text: $searchText)
-          Stepper("Results per page: \(pageSize)", value: $pageSize, in: 1...50)
+          if group.filters.isPaged {
+            TextField("Search text", text: $searchText)
+            Stepper("Results per page: \(pageSize)", value: $pageSize, in: 1...50)
+          }
           Button("Search \(group.noun)", action: search)
-            .disabled(apiKey.isEmpty)
+            .disabled(isSearchDisabled)
         }
         .disabled(isLoading)
 
@@ -60,22 +82,24 @@ struct ContentView: View {
         ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
           VStack(alignment: .leading) {
             Text(row.title)
-            if let parkCode = row.parkCode {
-              Text(parkCode)
+            if let detail = row.detail {
+              Text(detail)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-                .accessibilityLabel("Park code \(parkCode)")
             }
           }
         }
 
         Section {
-          Text(sortDescription)
-          Text("Load more fetches one page at a time.")
+          Text(orderDescription)
+          if group.filters.isPaged {
+            Text("Load more fetches one page at a time.")
+          }
           Text(
             "Your key stays in memory and is sent only to the NPS API. It is not saved by this demo."
           )
-          Text("NPS information can change between pages and is not live reservation availability.")
+          Text(
+            "NPS information can change between requests and is not live reservation availability.")
         }
         .font(.footnote)
       }
@@ -84,15 +108,24 @@ struct ContentView: View {
     }
   }
 
-  private var sortDescription: String {
+  private var isSearchDisabled: Bool {
+    apiKey.isEmpty || (group.filters == .requiredParkCode && parkCode.isEmpty)
+  }
+
+  private var orderDescription: String {
     switch group {
-    // NPS rejects things to do sort fields other than relevance with HTTP 400.
-    case .alerts, .amenities, .thingsToDo:
+    // NPS answers every sort value with HTTP 400 on places and webcams, and every field except
+    // relevance on things to do and tours, so the demo sends no sort criteria for them.
+    case .alerts, .amenities, .places, .thingsToDo, .tours, .webcams:
       "Results are in the order NPS returns them."
     case .campgrounds, .visitorCenters:
       "Results are sorted by name."
+    case .parkBoundaries:
+      "A park's boundary arrives as one feature collection with no pagination."
     case .parks:
       "Results are sorted by full name."
+    case .roadEvents:
+      "The road events feed arrives as one response with no pagination."
     }
   }
 
@@ -126,53 +159,128 @@ struct ContentView: View {
     }
   }
 
-  private func makePager(client: NPSDataClient) throws -> any ResultPaging {
+  private func loadSingleResponse(_ load: @escaping () async throws(NPSDataError) -> [ResultRow]) {
+    isLoading = true
+    message = "Loading \(group.noun)."
+    loadTask = Task {
+      defer {
+        isLoading = false
+        loadTask = nil
+      }
+      do throws(NPSDataError) {
+        rows = try await load()
+        if rows.isEmpty {
+          message = "NPS returned no \(group.noun)."
+        } else {
+          message =
+            rows.count == 1
+            ? "NPS returned one result." : "NPS returned \(rows.count) results."
+        }
+      } catch {
+        show(error)
+      }
+    }
+  }
+
+  private func makeLoad(client: NPSDataClient) throws -> DemoLoad {
     let text = searchText.isEmpty ? nil : searchText
     switch group {
     case .alerts:
       let query = try AlertQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
         stateCodes: parsedStateCodes())
-      return DemoPager(pages: client.alertPages(query: query), query: query) {
-        ResultRow(parkCode: $0.parkCode, title: $0.title)
-      }
+      return .pages(
+        DemoPager(pages: client.alertPages(query: query), query: query) {
+          ResultRow(detail: $0.parkCode, title: $0.title)
+        })
     case .amenities:
       let query = try AmenityQuery(limit: pageSize, searchText: text)
-      return DemoPager(pages: client.amenityPages(query: query), query: query) {
-        ResultRow(parkCode: nil, title: $0.name)
-      }
+      return .pages(
+        DemoPager(pages: client.amenityPages(query: query), query: query) {
+          ResultRow(detail: nil, title: $0.name)
+        })
     case .campgrounds:
       let query = try CampgroundQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
         stateCodes: parsedStateCodes())
-      return DemoPager(pages: client.campgroundPages(query: query), query: query) {
-        ResultRow(parkCode: $0.parkCode, title: $0.name)
+      return .pages(
+        DemoPager(pages: client.campgroundPages(query: query), query: query) {
+          ResultRow(detail: $0.parkCode, title: $0.name)
+        })
+    case .parkBoundaries:
+      let code = try ParkCode(parkCode)
+      // A multi statement closure does not infer a typed thrown error, so it is spelled out.
+      return .single { () async throws(NPSDataError) -> [ResultRow] in
+        let boundary = try await client.parkBoundary(parkCode: code)
+        return (boundary.features ?? []).map { feature in
+          let details = feature.properties
+          return ResultRow(
+            detail: feature.geometry?.type,
+            title: details?.fullName ?? details?.name ?? "Park boundary")
+        }
       }
     case .parks:
       let query = try ParkQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
         sort: [.ascending("fullName")],
         stateCodes: parsedStateCodes())
-      return DemoPager(pages: client.parkPages(query: query), query: query) {
-        ResultRow(parkCode: $0.parkCode, title: $0.fullName)
+      return .pages(
+        DemoPager(pages: client.parkPages(query: query), query: query) {
+          ResultRow(detail: $0.parkCode, title: $0.fullName)
+        })
+    case .places:
+      let query = try PlaceQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.placePages(query: query), query: query) { place in
+          ResultRow(detail: relatedParkCodes(place.relatedParks), title: place.title)
+        })
+    case .roadEvents:
+      // An empty park code asks for every park's events, which the feed returns in one response.
+      let code = parkCode.isEmpty ? nil : try ParkCode(parkCode)
+      let type = roadEventType
+      // A multi statement closure does not infer a typed thrown error, so it is spelled out.
+      return .single { () async throws(NPSDataError) -> [ResultRow] in
+        let feed = try await client.roadEvents(parkCode: code, type: type)
+        return (feed.features ?? []).map { feature in
+          let details = feature.properties?.coreDetails
+          return ResultRow(detail: details?.eventType, title: details?.name ?? "Road event")
+        }
       }
     case .thingsToDo:
       let query = try ThingToDoQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
         stateCodes: parsedStateCodes())
-      return DemoPager(pages: client.thingToDoPages(query: query), query: query) { thing in
-        // A thing to do can belong to several parks, so it lists every related park code.
-        let codes = (thing.relatedParks ?? []).compactMap(\.parkCode)
-        return ResultRow(
-          parkCode: codes.isEmpty ? nil : codes.joined(separator: ", "), title: thing.title)
-      }
+      return .pages(
+        DemoPager(pages: client.thingToDoPages(query: query), query: query) { thing in
+          ResultRow(detail: relatedParkCodes(thing.relatedParks), title: thing.title)
+        })
+    case .tours:
+      let query = try TourQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.tourPages(query: query), query: query) { tour in
+          // A tour links one park, not the array other groups send.
+          ResultRow(detail: tour.park?.parkCode, title: tour.title)
+        })
     case .visitorCenters:
       let query = try VisitorCenterQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
         stateCodes: parsedStateCodes())
-      return DemoPager(pages: client.visitorCenterPages(query: query), query: query) {
-        ResultRow(parkCode: $0.parkCode, title: $0.name)
-      }
+      return .pages(
+        DemoPager(pages: client.visitorCenterPages(query: query), query: query) {
+          ResultRow(detail: $0.parkCode, title: $0.name)
+        })
+    case .webcams:
+      let query = try WebcamQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.webcamPages(query: query), query: query) { webcam in
+          ResultRow(detail: relatedParkCodes(webcam.relatedParks), title: webcam.title)
+        })
     }
   }
 
@@ -192,6 +300,12 @@ struct ContentView: View {
       }
   }
 
+  /// The park codes an item lists, joined for one line, or nil when it names no park.
+  private func relatedParkCodes(_ parks: [NPSRelatedPark]?) -> String? {
+    let codes = (parks ?? []).compactMap(\.parkCode)
+    return codes.isEmpty ? nil : codes.joined(separator: ", ")
+  }
+
   // The picker is disabled while loading, so switching groups never races an in-flight page.
   private func reset() {
     pager = nil
@@ -205,13 +319,20 @@ struct ContentView: View {
     rows = []
     do {
       let client = try NPSDataClient(apiKey: apiKey)
-      pager = try makePager(client: client)
-      loadNextPage()
+      switch try makeLoad(client: client) {
+      case .pages(let loaded):
+        pager = loaded
+        loadNextPage()
+      case .single(let load):
+        loadSingleResponse(load)
+      }
     } catch let error as NPSDataError {
       show(error)
     } catch {
       message =
-        "Use comma-separated park codes of 4 to 10 letters or digits and two-letter state codes, without spaces."
+        group.filters.isPaged
+        ? "Use comma-separated park codes of 4 to 10 letters or digits and two-letter state codes, without spaces."
+        : "Use one park code of 4 to 10 letters or digits, without spaces."
     }
   }
 

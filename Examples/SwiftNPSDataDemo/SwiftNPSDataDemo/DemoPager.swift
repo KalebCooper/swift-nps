@@ -1,6 +1,26 @@
 import SwiftNPSData
 import SwiftNPSDataModels
 
+/// The inputs one group's search accepts.
+enum DemoFilters {
+  /// Comma-separated park and state code lists with text search.
+  case codeListsAndText
+  /// One optional park code and one optional road event type.
+  case optionalParkCodeAndType
+  /// One required park code and nothing else.
+  case requiredParkCode
+  /// Text search only.
+  case textOnly
+
+  /// Whether results arrive a page at a time rather than as one complete response.
+  var isPaged: Bool {
+    switch self {
+    case .codeListsAndText, .textOnly: true
+    case .optionalParkCodeAndType, .requiredParkCode: false
+    }
+  }
+}
+
 /// The endpoint groups the demo can search.
 enum DemoGroup: String, CaseIterable, Identifiable {
   // Cases follow the picker's display order, with parks first as the primary group.
@@ -10,9 +30,25 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   case campgrounds = "Campgrounds"
   case thingsToDo = "Things to Do"
   case amenities = "Amenities"
+  case places = "Places"
+  case tours = "Tours"
+  case webcams = "Webcams"
+  case roadEvents = "Road Events"
+  case parkBoundaries = "Park Boundaries"
 
-  /// Whether the group's query accepts park and state codes.
-  var filtersByCode: Bool { self != .amenities }
+  /// The search inputs this group accepts.
+  var filters: DemoFilters {
+    switch self {
+    case .alerts, .campgrounds, .parks, .places, .thingsToDo, .tours, .visitorCenters, .webcams:
+      .codeListsAndText
+    case .amenities:
+      .textOnly
+    case .parkBoundaries:
+      .requiredParkCode
+    case .roadEvents:
+      .optionalParkCodeAndType
+    }
+  }
 
   var id: Self { self }
 
@@ -20,9 +56,10 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   var noun: String { rawValue.lowercased() }
 }
 
-/// One result shown by the demo: a display name and, where the item has one, a park code.
+/// One result shown by the demo: a display name and an optional second line, such as a park code,
+/// a road event type, or a boundary's geometry type.
 struct ResultRow {
-  let parkCode: String?
+  let detail: String?
   let title: String
 }
 
@@ -32,6 +69,12 @@ struct ResultPage {
   let rows: [ResultRow]
   /// The provider's total, kept as the string NPS sends.
   let total: String
+}
+
+/// How the demo reads one group: a page at a time, or as one complete response.
+enum DemoLoad {
+  case pages(any ResultPaging)
+  case single(() async throws(NPSDataError) -> [ResultRow])
 }
 
 /// Loads one page per call, so the view can show any group through a single stored value.

@@ -40,6 +40,8 @@ All notable changes are documented here. This project follows
   live endpoint rejects every sort value with HTTP 400, so WebcamQuery has no sort parameter.
   Webcam keeps the provider's Boolean `isStreaming`, numeric or null coordinates, and open `status`
   text.
+- Places, tours, webcams, road events, and park boundaries in the iOS demo's group picker. Road
+  events and park boundaries are shown as one complete response rather than as pages.
 
 ### Changed
 
