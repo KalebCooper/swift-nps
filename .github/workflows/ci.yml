@@ -12,6 +12,42 @@ on:
   pull_request:
 
 jobs:
+  linux:
+    name: swift test (Linux)
+    runs-on: ubuntu-latest
+    container: swift:6.3-noble
+    # Every job in this repository is bounded, so a hang fails the job instead of sitting for the
+    # six-hour default. The ceiling is meant to be that job's slowest green run on `main` under its
+    # current definition, rounded up to the next five minutes and then tripled. `Scripts/verify.sh`
+    # holds the rule that every job has one.
+    # The first green run took 3m54s; round up to the next five minutes and triple it.
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      # The trait set is part of the key: a `.build` made with a different trait set is the same
+      # manifest and the same pins but not the same graph, and restoring one would hand this run a
+      # stale build.
+      - name: Cache SwiftPM build products
+        uses: actions/cache@v6
+        with:
+          path: .build
+          key: spm-${{ runner.os }}-traits-HTTPPortable-${{ hashFiles('Package.swift', 'Package.resolved') }}-${{ github.sha }}
+          restore-keys: |
+            spm-${{ runner.os }}-traits-HTTPPortable-${{ hashFiles('Package.swift', 'Package.resolved') }}-
+            spm-${{ runner.os }}-traits-HTTPPortable-
+      # The trait is enabled here and on the Android lane only: this is the run that forwards it to
+      # swifty-networking, builds the AsyncHTTPClient transport and the SwiftNIO stack beneath it, and
+      # runs the suite against that graph.
+      - name: Run tests
+        run: swift test --traits HTTPPortable
+      # The same suite again under the package's default trait set, which enables nothing, so what a
+      # consumer who asks for no trait actually gets is compiled and run on every push: swifty-networking
+      # resolved without its `HTTPPortable` trait and the SwiftNIO stack never fetched. It uses a
+      # scratch path of its own so the cached `.build` above stays the graph its key names, and it runs
+      # second so the cache restore serves the run that reuses it.
+      - name: Run tests with the default trait set
+        run: swift test --scratch-path .build-default
+
   android:
     name: swift test (Android)
     # `ubuntu-24.04` rather than `ubuntu-latest`: the action below derives the swift.org host toolchain
@@ -57,7 +93,8 @@ jobs:
   apple:
     name: Build & Test (iOS Simulator)
     runs-on: macos-26
-    # The first green cold run took 2m44s; round up to the next five minutes and triple it.
+    # Provisional. The first green cold run took 2m44s before this lane built the demo; re-derive the
+    # ceiling once it has green runs on main with the demo build in it.
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
@@ -84,6 +121,17 @@ jobs:
             -skipPackagePluginValidation \
             | xcbeautify --renderer github-actions
 
+      - name: Build demo for release
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj \
+            -scheme SwiftNPSDataDemo \
+            -configuration Release \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify --renderer github-actions
+
   lint:
     name: swift-format lint
     runs-on: ubuntu-latest
@@ -96,39 +144,4 @@ jobs:
         run: swift format --version
       # Any finding fails the job.
       - name: Lint
-        run: swift format lint --strict --recursive Sources Tests
-  linux:
-    name: swift test (Linux)
-    runs-on: ubuntu-latest
-    container: swift:6.3-noble
-    # Every job in this repository is bounded, so a hang fails the job instead of sitting for the
-    # six-hour default. The ceiling is meant to be that job's slowest green run on `main` under its
-    # current definition, rounded up to the next five minutes and then tripled. `Scripts/verify.sh`
-    # holds the rule that every job has one.
-    # The first green run took 3m54s; round up to the next five minutes and triple it.
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v7
-      # The trait set is part of the key: a `.build` made with a different trait set is the same
-      # manifest and the same pins but not the same graph, and restoring one would hand this run a
-      # stale build.
-      - name: Cache SwiftPM build products
-        uses: actions/cache@v6
-        with:
-          path: .build
-          key: spm-${{ runner.os }}-traits-HTTPPortable-${{ hashFiles('Package.swift', 'Package.resolved') }}-${{ github.sha }}
-          restore-keys: |
-            spm-${{ runner.os }}-traits-HTTPPortable-${{ hashFiles('Package.swift', 'Package.resolved') }}-
-            spm-${{ runner.os }}-traits-HTTPPortable-
-      # The trait is enabled here and on the Android lane only: this is the run that forwards it to
-      # swifty-networking, builds the AsyncHTTPClient transport and the SwiftNIO stack beneath it, and
-      # runs the suite against that graph.
-      - name: Run tests
-        run: swift test --traits HTTPPortable
-      # The same suite again under the package's default trait set, which enables nothing, so what a
-      # consumer who asks for no trait actually gets is compiled and run on every push: swifty-networking
-      # resolved without its `HTTPPortable` trait and the SwiftNIO stack never fetched. It uses a
-      # scratch path of its own so the cached `.build` above stays the graph its key names, and it runs
-      # second so the cache restore serves the run that reuses it.
-      - name: Run tests with the default trait set
-        run: swift test --scratch-path .build-default
+        run: swift format lint --strict --recursive Sources Tests Examples/SwiftNPSDataDemo/SwiftNPSDataDemo
