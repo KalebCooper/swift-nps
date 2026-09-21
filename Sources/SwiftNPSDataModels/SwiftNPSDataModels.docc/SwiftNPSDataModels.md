@@ -5,10 +5,12 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups, built on a generic
-core shared by every offset-paginated collection: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and
-the reusable ``NPSDataRequest``. Construction performs no I/O, and this module never imports a
-transport or holds credentials.
+campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers,
+and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
+values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
+with no pagination. Construction performs no I/O, and this module never imports a transport or
+holds credentials.
 
 ```swift
 import SwiftNPSDataModels
@@ -104,9 +106,10 @@ Shapes the provider sends identically across groups are top-level `NPS` types. `
 the one image type: every image object NPS sends is a variant that differs only by whether
 `crops` and `description` are present, and each missing key decodes to nil. Its crops are
 ``NPSImageCrop``, whose ``NPSImageCrop/aspectRatio`` is text because the provider sends a JSON
-number on some paths (`/parks`, `/campgrounds`, `/tours`, `/visitorcenters`) and a JSON string on others
-(`/thingstodo`), and can mix both in one response; a string is stored exactly as sent and a number
-as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric. ``NPSRelatedPark`` is
+number on some paths (`/campgrounds`, `/tours`, `/visitorcenters`) and a JSON string on others
+(`/thingstodo`), and mixes both in one `/places` response, where `images` crops carry text and
+`passportStampImages` crops a number; a string is stored exactly as sent and a number as its
+decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric. ``NPSRelatedPark`` is
 the park summary attached to records from other groups, with `states` kept as the provider's
 comma-joined text. ``NPSQuickFact``, ``NPSRelatedOrganization``, and ``NPSConstraintsInfo`` are
 decoded shapes for groups this package does not yet query; they are documented only as the
@@ -191,9 +194,9 @@ Geometry is usually a `MultiPolygon` nested four levels deep, from 2 polygons fo
 for Acadia, and occasionally a `Polygon` nested three deep, as for Yellowstone. ``NPSGeometry``
 therefore keeps its coordinates as an ``NPSCoordinateTree`` of any depth, so a geometry kind this
 package does not name keeps every coordinate, and offers ``NPSGeometry/polygon`` and
-``NPSGeometry/multiPolygon`` as typed arrays. Each returns nil rather than trapping when the declared
-type or the nesting depth does not match. Positions stay GeoJSON `[longitude, latitude]` arrays as
-sent, whatever their length.
+``NPSGeometry/multiPolygon`` as typed arrays. Each returns nil rather than trapping when the
+declared type or the nesting depth does not match. Positions stay GeoJSON `[longitude, latitude]`
+arrays as sent, whatever their length.
 
 ``ParkBoundaryDetails`` carries the park's names, ``ParkBoundaryDetails/Alias`` entries such as the
 uppercase park code, and a ``ParkBoundaryDetails/Designation`` object; it is not the park summary
@@ -404,11 +407,6 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``Campground``
 - ``CampgroundQuery``
 
-### Endpoints and errors
-
-- ``Endpoint``
-- ``ServiceErrorResponse``
-
 ### Collections
 
 - ``NPSCollection``
@@ -419,6 +417,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``NPSPaginationError``
 - ``NPSQueryItem``
 - ``NPSSort``
+
+### Endpoints and errors
+
+- ``Endpoint``
+- ``ServiceErrorResponse``
 
 ### Park Boundaries
 

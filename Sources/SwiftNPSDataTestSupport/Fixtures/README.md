@@ -274,10 +274,10 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   `arePetsPermittedWithRestrictions`. The specification spells the crop key `aspectratio` and types
   it as an integer; the live key is `aspectRatio` and its value is a string such as `"1.78"` or
   `"1"`. The visitor center and campground notes above record the other half of this divergence:
-  those paths send a JSON number. Live images also carry a `description`, and the live body sends `credit` and `amenities`,
-  none of which the specification lists. Flags such as `isReservationRequired` are the strings
-  `"true"` and `"false"`, and coordinates, `age`, `duration`, and `geometryPoiId` are often empty
-  strings.
+  those paths send a JSON number. Live images also carry a `description`, and the live body sends
+  `credit` and `amenities`, none of which the specification lists. Flags such as
+  `isReservationRequired` are the strings `"true"` and `"false"`, and coordinates, `age`,
+  `duration`, and `geometryPoiId` are often empty strings.
 - Every recorded things to do `relatedOrganizations` and `amenities` array is empty. The
   specification types related organizations as untyped objects and omits amenities, so their
   element shape is unknown; the typed model does not decode either field, and they are ignored like
@@ -289,8 +289,9 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   `application/problem+json` body of `type`, `title`, `status`, and `traceId`, not the NPS error
   envelope, so the client reports it as a transport HTTP status failure.
 - Park boundary geometry is usually a `MultiPolygon` nested four deep: most parks sampled, from 2
-  polygons for drto to 51 for acad. Yellowstone and Glacier returned a `Polygon` nested three deep; the yell ring holds 1,494 positions and is closed. Every recorded position is
-  two numbers, `[longitude, latitude]`, each written with a decimal point.
+  polygons for drto to 51 for acad. Yellowstone and Glacier returned a `Polygon` nested three
+  deep; the yell ring holds 1,494 positions and is closed. Every recorded position is two numbers,
+  `[longitude, latitude]`, each written with a decimal point.
 - Each boundary feature carries an `id`, which no specification lists; in the recordings it equals
   the park's identifier, also sent as each alias's `parkId`. Feature `properties` hold `aliases`
   (`{parkId, current, name, id}`, `current` a JSON Boolean and `name` the uppercase park code),
@@ -355,7 +356,8 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration
-  credential reported a limit of 10 and the private key a limit of 1,000 for these recordings. No rate-limit response was forced.
+  credential reported a limit of 10 and the private key a limit of 1,000 for these recordings. No
+  rate-limit response was forced.
 - Constructed edge cases in test source cover malformed data, unknown values, and status
   failures; they are explicitly separate from these recordings.
 - A personal email address in the recorded `visitorcenters-search.json` body was replaced with

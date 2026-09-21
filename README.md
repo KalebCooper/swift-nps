@@ -6,36 +6,43 @@ Find and browse parks through the National Park Service Data API.
 
 ## Status
 
-Released as 0.3.0. Parks queries support multiple park codes, state codes, text search, sorting, and
-pagination. Lazy `parkPages` and `parks` sequences provide complete pages or individual parks using
-swifty-networking 1.1.0. Reusable typed requests and transport-independent endpoints remain
-available for single-page execution. Alerts queries support multiple park codes, state codes, text
-search, and pagination through lazy `alertPages` and `alerts` sequences; NPS documents no alerts
-sorting. Amenities queries support identifiers, text search, and pagination through lazy
-`amenityPages` and `amenities` sequences. Amenity park places and park visitor centers queries
-support identifiers, park codes, text search, sorting, and pagination; their pages keep the
-provider's per-amenity groups, and `amenityParkPlaces` and `amenityParkVisitorCenters` yield each
-entry. Campgrounds queries support park codes, state codes, text search, sorting, and pagination
-through lazy `campgroundPages` and `campgrounds` sequences; published site counts and fees are not
-live availability. Places queries support park codes, state codes, text search, and pagination
-through lazy `placePages` and `places` sequences; the endpoint rejects every sort value with
-HTTP 400, so the query offers none. Park boundaries come from `parkBoundary`, one park's
-GeoJSON boundary, usually a `MultiPolygon`, with coordinates kept as sent. Road events come from `roadEvents`, one WZDx 4.1 feed
-optionally narrowed to one park code and one event type; most parks return an empty feed, and an
-unrecognized park code returns every park's events. Things to do queries support identifiers, park codes, state codes, text search,
-sorting, and pagination through lazy `thingToDoPages` and `thingsToDo` sequences; NPS documents only
-`relevanceScore` as a things to do sort field and rejects others with HTTP 400. Tours queries
-support identifiers, park codes, state codes, text search, sorting, and pagination through lazy
-`tourPages` and `tours` sequences; `relevanceScore` is the only sort field the live service
-accepts. Each tour links one park, and durations and stop ordinals stay provider text. Visitor centers
-queries support park codes, state codes, text search, sorting, and pagination through lazy
-`visitorCenterPages` and `visitorCenters` sequences. Webcams queries support identifiers, park
-codes, state codes, text search, and pagination through lazy `webcamPages` and `webcams`
-sequences; the endpoint rejects every sort value with HTTP 400, so the query offers none. The
-streaming flag stays a Boolean and coordinates stay numbers or null, and a webcam's coordinates
-are not guaranteed to locate the camera. The package includes required API-key
-configuration, typed failures, and recorded-response tests. Other endpoint groups are not
-implemented.
+Released as 0.3.0. The shared park and image shapes and the places, tours, webcams, road events,
+and park boundaries groups are built and unreleased; they are listed under CHANGELOG Unreleased.
+
+Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
+envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
+a lazy page sequence, a lazy item sequence, or a single page, and pagination uses
+swifty-networking 1.1.0.
+
+Alerts queries support park codes, state codes, text search, and pagination through `alertPages`
+and `alerts`; NPS documents no alerts sorting. Amenities queries support identifiers and text
+search through `amenityPages` and `amenities`; NPS documents no park, state, or sort parameter
+there. Amenity park places and park visitor centers queries support identifiers, park codes, text
+search, and sorting; their pages keep the provider's per-amenity groups, and
+`amenityParkPlaces` and `amenityParkVisitorCenters` yield each entry. Campgrounds queries support
+park codes, state codes, text search, and sorting through `campgroundPages` and `campgrounds`;
+published site counts and fees are not live availability. Parks queries support park codes, state
+codes, text search, and sorting through `parkPages` and `parks`, and the single park code lookup
+keeps its own exact request and response. Places queries support park codes, state codes, and text
+search through `placePages` and `places`; the endpoint answers every sort value with HTTP 400, so
+the query offers none. Things to do queries support identifiers, park codes, state codes, text
+search, and sorting through `thingToDoPages` and `thingsToDo`; NPS documents only `relevanceScore`
+as a sort field and answers others with HTTP 400. Tours queries support identifiers, park codes,
+state codes, text search, and sorting through `tourPages` and `tours`; `relevanceScore` is again
+the only sort field the live service accepts, each tour links one park, and durations and stop
+ordinals stay provider text. Visitor centers queries support park codes, state codes, text search,
+and sorting through `visitorCenterPages` and `visitorCenters`. Webcams queries support identifiers,
+park codes, state codes, and text search through `webcamPages` and `webcams`; the endpoint answers
+every sort value with HTTP 400, the streaming flag stays a Boolean, and coordinates stay numbers or
+null and are not guaranteed to locate the camera.
+
+Two groups return one complete response rather than a collection. `parkBoundary` returns one park's
+GeoJSON boundary, usually a `MultiPolygon`, with coordinates kept as sent. `roadEvents` returns one
+WZDx 4.1 feed, optionally narrowed to one park code and one event type; most parks return an empty
+feed, and an unrecognized park code returns every park's events.
+
+The package includes required API-key configuration, typed failures, and recorded-response tests.
+Other endpoint groups are not implemented.
 
 NPS destination data does not imply live campsite booking availability or reservation support.
 This package provides no freshness, ordering, completeness, or availability guarantees.
@@ -120,10 +127,11 @@ work with a custom executor, which sends `NPSCollectionResolution.endpoint` and 
 ## Example
 
 Open `Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` for an iOS 26 SwiftUI demo.
-Choose a group (parks, alerts, visitor centers, campgrounds, things to do, or amenities), enter
-your API key, optionally filter by park/state codes (except amenities) or search text, then tap
-the group's **Search** button.
-Use **Load more** to request the next page or **Cancel** to stop an in-flight request.
+Choose a group, enter your API key, then tap the group's **Search** button. Collection groups take
+park and state codes and search text, except amenities, which takes search text alone; road events
+takes one optional park code and an optional event type, and park boundaries takes one park code.
+Use **Load more** to request the next page of a collection group or **Cancel** to stop an in-flight
+request; road events and park boundaries arrive as one response.
 The demo shows loading, results, empty results, and failures. It keeps the key in memory and
 does not save it. Close the standalone package window before building the demo to avoid
 duplicate local-package resolution in Xcode.

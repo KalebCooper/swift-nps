@@ -59,7 +59,8 @@ construction, authentication, and typed error mapping. Each page is
 
 Each loop starts an independent traversal. ``NPSPageSequence`` uses swifty-networking 1.1.0
 pagination to fetch one page per read. ``NPSItemSequence`` drains that page before fetching another.
-Construction performs no I/O, no pages are prefetched, and breaking iteration sends no later request.
+Construction performs no I/O, no pages are prefetched, and breaking iteration sends no later
+request.
 Cancellation is checked before requests and when reading buffered items. Any failure ends the
 iterator; later reads return nil.
 
@@ -317,9 +318,10 @@ HTTP 429 is returned to the caller without automatic retry.
 
 ### Custom execution
 
-``/SwiftNPSDataModels/NPSDataRequest`` and ``/SwiftNPSDataModels/Endpoint`` are transport-independent
-values. Their response types stay concrete, including consumer-defined Codable models.
-See the models catalog for how a custom executor interprets a request and its continuation.
+``/SwiftNPSDataModels/NPSDataRequest`` and ``/SwiftNPSDataModels/Endpoint`` are
+transport-independent values. Their response types stay concrete, including consumer-defined
+Codable models. See the models catalog for how a custom executor interprets a request and its
+continuation.
 
 NPS destination information does not provide live campsite booking availability or reservations.
 The package makes no freshness or completeness guarantee.
@@ -359,6 +361,10 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/send(_:)``
 - ``NPSPageSequence``
 - ``NPSItemSequence``
+
+### Errors
+
+- ``NPSDataError``
 
 ### Park Boundaries
 
@@ -400,7 +406,3 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/webcams(query:)``
 - ``NPSDataClient/webcamPages(query:)``
-
-### Errors
-
-- ``NPSDataError``
