@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 110;
+	objectVersion = 77;
 	objects = {
 /* Begin PBXBuildFile section */
         A00000000000000000000001 = {isa = PBXBuildFile; productRef = A00000000000000000000003; };
@@ -351,5 +351,4 @@
 /* End XCConfigurationList section */
 	};
 	rootObject = 0857A27C305766A200DBEBC7 /* Project object */;
-	validationLevel = 1;
 }
