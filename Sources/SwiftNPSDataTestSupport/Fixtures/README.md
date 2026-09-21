@@ -64,8 +64,9 @@ not examples copied from the specification. Tests read them locally and never co
 
 Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
 visitor centers recordings used the service's public demonstration credential, which reported a
-limit of 10. The campgrounds, things to do, and amenities recordings used the maintainer's private
-key, which reported a limit of 1,000. No request headers or credentials are stored. The
+limit of 10. The campgrounds, things to do, and amenities recordings, and the park boundaries,
+places, road events, tours, and webcams recordings made on September 20, used the maintainer's
+private key, which reported a limit of 1,000. No request headers or credentials are stored. The
 missing-key recording deliberately omitted that header. Response ordering is retained, rather than
 alphabetized, to preserve the provider's representation.
 
@@ -106,13 +107,14 @@ The places recordings arrived with blank lines, trailing spaces, and commas lead
 are reindented the same way, keeping the provider's key order, escaped quotation marks, and both
 aspect ratio forms, the string `"1.78"` and the number `1.0`, in one body. Their non-ASCII
 characters, no-break spaces, a degree sign, and curly quotation marks, are the provider's own bytes
-and are left as sent; the one em dash the provider sends already arrives as the escape `\u2014`.
+and are left as sent; the one em dash in each of the two acad pages already arrives as the escape
+`\u2014`.
 The empty recording is byte-identical to the other empty recordings. Decoded values were compared
 with the downloads and are identical.
 
 The tours recordings arrived with CRLF line endings, blank lines, and commas leading each line, and
 are reindented the same way, keeping the provider's key order and the numeric aspect ratios `1.78`
-and `1.0` as written. They are ASCII throughout and contain no escapes. The empty recording is
+and `1.00` as written. They are ASCII throughout and contain no escapes. The empty recording is
 byte-identical to the other empty recordings. Decoded values were compared with the downloads and
 are identical.
 
@@ -128,8 +130,8 @@ the search description, and the coordinates and `null` values as written. They a
 throughout. The empty recording is byte-identical to the other empty recordings. Decoded values
 were compared with the downloads and are identical.
 
-The pagination and search recordings additionally escape non-ASCII characters using JSON Unicode
-escapes. Their decoded values were compared with the downloads and are identical.
+The parks pagination and search recordings additionally escape non-ASCII characters using JSON
+Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
 SHA-256 of the original downloaded bodies, before whitespace normalization and lossless escaping:
 
@@ -284,13 +286,14 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   other unknown fields.
 - `/mapdata/parkboundaries/{sitecode}` sends no NPS envelope. It returns a bare GeoJSON
   `FeatureCollection` with one feature, takes the park code as a path segment and no query
-  parameters, and has no pagination. The code matched case-insensitively: `YELL` returned the same
-  bytes as `yell`. An unknown code such as `zzzz` returns HTTP 404 with an
+  parameters, and has no pagination. The code matched case-insensitively: a live probe of `YELL`
+  returned the same bytes as `yell`. An unknown code such as `zzzz` returns HTTP 404 with an
   `application/problem+json` body of `type`, `title`, `status`, and `traceId`, not the NPS error
   envelope, so the client reports it as a transport HTTP status failure.
-- Park boundary geometry is usually a `MultiPolygon` nested four deep: most parks sampled, from 2
-  polygons for drto to 51 for acad. Yellowstone and Glacier returned a `Polygon` nested three
-  deep; the yell ring holds 1,494 positions and is closed. Every recorded position is two numbers,
+- Park boundary geometry is usually a `MultiPolygon` nested four deep: most parks probed live, and
+  the recorded drto boundary holds 2 polygons. Live probes returned 51 polygons for acad, and a
+  `Polygon` nested three deep for yell and glac; the recorded yell ring holds 1,494 positions and
+  is closed. Every recorded position is two numbers,
   `[longitude, latitude]`, each written with a decimal point.
 - Each boundary feature carries an `id`, which no specification lists; in the recordings it equals
   the park's identifier, also sent as each alias's `parkId`. Feature `properties` hold `aliases`
@@ -302,11 +305,13 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   The specification lists `parkCode` and `type`; both are optional, and a request with neither
   returns every park's events. `type` accepts `WorkZone`, `Detour`, `Restriction`, and `Incident`
   case-insensitively and answers `work-zone`, the WZDx spelling, and other values with HTTP 400.
-  A valid type with no matches, such as `Detour` for yell, returns an empty feed with HTTP 200.
+  A live probe of a valid type with no matches, `Detour` for yell, returned an empty feed with
+  HTTP 200.
 - `parkCode` takes one code. An unrecognized code, including a comma-separated list such as
-  `yell,mora`, is ignored and the response is the full feed of every park, 607,279 bytes and 68
-  features from 13 data sources when measured, while a recognized code with no events, such as
-  acad, returns an empty feed. The dewa recording is one park's feed of 8 features.
+  `yell,mora`, is ignored and the response is the full feed of every park; a live probe measured
+  607,279 bytes and 68 features from 13 data sources. A recognized code with no events, such as
+  acad, returns an empty feed. The dewa recording is one park's feed of 8 features, and no full
+  feed is recorded here.
 - Every recorded geometry is a `LineString` of two-number `[longitude, latitude]` positions. Each
   feature's `properties` carry both `Id`, a UUID string, and `_id`, a number. `_id` counts from 0
   within a response: a dewa feature carries 0 in its park's feed and 51 in the full feed, so it is
@@ -324,20 +329,21 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   19.48063.
 - A tour links one park through a singular `park` object rather than a `relatedParks` array. Every
   stop `ordinal` is a string such as `"1"`, and `durationMin` and `durationMax` are strings with a
-  separate `durationUnit`. Image crops carry `aspectRatio` as the numbers `1.78` and `1.0`, and no
+  separate `durationUnit`. Image crops carry `aspectRatio` as the numbers `1.78` and `1.00`, and no
   image has a `description`. Empty `significance`, `directionsToNextStop`, `audioTranscript`, and
   `audioFileUrl` strings and the search's empty `tags`, `activities`, and `topics` arrays are sent
-  as recorded. Every recorded stop `assetType` is `"places"`; a scan of 500 live tours also found
-  `"visitorcenters"` and `"campgrounds"`, and `durationUnit` values `"m"`, `"h"`, and `"d"`, so both
-  stay open strings.
+  as recorded. Every recorded stop `assetType` is `"places"`; a live scan of 500 tours also found
+  `"visitorcenters"` and `"campgrounds"`, and `durationUnit` values `"m"`, `"h"`, and `"d"`, neither
+  of which any recording here holds, so both stay open strings.
 - The live webcams body uses the same envelope. `/webcams` accepts id, parkCode, stateCode, q,
   limit, and start; every `sort` value tried answers HTTP 400, so the query sends none. The grte
   pages report total 3, so the two recorded pages are the first two of three, and the search
   reports total 1.
 - `isStreaming` is a JSON boolean: `true` on the first grte page and `false` on the second and in
   the search. `latitude` and `longitude` are JSON numbers, such as `31.923355102539062`, or JSON
-  `null`, as both grte cameras send. Several cameras in one park can share a coordinate, so a
-  coordinate is not a per-camera location. `status` is `"Active"` or `"Inactive"` in these
+  `null`, as both grte cameras send; the gumo search camera is the only recorded camera with
+  numbers. A live probe found several cameras in one park sharing a coordinate, so a coordinate is
+  not a per-camera location. `status` is `"Active"` or `"Inactive"` in these
   recordings and stays an open string. The search image carries `crops: []`, an empty
   `description`, and a `url` beginning `https://www.nps.govhttps://www.nps.gov/`, all as sent.
 - The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,

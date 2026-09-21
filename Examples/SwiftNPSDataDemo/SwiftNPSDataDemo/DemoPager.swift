@@ -36,6 +36,19 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   case roadEvents = "Road Events"
   case parkBoundaries = "Park Boundaries"
 
+  /// Names what a result's second line holds, read before its value by assistive technology.
+  ///
+  /// Amenities show a name alone, so they name nothing.
+  var detailLabel: String? {
+    switch self {
+    case .alerts, .campgrounds, .parks, .tours, .visitorCenters: "Park code"
+    case .amenities: nil
+    case .parkBoundaries: "Geometry type"
+    case .places, .thingsToDo, .webcams: "Related park codes"
+    case .roadEvents: "Road event type"
+    }
+  }
+
   /// The search inputs this group accepts.
   var filters: DemoFilters {
     switch self {

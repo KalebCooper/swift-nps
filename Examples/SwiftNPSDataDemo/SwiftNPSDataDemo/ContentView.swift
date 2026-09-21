@@ -82,10 +82,11 @@ struct ContentView: View {
         ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
           VStack(alignment: .leading) {
             Text(row.title)
-            if let detail = row.detail {
+            if let detail = row.detail, let label = group.detailLabel {
               Text(detail)
                 .font(.caption)
                 .foregroundStyle(.secondary)
+                .accessibilityLabel("\(label) \(detail)")
             }
           }
         }
