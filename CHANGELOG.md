@@ -6,6 +6,8 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+## [0.4.0] - 2026-09-20
+
 ### Added
 
 - NPSRelatedPark, the park summary NPS attaches to records from other groups, with `states` kept
@@ -30,8 +32,9 @@ All notable changes are documented here. This project follows
   NPSDataRequest.roadEvents(parkCode:type:), and NPSDataClient.roadEvents(parkCode:type:), a single
   response decoding the WZDx 4.1 feed with recorded responses. RoadEventType sends the provider's
   spelling, such as `WorkZone`. RoadEventFeature.geometry is the shared NPSGeometry, whose
-  positions are read through NPSGeometry.lineString, so a feature sent at another depth still
-  decodes with its coordinates rather than failing the feed. RoadEventDetails keeps both provider
+  `coordinates` is an `NPSCoordinateTree?` and whose positions are read through
+  NPSGeometry.lineString, so a feature sent at another depth still decodes with its coordinates
+  rather than failing the feed. RoadEventDetails keeps both provider
   identifiers, `Id` and `_id`, and incident and work types.
 - Tours: Tour, Tour.Stop, TourQuery, Endpoint.tours(query:), NPSDataRequest.tours(query:), and
   the lazy NPSDataClient.tourPages(query:) and tours(query:), with recorded tours responses.
@@ -141,7 +144,8 @@ All notable changes are documented here. This project follows
 - Recorded Acadia, Yellowstone, empty-result, and missing-key responses with offline behavior tests.
 - Documentation catalogs, verification scripts, platform workflows, and an interactive iOS parks demo.
 
-[Unreleased]: https://github.com/KalebCooper/swift-nps/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/KalebCooper/swift-nps/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/KalebCooper/swift-nps/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/KalebCooper/swift-nps/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/KalebCooper/swift-nps/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/KalebCooper/swift-nps/releases/tag/0.1.0
