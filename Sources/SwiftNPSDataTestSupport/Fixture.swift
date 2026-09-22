@@ -2,6 +2,25 @@ import Foundation
 
 /// A real NPS response body; each case names its exact request and recording date.
 package enum Fixture: String, CaseIterable, Sendable {
+  /// GET /api/v1/activities/parks?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 22, 2026.
+  case activityParksEmpty = "activities-parks-empty"
+
+  /// GET /api/v1/activities/parks?id=AE42B46C-E4B7-4889-A122-08FE180371AE,
+  /// 0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=0; HTTP 200.
+  /// Recorded September 22, 2026.
+  case activityParksPageFirst = "activities-parks-page-first"
+
+  /// GET /api/v1/activities/parks?id=AE42B46C-E4B7-4889-A122-08FE180371AE,
+  /// 0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=1; HTTP 200.
+  /// Recorded September 22, 2026.
+  case activityParksPageLast = "activities-parks-page-last"
+
+  /// GET /api/v1/activities/parks?id=B33DC9B6-0B7D-4322-BAD7-A13A34C584A3,
+  /// 0B685688-3405-4E2A-ABBA-E3069492EC50&limit=2&parkCode=cwdw,drto&q=tours&sort=-name&start=0;
+  /// HTTP 200. Recorded September 22, 2026.
+  case activityParksSearch = "activities-parks-search"
+
   /// GET /api/v1/alerts?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 17, 2026.
   case alertsEmpty = "alerts-empty"

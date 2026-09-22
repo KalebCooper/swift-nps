@@ -4,14 +4,14 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park audio, park boundaries, park fees and passes, park
-videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events,
-things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every
-offset-paginated one is built on a shared core: a validated ``NPSCollectionQuery``, the
-``NPSCollection`` envelope, typed ``Endpoint`` values, and the reusable ``NPSDataRequest``. Park
-boundaries and road events are
-single responses with no pagination. Construction performs no I/O, and this module never imports
+This module describes National Park Service Data API operations as values. Activity parks,
+alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park fees
+and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets,
+places, road events, things to do, tours, visitor centers, and webcams are the implemented
+endpoint groups. Every offset-paginated one is built on a shared core: a validated
+``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
+reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
+pagination. Construction performs no I/O, and this module never imports
 a transport or holds credentials.
 
 ```swift
@@ -120,6 +120,27 @@ declare, and ``NPSRelatedOrganization`` is the linked organization ``Place``, ``
 ``NewsRelease`` declare, both kept as the provider sends them.
 ``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` and
 ``PhotoGalleryAsset`` carry, kept as open strings.
+
+### Activity Parks
+
+``ActivityParksQuery`` describes all six activity parks parameters: activity identifiers, park
+codes, text search, sort criteria, page limit, and start offset. The live service sorts by `name`,
+ascending or descending, and answers another field such as `fullName`, `parkCode`, or
+`relevanceScore` with HTTP 400; sort fields are still sent without validation. It ignores
+`stateCode`, so the query has none, and it ignores an identifier it does not recognize rather
+than matching nothing. Empty identifier, code, and sort arrays omit the parameter, and search text
+is preserved and percent encoded, including empty text. Activity parks pages are
+`NPSCollection<ActivityParks>`, from ``Endpoint/activityParks(query:)`` or
+``NPSDataRequest/activityParks(query:)``.
+
+``ActivityParks`` requires an identifier and a name, and lists the parks offering that activity
+as ``NPSRelatedPark`` values in ``ActivityParks/parks``, optional and in provider order. Unlike
+the amenity park endpoints, each page's `data` is a plain array of activities rather than
+per-group arrays, so pages iterate as ordinary items. Park codes both select the activities
+offered at those parks and narrow each activity's `parks` to the requested parks; without them,
+one activity can list more than a hundred parks.
+
+Real responses were recorded on September 22, 2026.
 
 ### Alerts
 
@@ -616,6 +637,11 @@ are preserved as strings in the response; they are not executable API endpoints.
 NPS data describes destinations, not live reservation availability, freshness, or completeness.
 
 ## Topics
+
+### Activity Parks
+
+- ``ActivityParks``
+- ``ActivityParksQuery``
 
 ### Alerts
 

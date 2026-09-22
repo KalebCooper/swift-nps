@@ -26,6 +26,13 @@ All notable changes are documented here. This project follows
   currency claimed, and SeasonDate keeps `day`, `holiday`, and `month` as sent, including the
   holiday-only form with a null day and month that a floating holiday such as Memorial Day cannot
   be derived from.
+- Activity parks: ActivityParks, ActivityParksQuery, Endpoint.activityParks(query:),
+  NPSDataRequest.activityParks(query:), and the lazy NPSDataClient.activityParks(query:) and
+  activityParkPages(query:), with recorded activity parks responses from `/activities/parks`.
+  ActivityParks lists each activity's parks as NPSRelatedPark values in a plain array, iterated as
+  ordinary items with no flattening. ActivityParksQuery takes activity identifiers, park codes,
+  text search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
+  `stateCode`, and narrows each activity's `parks` to the requested park codes.
 
 ## [0.5.0] - 2026-09-21
 

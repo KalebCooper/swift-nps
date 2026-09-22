@@ -20,12 +20,12 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park fees
-and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets,
-places, road events, things to do, tours, visitor centers, and webcams are the implemented
-endpoint groups. The collection groups are built on a generic collection core that executes any
-offset-paginated NPS collection the same way; park boundaries and road events are single
-responses.
+Activity parks, alerts, amenities, articles, campgrounds, news releases, park audio, park
+boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries, photo
+gallery assets, places, road events, things to do, tours, visitor centers, and webcams are the
+implemented endpoint groups. The collection groups are built on a generic collection core that
+executes any offset-paginated NPS collection the same way; park boundaries and road events are
+single responses.
 
 ### Collection execution
 
@@ -78,6 +78,27 @@ or promises a stable snapshot.
 
 A request made with `init(endpoint:)` declares no continuation, and yields only its one page even
 when the provider reports more results.
+
+### Activity Parks
+
+``NPSDataClient/activityParks(query:)`` and ``NPSDataClient/activityParkPages(query:)`` search
+`/activities/parks` by activity identifiers, park codes, text, and sorting. Each page is
+`NPSCollection<ActivityParks>`. The live service sorts by `name`, ascending or descending, and
+answers another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without
+validation:
+
+```swift
+let query = try ActivityParksQuery(parkCodes: [ParkCode("drto")], sort: [.ascending("name")])
+for try await activity in client.activityParks(query: query) {
+  print(activity.name, activity.parks?.compactMap(\.parkCode) ?? [])
+}
+let request = NPSDataRequest.activityParks(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.activityParks(query: query))
+```
+
+Park codes narrow each activity's `parks` to the requested parks as well as selecting the
+activities, which keeps pages small; an unfiltered activity can list more than a hundred parks.
 
 ### Alerts
 
@@ -518,6 +539,11 @@ NPS destination information does not provide live campsite booking availability 
 The package makes no freshness or completeness guarantee.
 
 ## Topics
+
+### Activity Parks
+
+- ``NPSDataClient/activityParks(query:)``
+- ``NPSDataClient/activityParkPages(query:)``
 
 ### Alerts
 

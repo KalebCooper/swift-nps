@@ -4,12 +4,16 @@ Recorded from the NPS Data API on September 13, 2026 (parks and the missing key)
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
 releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
-lots), and September 22, 2026 (park fees and passes) using the application identity
-`(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies, not
-examples copied from the specification. Tests read them locally and never contact NPS.
+lots), and September 22, 2026 (activity parks and park fees and passes) using the application
+identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
+not examples copied from the specification. Tests read them locally and never contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
+| activities-parks-empty.json | GET https://developer.nps.gov/api/v1/activities/parks?limit=1&parkCode=zzzz&start=0 | 200 |
+| activities-parks-page-first.json | GET https://developer.nps.gov/api/v1/activities/parks?id=AE42B46C-E4B7-4889-A122-08FE180371AE,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=0 | 200 |
+| activities-parks-page-last.json | GET https://developer.nps.gov/api/v1/activities/parks?id=AE42B46C-E4B7-4889-A122-08FE180371AE,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=1 | 200 |
+| activities-parks-search.json | GET https://developer.nps.gov/api/v1/activities/parks?id=B33DC9B6-0B7D-4322-BAD7-A13A34C584A3,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=2&parkCode=cwdw,drto&q=tours&sort=-name&start=0 | 200 |
 | alerts-empty.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=zzzz&start=0 | 200 |
 | alerts-page-first.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=0 | 200 |
 | alerts-page-last.json | GET https://developer.nps.gov/api/v1/alerts?limit=1&parkCode=acad&start=1 | 200 |
@@ -230,6 +234,12 @@ Contacts are park phone and fax lines and `*_info@nps.gov`-style inboxes, and im
 NPS photographers, so nothing was redacted. Decoded values were compared with the downloads and
 are identical.
 
+The activity parks recordings arrived with the same CRLF layout and are reindented the same way,
+keeping the provider's key order. They are ASCII only, with no JSON escapes. The empty recording
+is byte-identical to the other empty recordings. The recordings name only activities and parks,
+with no people or contact details, so nothing was redacted. Decoded values were compared with the
+downloads and are identical.
+
 The park fees and passes recordings arrived with the same CRLF layout and are reindented the same
 way, keeping the provider's key order and the integers, Booleans, and `null` values as written.
 The two Hawaii pages keep raw UTF-8 Hawaiian diacritics, and the first also an em dash, while
@@ -247,6 +257,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 
 | File | SHA-256 |
 | --- | --- |
+| activities-parks-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| activities-parks-page-first.json | b97f15c7ba10e69cbee4925257b804db8e0e610db21fed34f793e9942dbbd46a |
+| activities-parks-page-last.json | f6cbe6960f5bfb01b22f112c5c6bed36a5331e32605959b3d11d94679c067d8f |
+| activities-parks-search.json | d525157167373a331a589641db744d7de842f0044322c5d6661143d4e72e91ea |
 | alerts-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | alerts-page-first.json | ddce89e0f28d5f35a164e9016bf155fbc1a6b686be4db49046d01f311812809f |
 | alerts-page-last.json | 045c53d90dd590ac5a374b6fab43e821d8b1888810c94f472f0632935ba97f8c |

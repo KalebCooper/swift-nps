@@ -9,6 +9,18 @@ struct NPSCollectionQueryContinuationTests {
     "Every collection query keeps its filters and sort and advances by the returned count",
     arguments: [
       ContinuationCase(
+        try ActivityParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3),
+        page: .activityParksSearch,
+        expected: try ActivityParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 4),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["4"]),
+        ]),
+      ContinuationCase(
         try AlertQuery(
           limit: 7, parkCodes: parks(), searchText: "trail", start: 3, stateCodes: states()),
         page: .alertsSearch,

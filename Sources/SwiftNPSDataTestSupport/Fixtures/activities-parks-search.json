@@ -1,0 +1,29 @@
+{
+  "total": "1",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "B33DC9B6-0B7D-4322-BAD7-A13A34C584A3",
+      "name": "Guided Tours",
+      "parks": [
+        {
+          "states": "DC,MD,VA",
+          "parkCode": "cwdw",
+          "designation": "",
+          "fullName": "Civil War Defenses of Washington",
+          "url": "https://www.nps.gov/cwdw/index.htm",
+          "name": "Civil War Defenses of Washington"
+        },
+        {
+          "states": "FL",
+          "parkCode": "drto",
+          "designation": "National Park",
+          "fullName": "Dry Tortugas National Park",
+          "url": "https://www.nps.gov/drto/index.htm",
+          "name": "Dry Tortugas"
+        }
+      ]
+    }
+  ]
+}
