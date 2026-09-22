@@ -1,0 +1,76 @@
+{
+  "total": "25",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "00952400-2312-44F0-B72C-30C1C692BFF2",
+      "permalinkUrl": "https://www.nps.gov/media/video/view.htm?id=00952400-2312-44F0-B72C-30C1C692BFF2",
+      "title": "Bats at Craters of the Moon",
+      "description": "Learn about the diversity and threats to bats at Craters of the Moon.",
+      "splashImage": {
+        "url": ""
+      },
+      "relatedParks": [
+        {
+          "states": "ID",
+          "parkCode": "crmo",
+          "designation": "National Monument & Preserve",
+          "fullName": "Craters Of The Moon National Monument & Preserve",
+          "url": "https://www.nps.gov/crmo/index.htm",
+          "name": "Craters Of The Moon"
+        }
+      ],
+      "tags": [],
+      "latitude": null,
+      "longitude": null,
+      "audioDescription": "",
+      "audioDescriptionUrl": "",
+      "aslVideoUrl": "",
+      "geometryPoiId": "",
+      "durationMs": 379000,
+      "credit": "NPS/ Michael Durham",
+      "transcript": "",
+      "descriptiveTranscript": "",
+      "callToAction": "",
+      "callToActionUrl": "",
+      "audioDescribedBuiltIn": false,
+      "hasOpenCaptions": false,
+      "isVideoOnly": false,
+      "isBRoll": false,
+      "captionFiles": [
+        {
+          "language": "english",
+          "fileType": "text/vtt",
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/closed-caption/pwr/avElement/crmo-nri-captions62.vtt"
+        }
+      ],
+      "versions": [
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 360,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/crmo/F31865BD-932E-A5CE-6FD328916C48F9D0/crmo-CRMOBatsCavesFinal-H264320X64011_640x360.mp4",
+          "widthPixels": 640
+        },
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 240,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/crmo/F31865BD-932E-A5CE-6FD328916C48F9D0/crmo-CRMOBatsCavesFinal-H264320X64011_426x240.mp4",
+          "widthPixels": 426
+        },
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 480,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/crmo/F31865BD-932E-A5CE-6FD328916C48F9D0/crmo-CRMOBatsCavesFinal-H264320X64011_854x480.mp4",
+          "widthPixels": 854
+        }
+      ]
+    }
+  ]
+}

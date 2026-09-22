@@ -32,6 +32,13 @@ All notable changes are documented here. This project follows
   ParkAudio keeps transcripts as plain text or HTML and each version's `fileSize` as the
   provider's number, for which NPS documents no unit, and uses the shared NPSImage and
   NPSRelatedPark.
+- Park videos: ParkVideo, ParkVideo.CaptionFile, ParkVideo.Version, ParkVideoQuery,
+  Endpoint.parkVideos(query:), NPSDataRequest.parkVideos(query:), and the lazy
+  NPSDataClient.parkVideos(query:) and parkVideoPages(query:), with recorded park video responses
+  from `/multimedia/videos`. ParkVideoQuery sends sort fields without validation; the live
+  endpoint sorts by `title`. ParkVideo keeps its accessibility flags as the provider's Booleans,
+  caption languages as open text, and each version's `fileSizeKb` as the provider's number or
+  null, for which NPS documents no unit, and uses the shared NPSImage and NPSRelatedPark.
 
 ## [0.4.0] - 2026-09-20
 

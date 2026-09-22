@@ -3,7 +3,7 @@
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
-releases, park audio, and people) using the application identity
+releases, park audio, park videos, and people) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -70,6 +70,10 @@ not examples copied from the specification. Tests read them locally and never co
 | tours-page-first.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=cavo&start=0 | 200 |
 | tours-page-last.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=cavo&start=1 | 200 |
 | tours-search.json | GET https://developer.nps.gov/api/v1/tours?id=7F1D5880-0FE9-5B95-492B8497DB1992A1&limit=2&parkCode=foma&q=Virtual&sort=-relevanceScore&start=0&stateCode=FL | 200 |
+| videos-empty.json | GET https://developer.nps.gov/api/v1/multimedia/videos?limit=1&parkCode=zzzz&start=0 | 200 |
+| videos-page-first.json | GET https://developer.nps.gov/api/v1/multimedia/videos?limit=1&parkCode=crmo&start=0 | 200 |
+| videos-page-last.json | GET https://developer.nps.gov/api/v1/multimedia/videos?limit=1&parkCode=crmo&start=1 | 200 |
+| videos-search.json | GET https://developer.nps.gov/api/v1/multimedia/videos?limit=2&parkCode=boaf&q=Boston&sort=title&start=0&stateCode=MA | 200 |
 | visitorcenters-empty.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=zzzz&start=0 | 200 |
 | visitorcenters-page-first.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | visitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/visitorcenters?limit=1&parkCode=acad&sort=name&start=1 | 200 |
@@ -177,6 +181,14 @@ an NPS program, no recording names a member of the public, and no recording carr
 contact details, so nothing was redacted. Decoded values were compared with the downloads and are
 identical.
 
+The park video recordings arrived with the same CRLF layout as the park audio recordings and are
+reindented the same way, keeping the provider's key order and the numbers, Booleans, and `null`
+values as written. The pages are ASCII throughout. The search recording keeps one raw UTF-8
+`é` in `Kouyaté` and has no JSON Unicode escapes. The empty recording is byte-identical
+to the other empty recordings. Credits and the second search description name producers,
+artists, and public speakers, and no recording carries personal contact details, so nothing was
+redacted. Decoded values were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -245,6 +257,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | tours-page-first.json | fcdc5d7a9ce2645424fa3493574e72e6339cd021b591e53593cb80fecc60725e |
 | tours-page-last.json | c5e2ab0840633bc7195de8158b213196af7d672140bac8c8770de1819daa0443 |
 | tours-search.json | d7907082f538d779a24ad9f68dc768669139861fce954ed1c61d456665b1318f |
+| videos-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| videos-page-first.json | 92da7aa6a34a339a2264918f2941956de2dcdf61545e653bae4046b7ce8e3950 |
+| videos-page-last.json | e4918b4a92570e643b20a13c2692b8b2a639afbe5743e1ccb9bf52ad0dfa71c5 |
+| videos-search.json | 48ebf9aaba5c6e6ecfdb0122f3244da77723712b456ae4d9d45a5863be700a0c |
 | visitorcenters-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | visitorcenters-page-first.json | 74e3a748da6a6cef310f6f4264681303e5fef66b8372a3bdbf3acc7665f8c7d8 |
 | visitorcenters-page-last.json | 5584ce01ec607b53c20dc90e5faa0e8037edff031c7e37499e37c46f15d0eb7e |
@@ -441,6 +457,19 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   numbers or `null` (112 of 500 send numbers), and `durationMs` is a JSON integer or `null` (8 of
   500, including the second search result). Every `permalinkUrl` points at
   `https://www.nps.gov/media/video/view.htm`, even for audio.
+- The live park videos body uses the same envelope. `/multimedia/videos` accepts parkCode,
+  stateCode, q, sort, limit, and start. `sort=title` and `sort=-title` each answer HTTP 200 in the
+  order named, while `sort=relevanceScore` and an unknown field answer HTTP 400 with an empty
+  envelope. The crmo pages report total 25 and the boaf search reports total 17. In a live scan of
+  500 videos, `audioDescribedBuiltIn`, `hasOpenCaptions`, `isVideoOnly`, and `isBRoll` are real
+  JSON Booleans (48, 36, 4, and 45 of 500 true). `versions` holds 1,777 renditions of
+  `{fileSizeKb, fileType, aspectRatio, heightPixels, url, widthPixels}`, and one video sends an
+  empty array; `fileType` is `video/mp4`, `aspectRatio` a JSON number such as `1.778`, and
+  `fileSizeKb` a JSON number such as `15976.0` or `null` (746 of 1,777), for which NPS documents
+  no unit. `captionFiles` elements are `{language, fileType, url}` with `fileType` `text/vtt` and
+  `language` `english` or `spanish`; 335 of 500 videos carry at least one and the rest send an
+  empty array. `latitude` and `longitude` are JSON numbers or `null`, and `durationMs` a JSON
+  integer or `null`.
 - The live people body uses the same envelope. `/people` accepts parkCode, stateCode, q, limit,
   and start. `sort=title` and `sort=lastName` each answer HTTP 400 with an empty envelope. The
   yell pages report total 4 and the frla search reports total 30. `latitude`, `longitude`, and

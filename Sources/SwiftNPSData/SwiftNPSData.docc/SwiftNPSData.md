@@ -20,9 +20,9 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, parks,
-people, places, road events, things to do, tours, visitor centers, and webcams are the implemented
-endpoint groups. The collection groups are built
+Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos,
+parks, people, places, road events, things to do, tours, visitor centers, and webcams are the
+implemented endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -224,6 +224,26 @@ An unknown park code fails with HTTP 404 and an `application/problem+json` body 
 error envelope, so it surfaces as ``NPSDataError/transport(_:)`` holding the HTTP status failure
 and its original body. Boundary geometry is published cartographic data, not a survey or a legal
 record.
+
+### Park Videos
+
+``NPSDataClient/parkVideos(query:)`` and ``NPSDataClient/parkVideoPages(query:)`` search
+`/multimedia/videos` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<ParkVideo>`. The live service sorts by `title` and answers another field such as
+`relevanceScore` with HTTP 400; fields are sent without validation:
+
+```swift
+let query = try ParkVideoQuery(parkCodes: [ParkCode("crmo")], sort: [.ascending("title")])
+for try await video in client.parkVideos(query: query) {
+  print(video.title, video.versions?.first?.url ?? "")
+}
+let request = NPSDataRequest.parkVideos(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.parkVideos(query: query))
+```
+
+Accessibility flags are the provider's JSON Booleans, caption files keep their language text, and
+file sizes keep the provider's number or `null`, for which NPS documents no unit.
 
 ### Parks
 
@@ -463,6 +483,11 @@ The package makes no freshness or completeness guarantee.
 ### Park Boundaries
 
 - ``NPSDataClient/parkBoundary(parkCode:)``
+
+### Park Videos
+
+- ``NPSDataClient/parkVideos(query:)``
+- ``NPSDataClient/parkVideoPages(query:)``
 
 ### Parks
 

@@ -1,0 +1,155 @@
+{
+  "total": "17",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "33487F25-F758-4F1C-8EAB-BA420B291C8C",
+      "permalinkUrl": "https://www.nps.gov/media/video/view.htm?id=33487F25-F758-4F1C-8EAB-BA420B291C8C",
+      "title": "A Man Kidnapped! The Rendition of Anthony Burns",
+      "description": "The story of the rendition of Anthony Burns, told through those who witnessed the event in 1854",
+      "splashImage": {
+        "url": ""
+      },
+      "relatedParks": [
+        {
+          "states": "MA",
+          "parkCode": "boaf",
+          "designation": "National Historic Site",
+          "fullName": "Boston African American National Historic Site",
+          "url": "https://www.nps.gov/boaf/index.htm",
+          "name": "Boston African American"
+        }
+      ],
+      "tags": [],
+      "latitude": null,
+      "longitude": null,
+      "audioDescription": "",
+      "audioDescriptionUrl": "https://www.nps.gov/nps-audiovideo/legacy/boaf/AAE83D11-93A0-23DB-A6F18A20263C4A7B/boaf-AManKidnapped-RenditionofAnthonyBurns-FULLFINALCUT-AUDIODESCRIBED_640x360.mp4",
+      "aslVideoUrl": "",
+      "geometryPoiId": "",
+      "durationMs": 1060000,
+      "credit": "",
+      "transcript": "",
+      "descriptiveTranscript": "",
+      "callToAction": "",
+      "callToActionUrl": "",
+      "audioDescribedBuiltIn": false,
+      "hasOpenCaptions": false,
+      "isVideoOnly": false,
+      "isBRoll": false,
+      "captionFiles": [
+        {
+          "language": "english",
+          "fileType": "text/vtt",
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/closed-caption/ner/avElement/boaf-AManKidnapped-RenditionofAnthonyBurns-FULLFINALCUT.vtt"
+        }
+      ],
+      "versions": [
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 720,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/boaf/AAE83D11-93A0-23DB-A6F18A20263C4A7B/boaf-AManKidnapped-RenditionofAnthonyBurns-FULLFINALCUT_1280x720.mp4",
+          "widthPixels": 1280
+        },
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 360,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/boaf/AAE83D11-93A0-23DB-A6F18A20263C4A7B/boaf-AManKidnapped-RenditionofAnthonyBurns-FULLFINALCUT_640x360.mp4",
+          "widthPixels": 640
+        },
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 240,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/boaf/AAE83D11-93A0-23DB-A6F18A20263C4A7B/boaf-AManKidnapped-RenditionofAnthonyBurns-FULLFINALCUT_426x240.mp4",
+          "widthPixels": 426
+        },
+        {
+          "fileSizeKb": null,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 480,
+          "url": "https://www.nps.gov/nps-audiovideo/legacy/boaf/AAE83D11-93A0-23DB-A6F18A20263C4A7B/boaf-AManKidnapped-RenditionofAnthonyBurns-FULLFINALCUT_854x480.mp4",
+          "widthPixels": 854
+        }
+      ]
+    },
+    {
+      "id": "A16085D7-4810-4AD5-93FB-7DD3EC92F2F2",
+      "permalinkUrl": "https://www.nps.gov/media/video/view.htm?id=A16085D7-4810-4AD5-93FB-7DD3EC92F2F2",
+      "title": "Boston's Middle Passage Port Marker Dedication Ceremony",
+      "description": "On August 29, The National Park Service, City of Boston, and the Museum of African American History (MAAH) hosted a dedication ceremony for the Middle Passage Port Marker. Speakers included: Elizabeth Solomon, Massachusett Tribe at Ponkapoag; Michael Creasey, NPB Superintendent; Balla Kouyaté; L'Merchie Frazier, MAAH; Kyera Singleton, The Royall House & Slave Quarters; Dr. Vivian R. Johnson; Hon. Byron Rushing; Lori Nelson, Chief Resilience Officer, City of Boston; & Rev. Nancy Taylor, Old South Church.",
+      "splashImage": {
+        "url": "https://www.nps.gov/nps-audiovideo/thumbnail/c544ebd9-d769-469d-9cff-684c125312bd.jpg"
+      },
+      "relatedParks": [
+        {
+          "states": "MA",
+          "parkCode": "boaf",
+          "designation": "National Historic Site",
+          "fullName": "Boston African American National Historic Site",
+          "url": "https://www.nps.gov/boaf/index.htm",
+          "name": "Boston African American"
+        }
+      ],
+      "tags": [
+        "Boston",
+        "Middle Passage",
+        "slave trade",
+        "transatlantic slave trade",
+        "Slavery",
+        "Beacon Hill",
+        "churches",
+        "enslavement",
+        "Enslaved People"
+      ],
+      "latitude": null,
+      "longitude": null,
+      "audioDescription": "",
+      "audioDescriptionUrl": "https://www.nps.gov/nps-audiovideo/audiovideo/1e71d1d4-f254-4a1c-ae96-e87c6405d20f.mp4",
+      "aslVideoUrl": "",
+      "geometryPoiId": "",
+      "durationMs": 4273836,
+      "credit": "NPS",
+      "transcript": "",
+      "descriptiveTranscript": "",
+      "callToAction": "",
+      "callToActionUrl": "",
+      "audioDescribedBuiltIn": false,
+      "hasOpenCaptions": false,
+      "isVideoOnly": false,
+      "isBRoll": false,
+      "captionFiles": [
+        {
+          "language": "english",
+          "fileType": "text/vtt",
+          "url": "https://www.nps.gov/nps-audiovideo/closed-caption/EE18FE88-E9A6-A645-7CB272C37DC07A6C.vtt"
+        }
+      ],
+      "versions": [
+        {
+          "fileSizeKb": 102071.0,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 360,
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/c544ebd9-d769-469d-9cff-684c125312bd360p.mp4",
+          "widthPixels": 640
+        },
+        {
+          "fileSizeKb": 127976.0,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 480,
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/c544ebd9-d769-469d-9cff-684c125312bd480p.mp4",
+          "widthPixels": 854
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "total": "25",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "280ED23E-D17F-41C5-966E-3AB940B7AEA5",
+      "permalinkUrl": "https://www.nps.gov/media/video/view.htm?id=280ED23E-D17F-41C5-966E-3AB940B7AEA5",
+      "title": "Video 8. Nature Journaling on the Moon with Artists-in-Residence Karen Jacobsen and Mary Arnold",
+      "description": "Craters of the Moon Centennial Artists-in-Residence Karen and Mary share their knowledge and expertise. Join them as they take you through the steps on how to start your own nature journal. Video 8 of 8",
+      "splashImage": {
+        "url": "https://www.nps.gov/nps-audiovideo/thumbnail/a512021e-8705-4a3e-872d-1a89ab63efa9.jpg"
+      },
+      "relatedParks": [
+        {
+          "states": "ID",
+          "parkCode": "crmo",
+          "designation": "National Monument & Preserve",
+          "fullName": "Craters Of The Moon National Monument & Preserve",
+          "url": "https://www.nps.gov/crmo/index.htm",
+          "name": "Craters Of The Moon"
+        }
+      ],
+      "tags": [],
+      "latitude": null,
+      "longitude": null,
+      "audioDescription": "",
+      "audioDescriptionUrl": "",
+      "aslVideoUrl": "",
+      "geometryPoiId": "",
+      "durationMs": 226226,
+      "credit": "Karen Jacobsen and Mary Arnold",
+      "transcript": "",
+      "descriptiveTranscript": "",
+      "callToAction": "",
+      "callToActionUrl": "",
+      "audioDescribedBuiltIn": true,
+      "hasOpenCaptions": true,
+      "isVideoOnly": false,
+      "isBRoll": false,
+      "captionFiles": [],
+      "versions": [
+        {
+          "fileSizeKb": 15976.0,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 360,
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/a512021e-8705-4a3e-872d-1a89ab63efa9360p.mp4",
+          "widthPixels": 640
+        },
+        {
+          "fileSizeKb": 22093.0,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 480,
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/a512021e-8705-4a3e-872d-1a89ab63efa9480p.mp4",
+          "widthPixels": 854
+        },
+        {
+          "fileSizeKb": 66471.0,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 720,
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/a512021e-8705-4a3e-872d-1a89ab63efa9720p.mp4",
+          "widthPixels": 1280
+        },
+        {
+          "fileSizeKb": 117113.0,
+          "fileType": "video/mp4",
+          "aspectRatio": 1.778,
+          "heightPixels": 1080,
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/a512021e-8705-4a3e-872d-1a89ab63efa91080p.mp4",
+          "widthPixels": 1920
+        }
+      ]
+    }
+  ]
+}

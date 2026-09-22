@@ -5,8 +5,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park audio, park boundaries, parks, people, places, road
-events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people,
+places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
 with no pagination. Construction performs no I/O, and this module never imports a transport or
@@ -270,6 +270,30 @@ data, not a survey or a legal record.
 
 Real responses were recorded on September 20, 2026.
 
+### Park Videos
+
+``ParkVideoQuery`` describes all six park video parameters: park codes, state codes, text search,
+sort criteria, page limit, and start offset. The live service sorts by `title`, with a leading
+minus for descending order, and answers another field such as `relevanceScore` with HTTP 400;
+sort fields are still sent without validation. Empty code and sort arrays omit the parameter, and
+search text is preserved and percent encoded, including empty text. Park video pages are
+`NPSCollection<ParkVideo>`, from ``Endpoint/parkVideos(query:)`` or
+``NPSDataRequest/parkVideos(query:)``.
+
+``ParkVideo`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. ``ParkVideo/audioDescribedBuiltIn``,
+``ParkVideo/hasOpenCaptions``, ``ParkVideo/isBRoll``, and ``ParkVideo/isVideoOnly`` are the
+provider's JSON Booleans. Each ``ParkVideo/CaptionFile`` keeps its language text, such as
+`english`, as an open string. Each ``ParkVideo/Version`` is one downloadable rendition with its
+aspect ratio, pixel dimensions, and a ``ParkVideo/Version/fileSizeKb`` that keeps the provider's
+number, such as `15976.0`, or `null`; NPS documents no unit for it. Versions and caption files
+can be empty arrays. ``ParkVideo/splashImage`` is one shared ``NPSImage`` carrying only its URL
+text, which can be empty. ``ParkVideo/durationMs`` is a JSON integer or `null`, and
+``ParkVideo/latitude`` and ``ParkVideo/longitude`` are JSON numbers or `null`. Parks are
+``NPSRelatedPark`` values.
+
+Real responses were recorded on September 21, 2026.
+
 ### Parks
 
 ``ParkQuery`` describes all six documented parks parameters: park codes, state codes, text search,
@@ -532,6 +556,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkBoundary``
 - ``ParkBoundaryDetails``
 - ``ParkBoundaryFeature``
+
+### Park Videos
+
+- ``ParkVideo``
+- ``ParkVideoQuery``
 
 ### Parks
 
