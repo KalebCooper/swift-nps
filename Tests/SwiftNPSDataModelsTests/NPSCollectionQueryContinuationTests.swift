@@ -9,11 +9,11 @@ struct NPSCollectionQueryContinuationTests {
     "Every collection query keeps its filters and sort and advances by the returned count",
     arguments: [
       ContinuationCase(
-        try ActivityQuery(
+        try ActivityParksQuery(
           identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
           sort: sort(), start: 3),
-        page: .activitiesSearch,
-        expected: try ActivityQuery(
+        page: .activityParksSearch,
+        expected: try ActivityParksQuery(
           identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
           sort: sort(), start: 4),
         items: [
@@ -21,11 +21,11 @@ struct NPSCollectionQueryContinuationTests {
           ("sort", ["name", "-title"]), ("start", ["4"]),
         ]),
       ContinuationCase(
-        try ActivityParksQuery(
+        try ActivityQuery(
           identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
           sort: sort(), start: 3),
-        page: .activityParksSearch,
-        expected: try ActivityParksQuery(
+        page: .activitiesSearch,
+        expected: try ActivityQuery(
           identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
           sort: sort(), start: 4),
         items: [
@@ -241,6 +241,18 @@ struct NPSCollectionQueryContinuationTests {
           sort: sort(), start: 3),
         page: .topicParksSearch,
         expected: try TopicParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 4),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["4"]),
+        ]),
+      ContinuationCase(
+        try TopicQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3),
+        page: .topicsSearch,
+        expected: try TopicQuery(
           identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
           sort: sort(), start: 4),
         items: [

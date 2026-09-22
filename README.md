@@ -10,8 +10,8 @@ Released as 0.5.0, which covers eighteen endpoint groups: alerts, amenities (wit
 and park visitor centers subgroups), articles, campgrounds, news releases, park audio, park
 boundaries, park videos, parks, people, photo galleries, photo gallery assets, places, road
 events, things to do, tours, visitor centers, and webcams. Activities, activity parks, lesson
-plans, parking lots, park fees and passes, and topic parks are built and not yet released.
-CHANGELOG lists what each release added.
+plans, parking lots, park fees and passes, topic parks, and topics are built and not yet
+released. CHANGELOG lists what each release added.
 
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
 envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
@@ -42,6 +42,7 @@ rather than a collection.
 | Places | Park codes, state codes, text search. | `placePages`, `places` | The endpoint answers every sort value with HTTP 400, so the query offers none. |
 | Things to do | Identifiers, park codes, state codes, text search, sorting. | `thingToDoPages`, `thingsToDo` | NPS documents only `relevanceScore` as a sort field and answers others with HTTP 400. |
 | Topic parks | Identifiers, park codes, text search, sorting. | `topicParkPages`, `topicParks` | The live service sorts by `name` and answers other fields with HTTP 400; park codes also narrow each topic's `parks` to the requested parks, and an unrecognized identifier is ignored rather than matching nothing. |
+| Topics | Identifiers, park codes, text search, sorting. | `topicPages`, `topics` | The live service sorts by `name` and answers other fields with HTTP 400; park codes filter the returned topics, but a page carries no nested parks, and an unrecognized identifier is ignored rather than matching nothing. |
 | Tours | Identifiers, park codes, state codes, text search, sorting. | `tourPages`, `tours` | `relevanceScore` is the only sort field the live service accepts; each tour links one park; durations and stop ordinals stay provider text. |
 | Visitor centers | Park codes, state codes, text search, sorting. | `visitorCenterPages`, `visitorCenters` | |
 | Webcams | Identifiers, park codes, state codes, text search. | `webcamPages`, `webcams` | The endpoint answers every sort value with HTTP 400; the streaming flag stays a Boolean; coordinates stay numbers or null and are not guaranteed to locate the camera. |
@@ -150,8 +151,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; activity, activity parks, alert, amenity, article, campground, lesson plan, news release, park audio, park boundary, park fees and passes, park video, parking lot, park, person, photo gallery, photo gallery asset, place, road event, thing to do, topic parks, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to do, topic parks, topics, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; activity, activity parks, alert, amenity, article, campground, lesson plan, news release, park audio, park boundary, park fees and passes, park video, parking lot, park, person, photo gallery, photo gallery asset, place, road event, thing to do, topic, topic parks, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 

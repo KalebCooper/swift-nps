@@ -7,8 +7,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 This module describes National Park Service Data API operations as values. Activities, activity
 parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
 boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries,
-photo gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and
-webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
+photo gallery assets, places, road events, things to do, topic parks, topics, tours, visitor
+centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
 ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
 reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
 pagination. Construction performs no I/O, and this module never imports
@@ -625,6 +625,24 @@ one recorded park's `designation` ends with a carriage return and line feed.
 
 Real responses were recorded on September 22, 2026.
 
+### Topics
+
+``TopicQuery`` describes all six topics parameters: topic identifiers, park codes, text search,
+sort criteria, page limit, and start offset. The live service sorts by `name`, ascending or
+descending, and answers another field such as `fullName`, `parkCode`, or `relevanceScore` with
+HTTP 400; sort fields are still sent without validation. It ignores `stateCode`, so the query has
+none, and it ignores an identifier it does not recognize rather than matching nothing. Empty
+identifier, code, and sort arrays omit the parameter, and search text is preserved and percent
+encoded, including empty text. Topics pages are `NPSCollection<Topic>`, from
+``Endpoint/topics(query:)`` or ``NPSDataRequest/topics(query:)``.
+
+``Topic`` requires only an identifier and a name. It keeps its own type rather than reusing
+``NPSNamedItem`` because topics are an independent taxonomy the provider can extend on its own
+schedule, and a caller should see what the collection holds. Unlike ``TopicParks``, a page of
+topics carries no nested parks.
+
+Real responses were recorded on September 22, 2026.
+
 ### Tours
 
 ``TourQuery`` describes all seven tours parameters: identifiers, park codes, state codes, text
@@ -852,6 +870,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``TopicParks``
 - ``TopicParksQuery``
+
+### Topics
+
+- ``Topic``
+- ``TopicQuery``
 
 ### Tours
 

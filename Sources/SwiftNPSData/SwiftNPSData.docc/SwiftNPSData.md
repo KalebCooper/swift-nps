@@ -22,8 +22,8 @@ for try await park in client.parks(query: query) {
 
 Activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases,
 park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo
-galleries, photo gallery assets, places, road events, things to do, topic parks, tours, visitor
-centers, and webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
+galleries, photo gallery assets, places, road events, things to do, topic parks, topics, tours,
+visitor centers, and webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
 executes any offset-paginated NPS collection the same way; park boundaries and road events are
 single responses.
 
@@ -518,6 +518,26 @@ let samePage = try await client.send(.topicParks(query: query))
 Park codes narrow each topic's `parks` to the requested parks as well as selecting the topics,
 which keeps pages small; an unfiltered topic can list more than a hundred parks.
 
+### Topics
+
+``NPSDataClient/topics(query:)`` and ``NPSDataClient/topicPages(query:)`` search `/topics` by
+topic identifiers, park codes, text, and sorting. Each page is `NPSCollection<Topic>`. The live
+service sorts by `name`, ascending or descending, and answers another field such as `fullName` or
+`parkCode` with HTTP 400; fields are sent without validation:
+
+```swift
+let query = try TopicQuery(parkCodes: [ParkCode("mamc")], sort: [.ascending("name")])
+for try await topic in client.topics(query: query) {
+  print(topic.name)
+}
+let request = NPSDataRequest.topics(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.topics(query: query))
+```
+
+Unlike `/topics/parks`, a page carries no nested parks; use ``NPSDataClient/topicParks(query:)``
+to see which parks relate to a topic.
+
 ### Tours
 
 ``NPSDataClient/tours(query:)`` and ``NPSDataClient/tourPages(query:)`` search `/tours` by
@@ -730,6 +750,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/topicParks(query:)``
 - ``NPSDataClient/topicParkPages(query:)``
+
+### Topics
+
+- ``NPSDataClient/topics(query:)``
+- ``NPSDataClient/topicPages(query:)``
 
 ### Tours
 

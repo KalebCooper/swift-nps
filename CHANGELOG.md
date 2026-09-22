@@ -54,6 +54,12 @@ All notable changes are documented here. This project follows
   no nested parks. ActivityQuery takes activity identifiers, park codes, text search, and sort
   fields sent without validation; the live endpoint sorts by `name`, ignores `stateCode`, and
   filters activities by park code with nothing to narrow.
+- Topics: Topic, TopicQuery, Endpoint.topics(query:), NPSDataRequest.topics(query:), and the lazy
+  NPSDataClient.topics(query:) and topicPages(query:), with recorded topics responses from
+  `/topics`. Topic keeps only an identifier and a name, with its own type rather than TopicParks
+  or NPSNamedItem, and no nested parks. TopicQuery takes topic identifiers, park codes, text
+  search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
+  `stateCode`, and filters topics by park code with nothing to narrow.
 
 ## [0.5.0] - 2026-09-21
 
