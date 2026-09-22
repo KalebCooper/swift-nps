@@ -4,9 +4,9 @@ Recorded from the NPS Data API on September 13, 2026 (parks and the missing key)
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
 releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
-lots) using the application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`.
-These are real response bodies, not examples copied from the specification. Tests read them
-locally and never contact NPS.
+lots), and September 22, 2026 (park fees and passes) using the application identity
+`(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies, not
+examples copied from the specification. Tests read them locally and never contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
@@ -42,6 +42,10 @@ locally and never contact NPS.
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | campgrounds-search.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=2&q=lake&sort=name&start=0&stateCode=WY | 200 |
+| feespasses-empty.json | GET https://developer.nps.gov/api/v1/feespasses?limit=1&parkCode=zzzz&start=0 | 200 |
+| feespasses-page-first.json | GET https://developer.nps.gov/api/v1/feespasses?limit=1&parkCode=hale,havo&sort=-parkCode&start=0 | 200 |
+| feespasses-page-last.json | GET https://developer.nps.gov/api/v1/feespasses?limit=1&parkCode=hale,havo&sort=-parkCode&start=1 | 200 |
+| feespasses-search.json | GET https://developer.nps.gov/api/v1/feespasses?limit=2&parkCode=deva,fova&q=annual&start=0&stateCode=CA,WA | 200 |
 | galleries-empty.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=1&parkCode=zzzz&start=0 | 200 |
 | galleries-page-first.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=1&parkCode=thrb&start=0 | 200 |
 | galleries-page-last.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=1&parkCode=thrb&start=1 | 200 |
@@ -226,6 +230,16 @@ Contacts are park phone and fax lines and `*_info@nps.gov`-style inboxes, and im
 NPS photographers, so nothing was redacted. Decoded values were compared with the downloads and
 are identical.
 
+The park fees and passes recordings arrived with the same CRLF layout and are reindented the same
+way, keeping the provider's key order and the integers, Booleans, and `null` values as written.
+The two Hawaii pages keep raw UTF-8 Hawaiian diacritics, and the first also an em dash, while
+the search page keeps a raw UTF-8 right single quotation mark in a holiday name, with no JSON
+Unicode escapes. The empty
+recording is byte-identical to the other empty recordings. The only image credit is an
+institutional NPS credit, one image shows unnamed visitors on a ranger-led tour, and no recording
+carries names of private individuals or personal contact details, so nothing was redacted.
+Decoded values were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -265,6 +279,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
 | campgrounds-search.json | e1f09e544bd067518b0a5b8561c5f360d884818dcb0c0f12d7c1e291fa926f77 |
+| feespasses-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| feespasses-page-first.json | 42dbd82cc0e138f2451b4e7b58273041d9954b167de800d029786104fce06a2e |
+| feespasses-page-last.json | 682cc43649a647419ce887093a3b6e99e96fdfa28d4f5078ce91ef3f0a26e549 |
+| feespasses-search.json | f1dca8012938b3d0f143bea1e9af0e7c13c6a06f39be5cb3bb6d803992e36429 |
 | galleries-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | galleries-page-first.json | b50027cd0f1718a2657cf8ff491375f7ef07cbf2e24750c34c32fc5dfe347489 |
 | galleries-page-last.json | f7958e2b1ff2d14df4a2fd62abd1d85dde303a11dd3a0dedd2164e5ba45c03ca |

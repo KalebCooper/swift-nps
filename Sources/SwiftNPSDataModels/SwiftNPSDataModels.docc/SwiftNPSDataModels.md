@@ -5,11 +5,12 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park audio, park boundaries, park videos, parking lots,
-parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours,
-visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is
-built on a shared core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed
-``Endpoint`` values, and the reusable ``NPSDataRequest``. Park boundaries and road events are
+articles, campgrounds, news releases, park audio, park boundaries, park fees and passes, park
+videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events,
+things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every
+offset-paginated one is built on a shared core: a validated ``NPSCollectionQuery``, the
+``NPSCollection`` envelope, typed ``Endpoint`` values, and the reusable ``NPSDataRequest``. Park
+boundaries and road events are
 single responses with no pagination. Construction performs no I/O, and this module never imports
 a transport or holds credentials.
 
@@ -275,6 +276,41 @@ recordings, which is an observation, not a guarantee. Boundary geometry is publi
 data, not a survey or a legal record.
 
 Real responses were recorded on September 20, 2026.
+
+### Park Fees And Passes
+
+``ParkFeesAndPassesQuery`` describes all six fees and passes parameters: park codes, state codes,
+text search, sort criteria, page limit, and start offset. The live service sorts by `parkCode` and
+`fullName`, ascending or descending, and answers another field such as `name`, `relevanceScore`,
+or `isFeeFreePark` with HTTP 400; sort fields are still sent without validation. Empty code and
+sort arrays omit the parameter, and search text is preserved and percent encoded, including empty
+text. Fees and passes pages are `NPSCollection<ParkFeesAndPasses>`, from
+``Endpoint/parkFeesAndPasses(query:)`` or ``NPSDataRequest/parkFeesAndPasses(query:)``.
+
+``ParkFeesAndPasses`` requires a park code and otherwise reports one record per park; other
+documented fields remain optional, and unknown JSON fields are ignored. The four `is` flags are
+the provider's JSON Booleans. ``ParkFeesAndPasses/fees`` and ``ParkFeesAndPasses/passes`` cover a
+park's own entrance fees and annual passes, and ``ParkFeesAndPasses/relatedMultiSitePasses`` covers
+passes sold across several parks, such as the Hawai'i Tri-Park Annual Pass. Every
+``ParkFeesAndPasses/Fee/cost``, ``ParkFeesAndPasses/Pass/cost``, and
+``ParkFeesAndPasses/MultiSitePass/cost`` is the provider's text, such as `"55.00"`; NPS documents
+no currency or unit for it. On both ``ParkFeesAndPasses/Pass`` and ``ParkFeesAndPasses/MultiSitePass``,
+the Swift property is `images`, decoded from the provider's `image` key, which holds an array; pass
+images carry attribution, text, and URL fields but no crops, and every recorded multi-site pass
+sends that array empty.
+
+``ParkFeesAndPasses/SeasonDate`` stores a fee's season boundary exactly as sent:
+``ParkFeesAndPasses/SeasonDate/day``, ``ParkFeesAndPasses/SeasonDate/holiday``, and
+``ParkFeesAndPasses/SeasonDate/month``. Most dates carry a month and day; some carry only a
+holiday name, such as `"Memorial Day"`, with a null day and month, because a floating holiday
+falls on a different date each year and cannot be derived from its name. A few dates carry all
+three fields. ``ParkFeesAndPasses/SeasonDate/dateComponents`` returns the month and day when both
+are present and nil otherwise, including for a holiday-only date.
+``ParkFeesAndPasses/SeasonDate/date(in:calendar:)`` takes the caller's own calendar, since no time
+zone is defaulted, and returns nil for a holiday-only date and for an impossible day such as
+February 30 rather than rolling into the next month.
+
+Real responses were recorded on September 22, 2026.
 
 ### Park Videos
 
@@ -638,6 +674,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkBoundary``
 - ``ParkBoundaryDetails``
 - ``ParkBoundaryFeature``
+
+### Park Fees And Passes
+
+- ``ParkFeesAndPasses``
+- ``ParkFeesAndPassesQuery``
 
 ### Park Videos
 

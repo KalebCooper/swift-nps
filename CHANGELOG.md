@@ -16,6 +16,16 @@ All notable changes are documented here. This project follows
   provider's integers, correcting the misspelled `numberofAdaVanAccessbileSpaces` key, keeps live
   status fields as sent though they are stale and not guaranteed to be current, and uses the
   shared NPSContacts, NPSFee, and NPSOperatingHours.
+- Park fees and passes: ParkFeesAndPasses, ParkFeesAndPasses.ContentOrderOrdinals,
+  ParkFeesAndPasses.Fee, ParkFeesAndPasses.MultiSitePass, ParkFeesAndPasses.Pass,
+  ParkFeesAndPasses.SeasonDate, ParkFeesAndPassesQuery, Endpoint.parkFeesAndPasses(query:),
+  NPSDataRequest.parkFeesAndPasses(query:), and the lazy NPSDataClient.parkFeesAndPasses(query:)
+  and parkFeesAndPassesPages(query:), with recorded fees and passes responses from `/feespasses`.
+  ParkFeesAndPassesQuery sends sort fields without validation; the live endpoint sorts by
+  `parkCode` and `fullName`. ParkFeesAndPasses keeps `cost` as the provider's text with no
+  currency claimed, and SeasonDate keeps `day`, `holiday`, and `month` as sent, including the
+  holiday-only form with a null day and month that a floating holiday such as Memorial Day cannot
+  be derived from.
 
 ## [0.5.0] - 2026-09-21
 

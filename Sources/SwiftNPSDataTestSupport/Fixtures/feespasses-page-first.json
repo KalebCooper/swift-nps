@@ -1,0 +1,216 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "parkCode": "havo",
+      "isFeeFreePark": false,
+      "isInteragencyPassAccepted": true,
+      "cashless": "Yes",
+      "feesAtWorkUrl": "",
+      "entranceFeeDescription": "All visitors at Hawai'i Volcanoes National Park are required to pay an entrance fee. If you already have a valid, America the Beautiful—National Parks and Federal Recreational Lands Annual Pass or Hawaiʻi Annual Tri-Park Pass, you are not required to purchase a digital pass through Recreation.gov. If you arrive to the park entrance and it is not staffed, purchase an online pass or pay at the entrance at another time. Once purchased, passes must be printed or saved as a screenshot. Connectivity is limited, and the digital pass must be available to show at all times when visiting Hawai'i Volcanoes National Park. For purposes of upgrading to annual or lifetime passes: Digital passes may be accepted at parks other than Hawaiʻi Volcanoes National Park, as credit towards an upgrade to annual or lifetime passes, within 7 days from the date of purchase. Passes are non-transferrable, non-refundable, not replaceable if lost or stolen, and are void if altered or reproduced.",
+      "entrancePassDescription": "The annual pass is valid for entrance fees for pass holder and occupants of a single, private, non-commercial vehicle at Hawai'i Volcanoes National Park, Haleakalā National Park, and Puʻuhonua o Hōnaunau National Historical Park.",
+      "isParkingFeePossible": false,
+      "parkingDetailsUrl": "",
+      "timedEntryHeading": "",
+      "timedEntryDescription": "",
+      "isParkingOrTransportationFeePossible": false,
+      "paidParkingHeading": "",
+      "paidParkingDescription": "",
+      "customFeeHeading": "",
+      "customFeeDescription": "",
+      "customFeeLinkUrl": "",
+      "customFeeLinkText": "",
+      "contentOrderOrdinals": {
+        "entranceFee": 1,
+        "timedEntry": 1,
+        "paidParking": 1,
+        "customFee": 4
+      },
+      "relatedMultiSitePasses": [
+        {
+          "cost": "55.00",
+          "image": [],
+          "description": "Valid for 12 months from purchase month. Admits the pass holders and occupants in a private, non-commercial vehicle (15 max capacity or less), or passholder and 3 additional adults to Haleakalā National Park, Hawaiʻi Volcanoes National Park and Puʻuhonua ʻO Hōnaunau National Historical Park.",
+          "relatedParks": [
+            {
+              "states": "HI",
+              "parkCode": "hale",
+              "designation": "National Park",
+              "fullName": "Haleakalā National Park",
+              "url": "https://www.nps.gov/hale/index.htm",
+              "name": "Haleakalā"
+            },
+            {
+              "states": "HI",
+              "parkCode": "havo",
+              "designation": "National Park",
+              "fullName": "Hawaiʻi Volcanoes National Park",
+              "url": "https://www.nps.gov/havo/index.htm",
+              "name": "Hawaiʻi Volcanoes"
+            },
+            {
+              "states": "HI",
+              "parkCode": "puho",
+              "designation": "National Historical Park",
+              "fullName": "Puʻuhonua o Hōnaunau National Historical Park",
+              "url": "https://www.nps.gov/puho/index.htm",
+              "name": "Puʻuhonua o Hōnaunau"
+            }
+          ],
+          "audience": "Visitors who will only visit Hawai'i Volcanoes National Park and Haleakala National Park, and Pu'uhonua o Honaunau National Historical Park.",
+          "title": "Hawai'i Tri-Park Annual Pass",
+          "type": "Multi-Site Pass"
+        }
+      ],
+      "fees": [
+        {
+          "entranceFeeType": "Entrance - Private Vehicle",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/2753",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "- Martin Luther King Jr. Day\n- First Day of National Park Week\n- Great American Outdoors Day\n- National Public Lands Day\n- Veteran's Day",
+          "payGovPurchaseUrl": "",
+          "cost": "30.00",
+          "timedEntryShortDescription": "",
+          "description": "Private Vehicle Pass - The private vehicle pass admits the passholder and up to 14 passengers of a single, private (non-commercial) vehicle.",
+          "informationUrl": "https://www.recreation.gov/sitepass/2753",
+          "id": "1EEE50DF-6E85-4DD6-AFBE-657DAD50BBA8",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Entrance - Motorcycle",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/2753",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "- Martin Luther King Jr. Day\n- First Day of National Park Week\n- Great American Outdoors Day\n- National Public Lands Day\n- Veteran's Day",
+          "payGovPurchaseUrl": "",
+          "cost": "25.00",
+          "timedEntryShortDescription": "",
+          "description": "Valid for 7 days. Admits up to 2 private, non-commercial motorcycles with up to 4 total passengers.",
+          "informationUrl": "https://www.recreation.gov/sitepass/2753",
+          "id": "0B6F7719-2D73-4DC7-93F1-C33DA4CE0BBE",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Entrance - Per Person",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/2753",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "- Martin Luther King Jr. Day\n- First Day of National Park Week\n- Great American Outdoors Day\n- National Public Lands Day\n- Veteran's Day",
+          "payGovPurchaseUrl": "",
+          "cost": "15.00",
+          "timedEntryShortDescription": "",
+          "description": "Pedestrian/Cyclist Pass - Admits one individual bicyclist, hiker, or pedestrian visiting without a private vehicle. An individual pass is not required for visitors aged 15 and under.",
+          "informationUrl": "https://www.recreation.gov/sitepass/2753",
+          "id": "E8F8FFB7-6FFF-4A67-843B-43EDA5890DEA",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Commercial Entrance - Mini-bus",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "All commercial tours that enter the park on a regular basis must have a Commercial Use Authorization (CUA) and are required to pay the commercial tour fee at the entrance station at each visit. For more information on how to get a CUA visit the Permits & Reservations page.",
+          "recGovPurchaseUrl": "",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "- Martin Luther King Jr. Day\n- First Day of National Park Week\n- Great American Outdoors Day\n- National Public Lands Day\n- Veteran's Day",
+          "payGovPurchaseUrl": "",
+          "cost": "100.00",
+          "timedEntryShortDescription": "",
+          "description": "The commercial entrance fee for a Road Based Guided Tour is based on vehicle seating capacity. For a 16-25 passenger vehicle the user fee is $100.",
+          "informationUrl": "https://www.nps.gov/havo/learn/management/havo_manage_cua_instruc.htm",
+          "id": "101AE5AF-4DA4-4FA9-8C20-61AE77EF02A9",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Commercial Entrance - Motor Coach",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "All commercial tours that enter the park on a regular basis must have a Commercial Use Authorization (CUA) and are required to pay the commercial tour fee at the entrance station at each visit. For more information on how to get a CUA visit the Permits & Reservations page.",
+          "recGovPurchaseUrl": "",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "- Martin Luther King Jr. Day\n- First Day of National Park Week\n- Great American Outdoors Day\n- National Public Lands Day\n- Veteran's Day",
+          "payGovPurchaseUrl": "",
+          "cost": "200.00",
+          "timedEntryShortDescription": "",
+          "description": "The commercial entrance fee for a Road Based Guided Tour is based on vehicle seating capacity. For a 26+ passenger vehicle the user fee is $200. \n\nLarge vehicles, defined as more than 26 feet in length and/or more than eight feet wide, are only allowed to operate on Crater Rim Drive to Kilauea Visitor Center, Kūkamāhuākea (Steam Vents), and Uēkahuna. Mauna Loa Road to the Kīpukapuaulu turnabout.",
+          "informationUrl": "https://www.nps.gov/havo/learn/management/havo_manage_cua_instruc.htm",
+          "id": "F1724915-D891-41DD-A2A3-29559BE36235",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Commercial Entrance - Per Person",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "All commercial tours that enter the park on a regular basis must have a Commercial Use Authorization (CUA) and are required to pay the commercial tour fee at the entrance station at each visit. For more information on how to get a CUA visit the Permits & Reservations page.",
+          "recGovPurchaseUrl": "",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "- Martin Luther King Jr. Day\n- First Day of National Park Week\n- Great American Outdoors Day\n- National Public Lands Day\n- Veteran's Day",
+          "payGovPurchaseUrl": "",
+          "cost": "15.00",
+          "timedEntryShortDescription": "",
+          "description": "$15 per person for Commercial Non-Road Based Guided Tours. This includes hiking more than one mile on one trail, bird watching on foot for more than one hour at one location, and/or or bicycling tours.",
+          "informationUrl": "https://www.nps.gov/havo/learn/management/havo_manage_cua_instruc.htm",
+          "id": "3A330614-A3B7-4E71-A7AE-7246E03D070C",
+          "npsGovPurchaseUrl": ""
+        }
+      ],
+      "passes": []
+    }
+  ]
+}

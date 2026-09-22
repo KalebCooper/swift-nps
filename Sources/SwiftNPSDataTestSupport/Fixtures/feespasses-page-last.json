@@ -1,0 +1,262 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "parkCode": "hale",
+      "isFeeFreePark": false,
+      "isInteragencyPassAccepted": true,
+      "cashless": "Yes",
+      "feesAtWorkUrl": "",
+      "entranceFeeDescription": "Fee-free entrance days do not include sunrise reservations or admittance to the park between the hours of 3:00 am-7:00 am. People planning to view the sunrise at Haleakalā National Park must make sunrise viewing reservations for $1.00 in advance at https://www.recreation.gov/ticket/facility/253731.",
+      "entrancePassDescription": "Haleakalā National Park has a variety of annual pass options available. Annual passes are available to the general public including international visitors. Passes are valid for 12 months from purchase date and are non-transferable.",
+      "isParkingFeePossible": false,
+      "parkingDetailsUrl": "",
+      "timedEntryHeading": "",
+      "timedEntryDescription": "",
+      "isParkingOrTransportationFeePossible": false,
+      "paidParkingHeading": "",
+      "paidParkingDescription": "",
+      "customFeeHeading": "",
+      "customFeeDescription": "",
+      "customFeeLinkUrl": "",
+      "customFeeLinkText": "",
+      "contentOrderOrdinals": {
+        "entranceFee": 1,
+        "timedEntry": 1,
+        "paidParking": 1,
+        "customFee": 4
+      },
+      "relatedMultiSitePasses": [
+        {
+          "cost": "55.00",
+          "image": [],
+          "description": "Valid for 12 months from purchase month. Admits the pass holders and occupants in a private, non-commercial vehicle (15 max capacity or less), or passholder and 3 additional adults to Haleakalā National Park, Hawaiʻi Volcanoes National Park and Puʻuhonua ʻO Hōnaunau National Historical Park.",
+          "relatedParks": [
+            {
+              "states": "HI",
+              "parkCode": "hale",
+              "designation": "National Park",
+              "fullName": "Haleakalā National Park",
+              "url": "https://www.nps.gov/hale/index.htm",
+              "name": "Haleakalā"
+            },
+            {
+              "states": "HI",
+              "parkCode": "havo",
+              "designation": "National Park",
+              "fullName": "Hawaiʻi Volcanoes National Park",
+              "url": "https://www.nps.gov/havo/index.htm",
+              "name": "Hawaiʻi Volcanoes"
+            },
+            {
+              "states": "HI",
+              "parkCode": "puho",
+              "designation": "National Historical Park",
+              "fullName": "Puʻuhonua o Hōnaunau National Historical Park",
+              "url": "https://www.nps.gov/puho/index.htm",
+              "name": "Puʻuhonua o Hōnaunau"
+            }
+          ],
+          "audience": "Visitors who will only visit Hawai'i Volcanoes National Park and Haleakala National Park, and Pu'uhonua o Honaunau National Historical Park.",
+          "title": "Hawai'i Tri-Park Annual Pass",
+          "type": "Multi-Site Pass"
+        }
+      ],
+      "fees": [
+        {
+          "entranceFeeType": "Entrance - Motorcycle",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/77808",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "25.00",
+          "timedEntryShortDescription": "",
+          "description": "Valid for 3 days. Admits up to 2 private, non-commercial motorcycles with up to 4 total passengers to Haleakalā National Park, including both the Summit and Kīpahulu Districts.",
+          "informationUrl": "",
+          "id": "B6E2396D-329A-43FF-8343-D7B00C98681E",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Entrance - Private Vehicle",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/77808",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "30.00",
+          "timedEntryShortDescription": "",
+          "description": "Valid for three days. Admits private, non-commercial vehicle (14 max capacity or less) and all occupants to Haleakalā National Park including both the Summit and Kīpahulu Districts.",
+          "informationUrl": "",
+          "id": "136C29B2-6F4C-4CA4-A97E-593F2DAA1AD9",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Entrance - Per Person",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/77808",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "15.00",
+          "timedEntryShortDescription": "",
+          "description": "Admits one individual with no car to Haleakalā National Park including both the Summit and Kīpahulu Areas. Youth 15 and under are admitted free.",
+          "informationUrl": "",
+          "id": "0176DFA6-C0FD-4683-A296-9C9740137CA3",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Commercial Entrance - Per Person",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/77808",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "15.00",
+          "timedEntryShortDescription": "",
+          "description": "$15.00 per person for non-road based organized groups that offer activities such as Astronomy and Hiking.",
+          "informationUrl": "",
+          "id": "F86898B8-6B7E-442F-8C16-ADF1EA233871",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Commercial Entrance - Sedan",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "30.00",
+          "timedEntryShortDescription": "",
+          "description": "$30.00 plus, $15.00 per person for road based tour vehicles, such as sedans, with a passenger carrying capacity of 1-7 people.",
+          "informationUrl": "",
+          "id": "EB385947-EA7B-4EF1-AB7C-28345D75EC4D",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Commercial Entrance - Van",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/sitepass/77808",
+          "timedEntryLocation": "",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "45.00",
+          "timedEntryShortDescription": "",
+          "description": "$45.00 for road based tour vehicles, such as large vans and mini buses, with a passenger carrying capacity of 8-25 people.",
+          "informationUrl": "",
+          "id": "76D4122C-FB90-478C-A799-24B572018404",
+          "npsGovPurchaseUrl": ""
+        },
+        {
+          "entranceFeeType": "Timed Entry Reservation - Park & Location",
+          "startDate": {
+            "month": 1,
+            "holiday": null,
+            "day": 1
+          },
+          "paymentDescription": "",
+          "recGovPurchaseUrl": "https://www.recreation.gov/ticket/facility/253731",
+          "timedEntryLocation": "Summit District of Haleakalā National Park + Sunrise",
+          "endDate": {
+            "month": 12,
+            "holiday": null,
+            "day": 31
+          },
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "1.00",
+          "timedEntryShortDescription": "Required to attend sunrise at Haleakalā National Park.",
+          "description": "A reservation is required for each vehicle entering the park from 3:00 a.m. to 7:00 a.m. You may book a reservation up to 60 days in advance and 2 days in advance of the start date.",
+          "informationUrl": "",
+          "id": "76450578-06B8-4F0B-858B-D9C34457CD6C",
+          "npsGovPurchaseUrl": ""
+        }
+      ],
+      "passes": [
+        {
+          "exceptions": "",
+          "payGovPurchaseUrl": "",
+          "cost": "55.00",
+          "image": [
+            {
+              "credit": "",
+              "title": "",
+              "altText": "",
+              "caption": "",
+              "url": "https://www.nps.gov/customcf/structured_data/images/add_image.png"
+            }
+          ],
+          "description": "Valid for 12 months from purchase date. Admits the pass holders and passengers in a non-commercial vehicle (14 max capacity or less) to Haleakalā National Park, Hawaiʻi Volcanoes National Park and Puʻuhonua ʻO Hōnaunau National Historical Park. All other National Park sites in the state of Hawaiʻi do not charge an entrance fee.",
+          "paymentDescription": "",
+          "category": "Annual Entrance - Park",
+          "informationUrl": "",
+          "recGovPurchaseUrl": "",
+          "id": "0EDF2056-8504-4BFD-AAA4-A8C3A98FC27D",
+          "npsGovPurchaseUrl": ""
+        }
+      ]
+    }
+  ]
+}

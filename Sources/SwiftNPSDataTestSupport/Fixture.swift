@@ -134,6 +134,22 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 20, 2026.
   case parkBoundaryYellowstone = "parkboundaries-yell"
 
+  /// GET /api/v1/feespasses?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 22, 2026.
+  case parkFeesAndPassesEmpty = "feespasses-empty"
+
+  /// GET /api/v1/feespasses?limit=1&parkCode=hale,havo&sort=-parkCode&start=0; HTTP 200.
+  /// Recorded September 22, 2026.
+  case parkFeesAndPassesPageFirst = "feespasses-page-first"
+
+  /// GET /api/v1/feespasses?limit=1&parkCode=hale,havo&sort=-parkCode&start=1; HTTP 200.
+  /// Recorded September 22, 2026.
+  case parkFeesAndPassesPageLast = "feespasses-page-last"
+
+  /// GET /api/v1/feespasses?limit=2&parkCode=deva,fova&q=annual&start=0&stateCode=CA,WA;
+  /// HTTP 200. Recorded September 22, 2026.
+  case parkFeesAndPassesSearch = "feespasses-search"
+
   /// GET /api/v1/parkinglots?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 21, 2026.
   case parkingLotsEmpty = "parkinglots-empty"

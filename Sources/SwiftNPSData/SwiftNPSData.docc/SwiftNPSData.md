@@ -20,11 +20,12 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos,
-parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to
-do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups
-are built on a generic collection core that executes any offset-paginated NPS collection the same
-way; park boundaries and road events are single responses.
+Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park fees
+and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets,
+places, road events, things to do, tours, visitor centers, and webcams are the implemented
+endpoint groups. The collection groups are built on a generic collection core that executes any
+offset-paginated NPS collection the same way; park boundaries and road events are single
+responses.
 
 ### Collection execution
 
@@ -224,6 +225,30 @@ An unknown park code fails with HTTP 404 and an `application/problem+json` body 
 error envelope, so it surfaces as ``NPSDataError/transport(_:)`` holding the HTTP status failure
 and its original body. Boundary geometry is published cartographic data, not a survey or a legal
 record.
+
+### Park Fees And Passes
+
+``NPSDataClient/parkFeesAndPasses(query:)`` and ``NPSDataClient/parkFeesAndPassesPages(query:)``
+search `/feespasses` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<ParkFeesAndPasses>`. The live service sorts by `parkCode` and `fullName`, ascending
+or descending, and answers another field such as `name` or `relevanceScore` with HTTP 400; fields
+are sent without validation:
+
+```swift
+let query = try ParkFeesAndPassesQuery(
+  parkCodes: [ParkCode("havo")], sort: [.descending("parkCode")])
+for try await park in client.parkFeesAndPasses(query: query) {
+  print(park.parkCode, park.fees?.count ?? 0, park.passes?.count ?? 0)
+}
+let request = NPSDataRequest.parkFeesAndPasses(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.parkFeesAndPasses(query: query))
+```
+
+Fee and pass `cost` stays the provider's text such as `"55.00"`, with no currency claimed. A
+season date can carry only a `holiday` name with a null day and month, such as Memorial Day, which
+floats from year to year and has no derivable date; `SeasonDate/date(in:calendar:)` takes the
+caller's own calendar and returns nil for that form.
 
 ### Park Videos
 
@@ -550,6 +575,11 @@ The package makes no freshness or completeness guarantee.
 ### Park Boundaries
 
 - ``NPSDataClient/parkBoundary(parkCode:)``
+
+### Park Fees And Passes
+
+- ``NPSDataClient/parkFeesAndPasses(query:)``
+- ``NPSDataClient/parkFeesAndPassesPages(query:)``
 
 ### Park Videos
 

@@ -9,8 +9,8 @@ Find and browse parks through the National Park Service Data API.
 Released as 0.5.0, which covers eighteen endpoint groups: alerts, amenities (with its park places
 and park visitor centers subgroups), articles, campgrounds, news releases, park audio, park
 boundaries, park videos, parks, people, photo galleries, photo gallery assets, places, road
-events, things to do, tours, visitor centers, and webcams. Parking lots is built and not yet
-released. CHANGELOG lists what each release added.
+events, things to do, tours, visitor centers, and webcams. Parking lots and park fees and passes
+are built and not yet released. CHANGELOG lists what each release added.
 
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
 envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
@@ -28,6 +28,7 @@ rather than a collection.
 | Campgrounds | Park codes, state codes, text search, sorting. | `campgroundPages`, `campgrounds` | Published site counts and fees are not live availability. |
 | News releases | Park codes, state codes, text search, sorting. | `newsReleasePages`, `newsReleases` | The live service sorts by `releaseDate` and `title` and answers other fields with HTTP 400; release timestamps stay the provider's text without a time zone. |
 | Park audio | Park codes, state codes, text search, sorting. | `parkAudioPages`, `parkAudio` | The live service sorts by `title` and answers other fields with HTTP 400; transcripts stay plain text or HTML, and file sizes keep the provider's number, for which NPS documents no unit. |
+| Park fees and passes | Park codes, state codes, text search, sorting. | `parkFeesAndPassesPages`, `parkFeesAndPasses` | The live service sorts by `parkCode` and `fullName` and answers other fields with HTTP 400; fee and pass `cost` stays the provider's text with no currency claimed, and a season date can carry only a holiday name, with no derivable date. |
 | Park videos | Park codes, state codes, text search, sorting. | `parkVideoPages`, `parkVideos` | The live service sorts by `title` and answers other fields with HTTP 400; accessibility flags stay Booleans, and file sizes keep the provider's number or null, for which NPS documents no unit. |
 | Parking lots | Park codes, state codes, text search, sorting. | `parkingLotPages`, `parkingLots` | The live service sorts by `name` and `parkCode` and answers other fields with HTTP 400; live status fields stay as sent, are stale, and are not guaranteed to be current. |
 | Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
@@ -144,8 +145,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, article, campground, news release, park audio, park boundary, park video, parking lot, park, person, photo gallery, photo gallery asset, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, article, campground, news release, park audio, park boundary, park fees and passes, park video, parking lot, park, person, photo gallery, photo gallery asset, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 
