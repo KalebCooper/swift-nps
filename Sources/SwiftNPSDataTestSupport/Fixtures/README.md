@@ -3,10 +3,10 @@
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
-releases, park audio, park videos, people, photo galleries, and photo gallery assets) using the
-application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real
-response bodies, not examples copied from the specification. Tests read them locally and never
-contact NPS.
+releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
+lots) using the application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`.
+These are real response bodies, not examples copied from the specification. Tests read them
+locally and never contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
@@ -53,6 +53,10 @@ contact NPS.
 | parkboundaries-drto.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/drto | 200 |
 | parkboundaries-unknown.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/zzzz | 404 |
 | parkboundaries-yell.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/yell | 200 |
+| parkinglots-empty.json | GET https://developer.nps.gov/api/v1/parkinglots?limit=1&parkCode=zzzz&start=0 | 200 |
+| parkinglots-page-first.json | GET https://developer.nps.gov/api/v1/parkinglots?limit=1&parkCode=chsc&sort=-name&start=0 | 200 |
+| parkinglots-page-last.json | GET https://developer.nps.gov/api/v1/parkinglots?limit=1&parkCode=chsc&sort=-name&start=1 | 200 |
+| parkinglots-search.json | GET https://developer.nps.gov/api/v1/parkinglots?limit=2&parkCode=havo&q=overlook&sort=name&start=0&stateCode=HI | 200 |
 | parks-acad.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 | 200 |
 | parks-beyond.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=2 | 200 |
 | parks-empty.json | GET https://developer.nps.gov/api/v1/parks?parkCode=zzzz&limit=1&start=0 | 200 |
@@ -213,6 +217,15 @@ recordings. Credits name institutions and archives, such as `NPS photo` and `Nat
 Records Administration`, and no recording carries personal contact details, so nothing was
 redacted. Decoded values were compared with the downloads and are identical.
 
+The parking lot recordings arrived with CRLF line endings, blank lines, trailing spaces, and
+commas leading each line, and are reindented the same way, keeping the provider's key order and
+the numbers, Booleans, and `null` values as written. The search recording keeps raw UTF-8
+Hawaiian diacritics in park and lot names, with no JSON Unicode escapes; the other three pages
+are ASCII throughout. The empty recording is byte-identical to the other empty recordings.
+Contacts are park phone and fax lines and `*_info@nps.gov`-style inboxes, and image credits name
+NPS photographers, so nothing was redacted. Decoded values were compared with the downloads and
+are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -263,6 +276,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | parkboundaries-drto.json | 8c87bc141d6bdf4580cf166a902a2700ba810c8bd17327489e87d72a454c7885 |
 | parkboundaries-unknown.json | c4e912cc04e9b3426cd17b27a5d01eba6442efc6fb3c5be30181679fb996330b |
 | parkboundaries-yell.json | 96a49dd65006cfb7901a035ba26a6aa22d0bcfc70577f1aad25f36b1e03a70ed |
+| parkinglots-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| parkinglots-page-first.json | 945b56560b973e5dfafa5de16fcae4a89a80d208e8b41a0e7d0c38af8ef606e7 |
+| parkinglots-page-last.json | 6f5c72b498d46fc08df976b8f5756715cf9f1c316d608c0a50be655c43298cd0 |
+| parkinglots-search.json | dd6d46befe6ecedd9ff5d7a915232a2cff015aa78136967afba931a9ee077dd2 |
 | parks-acad.json | 190b90f17bff221b71e564247b265a581844143b4eeca8455674ad47154f4632 |
 | parks-beyond.json | bc6e94934ea41746830b8df13e264efc9eef42d9fe23ace5e61d81c6d728996d |
 | parks-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |

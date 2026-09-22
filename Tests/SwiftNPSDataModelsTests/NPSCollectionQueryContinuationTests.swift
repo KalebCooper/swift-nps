@@ -95,6 +95,18 @@ struct NPSCollectionQueryContinuationTests {
           ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
         ]),
       ContinuationCase(
+        try ParkingLotQuery(
+          limit: 7, parkCodes: parks(), searchText: "trail", sort: sort(), start: 3,
+          stateCodes: states()),
+        page: .parkingLotsSearch,
+        expected: try ParkingLotQuery(
+          limit: 7, parkCodes: parks(), searchText: "trail", sort: sort(), start: 5,
+          stateCodes: states()),
+        items: [
+          ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
+        ]),
+      ContinuationCase(
         try ParkQuery(
           limit: 7, parkCodes: parks(), searchText: "trail", sort: sort(), start: 3,
           stateCodes: states()),

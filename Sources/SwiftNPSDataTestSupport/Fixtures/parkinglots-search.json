@@ -1,0 +1,190 @@
+{
+  "total": "2",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "A4446AB4-5566-4F6C-B218-5ED4F7C0D447",
+      "name": "Kīlauea Iki Overlook Parking Lot",
+      "altName": "",
+      "description": "Kīlauea Iki Overlook is often used to access the Kīlauea Iki Trail and Nahuku (Thurston Lava Tube).",
+      "relatedParks": [
+        {
+          "states": "HI",
+          "parkCode": "havo",
+          "designation": "National Park",
+          "fullName": "Hawaiʻi Volcanoes National Park",
+          "url": "https://www.nps.gov/havo/index.htm",
+          "name": "Hawaiʻi Volcanoes"
+        }
+      ],
+      "latitude": 19.416584,
+      "longitude": -155.242891,
+      "geometryPoiId": "",
+      "managedByOrganization": "Hawai‘i Volcanoes National Park",
+      "timeZone": "HAST",
+      "webcamUrl": "",
+      "contacts": {
+        "phoneNumbers": [],
+        "emailAddresses": [
+          {
+            "description": "Visitor information",
+            "emailAddress": "havo_information@nps.gov"
+          }
+        ]
+      },
+      "fees": [],
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "",
+          "standardHours": {
+            "wednesday": "All Day",
+            "monday": "All Day",
+            "thursday": "All Day",
+            "sunday": "All Day",
+            "tuesday": "All Day",
+            "friday": "All Day",
+            "saturday": "All Day"
+          },
+          "name": "Kīlauea Iki"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo/Ed Shiinoki",
+          "title": "Kīlauea Iki Entrance",
+          "altText": "Kīlauea Iki Entrance",
+          "caption": "Kīlauea Iki Entrance",
+          "url": "https://www.nps.gov/common/uploads/structured_data/C547E58A-CC2E-E02B-27074BFB053ABAC8.jpg"
+        },
+        {
+          "credit": "NPS Photo",
+          "title": "Kīlauea Iki",
+          "altText": "Kīlauea Iki",
+          "caption": "Kīlauea Iki Parking lot",
+          "url": "https://www.nps.gov/common/uploads/structured_data/B1FDC759-9E35-68AB-4AEF02D6E86F57E5.jpg"
+        },
+        {
+          "credit": "NPS Photo/Steve Geiger",
+          "title": "Kīlauea Iki Parking Lot Viewed From Crater",
+          "altText": "Kīlauea Iki Parking Lot Viewed From Crater",
+          "caption": "Kīlauea Iki Parking Lot Viewed From Crater",
+          "url": "https://www.nps.gov/common/uploads/structured_data/C585F036-A514-2A03-D9936B658EBE2E32.jpg"
+        },
+        {
+          "credit": "NPS Photo/Ed Shiinoki",
+          "title": "Kīlauea Iki Parking",
+          "altText": "Kīlauea Iki Parking",
+          "caption": "Kīlauea Iki Parking",
+          "url": "https://www.nps.gov/common/uploads/structured_data/C652330C-90FB-7653-6A65ED8643BB78D5.jpg"
+        },
+        {
+          "credit": "NPS Photo/Ed Shiinoki",
+          "title": "Kīlauea Iki Parking 2",
+          "altText": "Kīlauea Iki Parking",
+          "caption": "Kīlauea Iki Parking",
+          "url": "https://www.nps.gov/common/uploads/structured_data/C6863C38-A4A7-4A88-27FB3740285FD41C.jpg"
+        },
+        {
+          "credit": "NPS Photo/Ed Shiinoki",
+          "title": "Kīlauea Iki Parking 3",
+          "altText": "Kīlauea Iki Parking",
+          "caption": "Kīlauea Iki Parking",
+          "url": "https://www.nps.gov/common/uploads/structured_data/C68BCC27-0D04-C932-062B0473C97B647A.jpg"
+        },
+        {
+          "credit": "NPS Photo/Ed Shiinoki",
+          "title": "Kīlauea Iki Parking 4",
+          "altText": "Kīlauea Iki Parking",
+          "caption": "Kīlauea Iki Parking",
+          "url": "https://www.nps.gov/common/uploads/structured_data/C690A613-DE0D-90B8-D769138A36781B5F.jpg"
+        }
+      ],
+      "accessibility": {
+        "isLotAccessibleToDisabled": true,
+        "totalSpaces": 64,
+        "numberofAdaSpaces": 3,
+        "numberofAdaVanAccessbileSpaces": 0,
+        "numberofAdaStepFreeSpaces": 0,
+        "numberOfOversizeVehicleSpaces": 0,
+        "adaFacilitiesDescription": ""
+      },
+      "liveStatus": {
+        "isActive": true,
+        "occupancy": "",
+        "estimatedWaitTimeInMinutes": null,
+        "description": "",
+        "expirationDate": ""
+      }
+    },
+    {
+      "id": "D44DB7B9-74D1-4BDE-91CF-B2338EA69897",
+      "name": "Kīlauea Overlook Parking",
+      "altName": "",
+      "description": "Parking lot at Kīlauea Overlook on Crater Rim Drive",
+      "relatedParks": [
+        {
+          "states": "HI",
+          "parkCode": "havo",
+          "designation": "National Park",
+          "fullName": "Hawaiʻi Volcanoes National Park",
+          "url": "https://www.nps.gov/havo/index.htm",
+          "name": "Hawaiʻi Volcanoes"
+        }
+      ],
+      "latitude": 19.423602,
+      "longitude": -155.284341,
+      "geometryPoiId": "",
+      "managedByOrganization": "Hawaiʻi Volcanoes National Park",
+      "timeZone": "HAST",
+      "webcamUrl": "",
+      "contacts": {
+        "phoneNumbers": [],
+        "emailAddresses": []
+      },
+      "fees": [],
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "",
+          "standardHours": {
+            "wednesday": "All Day",
+            "monday": "All Day",
+            "thursday": "All Day",
+            "sunday": "All Day",
+            "tuesday": "All Day",
+            "friday": "All Day",
+            "saturday": "All Day"
+          },
+          "name": "Kīlauea Overlook Parking"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Photo/J. Wei",
+          "title": "Kīlauea Overlook Parking Lot",
+          "altText": "An empty parking lot with trees on  the periphery",
+          "caption": "Kīlauea Overlook parking lot",
+          "url": "https://www.nps.gov/common/uploads/structured_data/E9E3AC9A-F5FE-A97A-20527CD63F5B7AAA.jpg"
+        }
+      ],
+      "accessibility": {
+        "isLotAccessibleToDisabled": false,
+        "totalSpaces": 36,
+        "numberofAdaSpaces": 2,
+        "numberofAdaVanAccessbileSpaces": 0,
+        "numberofAdaStepFreeSpaces": 0,
+        "numberOfOversizeVehicleSpaces": 2,
+        "adaFacilitiesDescription": ""
+      },
+      "liveStatus": {
+        "isActive": true,
+        "occupancy": "Light",
+        "estimatedWaitTimeInMinutes": 0,
+        "description": "",
+        "expirationDate": ""
+      }
+    }
+  ]
+}

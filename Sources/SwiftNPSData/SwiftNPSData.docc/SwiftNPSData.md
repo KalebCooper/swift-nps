@@ -21,10 +21,10 @@ for try await park in client.parks(query: query) {
 ```
 
 Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos,
-parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours,
-visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
-on a generic collection core that executes any offset-paginated NPS collection the same way; park
-boundaries and road events are single responses.
+parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to
+do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups
+are built on a generic collection core that executes any offset-paginated NPS collection the same
+way; park boundaries and road events are single responses.
 
 ### Collection execution
 
@@ -244,6 +244,28 @@ let samePage = try await client.send(.parkVideos(query: query))
 
 Accessibility flags are the provider's JSON Booleans, caption files keep their language text, and
 file sizes keep the provider's number or `null`, for which NPS documents no unit.
+
+### Parking Lots
+
+``NPSDataClient/parkingLots(query:)`` and ``NPSDataClient/parkingLotPages(query:)`` search
+`/parkinglots` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<ParkingLot>`. The live service sorts by `name` and `parkCode`, ascending or
+descending, and answers another field such as `title` or `relevanceScore` with HTTP 400; fields
+are sent without validation:
+
+```swift
+let query = try ParkingLotQuery(parkCodes: [ParkCode("chsc")], sort: [.descending("name")])
+for try await lot in client.parkingLots(query: query) {
+  print(lot.name, lot.accessibility?.totalSpaces ?? 0)
+}
+let request = NPSDataRequest.parkingLots(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.parkingLots(query: query))
+```
+
+Accessibility space counts are the provider's integers, correcting the misspelled
+`numberofAdaVanAccessbileSpaces` key, and live status fields stay as sent though they are stale
+and not guaranteed to be current.
 
 ### Parks
 
@@ -533,6 +555,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/parkVideos(query:)``
 - ``NPSDataClient/parkVideoPages(query:)``
+
+### Parking Lots
+
+- ``NPSDataClient/parkingLots(query:)``
+- ``NPSDataClient/parkingLotPages(query:)``
 
 ### Parks
 

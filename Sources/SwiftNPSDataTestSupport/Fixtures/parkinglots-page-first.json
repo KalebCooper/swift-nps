@@ -1,0 +1,99 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "FBB7FD7A-A735-4C34-AFBD-787548F71F5B",
+      "name": "Magnolia Mobil Gas Station",
+      "altName": "",
+      "description": "The Magnolia/Mobil Station has 8 vehicle parking spaces and 1 accessible parking space; parking is for visitors to the National Historic Site only. No overnight parking is allowed; all violators may be towed at their own expense.",
+      "relatedParks": [
+        {
+          "states": "AR",
+          "parkCode": "chsc",
+          "designation": "National Historic Site",
+          "fullName": "Little Rock Central High School National Historic Site",
+          "url": "https://www.nps.gov/chsc/index.htm",
+          "name": "Little Rock Central High School"
+        }
+      ],
+      "latitude": 34.73729,
+      "longitude": -92.297253,
+      "geometryPoiId": "",
+      "managedByOrganization": "Little Rock Central High School NHS",
+      "timeZone": "CT",
+      "webcamUrl": "",
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "501-374-1957",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          },
+          {
+            "phoneNumber": "501-396-3001",
+            "description": "",
+            "extension": "",
+            "type": "Fax"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "chsc_info@nps.gov"
+          }
+        ]
+      },
+      "fees": [
+        {
+          "cost": "0.00",
+          "description": "Free parking - parking allowed only during the duration of your visit",
+          "title": "Fee free parking"
+        }
+      ],
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "",
+          "standardHours": {
+            "wednesday": "8:30AM - 5:00PM",
+            "monday": "8:30AM - 5:00PM",
+            "thursday": "8:30AM - 5:00PM",
+            "sunday": "8:30AM - 5:00PM",
+            "tuesday": "8:30AM - 5:00PM",
+            "friday": "8:30AM - 5:00PM",
+            "saturday": "8:30AM - 5:00PM"
+          },
+          "name": "Magnolia/Mobil Station"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Maps",
+          "title": "Magnolia/Mobil Station parking lot",
+          "altText": "Overhead view of Magnolia/Mobil Station parking lot",
+          "caption": "Overhead view of Magnolia/Mobil Station parking lot",
+          "url": "https://www.nps.gov/common/uploads/structured_data/540819BE-90C0-9B8E-A6DD943B9E02E7B5.jpg"
+        }
+      ],
+      "accessibility": {
+        "isLotAccessibleToDisabled": true,
+        "totalSpaces": 9,
+        "numberofAdaSpaces": 1,
+        "numberofAdaVanAccessbileSpaces": 1,
+        "numberofAdaStepFreeSpaces": 1,
+        "numberOfOversizeVehicleSpaces": 0,
+        "adaFacilitiesDescription": ""
+      },
+      "liveStatus": {
+        "isActive": true,
+        "occupancy": "Light",
+        "estimatedWaitTimeInMinutes": 0,
+        "description": "",
+        "expirationDate": ""
+      }
+    }
+  ]
+}

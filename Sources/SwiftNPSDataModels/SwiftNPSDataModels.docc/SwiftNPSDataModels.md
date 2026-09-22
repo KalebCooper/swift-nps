@@ -5,13 +5,13 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people, photo
-galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and
-webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a
-validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
-reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
-pagination. Construction performs no I/O, and this module never imports a transport or holds
-credentials.
+articles, campgrounds, news releases, park audio, park boundaries, park videos, parking lots,
+parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours,
+visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is
+built on a shared core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed
+``Endpoint`` values, and the reusable ``NPSDataRequest``. Park boundaries and road events are
+single responses with no pagination. Construction performs no I/O, and this module never imports
+a transport or holds credentials.
 
 ```swift
 import SwiftNPSDataModels
@@ -297,6 +297,28 @@ can be empty arrays. ``ParkVideo/splashImage`` is one shared ``NPSImage`` carryi
 text, which can be empty. ``ParkVideo/durationMs`` is a JSON integer or `null`, and
 ``ParkVideo/latitude`` and ``ParkVideo/longitude`` are JSON numbers or `null`. Parks are
 ``NPSRelatedPark`` values.
+
+Real responses were recorded on September 21, 2026.
+
+### Parking Lots
+
+``ParkingLotQuery`` describes all six parking lots parameters: park codes, state codes, text
+search, sort criteria, page limit, and start offset. The live service sorts by `name` and
+`parkCode`, ascending or descending, and answers another field such as `title` or
+`relevanceScore` with HTTP 400; sort fields are still sent without validation, and no default
+order is documented. Empty code and sort arrays omit the parameter, and search text is preserved
+and percent encoded, including empty text. Parking lot pages are `NPSCollection<ParkingLot>`,
+from ``Endpoint/parkingLots(query:)`` or ``NPSDataRequest/parkingLots(query:)``.
+
+``ParkingLot`` requires an identifier and name; other documented fields remain optional, and
+unknown JSON fields are ignored. ``ParkingLot/Accessibility`` keeps the provider's `numberofAda`
+keys, including the misspelled `numberofAdaVanAccessbileSpaces`, in conventionally spelled
+properties. ``ParkingLot/LiveStatus`` is the provider's status report, which is stale and not
+guaranteed to be current: ``ParkingLot/LiveStatus/occupancy`` and
+``ParkingLot/LiveStatus/expirationDate`` are usually empty and are kept as sent.
+``ParkingLot/latitude`` and ``ParkingLot/longitude`` are JSON numbers or `null`. Contacts, fees,
+and operating hours reuse the shared ``NPSContacts``, ``NPSFee``, and ``NPSOperatingHours``
+shapes. Parks are ``NPSRelatedPark`` values.
 
 Real responses were recorded on September 21, 2026.
 
@@ -621,6 +643,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``ParkVideo``
 - ``ParkVideoQuery``
+
+### Parking Lots
+
+- ``ParkingLot``
+- ``ParkingLotQuery``
 
 ### Parks
 

@@ -6,6 +6,17 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+### Added
+
+- Parking lots: ParkingLot, ParkingLot.Accessibility, ParkingLot.LiveStatus, ParkingLotQuery,
+  Endpoint.parkingLots(query:), NPSDataRequest.parkingLots(query:), and the lazy
+  NPSDataClient.parkingLots(query:) and parkingLotPages(query:), with recorded parking lot
+  responses from `/parkinglots`. ParkingLotQuery sends sort fields without validation; the live
+  endpoint sorts by `name` and `parkCode`. ParkingLot keeps its accessibility space counts as the
+  provider's integers, correcting the misspelled `numberofAdaVanAccessbileSpaces` key, keeps live
+  status fields as sent though they are stale and not guaranteed to be current, and uses the
+  shared NPSContacts, NPSFee, and NPSOperatingHours.
+
 ## [0.5.0] - 2026-09-21
 
 ### Added

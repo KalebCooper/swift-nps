@@ -1,0 +1,99 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "6999783B-959B-4A97-86B9-87A35638AF1E",
+      "name": "Little Rock Central High School National Historic Site Visitor Center",
+      "altName": "",
+      "description": "The Visitor Center parking lot has 32 vehicle spaces, 5 RV/Bus parking spaces and 2 accessible spaces; parking is for visitors to the National Historic Site only. No overnight parking is allowed; all violators may be towed at their own expense. Bus/RV parking spaces are approximately 14 feet wide x 40 feet long.",
+      "relatedParks": [
+        {
+          "states": "AR",
+          "parkCode": "chsc",
+          "designation": "National Historic Site",
+          "fullName": "Little Rock Central High School National Historic Site",
+          "url": "https://www.nps.gov/chsc/index.htm",
+          "name": "Little Rock Central High School"
+        }
+      ],
+      "latitude": 34.738126,
+      "longitude": -92.297167,
+      "geometryPoiId": "",
+      "managedByOrganization": "Little Rock Central High School NHS",
+      "timeZone": "CT",
+      "webcamUrl": "",
+      "contacts": {
+        "phoneNumbers": [
+          {
+            "phoneNumber": "501.374.1957",
+            "description": "",
+            "extension": "",
+            "type": "Voice"
+          },
+          {
+            "phoneNumber": "501.396.3001",
+            "description": "",
+            "extension": "",
+            "type": "Fax"
+          }
+        ],
+        "emailAddresses": [
+          {
+            "description": "",
+            "emailAddress": "chsc_info@nps.gov"
+          }
+        ]
+      },
+      "fees": [
+        {
+          "cost": "0.00",
+          "description": "Parking is only allowed for visitors for the duration of their visit - no overnight parking is allowed. Vehicles will be towed at owner's expense.",
+          "title": "Fee free parking"
+        }
+      ],
+      "operatingHours": [
+        {
+          "exceptions": [],
+          "description": "",
+          "standardHours": {
+            "wednesday": "8:30AM - 5:00PM",
+            "monday": "8:30AM - 5:00PM",
+            "thursday": "8:30AM - 5:00PM",
+            "sunday": "8:30AM - 5:00PM",
+            "tuesday": "8:30AM - 5:00PM",
+            "friday": "8:30AM - 5:00PM",
+            "saturday": "8:30AM - 5:00PM"
+          },
+          "name": "Little Rock Central High School National Historic Site Visitor Center"
+        }
+      ],
+      "images": [
+        {
+          "credit": "NPS Maps",
+          "title": "Visitor Center parking lot",
+          "altText": "Overhead view of visitor center parking lot and adjacent visitor center",
+          "caption": "Overhead view of visitor center parking lot and adjacent visitor center",
+          "url": "https://www.nps.gov/common/uploads/structured_data/53EF575C-E1F7-954E-D6B74DBD0564D694.jpg"
+        }
+      ],
+      "accessibility": {
+        "isLotAccessibleToDisabled": true,
+        "totalSpaces": 32,
+        "numberofAdaSpaces": 2,
+        "numberofAdaVanAccessbileSpaces": 2,
+        "numberofAdaStepFreeSpaces": 2,
+        "numberOfOversizeVehicleSpaces": 5,
+        "adaFacilitiesDescription": ""
+      },
+      "liveStatus": {
+        "isActive": true,
+        "occupancy": "",
+        "estimatedWaitTimeInMinutes": null,
+        "description": "",
+        "expirationDate": ""
+      }
+    }
+  ]
+}
