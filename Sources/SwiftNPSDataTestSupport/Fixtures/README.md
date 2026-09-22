@@ -4,10 +4,10 @@ Recorded from the NPS Data API on September 13, 2026 (parks and the missing key)
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
 releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
-lots), and September 22, 2026 (activity parks, park fees and passes, and topic parks) using the
-application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real
-response bodies, not examples copied from the specification. Tests read them locally and never
-contact NPS.
+lots), and September 22, 2026 (activity parks, lesson plans, park fees and passes, and topic
+parks) using the application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`.
+These are real response bodies, not examples copied from the specification. Tests read them
+locally and never contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
@@ -47,6 +47,10 @@ contact NPS.
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | campgrounds-search.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=2&q=lake&sort=name&start=0&stateCode=WY | 200 |
+| lessonplans-empty.json | GET https://developer.nps.gov/api/v1/lessonplans?limit=1&parkCode=zzzz&start=0 | 200 |
+| lessonplans-page-first.json | GET https://developer.nps.gov/api/v1/lessonplans?limit=1&parkCode=tusk&q=climate&sort=-title&start=0 | 200 |
+| lessonplans-page-last.json | GET https://developer.nps.gov/api/v1/lessonplans?limit=1&parkCode=tusk&q=climate&sort=-title&start=1 | 200 |
+| lessonplans-search.json | GET https://developer.nps.gov/api/v1/lessonplans?limit=2&parkCode=grte,yell&q=bear&start=0&stateCode=WY | 200 |
 | feespasses-empty.json | GET https://developer.nps.gov/api/v1/feespasses?limit=1&parkCode=zzzz&start=0 | 200 |
 | feespasses-page-first.json | GET https://developer.nps.gov/api/v1/feespasses?limit=1&parkCode=hale,havo&sort=-parkCode&start=0 | 200 |
 | feespasses-page-last.json | GET https://developer.nps.gov/api/v1/feespasses?limit=1&parkCode=hale,havo&sort=-parkCode&start=1 | 200 |
@@ -255,6 +259,14 @@ institutional NPS credit, one image shows unnamed visitors on a ranger-led tour,
 carries names of private individuals or personal contact details, so nothing was redacted.
 Decoded values were compared with the downloads and are identical.
 
+The lesson plans recordings arrived with the same CRLF layout and are reindented the same way,
+keeping the provider's key order. They carry no JSON escapes; their non-ASCII characters, such as
+bullets and a typographic apostrophe in one `questionObjective`, arrive as raw UTF-8 and are kept.
+The empty recording is byte-identical to the other empty recordings. The recordings name lessons,
+parks, grade ranges, and education standards, with no teacher, student, or other individual named
+and no contact details, so nothing was redacted. Decoded values were compared with the downloads
+and are identical.
+
 The topic parks recordings arrived with the same CRLF layout and are reindented the same way,
 keeping the provider's key order. They are ASCII only; the one JSON escape is the carriage return
 and line feed ending one park's `designation`, kept as written. The empty recording is
@@ -305,6 +317,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
 | campgrounds-search.json | e1f09e544bd067518b0a5b8561c5f360d884818dcb0c0f12d7c1e291fa926f77 |
+| lessonplans-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| lessonplans-page-first.json | 69e133637426a388948f691303e109ca2fea08d59ffbe3354c54b581f61f058b |
+| lessonplans-page-last.json | 4b6d4c711ac5238dbba50b936544fd7ce678e43d43ffbb3022837d74b74f533a |
+| lessonplans-search.json | c6e9740ccbc9cec94a887d0a07392287efd9efd79892153269bfac5ae60a97db |
 | feespasses-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | feespasses-page-first.json | 42dbd82cc0e138f2451b4e7b58273041d9954b167de800d029786104fce06a2e |
 | feespasses-page-last.json | 682cc43649a647419ce887093a3b6e99e96fdfa28d4f5078ce91ef3f0a26e549 |

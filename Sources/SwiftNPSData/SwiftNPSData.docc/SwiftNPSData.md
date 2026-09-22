@@ -20,10 +20,10 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Activity parks, alerts, amenities, articles, campgrounds, news releases, park audio, park
-boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries, photo
-gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and webcams
-are the implemented endpoint groups. The collection groups are built on a generic collection core that
+Activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio,
+park boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries,
+photo gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and
+webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
 executes any offset-paginated NPS collection the same way; park boundaries and road events are
 single responses.
 
@@ -183,6 +183,28 @@ let samePage = try await client.send(.campgrounds(query: query))
 
 Published site counts, fees, and reservation links describe the campground; they are not live
 campsite availability, and the package provides no booking or reservation support.
+
+### Lesson Plans
+
+``NPSDataClient/lessonPlans(query:)`` and ``NPSDataClient/lessonPlanPages(query:)`` search
+`/lessonplans` by lesson plan identifiers, park codes, state codes, text, and sorting. Each page
+is `NPSCollection<LessonPlan>`. The live service sorts by `title`, ascending or descending, and
+ignores an identifier it does not recognize rather than matching nothing; fields are sent without
+validation:
+
+```swift
+let query = try LessonPlanQuery(parkCodes: [ParkCode("tusk")], sort: [.descending("title")])
+for try await plan in client.lessonPlans(query: query) {
+  print(plan.title, plan.gradeLevel ?? "")
+}
+let request = NPSDataRequest.lessonPlans(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.lessonPlans(query: query))
+```
+
+Park codes select the lesson plans related to those parks without narrowing each plan's
+`parks`, unlike activity and topic parks. Grade level and duration are the provider's descriptive
+text, not parsed values.
 
 ### News Releases
 
@@ -607,6 +629,11 @@ The package makes no freshness or completeness guarantee.
 ### Errors
 
 - ``NPSDataError``
+
+### Lesson Plans
+
+- ``NPSDataClient/lessonPlans(query:)``
+- ``NPSDataClient/lessonPlanPages(query:)``
 
 ### News Releases
 

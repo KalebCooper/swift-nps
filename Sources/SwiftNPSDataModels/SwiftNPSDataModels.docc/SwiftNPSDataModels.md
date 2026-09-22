@@ -5,10 +5,10 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Activity parks,
-alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park fees
-and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets,
-places, road events, things to do, topic parks, tours, visitor centers, and webcams are the
-implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
+alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
+boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries,
+photo gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and
+webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
 ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
 reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
 pagination. Construction performs no I/O, and this module never imports
@@ -227,6 +227,30 @@ availability or a booking service. The specification and real responses were che
 September 17, 2026. The specification spells nested keys in lowercase, names the reservation
 fields differently, and declares fees, images, and operating hours as arrays of strings; the live
 responses send camelCase keys and objects, and add passport stamp fields, which the model follows.
+
+### Lesson Plans
+
+``LessonPlanQuery`` describes all seven lesson plans parameters: identifiers, park codes, state
+codes, text search, sort criteria, page limit, and start offset. The live service sorts by
+`title`, ascending or descending, and ignores an identifier it does not recognize rather than
+matching nothing; sort fields are still sent without validation. Park codes select the lesson
+plans related to those parks without narrowing each plan's ``LessonPlan/parks``, unlike activity
+and topic parks. Empty identifier, code, and sort arrays omit the parameter, and search text is
+preserved and percent encoded, including empty text. Lesson plans pages are
+`NPSCollection<LessonPlan>`, from ``Endpoint/lessonPlans(query:)`` or
+``NPSDataRequest/lessonPlans(query:)``.
+
+``LessonPlan`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. ``LessonPlan/subjects`` decodes from the wire `subject` key, the
+same rename pattern as fees and passes' `image` to `images`. ``LessonPlan/parks`` holds plain park
+code strings rather than park objects. ``LessonPlan/gradeLevel`` and ``LessonPlan/duration`` are
+the provider's descriptive text, such as `"Middle School: Sixth Grade through Eighth Grade"` and
+`"90 Minutes"`; neither is parsed. ``LessonPlan/CommonCore`` keeps its education standard fields
+open text: ``LessonPlan/CommonCore/elaStandards`` and ``LessonPlan/CommonCore/mathStandards`` hold
+codes such as `"6-8.RH.7"`, and ``LessonPlan/CommonCore/stateStandards`` and
+``LessonPlan/CommonCore/additionalStandards`` are free text, both often empty.
+
+Real responses were recorded on September 22, 2026.
 
 ### News Releases
 
@@ -702,6 +726,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``Endpoint``
 - ``ServiceErrorResponse``
+
+### Lesson Plans
+
+- ``LessonPlan``
+- ``LessonPlanQuery``
 
 ### News Releases
 

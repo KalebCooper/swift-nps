@@ -40,6 +40,13 @@ All notable changes are documented here. This project follows
   with no flattening. TopicParksQuery takes topic identifiers, park codes, text search, and sort
   fields sent without validation; the live endpoint sorts by `name`, ignores `stateCode`, and
   narrows each topic's `parks` to the requested park codes.
+- Lesson plans: LessonPlan, LessonPlan.CommonCore, LessonPlanQuery, Endpoint.lessonPlans(query:),
+  NPSDataRequest.lessonPlans(query:), and the lazy NPSDataClient.lessonPlans(query:) and
+  lessonPlanPages(query:), with recorded lesson plans responses from `/lessonplans`.
+  LessonPlanQuery takes lesson plan identifiers, park codes, state codes, text search, and sort
+  fields sent without validation; the live endpoint sorts by `title`, ignores an unrecognized
+  identifier rather than matching nothing, and does not narrow each plan's `parks` by the
+  requested park codes.
 
 ## [0.5.0] - 2026-09-21
 

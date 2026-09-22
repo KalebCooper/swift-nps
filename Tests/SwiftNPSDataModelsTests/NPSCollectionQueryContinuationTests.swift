@@ -83,6 +83,18 @@ struct NPSCollectionQueryContinuationTests {
           ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
         ]),
       ContinuationCase(
+        try LessonPlanQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3, stateCodes: states()),
+        page: .lessonPlansSearch,
+        expected: try LessonPlanQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 5, stateCodes: states()),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
+        ]),
+      ContinuationCase(
         try NewsReleaseQuery(
           limit: 7, parkCodes: parks(), searchText: "trail", sort: sort(), start: 3,
           stateCodes: states()),

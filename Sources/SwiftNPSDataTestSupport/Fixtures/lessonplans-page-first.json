@@ -1,0 +1,29 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "B9ABBC9B-76FA-45AF-9C4F-75C13DDB3217",
+      "url": "https://www.nps.gov/teachers/classrooms/climate-change-at-tule-springs.htm",
+      "title": "Climate Change: Past, Present, and Future",
+      "parks": [
+        "tusk"
+      ],
+      "questionObjective": "The students will develop an understanding of climate change based on the fossil and soil records found at the Tule Springs Fossil Beds National Monument. The students will better understand how climate change affected the environment in the past based on data found at the Tule Spring site. This will help the student better understand climate change in the future.",
+      "gradeLevel": "Middle School: Sixth Grade through Eighth Grade",
+      "commonCore": {
+        "stateStandards": "MS-LS4-1. Analyze and interpret data for patterns in the fossil record that document the existence, diversity, extinction, and change of life forms throughout the history of life on Earth under the assumption that natural laws operate today as in the past",
+        "additionalStandards": "MS-LS2-4. Construct an argument supported by empirical evidence that changes to physical or biological components of an ecosystem affect populations.",
+        "mathStandards": [],
+        "elaStandards": [
+          "6-8.RH.7"
+        ]
+      },
+      "subject": [
+        "Science"
+      ],
+      "duration": "90 Minutes"
+    }
+  ]
+}

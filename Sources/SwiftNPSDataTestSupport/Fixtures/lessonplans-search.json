@@ -1,0 +1,55 @@
+{
+  "total": "4",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "7D5B154C-2C39-476F-ABAF-A470ECC7CAFB",
+      "url": "https://www.nps.gov/teachers/classrooms/bears-menu.htm",
+      "title": "A Bear's Menu",
+      "parks": [
+        "yell"
+      ],
+      "questionObjective": "The student will be able to: • Describe the seasonal cycle of a bear’s life by examining its eating habits. • Recognize the shape and size of an adult grizzly bear and compare it to his/her own body size. • Describe how to distinguish black and grizzly bears.",
+      "gradeLevel": "Middle School: Sixth Grade through Eighth Grade",
+      "commonCore": {
+        "stateStandards": "",
+        "additionalStandards": "NGSS: MS-LS2-1 and MS-LS2-4",
+        "mathStandards": [
+          "6.RP.3.d"
+        ],
+        "elaStandards": [
+          "6-8.RH.7",
+          "6-8.RST.7"
+        ]
+      },
+      "subject": [
+        "Literacy and Language Arts",
+        "Math",
+        "Science"
+      ],
+      "duration": "90 Minutes"
+    },
+    {
+      "id": "25F1181B-4C34-457F-90B6-0B957E96FB18",
+      "url": "https://www.nps.gov/teachers/classrooms/inventanimal.htm",
+      "title": "Invent an Animal",
+      "parks": [
+        "grte",
+        "yell"
+      ],
+      "questionObjective": "Identify specific adaptations that aid animals in survival. Define adaptation, ecosystem, community, habitat, ecological niche, species, generalist, and specialist. Understand the special environment of the Greater Yellowstone Ecosystem and its diverse habitats.",
+      "gradeLevel": "Middle School: Sixth Grade through Eighth Grade",
+      "commonCore": {
+        "stateStandards": "WY Grade 4 Science 1.5, 1.6, 1.9, 2.2, 2.6, 5.4 WY Grade 4 Art 1.3 WY Grade 8 Science 1.4, 1.5, 1.6, 2.2, 2.6, 5.2 WY Grade 8 Art 1.3 Next Generation Science Standards: 3-LS4-2., 3-LS4-3., 3-LS3-2.",
+        "additionalStandards": "",
+        "mathStandards": [],
+        "elaStandards": []
+      },
+      "subject": [
+        "Science"
+      ],
+      "duration": "60 Minutes"
+    }
+  ]
+}
