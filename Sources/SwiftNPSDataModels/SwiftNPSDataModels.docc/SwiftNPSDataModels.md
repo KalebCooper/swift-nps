@@ -4,8 +4,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Activity parks,
-alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
+This module describes National Park Service Data API operations as values. Activities, activity
+parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
 boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries,
 photo gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and
 webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
@@ -120,6 +120,25 @@ declare, and ``NPSRelatedOrganization`` is the linked organization ``Place``, ``
 ``NewsRelease`` declare, both kept as the provider sends them.
 ``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` and
 ``PhotoGalleryAsset`` carry, kept as open strings.
+
+### Activities
+
+``ActivityQuery`` describes all six activities parameters: activity identifiers, park codes,
+text search, sort criteria, page limit, and start offset. The live service sorts by `name`,
+ascending or descending, and answers another field such as `fullName`, `parkCode`, or
+`relevanceScore` with HTTP 400; sort fields are still sent without validation. It ignores
+`stateCode`, so the query has none, and it ignores an identifier it does not recognize rather
+than matching nothing. Empty identifier, code, and sort arrays omit the parameter, and search text
+is preserved and percent encoded, including empty text. Activities pages are
+`NPSCollection<Activity>`, from ``Endpoint/activities(query:)`` or
+``NPSDataRequest/activities(query:)``.
+
+``Activity`` requires only an identifier and a name. It keeps its own type rather than reusing
+``NPSNamedItem`` because activities are an independent taxonomy the provider can extend on its
+own schedule, and a caller should see what the collection holds. Unlike ``ActivityParks``, a page
+of activities carries no nested parks.
+
+Real responses were recorded on September 22, 2026.
 
 ### Activity Parks
 
@@ -681,6 +700,11 @@ are preserved as strings in the response; they are not executable API endpoints.
 NPS data describes destinations, not live reservation availability, freshness, or completeness.
 
 ## Topics
+
+### Activities
+
+- ``Activity``
+- ``ActivityQuery``
 
 ### Activity Parks
 

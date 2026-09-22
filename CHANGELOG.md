@@ -47,6 +47,13 @@ All notable changes are documented here. This project follows
   fields sent without validation; the live endpoint sorts by `title`, ignores an unrecognized
   identifier rather than matching nothing, and does not narrow each plan's `parks` by the
   requested park codes.
+- Activities: Activity, ActivityQuery, Endpoint.activities(query:),
+  NPSDataRequest.activities(query:), and the lazy NPSDataClient.activities(query:) and
+  activityPages(query:), with recorded activities responses from `/activities`. Activity keeps
+  only an identifier and a name, with its own type rather than ActivityParks or NPSNamedItem, and
+  no nested parks. ActivityQuery takes activity identifiers, park codes, text search, and sort
+  fields sent without validation; the live endpoint sorts by `name`, ignores `stateCode`, and
+  filters activities by park code with nothing to narrow.
 
 ## [0.5.0] - 2026-09-21
 

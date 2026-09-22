@@ -20,10 +20,10 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio,
-park boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries,
-photo gallery assets, places, road events, things to do, topic parks, tours, visitor centers, and
-webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
+Activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases,
+park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo
+galleries, photo gallery assets, places, road events, things to do, topic parks, tours, visitor
+centers, and webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
 executes any offset-paginated NPS collection the same way; park boundaries and road events are
 single responses.
 
@@ -78,6 +78,26 @@ or promises a stable snapshot.
 
 A request made with `init(endpoint:)` declares no continuation, and yields only its one page even
 when the provider reports more results.
+
+### Activities
+
+``NPSDataClient/activities(query:)`` and ``NPSDataClient/activityPages(query:)`` search
+`/activities` by activity identifiers, park codes, text, and sorting. Each page is
+`NPSCollection<Activity>`. The live service sorts by `name`, ascending or descending, and answers
+another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without validation:
+
+```swift
+let query = try ActivityQuery(parkCodes: [ParkCode("drto")], sort: [.ascending("name")])
+for try await activity in client.activities(query: query) {
+  print(activity.name)
+}
+let request = NPSDataRequest.activities(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.activities(query: query))
+```
+
+Unlike `/activities/parks`, a page carries no nested parks; use
+``NPSDataClient/activityParks(query:)`` to see which parks offer an activity.
 
 ### Activity Parks
 
@@ -581,6 +601,11 @@ NPS destination information does not provide live campsite booking availability 
 The package makes no freshness or completeness guarantee.
 
 ## Topics
+
+### Activities
+
+- ``NPSDataClient/activities(query:)``
+- ``NPSDataClient/activityPages(query:)``
 
 ### Activity Parks
 

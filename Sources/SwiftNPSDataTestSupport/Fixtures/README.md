@@ -4,13 +4,17 @@ Recorded from the NPS Data API on September 13, 2026 (parks and the missing key)
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
 releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
-lots), and September 22, 2026 (activity parks, lesson plans, park fees and passes, and topic
-parks) using the application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`.
+lots), and September 22, 2026 (activities, activity parks, lesson plans, park fees and passes, and
+topic parks) using the application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`.
 These are real response bodies, not examples copied from the specification. Tests read them
 locally and never contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
+| activities-empty.json | GET https://developer.nps.gov/api/v1/activities?limit=1&parkCode=zzzz&start=0 | 200 |
+| activities-page-first.json | GET https://developer.nps.gov/api/v1/activities?id=AE42B46C-E4B7-4889-A122-08FE180371AE,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=0 | 200 |
+| activities-page-last.json | GET https://developer.nps.gov/api/v1/activities?id=AE42B46C-E4B7-4889-A122-08FE180371AE,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=1 | 200 |
+| activities-search.json | GET https://developer.nps.gov/api/v1/activities?limit=2&parkCode=cwdw,drto&q=tours&sort=-name&start=0 | 200 |
 | activities-parks-empty.json | GET https://developer.nps.gov/api/v1/activities/parks?limit=1&parkCode=zzzz&start=0 | 200 |
 | activities-parks-page-first.json | GET https://developer.nps.gov/api/v1/activities/parks?id=AE42B46C-E4B7-4889-A122-08FE180371AE,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=0 | 200 |
 | activities-parks-page-last.json | GET https://developer.nps.gov/api/v1/activities/parks?id=AE42B46C-E4B7-4889-A122-08FE180371AE,0B685688-3405-4E2A-ABBA-E3069492EC50&limit=1&parkCode=drto&sort=-name&start=1 | 200 |
@@ -243,6 +247,14 @@ Contacts are park phone and fax lines and `*_info@nps.gov`-style inboxes, and im
 NPS photographers, so nothing was redacted. Decoded values were compared with the downloads and
 are identical.
 
+The activities recordings arrived with the same CRLF layout and are reindented the same way,
+keeping the provider's key order. They are ASCII only, with no JSON escapes. The empty recording
+is byte-identical to the other empty recordings. Swagger documents no sort or park-code parameter
+for `/activities`, but the live endpoint accepts `sort=name`/`-name` (HTTP 400 on other fields) and
+`parkCode` narrows the returned activities, so `ActivityQuery` sends both. The recordings name only
+activities, with no people or contact details, so nothing was redacted. Decoded values were
+compared with the downloads and are identical.
+
 The activity parks recordings arrived with the same CRLF layout and are reindented the same way,
 keeping the provider's key order. They are ASCII only, with no JSON escapes. The empty recording
 is byte-identical to the other empty recordings. The recordings name only activities and parks,
@@ -281,6 +293,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 
 | File | SHA-256 |
 | --- | --- |
+| activities-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| activities-page-first.json | eeb34a9ae73a5a015ce60e517240f6767b6a92df75afba8959034f0daedaa53c |
+| activities-page-last.json | 308085d723d8005fe19f19aeaa426e27029bd1f3a07cfe42c30cb5a4c0a7c540 |
+| activities-search.json | 27b2f3e6453b7c5e42408ca002f2dc3c1a9a6e8e49de116706d32e817a265416 |
 | activities-parks-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | activities-parks-page-first.json | b97f15c7ba10e69cbee4925257b804db8e0e610db21fed34f793e9942dbbd46a |
 | activities-parks-page-last.json | f6cbe6960f5bfb01b22f112c5c6bed36a5331e32605959b3d11d94679c067d8f |
