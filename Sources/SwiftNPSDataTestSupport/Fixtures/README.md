@@ -2,7 +2,8 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(park boundaries, places, road events, tours, and webcams) using the application identity
+(park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles)
+using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -23,6 +24,10 @@ not examples copied from the specification. Tests read them locally and never co
 | amenities-parksvisitorcenters-page-last.json | GET https://developer.nps.gov/api/v1/amenities/parksvisitorcenters?limit=1&parkCode=acad&start=1 | 200 |
 | amenities-search.json | GET https://developer.nps.gov/api/v1/amenities?limit=2&q=restroom&start=0 | 200 |
 | api-key-missing.json | GET https://developer.nps.gov/api/v1/parks?parkCode=acad&limit=1&start=0 without an API key | 403 |
+| articles-empty.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=zzzz&start=0 | 200 |
+| articles-page-first.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=arch&start=0 | 200 |
+| articles-page-last.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=arch&start=1 | 200 |
+| articles-search.json | GET https://developer.nps.gov/api/v1/articles?limit=2&parkCode=gumo&q=Salt&start=0&stateCode=TX | 200 |
 | campgrounds-empty.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=zzzz&start=0 | 200 |
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
@@ -65,8 +70,8 @@ not examples copied from the specification. Tests read them locally and never co
 Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
 visitor centers recordings used the service's public demonstration credential, which reported a
 limit of 10. The campgrounds, things to do, and amenities recordings, and the park boundaries,
-places, road events, tours, and webcams recordings made on September 20, used the maintainer's
-private key, which reported a limit of 1,000. No request headers or credentials are stored. The
+places, road events, tours, and webcams recordings made on September 20, and the articles
+recordings made on September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers or credentials are stored. The
 missing-key recording deliberately omitted that header. Response ordering is retained, rather than
 alphabetized, to preserve the provider's representation.
 
@@ -130,6 +135,12 @@ the search description, and the coordinates and `null` values as written. They a
 throughout. The empty recording is byte-identical to the other empty recordings. Decoded values
 were compared with the downloads and are identical.
 
+The articles recordings arrived with CRLF line endings, blank lines, trailing spaces, and commas
+leading each line, and are reindented the same way, keeping the provider's key order and the
+coordinates and `null` values as written. They are ASCII throughout; the em dash in the second
+arch title already arrives as the escape `\u2014`. The empty recording is byte-identical to the
+other empty recordings. Decoded values were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -152,6 +163,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | amenities-parksvisitorcenters-page-last.json | 06cec1916799d6bacad3b13991243a0f9613e8c504861e5c59c4da052be5e6f8 |
 | amenities-search.json | f1308ec4cb3ab350a2277f0feb6c70f3528edfc16dd5bd6d00dd74adc8e74e62 |
 | api-key-missing.json | adf24054a0da1d216699be8c128aa47c2c98f381a2c21945836ebc904653c8cc |
+| articles-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| articles-page-first.json | f00b3950dd2d0a77cb2e6123a896204a210d64f120abd9214f8c4b99505066be |
+| articles-page-last.json | 5a30c5473bd9e41adbd330741a4f913ec2a35f8bba487cca502b17801c5d5d5b |
+| articles-search.json | e065b61a3da949bca37cdbe79a5c03f91fff6b1eadd499661f66bc718f6e23d6 |
 | campgrounds-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
@@ -346,6 +361,15 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   not a per-camera location. `status` is `"Active"` or `"Inactive"` in these
   recordings and stays an open string. The search image carries `crops: []`, an empty
   `description`, and a `url` beginning `https://www.nps.govhttps://www.nps.gov/`, all as sent.
+- The live articles body uses the same envelope. `/articles` accepts parkCode, stateCode, q,
+  limit, and start; `sort=title` answers HTTP 400 with an empty envelope, so the query sends no
+  sort. The arch pages report total 117, so the two recorded pages are the first two, and the
+  gumo search reports total 3. Every article sends `latitude` and `longitude` as JSON numbers,
+  such as `31.976943969726562`, or JSON `null`, and `latLong` as text such as
+  `"{lat:31.976943969726562, long:-104.75194549560547}"` or an empty string. A live scan of 500
+  articles found 79 with coordinates. `listingImage` is one object with `url`, `credit`, `altText`,
+  `title`, `description`, and `caption`, and no `crops` key in any recording or in that scan.
+  `credit` and `geometryPoiId` are empty strings in these recordings.
 - The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,
   with no park, state, or sort parameter. The specification lists `id` and `name` for an amenity;
   the live body also sends a `categories` array of strings, such as `["Convenience", "Souvenirs

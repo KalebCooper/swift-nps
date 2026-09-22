@@ -1,0 +1,51 @@
+{
+  "total": "117",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "B37992BF-7CC1-4350-8235-901C00C1A097",
+      "url": "https://www.nps.gov/articles/nps-geodiversity-atlas-arches-national-park-utah.htm",
+      "title": "NPS Geodiversity Atlas\u2014Arches National Park, Utah",
+      "listingDescription": "Each park-specific page in the NPS Geodiversity Atlas provides basic information on the significant geologic features and processes occurring in the park. Links to products from Baseline Geologic and Soil Resources Inventories provide access to maps and reports.",
+      "listingImage": {
+        "url": "https://www.nps.gov/common/uploads/articles/images/nri/20171128/articles/3483089B-1DD8-B71B-0BBD77D6E3C4973F/3483089B-1DD8-B71B-0BBD77D6E3C4973F.jpg",
+        "credit": "",
+        "altText": "delicate arch",
+        "title": "",
+        "description": "",
+        "caption": ""
+      },
+      "relatedParks": [
+        {
+          "states": "UT",
+          "parkCode": "arch",
+          "designation": "National Park",
+          "fullName": "Arches National Park",
+          "url": "https://www.nps.gov/arch/index.htm",
+          "name": "Arches"
+        }
+      ],
+      "tags": [
+        "geology",
+        "geodiversity atlas",
+        "science",
+        "nature",
+        "rock formations",
+        "erosion",
+        "Utah",
+        "Northern Colorado Plateau Network",
+        "NCPN",
+        "inventory",
+        "Interior Region 7",
+        "Upper Colorado Basin",
+        "grd"
+      ],
+      "latitude": null,
+      "longitude": null,
+      "latLong": "",
+      "geometryPoiId": "",
+      "credit": ""
+    }
+  ]
+}

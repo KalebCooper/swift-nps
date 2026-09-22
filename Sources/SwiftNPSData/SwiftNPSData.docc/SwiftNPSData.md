@@ -20,8 +20,8 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, campgrounds, park boundaries, parks, places, road events, things to do, tours,
-visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
+Alerts, amenities, articles, campgrounds, park boundaries, parks, places, road events, things to
+do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -123,6 +123,24 @@ let samePage = try await client.send(.amenityParkPlaces(query: query))
 ```
 
 Listing an amenity at a park or place describes published facilities, not current availability.
+
+### Articles
+
+``NPSDataClient/articles(query:)`` and ``NPSDataClient/articlePages(query:)`` search `/articles` by
+park codes, state codes, and text. Each page is `NPSCollection<Article>`. The endpoint answers a
+sort value with HTTP 400, so the query offers no sort parameter:
+
+```swift
+let query = try ArticleQuery(parkCodes: [ParkCode("arch")], searchText: "geology")
+for try await article in client.articles(query: query) {
+  print(article.title, article.url ?? "")
+}
+let request = NPSDataRequest.articles(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.articles(query: query))
+```
+
+Coordinates are published values kept as sent; most articles send none.
 
 ### Campgrounds
 
@@ -344,6 +362,11 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/amenityParkVisitorCenters(query:)``
 - ``NPSDataClient/amenityParkVisitorCenterPages(query:)``
 - ``NPSFlattenedItemSequence``
+
+### Articles
+
+- ``NPSDataClient/articles(query:)``
+- ``NPSDataClient/articlePages(query:)``
 
 ### Campgrounds
 

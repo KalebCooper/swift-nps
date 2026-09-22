@@ -6,6 +6,14 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+### Added
+
+- Articles: Article, ArticleQuery, Endpoint.articles(query:), NPSDataRequest.articles(query:), and
+  the lazy NPSDataClient.articlePages(query:) and articles(query:), with recorded articles
+  responses. The live endpoint rejects a sort value with HTTP 400, so ArticleQuery has no sort
+  parameter. Article keeps coordinates as JSON numbers or null and `latLong` as the provider's
+  text.
+
 ## [0.4.0] - 2026-09-20
 
 ### Added

@@ -1,0 +1,47 @@
+{
+  "total": "117",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "DCEC38A7-B376-40DC-92E9-C46D92A272E9",
+      "url": "https://www.nps.gov/articles/000/bil-bar-se-utah-plant-restoration.htm",
+      "title": "Bipartisan Infrastructure Law and Burned Area Rehabilitation funds support restoration of native plants in southeast Utah",
+      "listingDescription": "In fiscal year 2024, NPS used Bipartisan Infrastructure Law and Burned Area Rehabilitation funding to enhance native seed harvest in Arches National Park. The seed will be used for restoring public lands in southeast Utah after wildland fire or other disturbances.",
+      "listingImage": {
+        "url": "https://www.nps.gov/common/uploads/articles/images/nri/20240911/articles/CFA57AD4-EDFF-99B6-E4238B5AA8444A14/CFA57AD4-EDFF-99B6-E4238B5AA8444A14.jpg",
+        "credit": "",
+        "altText": "Three people in various parts of a field with rows of plants near an adobe structure.",
+        "title": "",
+        "description": "",
+        "caption": ""
+      },
+      "relatedParks": [
+        {
+          "states": "UT",
+          "parkCode": "arch",
+          "designation": "National Park",
+          "fullName": "Arches National Park",
+          "url": "https://www.nps.gov/arch/index.htm",
+          "name": "Arches"
+        }
+      ],
+      "tags": [
+        "wildland fire",
+        "Bipartisan Infrastructure Law",
+        "burned area rehabilitation",
+        "native seed collection",
+        "ecosystem restoration",
+        "climate resilience",
+        "Success story",
+        "success stories",
+        "2024"
+      ],
+      "latitude": null,
+      "longitude": null,
+      "latLong": "",
+      "geometryPoiId": "",
+      "credit": ""
+    }
+  ]
+}

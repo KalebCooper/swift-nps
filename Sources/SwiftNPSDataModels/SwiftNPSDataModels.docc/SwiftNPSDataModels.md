@@ -5,7 +5,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers,
+articles, campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers,
 and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
@@ -155,6 +155,24 @@ they are not ``NPSNamedItem``. Unknown JSON fields are ignored.
 The specification and real responses were checked on September 17, 2026. The live responses carry
 `categories` on amenities and the extra group array on the park endpoints, and the models follow
 them.
+
+### Articles
+
+``ArticleQuery`` describes all five articles parameters: park codes, state codes, text search, page
+limit, and start offset. Empty code arrays omit the filter, and search text is preserved and
+percent encoded, including empty text. Articles pages are `NPSCollection<Article>`, from
+``Endpoint/articles(query:)`` or ``NPSDataRequest/articles(query:)``. The live service answers a
+`sort` value with HTTP 400 and an empty envelope, so this query has no sort parameter at all.
+
+``Article`` requires an identifier and title; other documented fields remain optional, and unknown
+JSON fields are ignored. ``Article/latitude`` and ``Article/longitude`` are JSON numbers or `null`,
+and most articles send `null`. ``Article/latLong`` is the provider's own coordinate text, such as
+`"{lat:31.97, long:-104.75}"` or an empty string, kept without parsing or cross-checking.
+``Article/listingImage`` is one shared ``NPSImage``; no recorded article image carries crops, so
+its ``NPSImage/crops`` is nil. Parks are ``NPSRelatedPark`` values in ``Article/relatedParks``, and
+tags are plain strings in provider order.
+
+Real responses were recorded on September 21, 2026.
 
 ### Campgrounds
 
@@ -406,6 +424,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``AmenityParkVisitorCenters``
 - ``AmenityParkVisitorCentersQuery``
 - ``AmenityQuery``
+
+### Articles
+
+- ``Article``
+- ``ArticleQuery``
 
 ### Campgrounds
 

@@ -59,6 +59,20 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 13, 2026.
   case apiKeyMissing = "api-key-missing"
 
+  /// GET /api/v1/articles?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 21, 2026.
+  case articlesEmpty = "articles-empty"
+
+  /// GET /api/v1/articles?limit=1&parkCode=arch&start=0; HTTP 200. Recorded September 21, 2026.
+  case articlesPageFirst = "articles-page-first"
+
+  /// GET /api/v1/articles?limit=1&parkCode=arch&start=1; HTTP 200. Recorded September 21, 2026.
+  case articlesPageLast = "articles-page-last"
+
+  /// GET /api/v1/articles?limit=2&parkCode=gumo&q=Salt&start=0&stateCode=TX; HTTP 200.
+  /// Recorded September 21, 2026.
+  case articlesSearch = "articles-search"
+
   /// GET /api/v1/campgrounds?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 17, 2026.
   case campgroundsEmpty = "campgrounds-empty"

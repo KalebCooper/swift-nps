@@ -1,0 +1,82 @@
+{
+  "total": "3",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "54580218-6515-4AEB-9730-29E035DF23CF",
+      "url": "https://www.nps.gov/articles/000/el-paso-salt-wars.htm",
+      "title": "El Paso Salt Wars",
+      "listingDescription": "Upon approaching the Guadalupe Mountains from the west, visitors traveling from the El Paso area will pass through a landscape of barren beauty. The Salt Flats are a remnant of an ancient, shallow lake that once occupied this area during the Pleistocene Epoch, approximately 1.8 million years ago. Salt collected here as streams drained mineral-laden water into this basin. The salt deposits left behind would later become a precious resource to the people of the El Paso area.",
+      "listingImage": {
+        "url": "https://www.nps.gov/common/uploads/articles/images/nri/20220923/articles/31AEE7FD-D1B0-6414-52E7F6290DB522A6/31AEE7FD-D1B0-6414-52E7F6290DB522A6.jpg",
+        "credit": "",
+        "altText": "Interpretive exhibit with the salt flats in the background.",
+        "title": "",
+        "description": "",
+        "caption": ""
+      },
+      "relatedParks": [
+        {
+          "states": "TX",
+          "parkCode": "gumo",
+          "designation": "National Park",
+          "fullName": "Guadalupe Mountains National Park",
+          "url": "https://www.nps.gov/gumo/index.htm",
+          "name": "Guadalupe Mountains"
+        }
+      ],
+      "tags": [
+        "El Paso",
+        "Salt Wars",
+        "United States",
+        "mexico",
+        "Texas rangers",
+        "history"
+      ],
+      "latitude": null,
+      "longitude": null,
+      "latLong": "",
+      "geometryPoiId": "",
+      "credit": ""
+    },
+    {
+      "id": "FA8F6462-6F58-4993-8A35-ABEE0EF32F26",
+      "url": "https://www.nps.gov/articles/guadalupe-mountains-national-park-reptile-and-amphibian-inventory.htm",
+      "title": "Guadalupe Mountains National Park Reptile and Amphibian Inventory",
+      "listingDescription": "Guadalupe Mountains NP includes the highest point in Texas (8,749 ft.), reliable springs, sand dunes, and forests. This inventory focused primarily on McKittrick Canyon, a very diverse riparian area, and the Salt Basin Dunes area, characterized by creosote flats, gypsum and quartz dunes.",
+      "listingImage": {
+        "url": "https://www.nps.gov/common/uploads/articles/images/nri/20161209/articles/F241B81E-1DD8-B71B-0B8CA7FF8B5C1A7C/F241B81E-1DD8-B71B-0B8CA7FF8B5C1A7C.jpg",
+        "credit": "",
+        "altText": "Desert box turtle",
+        "title": "",
+        "description": "",
+        "caption": ""
+      },
+      "relatedParks": [
+        {
+          "states": "TX",
+          "parkCode": "gumo",
+          "designation": "National Park",
+          "fullName": "Guadalupe Mountains National Park",
+          "url": "https://www.nps.gov/gumo/index.htm",
+          "name": "Guadalupe Mountains"
+        }
+      ],
+      "tags": [
+        "swscience",
+        "American Southwest",
+        "reptiles",
+        "amphibians",
+        "amphibians & reptiles",
+        "inventory",
+        "herpetology"
+      ],
+      "latitude": 31.976943969726562,
+      "longitude": -104.75194549560547,
+      "latLong": "{lat:31.976943969726562, long:-104.75194549560547}",
+      "geometryPoiId": "",
+      "credit": ""
+    }
+  ]
+}

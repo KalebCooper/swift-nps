@@ -6,9 +6,10 @@ Find and browse parks through the National Park Service Data API.
 
 ## Status
 
-Released as 0.4.0. It covers eleven endpoint groups: alerts, amenities (with its park places and
-park visitor centers subgroups), campgrounds, park boundaries, parks, places, road events, things
-to do, tours, visitor centers, and webcams. CHANGELOG lists what each release added.
+Released as 0.4.0, which covers eleven endpoint groups: alerts, amenities (with its park places
+and park visitor centers subgroups), campgrounds, park boundaries, parks, places, road events,
+things to do, tours, visitor centers, and webcams. Articles is built and not yet released.
+CHANGELOG lists what each release added.
 
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
 envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
@@ -22,6 +23,7 @@ rather than a collection.
 | Amenities | Identifiers, text search. NPS documents no park, state, or sort parameter. | `amenityPages`, `amenities` | |
 | Amenity park places | Identifiers, park codes, text search, sorting. | `amenityParkPlacePages`, `amenityParkPlaces` | Pages keep the provider's per-amenity groups; `amenityParkPlaces` yields each entry. |
 | Amenity park visitor centers | Identifiers, park codes, text search, sorting. | `amenityParkVisitorCenterPages`, `amenityParkVisitorCenters` | Pages keep the provider's per-amenity groups; `amenityParkVisitorCenters` yields each entry. |
+| Articles | Park codes, state codes, text search. | `articlePages`, `articles` | The endpoint answers a sort value with HTTP 400, so the query offers none; coordinates stay numbers or null and most articles send none. |
 | Campgrounds | Park codes, state codes, text search, sorting. | `campgroundPages`, `campgrounds` | Published site counts and fees are not live availability. |
 | Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
 | Places | Park codes, state codes, text search. | `placePages`, `places` | The endpoint answers every sort value with HTTP 400, so the query offers none. |
@@ -131,8 +133,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, campground, park boundary, park, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, articles, campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, article, campground, park boundary, park, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 
