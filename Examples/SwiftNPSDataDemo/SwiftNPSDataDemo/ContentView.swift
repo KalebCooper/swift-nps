@@ -281,7 +281,7 @@ struct ContentView: View {
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
         stateCodes: parsedStateCodes())
       return .pages(
-        DemoPager(pages: client.peoplePages(query: query), query: query) { person in
+        DemoPager(pages: client.personPages(query: query), query: query) { person in
           ResultRow(detail: relatedParkCodes(person.relatedParks), title: person.title)
         })
     case .photoGalleries:

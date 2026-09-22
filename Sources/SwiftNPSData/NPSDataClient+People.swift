@@ -11,7 +11,7 @@ extension NPSDataClient {
   /// Iterates complete people pages with filters, text search, and explicit pagination.
   /// - Parameter query: Validated options shared by each request except its advancing offset.
   /// - Returns: A lazy sequence retaining each provider envelope and throwing ``NPSDataError``.
-  public func peoplePages(query: PersonQuery) -> NPSPageSequence<Person> {
+  public func personPages(query: PersonQuery) -> NPSPageSequence<Person> {
     pages(for: .people(query: query))
   }
 }

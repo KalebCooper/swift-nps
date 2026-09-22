@@ -263,7 +263,7 @@ fetched, and no retries or redirects are performed.
 
 ### People
 
-``NPSDataClient/people(query:)`` and ``NPSDataClient/peoplePages(query:)`` search `/people` by
+``NPSDataClient/people(query:)`` and ``NPSDataClient/personPages(query:)`` search `/people` by
 park codes, state codes, and text. Each page is `NPSCollection<Person>`. The endpoint answers every
 sort value with HTTP 400, so the query offers no sort parameter:
 
@@ -545,7 +545,7 @@ The package makes no freshness or completeness guarantee.
 ### People
 
 - ``NPSDataClient/people(query:)``
-- ``NPSDataClient/peoplePages(query:)``
+- ``NPSDataClient/personPages(query:)``
 
 ### Photo Galleries
 

@@ -20,7 +20,7 @@ struct PersonClientTests {
       #expect(people.isEmpty)
     } else {
       var pages: [NPSCollection<Person>] = []
-      for try await page in client.peoplePages(query: query) { pages.append(page) }
+      for try await page in client.personPages(query: query) { pages.append(page) }
       #expect(pages.map(\.total) == ["0"])
       #expect(pages.first?.data.isEmpty == true)
     }
@@ -49,12 +49,12 @@ struct PersonClientTests {
       ])
   }
 
-  @Test("People pages advance lazily through the recorded pages")
-  func peoplePagesAdvanceLazilyThroughTheRecordedPages() async throws {
+  @Test("Person pages advance lazily through the recorded pages")
+  func personPagesAdvanceLazilyThroughTheRecordedPages() async throws {
     let first = try Fixture.peoplePageFirst.data()
     let last = try Fixture.peoplePageLast.data()
     let transport = MockTransport(results: [.success(.ok(json: first)), .success(.ok(json: last))])
-    let sequence = try makeClient(transport).peoplePages(query: makeQuery())
+    let sequence = try makeClient(transport).personPages(query: makeQuery())
     let _: NPSPageSequence<Person> = sequence
     var iterator = sequence.makeAsyncIterator()
     #expect(transport.requests.isEmpty)
