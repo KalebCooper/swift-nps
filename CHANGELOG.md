@@ -39,6 +39,14 @@ All notable changes are documented here. This project follows
   endpoint sorts by `title`. ParkVideo keeps its accessibility flags as the provider's Booleans,
   caption languages as open text, and each version's `fileSizeKb` as the provider's number or
   null, for which NPS documents no unit, and uses the shared NPSImage and NPSRelatedPark.
+- Photo galleries: PhotoGallery, PhotoGalleryQuery, Endpoint.photoGalleries(query:),
+  NPSDataRequest.photoGalleries(query:), and the lazy NPSDataClient.photoGalleries(query:) and
+  photoGalleryPages(query:), with recorded photo gallery responses from `/multimedia/galleries`.
+  PhotoGalleryQuery sends sort fields without validation; the live endpoint sorts by `title`.
+  PhotoGallery keeps its preview images as the shared NPSImage, the provider's asset count, and
+  the shared NPSRelatedPark.
+- NPSConstraintsInfo, the rights and usage constraint text photo galleries carry, with
+  `constraint` and `grantingRights` kept as open strings.
 
 ## [0.4.0] - 2026-09-20
 

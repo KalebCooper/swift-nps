@@ -3,7 +3,7 @@
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
-releases, park audio, park videos, and people) using the application identity
+releases, park audio, park videos, people, and photo galleries) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -36,6 +36,10 @@ not examples copied from the specification. Tests read them locally and never co
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | campgrounds-search.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=2&q=lake&sort=name&start=0&stateCode=WY | 200 |
+| galleries-empty.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=1&parkCode=zzzz&start=0 | 200 |
+| galleries-page-first.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=1&parkCode=thrb&start=0 | 200 |
+| galleries-page-last.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=1&parkCode=thrb&start=1 | 200 |
+| galleries-search.json | GET https://developer.nps.gov/api/v1/multimedia/galleries?limit=2&parkCode=heho&q=snow&sort=title&start=0&stateCode=IA | 200 |
 | newsreleases-empty.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=1&parkCode=zzzz&start=0 | 200 |
 | newsreleases-page-first.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=0 | 200 |
 | newsreleases-page-last.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=1 | 200 |
@@ -189,6 +193,13 @@ to the other empty recordings. Credits and the second search description name pr
 artists, and public speakers, and no recording carries personal contact details, so nothing was
 redacted. Decoded values were compared with the downloads and are identical.
 
+The photo gallery recordings arrived with the same CRLF layout as the park audio recordings and
+are reindented the same way, keeping the provider's key order and the numbers as written. The
+pages are ASCII throughout and have no JSON Unicode escapes. The empty recording is
+byte-identical to the other empty recordings. Image descriptions name photographers, such as
+`NPS/Denise Collar`, and no recording carries personal contact details, so nothing was redacted.
+Decoded values were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -223,6 +234,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
 | campgrounds-search.json | e1f09e544bd067518b0a5b8561c5f360d884818dcb0c0f12d7c1e291fa926f77 |
+| galleries-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| galleries-page-first.json | b50027cd0f1718a2657cf8ff491375f7ef07cbf2e24750c34c32fc5dfe347489 |
+| galleries-page-last.json | f7958e2b1ff2d14df4a2fd62abd1d85dde303a11dd3a0dedd2164e5ba45c03ca |
+| galleries-search.json | 54b6742086d6f627029001e1a694d7ea8e8d61c06293e1dda44a0e0ee379815c |
 | newsreleases-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | newsreleases-page-first.json | e00fd9ea4dd876e9ce981ec239ec3f30df3e19c918a97c452c084170abf8a195 |
 | newsreleases-page-last.json | 8a45756aa96edb222915ce422d54496b1f1c3d9d5dd3abcb28cb7fcc341a8217 |
@@ -470,6 +485,17 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   `language` `english` or `spanish`; 335 of 500 videos carry at least one and the rest send an
   empty array. `latitude` and `longitude` are JSON numbers or `null`, and `durationMs` a JSON
   integer or `null`.
+- The live photo galleries body uses the same envelope. `/multimedia/galleries` accepts
+  parkCode, stateCode, q, sort, limit, and start. `sort=title` and `sort=-title` each answer HTTP
+  200 in the order named, while `sort=relevanceScore` and an unknown field answer HTTP 400 with an
+  empty envelope. The thrb pages report total 13 and the heho search reports total 3 of heho's
+  41. In two live scans of 500 galleries each (start 0 and 8000 of 10,496), every gallery sends
+  the same ten keys: `images` holds exactly one preview image of `{url, altText, title,
+  description}` with no `caption`, `credit`, or `crops`; `assetCount` is a JSON integer, never
+  zero in the scans; `tags` are strings, empty on 684 of 1,000; `relatedParks` is empty on 72 of
+  1,000; and `copyright` is the same boilerplate text on every gallery. `constraintsInfo` is
+  `{constraint, grantingRights}`, `Public domain` and `Unknown` on 999 of 1,000 and `Restrictions
+  apply on use and/or reproduction` with `Unknown` on one; the set is open.
 - The live people body uses the same envelope. `/people` accepts parkCode, stateCode, q, limit,
   and start. `sort=title` and `sort=lastName` each answer HTTP 400 with an empty envelope. The
   yell pages report total 4 and the frla search reports total 30. `latitude`, `longitude`, and

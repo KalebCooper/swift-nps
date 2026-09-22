@@ -6,7 +6,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
 articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people,
-places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+photo galleries, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
 with no pagination. Construction performs no I/O, and this module never imports a transport or
@@ -114,6 +114,8 @@ number as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric.
 ``NPSRelatedPark`` is the park summary attached to records from other groups, with `states` kept
 as the provider's comma-joined text. ``NPSQuickFact`` and ``NPSRelatedOrganization`` are the
 labeled facts and linked organizations ``Place`` declares, kept as the provider sends them.
+``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` carries, kept as
+open strings.
 
 ### Alerts
 
@@ -336,6 +338,28 @@ numbers. ``Person/bodyText`` is the provider's HTML, unmodified. ``Person/quickF
 ``NPSQuickFact`` values whose text, including dates, is not parsed; ``Person/relatedOrganizations``
 are ``NPSRelatedOrganization`` values. Images are shared ``NPSImage`` values, and their crops send
 `aspectRatio` as a string, such as `"0.8"`.
+
+Real responses were recorded on September 21, 2026.
+
+### Photo Galleries
+
+``PhotoGalleryQuery`` describes all six photo gallery parameters: park codes, state codes, text
+search, sort criteria, page limit, and start offset. The live service sorts by `title`, with a
+leading minus for descending order, and answers another field such as `relevanceScore` with HTTP
+400; sort fields are still sent without validation. Empty code and sort arrays omit the
+parameter, and search text is preserved and percent encoded, including empty text. Photo gallery
+pages are `NPSCollection<PhotoGallery>`, from ``Endpoint/photoGalleries(query:)`` or
+``NPSDataRequest/photoGalleries(query:)``.
+
+``PhotoGallery`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. ``PhotoGallery/images`` holds the provider's preview image, one
+per gallery in every recording, as shared ``NPSImage`` values with no caption, credit, or crops.
+``PhotoGallery/assetCount`` is the provider's count of the gallery's assets, a JSON integer.
+``PhotoGallery/url`` is the gallery's web page, not an API endpoint.
+``PhotoGallery/constraintsInfo`` is an ``NPSConstraintsInfo`` whose text, such as
+`Public domain` and `Unknown`, is an open set kept as sent, and ``PhotoGallery/copyright`` is the
+provider's copyright text. Tags are strings, and parks are ``NPSRelatedPark`` values; either can
+be an empty array.
 
 Real responses were recorded on September 21, 2026.
 
@@ -574,6 +598,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``Person``
 - ``PersonQuery``
 
+### Photo Galleries
+
+- ``PhotoGallery``
+- ``PhotoGalleryQuery``
+
 ### Places
 
 - ``Place``
@@ -591,6 +620,7 @@ NPS data describes destinations, not live reservation availability, freshness, o
 ### Shared park and facility details
 
 - ``NPSAddress``
+- ``NPSConstraintsInfo``
 - ``NPSContacts``
 - ``NPSEmailAddress``
 - ``NPSFee``

@@ -193,6 +193,23 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 21, 2026.
   case peopleSearch = "people-search"
 
+  /// GET /api/v1/multimedia/galleries?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 21, 2026.
+  case photoGalleriesEmpty = "galleries-empty"
+
+  /// GET /api/v1/multimedia/galleries?limit=1&parkCode=thrb&start=0; HTTP 200.
+  /// Recorded September 21, 2026.
+  case photoGalleriesPageFirst = "galleries-page-first"
+
+  /// GET /api/v1/multimedia/galleries?limit=1&parkCode=thrb&start=1; HTTP 200.
+  /// Recorded September 21, 2026.
+  case photoGalleriesPageLast = "galleries-page-last"
+
+  /// GET
+  /// /api/v1/multimedia/galleries?limit=2&parkCode=heho&q=snow&sort=title&start=0&stateCode=IA;
+  /// HTTP 200. Recorded September 21, 2026.
+  case photoGalleriesSearch = "galleries-search"
+
   /// GET /api/v1/places?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 20, 2026.
   case placesEmpty = "places-empty"

@@ -1,0 +1,38 @@
+{
+  "total": "13",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "195A5808-155D-451F-67A6-897B29577270",
+      "url": "https://www.nps.gov/media/photo/gallery.htm?id=195A5808-155D-451F-67A6-897B29577270",
+      "title": "African-American History Month",
+      "description": "Theodore Roosevelt Birthplace has hosted many programs celebrating African-American History Month.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/npgallery/GetAsset/195A58B7-155D-451F-6753-8A479B337206",
+          "altText": "James and Nicola Rufus- Slavery Program",
+          "title": "James and Nicola Rufus- Slavery Program",
+          "description": "James and Nicola Rufus- Slavery Program"
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "NY",
+          "parkCode": "thrb",
+          "designation": "National Historic Site",
+          "fullName": "Theodore Roosevelt Birthplace National Historic Site",
+          "url": "https://www.nps.gov/thrb/index.htm",
+          "name": "Theodore Roosevelt Birthplace"
+        }
+      ],
+      "tags": [],
+      "assetCount": 19,
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Unknown"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain."
+    }
+  ]
+}

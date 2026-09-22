@@ -21,8 +21,8 @@ for try await park in client.parks(query: query) {
 ```
 
 Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos,
-parks, people, places, road events, things to do, tours, visitor centers, and webcams are the
-implemented endpoint groups. The collection groups are built
+parks, people, photo galleries, places, road events, things to do, tours, visitor centers, and
+webcams are the implemented endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -279,6 +279,26 @@ let samePage = try await client.send(.people(query: query))
 
 Coordinates are text kept as sent, usually empty, and profiles are the provider's HTML.
 
+### Photo Galleries
+
+``NPSDataClient/photoGalleries(query:)`` and ``NPSDataClient/photoGalleryPages(query:)`` search
+`/multimedia/galleries` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<PhotoGallery>`. The live service sorts by `title` and answers another field such as
+`relevanceScore` with HTTP 400; fields are sent without validation:
+
+```swift
+let query = try PhotoGalleryQuery(parkCodes: [ParkCode("thrb")], sort: [.ascending("title")])
+for try await gallery in client.photoGalleries(query: query) {
+  print(gallery.title, gallery.assetCount ?? 0)
+}
+let request = NPSDataRequest.photoGalleries(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.photoGalleries(query: query))
+```
+
+A gallery carries one preview image, not its contents, and the provider's asset count. Rights and
+usage constraints stay the provider's open text; upstream rights still apply.
+
 ### Places
 
 ``NPSDataClient/places(query:)`` and ``NPSDataClient/placePages(query:)`` search `/places` by park
@@ -501,6 +521,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/people(query:)``
 - ``NPSDataClient/peoplePages(query:)``
+
+### Photo Galleries
+
+- ``NPSDataClient/photoGalleries(query:)``
+- ``NPSDataClient/photoGalleryPages(query:)``
 
 ### Places
 

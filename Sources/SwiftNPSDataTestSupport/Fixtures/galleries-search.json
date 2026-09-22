@@ -1,0 +1,73 @@
+{
+  "total": "3",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "D2EB9B96-1DD8-B71B-0B4C-646D4E916D81",
+      "url": "https://www.nps.gov/media/photo/gallery.htm?id=D2EB9B96-1DD8-B71B-0B4C-646D4E916D81",
+      "title": "Herbert Hoover National Historic Site",
+      "description": "Images of Herbert Hoover National Historic Site in West Branch, Iowa",
+      "images": [
+        {
+          "url": "https://www.nps.gov/npgallery/GetAsset/81E35CC8-37D3-4728-A443-1C3360BEC685",
+          "altText": "Snow collects on the raised letters of a sign for Herbert Hoover National Historic Site.",
+          "title": "Visitor Center Sign",
+          "description": "NPS/Denise Collar"
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "IA",
+          "parkCode": "heho",
+          "designation": "National Historic Site",
+          "fullName": "Herbert Hoover National Historic Site",
+          "url": "https://www.nps.gov/heho/index.htm",
+          "name": "Herbert Hoover"
+        }
+      ],
+      "tags": [],
+      "assetCount": 19,
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Unknown"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain."
+    },
+    {
+      "id": "2704673F-16D7-4E6F-90D0-98F3EAC93070",
+      "url": "https://www.nps.gov/media/photo/gallery.htm?id=2704673F-16D7-4E6F-90D0-98F3EAC93070",
+      "title": "Hoover Creek",
+      "description": "Hoover Creek, formerly an unnamed tributary of Wapsinonoc Creek meanders through Herbert Hoover National Historic Site in West Branch, Iowa.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/npgallery/GetAsset/88C2A569-83A6-4033-9C2C-5D5885FC9D49",
+          "altText": "A shallow creek meanders through a snow covered park landscape.",
+          "title": "Hoover Creek in Winter",
+          "description": "Hoover Creek in Winter"
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "IA",
+          "parkCode": "heho",
+          "designation": "National Historic Site",
+          "fullName": "Herbert Hoover National Historic Site",
+          "url": "https://www.nps.gov/heho/index.htm",
+          "name": "Herbert Hoover"
+        }
+      ],
+      "tags": [
+        "stream",
+        "hoover creek",
+        "wapsinonoc river"
+      ],
+      "assetCount": 27,
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Unknown"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain."
+    }
+  ]
+}

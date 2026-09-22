@@ -1,0 +1,38 @@
+{
+  "total": "13",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "19A3CC98-155D-451F-67C2-E30B384719E7",
+      "url": "https://www.nps.gov/media/photo/gallery.htm?id=19A3CC98-155D-451F-67C2-E30B384719E7",
+      "title": "Re-Enactors at TR Birthplace NHS",
+      "description": "Theodore Roosevelt Birthplace periodically asks re-enactors to visit to help bring the park's history to life.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/npgallery/GetAsset/19A3CCDA-155D-451F-6771-F315467F02A3",
+          "altText": "'Alice Roosevelt' talks about family pets.",
+          "title": "Alice Roosevelt talks about family pets",
+          "description": "'Alice Roosevelt' talks about family pets."
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "NY",
+          "parkCode": "thrb",
+          "designation": "National Historic Site",
+          "fullName": "Theodore Roosevelt Birthplace National Historic Site",
+          "url": "https://www.nps.gov/thrb/index.htm",
+          "name": "Theodore Roosevelt Birthplace"
+        }
+      ],
+      "tags": [],
+      "assetCount": 3,
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Unknown"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain."
+    }
+  ]
+}
