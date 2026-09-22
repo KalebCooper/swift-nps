@@ -13,6 +13,12 @@ All notable changes are documented here. This project follows
   responses. The live endpoint rejects a sort value with HTTP 400, so ArticleQuery has no sort
   parameter. Article keeps coordinates as JSON numbers or null and `latLong` as the provider's
   text.
+- News releases: NewsRelease, NewsReleaseQuery, Endpoint.newsReleases(query:),
+  NPSDataRequest.newsReleases(query:), and the lazy NPSDataClient.newsReleasePages(query:) and
+  newsReleases(query:), with recorded news releases responses. NewsReleaseQuery sends sort fields
+  without validation; the live endpoint sorts by `releaseDate` and `title`. NewsRelease keeps
+  `releaseDate` and `lastIndexedDate` as the provider's text, which is not ISO 8601 and has no
+  time zone, and uses the shared NPSImage, NPSRelatedPark, and NPSRelatedOrganization.
 
 ## [0.4.0] - 2026-09-20
 

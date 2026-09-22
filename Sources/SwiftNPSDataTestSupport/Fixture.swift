@@ -89,6 +89,22 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 17, 2026.
   case campgroundsSearch = "campgrounds-search"
 
+  /// GET /api/v1/newsreleases?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 21, 2026.
+  case newsReleasesEmpty = "newsreleases-empty"
+
+  /// GET /api/v1/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=0; HTTP 200.
+  /// Recorded September 21, 2026.
+  case newsReleasesPageFirst = "newsreleases-page-first"
+
+  /// GET /api/v1/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=1; HTTP 200.
+  /// Recorded September 21, 2026.
+  case newsReleasesPageLast = "newsreleases-page-last"
+
+  /// GET /api/v1/newsreleases?limit=2&parkCode=anac&q=advisory&sort=title&start=0&stateCode=DC;
+  /// HTTP 200. Recorded September 21, 2026.
+  case newsReleasesSearch = "newsreleases-search"
+
   /// GET /api/v1/mapdata/parkboundaries/drto; HTTP 200 with one MultiPolygon feature of two
   /// polygons. Recorded September 20, 2026.
   case parkBoundaryDryTortugas = "parkboundaries-drto"

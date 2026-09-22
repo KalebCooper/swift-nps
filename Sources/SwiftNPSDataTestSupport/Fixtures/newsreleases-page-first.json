@@ -1,0 +1,39 @@
+{
+  "total": "19",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "1E2E3378-3BB5-469F-B1F5-90187DC513A5",
+      "url": "https://www.nps.gov/yell/learn/news/26023.htm",
+      "title": "National Park Service finds no significant environmental impact for North Entrance Road reconstruction project in Yellowstone National Park",
+      "parkCode": "yell",
+      "abstract": "The National Park Service (NPS) signed a Finding of No Significant Impact (FONSI) and associated Wetlands/Floodplains Statement of Findings (SOF) to reconstruct the North Entrance Road between Mammoth Hot Springs, Wyoming, and Gardiner, Montana, in Yellowstone National Park.",
+      "image": {
+        "url": "https://www.nps.gov/yell/learn/news/images/52151724253_3cd4fc7475_k.jpg",
+        "credit": "NPS / Jacob W. Frank",
+        "altText": "Yellowstone flood event 2022: North Entrance Road washout",
+        "title": "North Entrance Road washout",
+        "description": "",
+        "caption": "Yellowstone flood event 2022: North Entrance Road, Gardiner to Mammoth"
+      },
+      "relatedParks": [
+        {
+          "states": "ID,MT,WY",
+          "parkCode": "yell",
+          "designation": "National Park",
+          "fullName": "Yellowstone National Park",
+          "url": "https://www.nps.gov/yell/index.htm",
+          "name": "Yellowstone"
+        }
+      ],
+      "relatedOrganizations": [],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "releaseDate": "2026-09-17 15:34:00.0",
+      "credit": "",
+      "lastIndexedDate": "2026-09-17 11:07:35.0"
+    }
+  ]
+}

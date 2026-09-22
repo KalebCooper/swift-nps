@@ -20,8 +20,8 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, articles, campgrounds, park boundaries, parks, places, road events, things to
-do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
+Alerts, amenities, articles, campgrounds, news releases, park boundaries, parks, places, road
+events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -160,6 +160,26 @@ let samePage = try await client.send(.campgrounds(query: query))
 
 Published site counts, fees, and reservation links describe the campground; they are not live
 campsite availability, and the package provides no booking or reservation support.
+
+### News Releases
+
+``NPSDataClient/newsReleases(query:)`` and ``NPSDataClient/newsReleasePages(query:)`` search
+`/newsreleases` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<NewsRelease>`. The live service sorts by `releaseDate` and `title` and answers
+another field with HTTP 400; fields are sent without validation:
+
+```swift
+let query = try NewsReleaseQuery(
+  parkCodes: [ParkCode("yell")], sort: [.descending("releaseDate")])
+for try await release in client.newsReleases(query: query) {
+  print(release.releaseDate ?? "", release.title)
+}
+let request = NPSDataRequest.newsReleases(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.newsReleases(query: query))
+```
+
+Release and indexing timestamps are the provider's text without a time zone, kept as sent.
 
 ### Park Boundaries
 
@@ -390,6 +410,11 @@ The package makes no freshness or completeness guarantee.
 ### Errors
 
 - ``NPSDataError``
+
+### News Releases
+
+- ``NPSDataClient/newsReleases(query:)``
+- ``NPSDataClient/newsReleasePages(query:)``
 
 ### Park Boundaries
 

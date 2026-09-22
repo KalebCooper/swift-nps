@@ -1,0 +1,91 @@
+{
+  "total": "2",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "A4CA6BB5-F553-4F4B-8A5E-7C974DAC4FE8",
+      "url": "https://www.nps.gov/subjects/uspp/traffic-advisory-for-july-4-fireworks-setup-at-anacostia-park.htm",
+      "title": "Traffic advisory for July 4 fireworks setup at Anacostia Park",
+      "parkCode": "anac,nace",
+      "abstract": "On Saturday, July 4, the National Park Service will host its annual fireworks display at Anacostia Park in Southeast D.C. In conjunction with the event, there will be street closures – some beginning as early as next week for setup – that the public should take into consideration.",
+      "image": {
+        "url": "",
+        "credit": "",
+        "altText": "",
+        "title": "",
+        "description": "",
+        "caption": ""
+      },
+      "relatedParks": [
+        {
+          "states": "DC",
+          "parkCode": "anac",
+          "designation": "Park",
+          "fullName": "Anacostia Park",
+          "url": "https://www.nps.gov/anac/index.htm",
+          "name": "Anacostia"
+        },
+        {
+          "states": "DC",
+          "parkCode": "nace",
+          "designation": "",
+          "fullName": "National Capital Parks-East",
+          "url": "https://www.nps.gov/nace/index.htm",
+          "name": "National Capital Parks-East"
+        }
+      ],
+      "relatedOrganizations": [
+        {
+          "id": "E33CCEA6-E7D0-4EC4-8C80-2CE6D20059C4",
+          "url": "https://www.nps.gov/subjects/uspp/index.htm",
+          "name": "US Park Police"
+        }
+      ],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "releaseDate": "2026-06-18 10:39:00.0",
+      "credit": "",
+      "lastIndexedDate": "2026-06-25 15:44:29.0"
+    },
+    {
+      "id": "590F673C-4C2A-4E5D-85CF-8B5EAE0847DF",
+      "url": "https://www.nps.gov/subjects/uspp/traffic-advisory-for-additional-july-4-road-closures-at-anacostia-park.htm",
+      "title": "Traffic advisory for additional July 4 road closures at Anacostia Park",
+      "parkCode": "anac",
+      "abstract": "On Saturday, July 4, the National Park Service will host a special fireworks display at Anacostia Park in Southeast D.C. In conjunction with this event will be additional traffic closures – some began last week for setup – that the public should take into consideration.",
+      "image": {
+        "url": "",
+        "credit": "",
+        "altText": "",
+        "title": "",
+        "description": "",
+        "caption": ""
+      },
+      "relatedParks": [
+        {
+          "states": "DC",
+          "parkCode": "anac",
+          "designation": "Park",
+          "fullName": "Anacostia Park",
+          "url": "https://www.nps.gov/anac/index.htm",
+          "name": "Anacostia"
+        }
+      ],
+      "relatedOrganizations": [
+        {
+          "id": "E33CCEA6-E7D0-4EC4-8C80-2CE6D20059C4",
+          "url": "https://www.nps.gov/subjects/uspp/index.htm",
+          "name": "US Park Police"
+        }
+      ],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "releaseDate": "2026-07-01 11:55:00.0",
+      "credit": "",
+      "lastIndexedDate": "2026-07-01 12:01:22.0"
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles)
-using the application identity
+(park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles and
+news releases) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -32,6 +32,10 @@ not examples copied from the specification. Tests read them locally and never co
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
 | campgrounds-search.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=2&q=lake&sort=name&start=0&stateCode=WY | 200 |
+| newsreleases-empty.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=1&parkCode=zzzz&start=0 | 200 |
+| newsreleases-page-first.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=0 | 200 |
+| newsreleases-page-last.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=1 | 200 |
+| newsreleases-search.json | GET https://developer.nps.gov/api/v1/newsreleases?limit=2&parkCode=anac&q=advisory&sort=title&start=0&stateCode=DC | 200 |
 | parkboundaries-drto.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/drto | 200 |
 | parkboundaries-unknown.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/zzzz | 404 |
 | parkboundaries-yell.json | GET https://developer.nps.gov/api/v1/mapdata/parkboundaries/yell | 200 |
@@ -70,8 +74,8 @@ not examples copied from the specification. Tests read them locally and never co
 Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
 visitor centers recordings used the service's public demonstration credential, which reported a
 limit of 10. The campgrounds, things to do, and amenities recordings, and the park boundaries,
-places, road events, tours, and webcams recordings made on September 20, and the articles
-recordings made on September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers or credentials are stored. The
+places, road events, tours, and webcams recordings made on September 20, and the articles and
+news releases recordings made on September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers or credentials are stored. The
 missing-key recording deliberately omitted that header. Response ordering is retained, rather than
 alphabetized, to preserve the provider's representation.
 
@@ -141,6 +145,13 @@ coordinates and `null` values as written. They are ASCII throughout; the em dash
 arch title already arrives as the escape `\u2014`. The empty recording is byte-identical to the
 other empty recordings. Decoded values were compared with the downloads and are identical.
 
+The news releases recordings arrived with CRLF line endings, blank lines, trailing spaces, and
+commas leading each line, and are reindented the same way, keeping the provider's key order, the
+timestamps, and the `null` values as written. The search recording keeps two raw UTF-8 en dashes
+in its abstracts; the pages are ASCII throughout. The empty recording is byte-identical to the
+other empty recordings. No recording carries personal contact details, so nothing was redacted.
+Decoded values were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -171,6 +182,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
 | campgrounds-search.json | e1f09e544bd067518b0a5b8561c5f360d884818dcb0c0f12d7c1e291fa926f77 |
+| newsreleases-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| newsreleases-page-first.json | e00fd9ea4dd876e9ce981ec239ec3f30df3e19c918a97c452c084170abf8a195 |
+| newsreleases-page-last.json | 8a45756aa96edb222915ce422d54496b1f1c3d9d5dd3abcb28cb7fcc341a8217 |
+| newsreleases-search.json | fa6e197527f2b791cba336de47f7db4bcbdc942112bfccc1656999c9aefb81e0 |
 | parkboundaries-drto.json | 8c87bc141d6bdf4580cf166a902a2700ba810c8bd17327489e87d72a454c7885 |
 | parkboundaries-unknown.json | c4e912cc04e9b3426cd17b27a5d01eba6442efc6fb3c5be30181679fb996330b |
 | parkboundaries-yell.json | 96a49dd65006cfb7901a035ba26a6aa22d0bcfc70577f1aad25f36b1e03a70ed |
@@ -370,6 +385,18 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   articles found 79 with coordinates. `listingImage` is one object with `url`, `credit`, `altText`,
   `title`, `description`, and `caption`, and no `crops` key in any recording or in that scan.
   `credit` and `geometryPoiId` are empty strings in these recordings.
+- The live news releases body uses the same envelope. `/newsreleases` accepts parkCode,
+  stateCode, q, sort, limit, and start. `sort=releaseDate`, `sort=-releaseDate`, and `sort=title`
+  each answer HTTP 200 in the order named, while `sort=relevanceScore` answers HTTP 400 with an
+  empty envelope. The yell pages report total 19, so the two recorded pages are the newest two, and
+  the anac search reports total 2. `releaseDate` and `lastIndexedDate` are text such as
+  `"2026-09-17 15:34:00.0"`, not ISO 8601 and with no time zone. The summary key is `abstract`.
+  `parkCode` is text: one code, a comma-separated list such as `"anac,nace"`, or an empty string
+  (20 lists and 11 empty strings in a live scan of 500 releases). `image` is one object with
+  `url`, `credit`, `altText`, `title`, `description`, and `caption`, never `crops`, and the search
+  images send every field empty. `relatedOrganizations` elements are `{id, url, name}`; the scan
+  found 24 populated, and both search results carry `US Park Police`. `latitude` and `longitude`
+  were JSON `null` in every scanned release, and no release sends `latLong` or `tags`.
 - The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,
   with no park, state, or sort parameter. The specification lists `id` and `name` for an amenity;
   the live body also sends a `categories` array of strings, such as `["Convenience", "Souvenirs

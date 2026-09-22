@@ -5,8 +5,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, park boundaries, parks, places, road events, things to do, tours, visitor centers,
-and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+articles, campgrounds, news releases, park boundaries, parks, places, road events, things to do,
+tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
 with no pagination. Construction performs no I/O, and this module never imports a transport or
@@ -199,6 +199,29 @@ availability or a booking service. The specification and real responses were che
 September 17, 2026. The specification spells nested keys in lowercase, names the reservation
 fields differently, and declares fees, images, and operating hours as arrays of strings; the live
 responses send camelCase keys and objects, and add passport stamp fields, which the model follows.
+
+### News Releases
+
+``NewsReleaseQuery`` describes all six news releases parameters: park codes, state codes, text
+search, sort criteria, page limit, and start offset. The live service sorts by `releaseDate` and
+`title`, with a leading minus for descending order, and answers another field such as
+`relevanceScore` with HTTP 400; sort fields are still sent without validation. Empty code and sort
+arrays omit the parameter, and search text is preserved and percent encoded, including empty text.
+News releases pages are `NPSCollection<NewsRelease>`, from ``Endpoint/newsReleases(query:)`` or
+``NPSDataRequest/newsReleases(query:)``.
+
+``NewsRelease`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. The summary is ``NewsRelease/abstract``. ``NewsRelease/releaseDate``
+and ``NewsRelease/lastIndexedDate`` are the provider's text, such as `"2026-09-17 15:34:00.0"`,
+which is not ISO 8601 and names no time zone, so no date is derived. ``NewsRelease/parkCode`` is
+the provider's text, which can be one code, a comma-separated list such as `"anac,nace"`, or an
+empty string. ``NewsRelease/image`` is one shared ``NPSImage`` with no crops, and can arrive with
+every field empty. Parks are ``NPSRelatedPark`` values and organizations are
+``NPSRelatedOrganization`` values, either of which can be an empty array.
+``NewsRelease/latitude`` and ``NewsRelease/longitude`` are JSON numbers or `null`; every recorded
+release sends `null`.
+
+Real responses were recorded on September 21, 2026.
 
 ### Park Boundaries
 
@@ -450,6 +473,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``Endpoint``
 - ``ServiceErrorResponse``
+
+### News Releases
+
+- ``NewsRelease``
+- ``NewsReleaseQuery``
 
 ### Park Boundaries
 

@@ -1,0 +1,39 @@
+{
+  "total": "19",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "5F507B4F-FFB9-4AA6-B608-712C4A3A1077",
+      "url": "https://www.nps.gov/yell/learn/news/26022.htm",
+      "title": "Yellowstone National Park reports August 2026 visitation statistics",
+      "parkCode": "yell",
+      "abstract": "Yellowstone National Park hosted 856,467 recreation visits in August 2026, down 3% from August 2025 (881,936 recreation visits).",
+      "image": {
+        "url": "https://www.nps.gov/yell/learn/images/55461686886_a3c92c6985_k.jpg",
+        "credit": "NPS / Jacob W. Frank",
+        "altText": "Crowds dispersing after a mid-day Old Faithful eruption",
+        "title": "55461686886_a3c92c6985_k",
+        "description": "",
+        "caption": "Crowds dispersing after a mid-day Old Faithful eruption"
+      },
+      "relatedParks": [
+        {
+          "states": "ID,MT,WY",
+          "parkCode": "yell",
+          "designation": "National Park",
+          "fullName": "Yellowstone National Park",
+          "url": "https://www.nps.gov/yell/index.htm",
+          "name": "Yellowstone"
+        }
+      ],
+      "relatedOrganizations": [],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "releaseDate": "2026-09-15 14:47:00.0",
+      "credit": "",
+      "lastIndexedDate": "2026-09-15 13:48:07.0"
+    }
+  ]
+}
