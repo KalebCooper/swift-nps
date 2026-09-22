@@ -4,6 +4,7 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var apiKey = ""
+  @State private var galleryIdentifiers = ""
   @State private var group = DemoGroup.parks
   @State private var isLoading = false
   @State private var loadTask: Task<Void, Never>?
@@ -34,6 +35,16 @@ struct ContentView: View {
             .autocorrectionDisabled()
           switch group.filters {
           case .codeListsAndText:
+            TextField("Park codes, separated by commas", text: $parkCodes)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+            TextField("State codes, separated by commas", text: $stateCodes)
+              .textInputAutocapitalization(.characters)
+              .autocorrectionDisabled()
+          case .codeListsTextAndGalleries:
+            TextField("Gallery IDs, separated by commas", text: $galleryIdentifiers)
+              .textInputAutocapitalization(.characters)
+              .autocorrectionDisabled()
             TextField("Park codes, separated by commas", text: $parkCodes)
               .textInputAutocapitalization(.never)
               .autocorrectionDisabled()
@@ -115,14 +126,18 @@ struct ContentView: View {
 
   private var orderDescription: String {
     switch group {
-    // NPS answers every sort value with HTTP 400 on places and webcams, and every field except
-    // relevance on things to do and tours, so the demo sends no sort criteria for them.
-    case .alerts, .amenities, .places, .thingsToDo, .tours, .webcams:
+    // NPS answers every sort value with HTTP 400 on articles, people, places, and webcams, and every
+    // field except relevance on things to do and tours, so the demo sends no sort criteria for them.
+    case .alerts, .amenities, .articles, .people, .places, .thingsToDo, .tours, .webcams:
       "Results are in the order NPS returns them."
     case .campgrounds, .visitorCenters:
       "Results are sorted by name."
+    case .newsReleases:
+      "Results are sorted by release date, newest first."
     case .parkBoundaries:
       "A park's boundary arrives as one feature collection with no pagination."
+    case .parkAudio, .parkVideos, .photoGalleries, .photoGalleryAssets:
+      "Results are sorted by title."
     case .parks:
       "Results are sorted by full name."
     case .roadEvents:
@@ -200,6 +215,14 @@ struct ContentView: View {
         DemoPager(pages: client.amenityPages(query: query), query: query) {
           ResultRow(detail: nil, title: $0.name)
         })
+    case .articles:
+      let query = try ArticleQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.articlePages(query: query), query: query) { article in
+          ResultRow(detail: relatedParkCodes(article.relatedParks), title: article.title)
+        })
     case .campgrounds:
       let query = try CampgroundQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
@@ -207,6 +230,22 @@ struct ContentView: View {
       return .pages(
         DemoPager(pages: client.campgroundPages(query: query), query: query) {
           ResultRow(detail: $0.parkCode, title: $0.name)
+        })
+    case .newsReleases:
+      let query = try NewsReleaseQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.descending("releaseDate")], stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.newsReleasePages(query: query), query: query) {
+          ResultRow(detail: $0.releaseDate, title: $0.title)
+        })
+    case .parkAudio:
+      let query = try ParkAudioQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.ascending("title")], stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.parkAudioPages(query: query), query: query) { audio in
+          ResultRow(detail: relatedParkCodes(audio.relatedParks), title: audio.title)
         })
     case .parkBoundaries:
       let code = try ParkCode(parkCode)
@@ -228,6 +267,39 @@ struct ContentView: View {
       return .pages(
         DemoPager(pages: client.parkPages(query: query), query: query) {
           ResultRow(detail: $0.parkCode, title: $0.fullName)
+        })
+    case .parkVideos:
+      let query = try ParkVideoQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.ascending("title")], stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.parkVideoPages(query: query), query: query) { video in
+          ResultRow(detail: relatedParkCodes(video.relatedParks), title: video.title)
+        })
+    case .people:
+      let query = try PersonQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.peoplePages(query: query), query: query) { person in
+          ResultRow(detail: relatedParkCodes(person.relatedParks), title: person.title)
+        })
+    case .photoGalleries:
+      let query = try PhotoGalleryQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.ascending("title")], stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.photoGalleryPages(query: query), query: query) { gallery in
+          ResultRow(detail: relatedParkCodes(gallery.relatedParks), title: gallery.title)
+        })
+    case .photoGalleryAssets:
+      let query = try PhotoGalleryAssetQuery(
+        galleryIdentifiers: parsedGalleryIdentifiers(), limit: pageSize,
+        parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("title")],
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.photoGalleryAssetPages(query: query), query: query) { asset in
+          ResultRow(detail: relatedParkCodes(asset.relatedParks), title: asset.title)
         })
     case .places:
       let query = try PlaceQuery(
@@ -285,6 +357,14 @@ struct ContentView: View {
     }
   }
 
+  private func parsedGalleryIdentifiers() throws -> [NPSIdentifier] {
+    galleryIdentifiers.isEmpty
+      ? []
+      : try galleryIdentifiers.split(separator: ",", omittingEmptySubsequences: false).map {
+        try NPSIdentifier(String($0))
+      }
+  }
+
   private func parsedParkCodes() throws -> [ParkCode] {
     parkCodes.isEmpty
       ? []
@@ -331,9 +411,11 @@ struct ContentView: View {
       show(error)
     } catch {
       message =
-        group.filters.isPaged
-        ? "Use comma-separated park codes of 4 to 10 letters or digits and two-letter state codes, without spaces."
-        : "Use one park code of 4 to 10 letters or digits, without spaces."
+        group.filters == .codeListsTextAndGalleries
+        ? "Use comma-separated gallery IDs, park codes of 4 to 10 letters or digits, and two-letter state codes, without spaces."
+        : group.filters.isPaged
+          ? "Use comma-separated park codes of 4 to 10 letters or digits and two-letter state codes, without spaces."
+          : "Use one park code of 4 to 10 letters or digits, without spaces."
     }
   }
 

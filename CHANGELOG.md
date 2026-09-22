@@ -55,6 +55,9 @@ All notable changes are documented here. This project follows
   without validation; the live endpoint sorts by `title`. PhotoGalleryAsset keeps its file
   details as PhotoGalleryAsset.FileInfo, whose `fileSizeKb` is the provider's number, for which
   NPS documents no unit, and uses the shared NPSConstraintsInfo and NPSRelatedPark.
+- Articles, news releases, people, park audio, park videos, photo galleries, and photo gallery
+  assets in the iOS demo's group picker, each with search and paging. Photo gallery assets also
+  takes gallery identifiers.
 
 ## [0.4.0] - 2026-09-20
 

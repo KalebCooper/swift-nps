@@ -5,6 +5,8 @@ import SwiftNPSDataModels
 enum DemoFilters {
   /// Comma-separated park and state code lists with text search.
   case codeListsAndText
+  /// Comma-separated park and state code lists with text search, plus gallery identifiers.
+  case codeListsTextAndGalleries
   /// One optional park code and one optional road event type.
   case optionalParkCodeAndType
   /// One required park code and nothing else.
@@ -15,7 +17,7 @@ enum DemoFilters {
   /// Whether results arrive a page at a time rather than as one complete response.
   var isPaged: Bool {
     switch self {
-    case .codeListsAndText, .textOnly: true
+    case .codeListsAndText, .codeListsTextAndGalleries, .textOnly: true
     case .optionalParkCodeAndType, .requiredParkCode: false
     }
   }
@@ -33,6 +35,13 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   case places = "Places"
   case tours = "Tours"
   case webcams = "Webcams"
+  case articles = "Articles"
+  case newsReleases = "News Releases"
+  case people = "People"
+  case parkAudio = "Park Audio"
+  case parkVideos = "Park Videos"
+  case photoGalleries = "Photo Galleries"
+  case photoGalleryAssets = "Photo Gallery Assets"
   case roadEvents = "Road Events"
   case parkBoundaries = "Park Boundaries"
 
@@ -43,8 +52,11 @@ enum DemoGroup: String, CaseIterable, Identifiable {
     switch self {
     case .alerts, .campgrounds, .parks, .tours, .visitorCenters: "Park code"
     case .amenities: nil
+    case .newsReleases: "Release date"
     case .parkBoundaries: "Geometry type"
-    case .places, .thingsToDo, .webcams: "Related park codes"
+    case .articles, .parkAudio, .parkVideos, .people, .photoGalleries, .photoGalleryAssets, .places,
+      .thingsToDo, .webcams:
+      "Related park codes"
     case .roadEvents: "Road event type"
     }
   }
@@ -52,8 +64,11 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   /// The search inputs this group accepts.
   var filters: DemoFilters {
     switch self {
-    case .alerts, .campgrounds, .parks, .places, .thingsToDo, .tours, .visitorCenters, .webcams:
+    case .alerts, .articles, .campgrounds, .newsReleases, .parkAudio, .parkVideos, .parks, .people,
+      .photoGalleries, .places, .thingsToDo, .tours, .visitorCenters, .webcams:
       .codeListsAndText
+    case .photoGalleryAssets:
+      .codeListsTextAndGalleries
     case .amenities:
       .textOnly
     case .parkBoundaries:
@@ -70,7 +85,7 @@ enum DemoGroup: String, CaseIterable, Identifiable {
 }
 
 /// One result shown by the demo: a display name and an optional second line, such as a park code,
-/// a road event type, or a boundary's geometry type.
+/// a release date, a road event type, or a boundary's geometry type.
 struct ResultRow {
   let detail: String?
   let title: String
