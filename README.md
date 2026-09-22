@@ -13,34 +13,24 @@ to do, tours, visitor centers, and webcams. CHANGELOG lists what each release ad
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
 envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
 a lazy page sequence, a lazy item sequence, or a single page, and pagination uses
-swifty-networking 1.1.0.
+swifty-networking 1.1.0. Two groups, park boundaries and road events, return one complete response
+rather than a collection.
 
-Alerts queries support park codes, state codes, text search, and pagination through `alertPages`
-and `alerts`; NPS documents no alerts sorting. Amenities queries support identifiers and text
-search through `amenityPages` and `amenities`; NPS documents no park, state, or sort parameter
-there. Amenity park places and park visitor centers queries support identifiers, park codes, text
-search, and sorting; their pages keep the provider's per-amenity groups, and
-`amenityParkPlaces` and `amenityParkVisitorCenters` yield each entry. Campgrounds queries support
-park codes, state codes, text search, and sorting through `campgroundPages` and `campgrounds`;
-published site counts and fees are not live availability. Parks queries support park codes, state
-codes, text search, and sorting through `parkPages` and `parks`, and the single park code lookup
-keeps its own exact request and response. Places queries support park codes, state codes, and text
-search through `placePages` and `places`; the endpoint answers every sort value with HTTP 400, so
-the query offers none. Things to do queries support identifiers, park codes, state codes, text
-search, and sorting through `thingToDoPages` and `thingsToDo`; NPS documents only `relevanceScore`
-as a sort field and answers others with HTTP 400. Tours queries support identifiers, park codes,
-state codes, text search, and sorting through `tourPages` and `tours`; `relevanceScore` is again
-the only sort field the live service accepts, each tour links one park, and durations and stop
-ordinals stay provider text. Visitor centers queries support park codes, state codes, text search,
-and sorting through `visitorCenterPages` and `visitorCenters`. Webcams queries support identifiers,
-park codes, state codes, and text search through `webcamPages` and `webcams`; the endpoint answers
-every sort value with HTTP 400, the streaming flag stays a Boolean, and coordinates stay numbers or
-null and are not guaranteed to locate the camera.
-
-Two groups return one complete response rather than a collection. `parkBoundary` returns one park's
-GeoJSON boundary, usually a `MultiPolygon`, with coordinates kept as sent. `roadEvents` returns one
-WZDx 4.1 feed, optionally narrowed to one park code and one event type; most parks return an empty
-feed, and an unrecognized park code returns every park's events.
+| Group | Filters and sort | Methods | Notes |
+| --- | --- | --- | --- |
+| Alerts | Park codes, state codes, text search. NPS documents no sort. | `alertPages`, `alerts` | |
+| Amenities | Identifiers, text search. NPS documents no park, state, or sort parameter. | `amenityPages`, `amenities` | |
+| Amenity park places | Identifiers, park codes, text search, sorting. | `amenityParkPlacePages`, `amenityParkPlaces` | Pages keep the provider's per-amenity groups; `amenityParkPlaces` yields each entry. |
+| Amenity park visitor centers | Identifiers, park codes, text search, sorting. | `amenityParkVisitorCenterPages`, `amenityParkVisitorCenters` | Pages keep the provider's per-amenity groups; `amenityParkVisitorCenters` yields each entry. |
+| Campgrounds | Park codes, state codes, text search, sorting. | `campgroundPages`, `campgrounds` | Published site counts and fees are not live availability. |
+| Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
+| Places | Park codes, state codes, text search. | `placePages`, `places` | The endpoint answers every sort value with HTTP 400, so the query offers none. |
+| Things to do | Identifiers, park codes, state codes, text search, sorting. | `thingToDoPages`, `thingsToDo` | NPS documents only `relevanceScore` as a sort field and answers others with HTTP 400. |
+| Tours | Identifiers, park codes, state codes, text search, sorting. | `tourPages`, `tours` | `relevanceScore` is the only sort field the live service accepts; each tour links one park; durations and stop ordinals stay provider text. |
+| Visitor centers | Park codes, state codes, text search, sorting. | `visitorCenterPages`, `visitorCenters` | |
+| Webcams | Identifiers, park codes, state codes, text search. | `webcamPages`, `webcams` | The endpoint answers every sort value with HTTP 400; the streaming flag stays a Boolean; coordinates stay numbers or null and are not guaranteed to locate the camera. |
+| Park boundaries | One park code, as a path segment; no query parameters. | `parkBoundary` | One complete response, no pagination; usually a `MultiPolygon`, with coordinates kept as sent. |
+| Road events | Optional park code, optional event type. | `roadEvents` | One complete response, no pagination; most parks return an empty feed, and an unrecognized park code returns every park's events. |
 
 The package includes required API-key configuration, typed failures, and recorded-response tests.
 The events endpoint group is not implemented.

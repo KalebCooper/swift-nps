@@ -13,15 +13,11 @@ import SwiftNPSDataModels
 /// boundary, ``roadEvents(parkCode:type:)`` for the road events feed, ``value(for:)`` for a
 /// reusable request, or ``send(_:)`` for a typed endpoint. Every entry point uses the same
 /// authentication and errors.
-/// Use ``alertPages(query:)``, ``alerts(query:)``, ``amenities(query:)``,
-/// ``amenityPages(query:)``, ``amenityParkPlacePages(query:)``, ``amenityParkPlaces(query:)``,
-/// ``amenityParkVisitorCenterPages(query:)``, ``amenityParkVisitorCenters(query:)``,
-/// ``campgroundPages(query:)``, ``campgrounds(query:)``, ``parkPages(query:)``, ``parks(query:)``,
-/// ``placePages(query:)``, ``places(query:)``, ``thingToDoPages(query:)``, ``thingsToDo(query:)``,
-/// ``tourPages(query:)``, ``tours(query:)``, ``visitorCenterPages(query:)``,
-/// ``visitorCenters(query:)``, ``webcamPages(query:)``, or ``webcams(query:)`` for lazy
-/// pagination of one group, or ``pages(for:)`` and ``items(for:)`` for any collection request. No
-/// retries or redirects are performed automatically.
+///
+/// Every collection group offers a matching pair of lazy conveniences, such as
+/// ``alertPages(query:)``/``alerts(query:)`` and ``parkPages(query:)``/``parks(query:)``, or use
+/// ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or redirects are
+/// performed automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration
