@@ -2,8 +2,8 @@
 
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
-(park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles and
-news releases) using the application identity
+(park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
+releases, and people) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -46,6 +46,10 @@ not examples copied from the specification. Tests read them locally and never co
 | parks-page-last.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1 | 200 |
 | parks-search.json | GET https://developer.nps.gov/api/v1/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA | 200 |
 | parks-yell.json | GET https://developer.nps.gov/api/v1/parks?parkCode=yell&limit=1&start=0 | 200 |
+| people-empty.json | GET https://developer.nps.gov/api/v1/people?limit=1&parkCode=zzzz&start=0 | 200 |
+| people-page-first.json | GET https://developer.nps.gov/api/v1/people?limit=1&parkCode=yell&start=0 | 200 |
+| people-page-last.json | GET https://developer.nps.gov/api/v1/people?limit=1&parkCode=yell&start=1 | 200 |
+| people-search.json | GET https://developer.nps.gov/api/v1/people?limit=2&parkCode=frla&q=Olmsted&start=0&stateCode=MA | 200 |
 | places-empty.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=zzzz&start=0 | 200 |
 | places-page-first.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=acad&start=0 | 200 |
 | places-page-last.json | GET https://developer.nps.gov/api/v1/places?limit=1&parkCode=acad&start=1 | 200 |
@@ -74,8 +78,8 @@ not examples copied from the specification. Tests read them locally and never co
 Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
 visitor centers recordings used the service's public demonstration credential, which reported a
 limit of 10. The campgrounds, things to do, and amenities recordings, and the park boundaries,
-places, road events, tours, and webcams recordings made on September 20, and the articles and
-news releases recordings made on September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers or credentials are stored. The
+places, road events, tours, and webcams recordings made on September 20, and the articles, news
+releases, and people recordings made on September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers or credentials are stored. The
 missing-key recording deliberately omitted that header. Response ordering is retained, rather than
 alphabetized, to preserve the provider's representation.
 
@@ -152,6 +156,14 @@ in its abstracts; the pages are ASCII throughout. The empty recording is byte-id
 other empty recordings. No recording carries personal contact details, so nothing was redacted.
 Decoded values were compared with the downloads and are identical.
 
+The people recordings arrived with CRLF line endings and are reindented the same way, keeping the
+provider's key order, the HTML in `bodyText`, and the coordinate text as written. They keep raw
+UTF-8 no-break spaces, curly quotes and apostrophes, and en dashes in their HTML and summaries,
+with no JSON Unicode escapes. The empty recording is byte-identical to the other empty
+recordings. The recordings profile historical figures (Thomas Moran, Horace M. Albright, and John
+and Marion Olmsted) and carry no personal contact details, so nothing was redacted. Decoded values
+were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -196,6 +208,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | parks-page-last.json | 76e1eeea6fde0f15c64aab4f073f068002f1dde043b332aa197725798da0f8d2 |
 | parks-search.json | 1302400226103d947077e3d10908462b433ffc6b1e69511807af852640a67009 |
 | parks-yell.json | 243bbc33c1ffee6ff2d86794e2b546d32da28c9a9f605449aa2e88968697b53d |
+| people-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| people-page-first.json | 87f3fe2ee2f08e81a155cb984cfd36b01ddc632ef02877fe28fdc0018fac7908 |
+| people-page-last.json | 5d72b28bf7d91b9c0a50345f67876f423aa4b4ee53e9d4ae5b6457df38ff0435 |
+| people-search.json | b6cbf03fd73fb0d7cf458fa5df52697e2de865023cb035b8c6bfb68fd137f25b |
 | places-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | places-page-first.json | 2d4185659bf11787379b87de608bf9c0f0934642371d82bb11049c7bb60ca9e5 |
 | places-page-last.json | 1841b65ddf50d5d7df1539dab6c00d420ca08d21e037e989abc52c7c3f00458b |
@@ -397,6 +413,18 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   images send every field empty. `relatedOrganizations` elements are `{id, url, name}`; the scan
   found 24 populated, and both search results carry `US Park Police`. `latitude` and `longitude`
   were JSON `null` in every scanned release, and no release sends `latLong` or `tags`.
+- The live people body uses the same envelope. `/people` accepts parkCode, stateCode, q, limit,
+  and start. `sort=title` and `sort=lastName` each answer HTTP 400 with an empty envelope. The
+  yell pages report total 4 and the frla search reports total 30. `latitude`, `longitude`, and
+  `latLong` are always JSON strings: in a live scan of 500 people, 338 sent empty strings and 162
+  sent decimal text such as `"42.32527319611405"` with `latLong` as
+  `"{lat:42.32527319611405, long:-71.13226890563965}"`; the yell pages send empty strings and the
+  frla search sends decimal text. `bodyText` is HTML (`<p>`, `<h3>`, `<ul>`) or, for some people,
+  plain text. `quickFacts` elements are `{id, value, name}`, and an `id` names the fact type, such
+  as `Significance`, not the row. `relatedOrganizations` elements are `{id, url, name}` and were
+  populated on 10 of the 500. Every image carries `crops`; 277 of 500 were populated, each with
+  `aspectRatio` as a string (`"0.8"`, `"1"`). `firstName`, `middleName`, and `lastName` can be
+  empty strings, and `credit` was empty in every scanned person.
 - The live amenities body uses the same envelope. `/amenities` accepts id, q, limit, and start,
   with no park, state, or sort parameter. The specification lists `id` and `name` for an amenity;
   the live body also sends a `categories` array of strings, such as `["Convenience", "Souvenirs

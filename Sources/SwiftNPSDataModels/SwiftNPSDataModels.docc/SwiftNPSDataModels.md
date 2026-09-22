@@ -5,8 +5,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park boundaries, parks, places, road events, things to do,
-tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+articles, campgrounds, news releases, park boundaries, parks, people, places, road events, things
+to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
 with no pagination. Construction performs no I/O, and this module never imports a transport or
@@ -274,6 +274,25 @@ and real responses were checked on September 13, 2026. Its outer parks array dec
 not match the live object envelope. The live recordings confirm the envelope and nested objects;
 the schema's illustrative examples also differ in places from its property definitions.
 
+### People
+
+``PersonQuery`` describes all five people parameters: park codes, state codes, text search, page
+limit, and start offset. Empty code arrays omit the filter, and search text is preserved and
+percent encoded, including empty text. People pages are `NPSCollection<Person>`, from
+``Endpoint/people(query:)`` or ``NPSDataRequest/people(query:)``. The live service answers a
+`sort` value with HTTP 400 and an empty envelope, so this query has no sort parameter at all.
+
+``Person`` requires an identifier and title; other documented fields remain optional, and unknown
+JSON fields are ignored. ``Person/latitude``, ``Person/longitude``, and ``Person/latLong`` are
+always JSON strings: an empty string for most people (338 of 500 in a live scan) and decimal text
+such as `"42.32527319611405"` for the rest (162 of 500). They are kept as sent, not parsed into
+numbers. ``Person/bodyText`` is the provider's HTML, unmodified. ``Person/quickFacts`` are
+``NPSQuickFact`` values whose text, including dates, is not parsed; ``Person/relatedOrganizations``
+are ``NPSRelatedOrganization`` values. Images are shared ``NPSImage`` values, and their crops send
+`aspectRatio` as a string, such as `"0.8"`.
+
+Real responses were recorded on September 21, 2026.
+
 ### Places
 
 ``PlaceQuery`` describes all five documented places parameters: park codes, state codes, text
@@ -493,6 +512,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkCode``
 - ``ParkQuery``
 - ``StateCode``
+
+### People
+
+- ``Person``
+- ``PersonQuery``
 
 ### Places
 

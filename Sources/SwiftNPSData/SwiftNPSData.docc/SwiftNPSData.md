@@ -20,8 +20,8 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, articles, campgrounds, news releases, park boundaries, parks, places, road
-events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
+Alerts, amenities, articles, campgrounds, news releases, park boundaries, parks, people, places,
+road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -219,6 +219,24 @@ let anotherPage = try await client.send(.parks(parkCode: code))
 
 An unknown code can return an empty data array. No first result is selected, no next page is
 fetched, and no retries or redirects are performed.
+
+### People
+
+``NPSDataClient/people(query:)`` and ``NPSDataClient/peoplePages(query:)`` search `/people` by
+park codes, state codes, and text. Each page is `NPSCollection<Person>`. The endpoint answers every
+sort value with HTTP 400, so the query offers no sort parameter:
+
+```swift
+let query = try PersonQuery(parkCodes: [ParkCode("yell")], searchText: "Moran")
+for try await person in client.people(query: query) {
+  print(person.title, person.quickFacts?.first?.value ?? "")
+}
+let request = NPSDataRequest.people(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.people(query: query))
+```
+
+Coordinates are text kept as sent, usually empty, and profiles are the provider's HTML.
 
 ### Places
 
@@ -427,6 +445,11 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/parks(for:)``
 - ``NPSDataClient/parkPages(for:)``
 - ``NPSDataClient/parks(parkCode:)``
+
+### People
+
+- ``NPSDataClient/people(query:)``
+- ``NPSDataClient/peoplePages(query:)``
 
 ### Places
 

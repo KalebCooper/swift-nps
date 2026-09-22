@@ -145,6 +145,20 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 13, 2026.
   case parksYellowstone = "parks-yell"
 
+  /// GET /api/v1/people?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 21, 2026.
+  case peopleEmpty = "people-empty"
+
+  /// GET /api/v1/people?limit=1&parkCode=yell&start=0; HTTP 200. Recorded September 21, 2026.
+  case peoplePageFirst = "people-page-first"
+
+  /// GET /api/v1/people?limit=1&parkCode=yell&start=1; HTTP 200. Recorded September 21, 2026.
+  case peoplePageLast = "people-page-last"
+
+  /// GET /api/v1/people?limit=2&parkCode=frla&q=Olmsted&start=0&stateCode=MA; HTTP 200.
+  /// Recorded September 21, 2026.
+  case peopleSearch = "people-search"
+
   /// GET /api/v1/places?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 20, 2026.
   case placesEmpty = "places-empty"

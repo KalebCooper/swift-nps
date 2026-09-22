@@ -1,0 +1,146 @@
+{
+  "total": "30",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "ECE8B2B5-41B2-4FA7-85A2-30869EFBA3E4",
+      "url": "https://www.nps.gov/people/john-olmsted.htm",
+      "title": "John Olmsted",
+      "listingDescription": "John Olmsted",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/8CC36779-99BD-DD8E-A6C199A26CF2AC68.jpg",
+          "credit": "",
+          "altText": "Elderly man in suit with short white hair sits at chair with black dog laying by feet.",
+          "title": "John Olmsted",
+          "description": "",
+          "caption": "John Olmsted",
+          "crops": [
+            {
+              "aspectRatio": "0.8",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/8CC36779-99BD-DD8E-A6C199A26CF2AC68.jpg"
+            },
+            {
+              "aspectRatio": "1",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/8CC36779-99BD-DD8E-A6C199A26CF2AC68.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "MA",
+          "parkCode": "frla",
+          "designation": "National Historic Site",
+          "fullName": "Frederick Law Olmsted National Historic Site",
+          "url": "https://www.nps.gov/frla/index.htm",
+          "name": "Frederick Law Olmsted"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Olmsted",
+        "Brookline",
+        "hartford",
+        "Fairsted",
+        "Landscape Architecture"
+      ],
+      "latitude": "42.32527319611405",
+      "longitude": "-71.13226890563965",
+      "latLong": "{lat:42.32527319611405, long:-71.13226890563965}",
+      "bodyText": "John Olmsted, the father of Frederick Law Olmsted, was born on September 27, 1791 in Hartford, Connecticut. He was a seventh generation descendent of one of the founders of Hartford, James Olmsted, who had emigrated from Essex, England in 1632.<br /> <br /> John married Charlotte Law Hull in 1821 and Frederick Law would be their first son (his brother John Hull would be born 3 years later). John had little formal education, but he was gifted with a mind for business. He came to co-own a very successful fabric store called Olmsted & King that specialized in importing silks from France and wool from Germany. John was proud of his city, and contributed funds to local institutions such as Hartford’s first art museum as well as a local asylum. He was also proud of his sons. He and “Fred” would have a very close and significant relationship throughout their lives. He was reported to have been stern, but with a soft heart - especially towards his two sons. He regularly took them for walking adventures in the Connecticut countryside, instilling in young Frederick a love and appreciation of nature. During one long walk where his father was carrying him home and Frederick was speaking about the things he saw and pointed up at a star in the sky. His father hugged him closely and remarked on the “infinite love” that he felt for his son. This memory stayed with Frederick throughout his life. John would go on to support Frederick in his endeavors as he strove to find his way in the world. This included buying him a farm in Connecticut and later a second one on Staten Island. He also funded trips to Europe so that Frederick could learn more about farming. It was on one such trip to England that Frederick became inspired by English parks, particularly Birkenhead Park in Liverpool, which was a public park, a “people’s garden” as Olmsted told his father.<br /> <br /> In 1873, John fell on ice and broke his hip and Frederick rushed to Hartford from New York to be at his side. John Olmsted died on January 25, 1873 at the age of 81. Although he seldom outwardly praised his son, after his passing Frederick found dozens of newspaper articles his father had saved following Olmsted’s career over the years. Frederick wrote, “He was a very good man and a kinder father never lived. It is strange how much of the world I feel has gone from me with him. The value of any success in the future is gone for me.”",
+      "geometryPoiId": "",
+      "firstName": "John",
+      "middleName": "",
+      "lastName": "Olmsted",
+      "quickFacts": [
+        {
+          "id": "7F812988-263D-4233-81CF-6E7A89621004",
+          "value": "Hartford, CT",
+          "name": "Place of Birth"
+        },
+        {
+          "id": "5E9CA71F-E57B-4222-BBD3-1A225E2351C2",
+          "value": "September 27, 1791",
+          "name": "Date of Birth"
+        },
+        {
+          "id": "3905576C-509A-49F5-A8EE-B4CF14529BBB",
+          "value": "Hartford, CT",
+          "name": "Place of Death"
+        },
+        {
+          "id": "8F2D2A55-2E87-4DF3-8E09-8520B5A5B7FD",
+          "value": "January 25, 1873",
+          "name": "Date of Death"
+        }
+      ],
+      "credit": ""
+    },
+    {
+      "id": "F7CD73C3-F0B6-42CA-936A-D0953F3ED572",
+      "url": "https://www.nps.gov/people/marion-olmsted.htm",
+      "title": "Marion Olmsted",
+      "listingDescription": "Marion Olmsted",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/cropped_image/8C23531F-CF92-2B80-3524F799298F9ECE.jpg",
+          "credit": "",
+          "altText": "Women with dark hair and dark turtleneck poses for picture.",
+          "title": "Marion Olmsted",
+          "description": "",
+          "caption": "Marion Olmsted",
+          "crops": [
+            {
+              "aspectRatio": "0.8",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/primary/8C23531F-CF92-2B80-3524F799298F9ECE.jpg"
+            },
+            {
+              "aspectRatio": "1",
+              "url": "https://www.nps.gov/common/uploads/cropped_image/secondary/8C23531F-CF92-2B80-3524F799298F9ECE.jpg"
+            }
+          ]
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "MA",
+          "parkCode": "frla",
+          "designation": "National Historic Site",
+          "fullName": "Frederick Law Olmsted National Historic Site",
+          "url": "https://www.nps.gov/frla/index.htm",
+          "name": "Frederick Law Olmsted"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Olmsted",
+        "Fairsted",
+        "Brookline",
+        "Landscape Architecture"
+      ],
+      "latitude": "42.32528906050197",
+      "longitude": "-71.13230645656586",
+      "latLong": "{lat:42.32528906050197, long:-71.13230645656586}",
+      "bodyText": "Born October 28, 1861, Marion Olmsted was Frederick Law Olmsted's second child with Mary Perkins Olmsted. One of the three Olmsted children who lived at Fairsted, Marion was twenty-two years old when the family moved to Brookline. Marion possessed impressive artistic talent. Showing an interest in landscape architecture, Marion drew plans for the grounds of Felsted, the family's home in Maine. Unfortunately, any contributions she may have made to the Olmsted firm went uncredited. Marion's talents also extended to painting and photography. Marion Olmsted never married. She died on May 29, 1948.",
+      "geometryPoiId": "",
+      "firstName": "Marion",
+      "middleName": "",
+      "lastName": "Olmsted",
+      "quickFacts": [
+        {
+          "id": "5E9CA71F-E57B-4222-BBD3-1A225E2351C2",
+          "value": "October 28, 1861",
+          "name": "Date of Birth"
+        },
+        {
+          "id": "8F2D2A55-2E87-4DF3-8E09-8520B5A5B7FD",
+          "value": "May 29, 1948",
+          "name": "Date of Death"
+        }
+      ],
+      "credit": ""
+    }
+  ]
+}

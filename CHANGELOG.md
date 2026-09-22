@@ -19,6 +19,12 @@ All notable changes are documented here. This project follows
   without validation; the live endpoint sorts by `releaseDate` and `title`. NewsRelease keeps
   `releaseDate` and `lastIndexedDate` as the provider's text, which is not ISO 8601 and has no
   time zone, and uses the shared NPSImage, NPSRelatedPark, and NPSRelatedOrganization.
+- People: Person, PersonQuery, Endpoint.people(query:), NPSDataRequest.people(query:), and the
+  lazy NPSDataClient.people(query:) and peoplePages(query:), with recorded people responses. The
+  live endpoint rejects a sort value with HTTP 400, so PersonQuery has no sort parameter. Person
+  keeps `latitude`, `longitude`, and `latLong` as the provider's text, an empty string or decimal
+  text, keeps `bodyText` as unmodified HTML, and uses the shared NPSImage, NPSQuickFact,
+  NPSRelatedOrganization, and NPSRelatedPark.
 
 ## [0.4.0] - 2026-09-20
 

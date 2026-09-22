@@ -1,0 +1,91 @@
+{
+  "total": "4",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "3F32B2C5-D4DB-43DA-93C6-E7D7F9419A3C",
+      "url": "https://www.nps.gov/people/thomas-moran.htm",
+      "title": "Thomas Moran",
+      "listingDescription": "At a time when most Americans couldn’t travel far from home, Thomas Moran brought wondrous sights of the West back to the East through his sketches. A Hudson River School artist, Moran is known for his vast western landscapes.",
+      "images": [
+        {
+          "url": "https://www.nps.gov/common/uploads/people/nri/20180509/people/C049E92F-1DD8-B71B-0BAF9958186F054C/C049E92F-1DD8-B71B-0BAF9958186F054C.jpg",
+          "credit": "Napoleon Sarony, photographer, ca 1890-96, from the Library of Congress",
+          "altText": "Black and white image of a man wearing an overcoat and hat with a long beard.",
+          "title": "",
+          "description": "",
+          "caption": "Thomas Moran",
+          "crops": []
+        }
+      ],
+      "relatedParks": [
+        {
+          "states": "ID,MT,WY",
+          "parkCode": "yell",
+          "designation": "National Park",
+          "fullName": "Yellowstone National Park",
+          "url": "https://www.nps.gov/yell/index.htm",
+          "name": "Yellowstone"
+        }
+      ],
+      "relatedOrganizations": [],
+      "tags": [
+        "Conservation",
+        "Conservation movement",
+        "art",
+        "exploration",
+        "Explorers",
+        "painter",
+        "Yellowstone",
+        "Yellowstone National Park"
+      ],
+      "latitude": "",
+      "longitude": "",
+      "latLong": "",
+      "bodyText": "<p>Thomas Moran was born in Lancashire, England, to two handloom weavers. As England began to industrialize, Moran’s parents had trouble making a living. They emigrated with young Thomas to the United States, where they settled in Philadelphia.<br /> <br /> Adjusting to life in the United States, Moran took on an apprenticeship at the age of 16 with a woodcutting firm in Philadelphia under the name of Scattergood & Telfer. At the firm, he learned to cut wood in decorative pictorials. He also began to experiment with painting and watercolors.<br /> <br /> After practicing woodcutting for two years, Moran left to become an illustrator for Scribner’s Monthly magazine, eventually rising to the position of chief illustrator. During his tenure, Moran studied the work of J.W. Turner extensively, learning about European styles of painting and honing the landscape art skills that would eventually make him famous. Moran even traveled back to England, the land his parents left behind, to view Turner’s work firsthand.<br /> <br /> During this early part of his career, Moran also traveled to Lake Superior, where he painted and etched the landscapes of the Great Lakes. Here he married Mary Nimmo, a fellow Scottish-born etcher and landscape artist. The couple had two daughters and a son.<br /> <br /> The moment that became the turning point in Moran’s career came in 1971, when Ferdinand V. Hayden invited Moran to go on the Geological Survey Expedition to the stretch of Western land that is now preserved as <a href=\"https://www.nps.gov/yell/index.htm\">Yellowstone National Park</a>. Moran was hired to portray the landscapes and to bring images back to the public so they could view the wonders themselves. After a brief return home to his family, Moran returned to the American West in 1873 on Major John Wesley Powell’s expedition.<br /> <br /> Over the next 20 years, Moran would travel frequently between the East and the West, participating in many more expeditions and contributing his talents to documenting natural wonders. He is known for his vast landscapes of western scenes.<br /> <br /> Even as he aged, Moran continued to paint and produce works of art that can be seen in museums across the United States, including the Smithsonian Gallery in Washington, DC. One of Moran’s paintings, <em>The Three Tetons</em>, has been exhibited in the White House. <br /> <br /> The Thomas Moran house is preserved in East Hampton, New York, as a national historic landmark. Moran died at the age of 89 in Santa Barbara, California. His remains were transported to New York, where he is buried.</p>",
+      "geometryPoiId": "",
+      "firstName": "Thomas",
+      "middleName": "",
+      "lastName": "Moran",
+      "quickFacts": [
+        {
+          "id": "F7A67C96-173F-4675-B374-7E3D3A1818B2",
+          "value": "Hudson River School painter, Hayden Geological Survey member",
+          "name": "Significance"
+        },
+        {
+          "id": "7F812988-263D-4233-81CF-6E7A89621004",
+          "value": "Bolton, Lancashire, England",
+          "name": "Place of Birth"
+        },
+        {
+          "id": "5E9CA71F-E57B-4222-BBD3-1A225E2351C2",
+          "value": "February 12, 1837",
+          "name": "Date of Birth"
+        },
+        {
+          "id": "3905576C-509A-49F5-A8EE-B4CF14529BBB",
+          "value": "Santa Barbara, California",
+          "name": "Place of Death"
+        },
+        {
+          "id": "8F2D2A55-2E87-4DF3-8E09-8520B5A5B7FD",
+          "value": "August 25, 1926",
+          "name": "Date of Death"
+        },
+        {
+          "id": "E0CEB20D-33EA-4A2E-8444-DE8D7D572CA7",
+          "value": "East Hampton, Suffolk County, New York",
+          "name": "Place of Burial"
+        },
+        {
+          "id": "87BFD41C-3E7B-45DA-9CE0-1AA7C093B2A5",
+          "value": "South End Cemetery",
+          "name": "Cemetery Name"
+        }
+      ],
+      "credit": ""
+    }
+  ]
+}
