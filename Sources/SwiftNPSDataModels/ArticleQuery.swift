@@ -2,7 +2,7 @@
 ///
 /// Empty code arrays omit those parameters. Search text is preserved, including empty text. The
 /// explicit defaults request 50 results starting at zero. No provider maximum is assumed. The live
-/// endpoint answers HTTP 400 for any `sort` value, so this query has none.
+/// endpoint answers `sort=title` with HTTP 400, so this query has no sort parameter.
 ///
 /// ```swift
 /// let query = try ArticleQuery(parkCodes: [ParkCode("arch")], searchText: "geology")

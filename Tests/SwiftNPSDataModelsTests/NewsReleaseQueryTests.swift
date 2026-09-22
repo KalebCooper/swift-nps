@@ -98,13 +98,13 @@ struct NewsReleaseQueryTests {
   @Test("A news release query advances by the returned item count and keeps its filters")
   func aNewsReleaseQueryAdvancesByTheReturnedItemCountAndKeepsItsFilters() throws {
     let query = try NewsReleaseQuery(
-      limit: 1, parkCodes: [ParkCode("yell")], sort: [.descending("releaseDate")])
+      limit: 1, parkCodes: [ParkCode("yell")], searchText: "bison",
+      sort: [.descending("releaseDate")], stateCodes: [StateCode("WY")])
     let page = try JSONDecoder().decode(
       NPSCollection<NewsRelease>.self, from: Fixture.newsReleasesPageFirst.data())
     let next = try #require(try query.next(after: page))
-    #expect(next == query.starting(at: 1))
     #expect(
       Endpoint.newsReleases(query: next).path
-        == "/newsreleases?limit=1&parkCode=yell&sort=-releaseDate&start=1")
+        == "/newsreleases?limit=1&parkCode=yell&q=bison&sort=-releaseDate&start=1&stateCode=WY")
   }
 }

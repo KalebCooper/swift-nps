@@ -45,8 +45,8 @@ All notable changes are documented here. This project follows
   PhotoGalleryQuery sends sort fields without validation; the live endpoint sorts by `title`.
   PhotoGallery keeps its preview images as the shared NPSImage, the provider's asset count, and
   the shared NPSRelatedPark.
-- NPSConstraintsInfo, the rights and usage constraint text photo galleries carry, with
-  `constraint` and `grantingRights` kept as open strings.
+- NPSConstraintsInfo, the rights and usage constraint text photo galleries and gallery assets
+  carry, with `constraint` and `grantingRights` kept as open strings.
 - Photo gallery assets: PhotoGalleryAsset, PhotoGalleryAssetQuery,
   Endpoint.photoGalleryAssets(query:), NPSDataRequest.photoGalleryAssets(query:), and the lazy
   NPSDataClient.photoGalleryAssets(query:) and photoGalleryAssetPages(query:), with recorded

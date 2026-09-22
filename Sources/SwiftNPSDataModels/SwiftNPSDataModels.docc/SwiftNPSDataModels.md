@@ -114,8 +114,9 @@ one `/places` response mixes both, text under `images` and a number under `passp
 string is stored exactly as sent and a number as its decimal text, with ``NPSImageCrop/ratio``
 parsing it when numeric.
 ``NPSRelatedPark`` is the park summary attached to records from other groups, with `states` kept
-as the provider's comma-joined text. ``NPSQuickFact`` and ``NPSRelatedOrganization`` are the
-labeled facts and linked organizations ``Place`` declares, kept as the provider sends them.
+as the provider's comma-joined text. ``NPSQuickFact`` is the labeled fact ``Place`` and ``Person``
+declare, and ``NPSRelatedOrganization`` is the linked organization ``Place``, ``Person``, and
+``NewsRelease`` declare, both kept as the provider sends them.
 ``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` and
 ``PhotoGalleryAsset`` carry, kept as open strings.
 
@@ -165,8 +166,8 @@ them.
 ``ArticleQuery`` describes all five articles parameters: park codes, state codes, text search, page
 limit, and start offset. Empty code arrays omit the filter, and search text is preserved and
 percent encoded, including empty text. Articles pages are `NPSCollection<Article>`, from
-``Endpoint/articles(query:)`` or ``NPSDataRequest/articles(query:)``. The live service answers a
-`sort` value with HTTP 400 and an empty envelope, so this query has no sort parameter at all.
+``Endpoint/articles(query:)`` or ``NPSDataRequest/articles(query:)``. The live service answers
+`sort=title` with HTTP 400 and an empty envelope, so this query has no sort parameter.
 
 ``Article`` requires an identifier and title; other documented fields remain optional, and unknown
 JSON fields are ignored. ``Article/latitude`` and ``Article/longitude`` are JSON numbers or `null`,
@@ -330,8 +331,9 @@ the schema's illustrative examples also differ in places from its property defin
 ``PersonQuery`` describes all five people parameters: park codes, state codes, text search, page
 limit, and start offset. Empty code arrays omit the filter, and search text is preserved and
 percent encoded, including empty text. People pages are `NPSCollection<Person>`, from
-``Endpoint/people(query:)`` or ``NPSDataRequest/people(query:)``. The live service answers a
-`sort` value with HTTP 400 and an empty envelope, so this query has no sort parameter at all.
+``Endpoint/people(query:)`` or ``NPSDataRequest/people(query:)``. The live service answers
+`sort=title` and `sort=lastName` with HTTP 400 and an empty envelope, so this query has no sort
+parameter.
 
 ``Person`` requires an identifier and title; other documented fields remain optional, and unknown
 JSON fields are ignored. ``Person/latitude``, ``Person/longitude``, and ``Person/latLong`` are

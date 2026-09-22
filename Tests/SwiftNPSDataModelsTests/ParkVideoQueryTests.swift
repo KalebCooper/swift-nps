@@ -96,13 +96,13 @@ struct ParkVideoQueryTests {
   @Test("A park video query advances by the returned item count and keeps its filters")
   func aParkVideoQueryAdvancesByTheReturnedItemCountAndKeepsItsFilters() throws {
     let query = try ParkVideoQuery(
-      limit: 1, parkCodes: [ParkCode("crmo")], sort: [.ascending("title")])
+      limit: 1, parkCodes: [ParkCode("crmo")], searchText: "lava", sort: [.ascending("title")],
+      stateCodes: [StateCode("ID")])
     let page = try JSONDecoder().decode(
       NPSCollection<ParkVideo>.self, from: Fixture.parkVideosPageFirst.data())
     let next = try #require(try query.next(after: page))
-    #expect(next == query.starting(at: 1))
     #expect(
       Endpoint.parkVideos(query: next).path
-        == "/multimedia/videos?limit=1&parkCode=crmo&sort=title&start=1")
+        == "/multimedia/videos?limit=1&parkCode=crmo&q=lava&sort=title&start=1&stateCode=ID")
   }
 }

@@ -95,13 +95,13 @@ struct ParkAudioQueryTests {
   @Test("A park audio query advances by the returned item count and keeps its filters")
   func aParkAudioQueryAdvancesByTheReturnedItemCountAndKeepsItsFilters() throws {
     let query = try ParkAudioQuery(
-      limit: 1, parkCodes: [ParkCode("choh")], sort: [.ascending("title")])
+      limit: 1, parkCodes: [ParkCode("choh")], searchText: "canal", sort: [.ascending("title")],
+      stateCodes: [StateCode("MD")])
     let page = try JSONDecoder().decode(
       NPSCollection<ParkAudio>.self, from: Fixture.parkAudioPageFirst.data())
     let next = try #require(try query.next(after: page))
-    #expect(next == query.starting(at: 1))
     #expect(
       Endpoint.parkAudio(query: next).path
-        == "/multimedia/audio?limit=1&parkCode=choh&sort=title&start=1")
+        == "/multimedia/audio?limit=1&parkCode=choh&q=canal&sort=title&start=1&stateCode=MD")
   }
 }

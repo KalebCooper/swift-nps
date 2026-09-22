@@ -99,13 +99,13 @@ struct PhotoGalleryQueryTests {
   @Test("A photo gallery query advances by the returned item count and keeps its filters")
   func aPhotoGalleryQueryAdvancesByTheReturnedItemCountAndKeepsItsFilters() throws {
     let query = try PhotoGalleryQuery(
-      limit: 1, parkCodes: [ParkCode("thrb")], sort: [.ascending("title")])
+      limit: 1, parkCodes: [ParkCode("thrb")], searchText: "bison", sort: [.ascending("title")],
+      stateCodes: [StateCode("ND")])
     let page = try JSONDecoder().decode(
       NPSCollection<PhotoGallery>.self, from: Fixture.photoGalleriesPageFirst.data())
     let next = try #require(try query.next(after: page))
-    #expect(next == query.starting(at: 1))
     #expect(
       Endpoint.photoGalleries(query: next).path
-        == "/multimedia/galleries?limit=1&parkCode=thrb&sort=title&start=1")
+        == "/multimedia/galleries?limit=1&parkCode=thrb&q=bison&sort=title&start=1&stateCode=ND")
   }
 }

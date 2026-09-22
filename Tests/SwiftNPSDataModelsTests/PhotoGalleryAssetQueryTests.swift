@@ -131,15 +131,17 @@ struct PhotoGalleryAssetQueryTests {
   @Test("A photo gallery asset query advances by the returned item count and keeps its filters")
   func aPhotoGalleryAssetQueryAdvancesByTheReturnedItemCountAndKeepsItsFilters() throws {
     let query = try PhotoGalleryAssetQuery(
-      galleryIdentifiers: [NPSIdentifier("1BBC09C6-5953-4AF1-8081-C4F1D68C6DA3")], limit: 1,
-      parkCodes: [ParkCode("cowp")], sort: [.ascending("title")])
+      galleryIdentifiers: [NPSIdentifier("1BBC09C6-5953-4AF1-8081-C4F1D68C6DA3")],
+      identifiers: [NPSIdentifier("1FFC7F25-155D-4519-3E03-2F63E4D4DEF6")], limit: 1,
+      parkCodes: [ParkCode("cowp")], searchText: "battle", sort: [.ascending("title")],
+      stateCodes: [StateCode("SC")])
     let page = try JSONDecoder().decode(
       NPSCollection<PhotoGalleryAsset>.self, from: Fixture.photoGalleryAssetsPageFirst.data())
     let next = try #require(try query.next(after: page))
-    #expect(next == query.starting(at: 1))
     #expect(
       Endpoint.photoGalleryAssets(query: next).path
-        == "/multimedia/galleries/assets?galleryId=1BBC09C6-5953-4AF1-8081-C4F1D68C6DA3&limit=1"
-        + "&parkCode=cowp&sort=title&start=1")
+        == "/multimedia/galleries/assets?galleryId=1BBC09C6-5953-4AF1-8081-C4F1D68C6DA3"
+        + "&id=1FFC7F25-155D-4519-3E03-2F63E4D4DEF6&limit=1&parkCode=cowp&q=battle&sort=title"
+        + "&start=1&stateCode=SC")
   }
 }
