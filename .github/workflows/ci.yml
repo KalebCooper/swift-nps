@@ -109,10 +109,9 @@ jobs:
             os: '26.2'
             runner: macos-26
     runs-on: ${{ matrix.runner }}
-    # Provisional, and applies to each entry separately. The last green cold run on `macos-26` took
-    # 2m44s before this lane built the demo; re-derive the ceiling once both entries have green runs on
-    # main in this shape.
-    timeout-minutes: 15
+    # Applies to each entry separately. The slowest green run on main in this shape was the `xcode-27`
+    # entry at 9m52s; round up to the next five minutes and triple it.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
       - name: Show Xcode version
