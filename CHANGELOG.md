@@ -25,6 +25,13 @@ All notable changes are documented here. This project follows
   keeps `latitude`, `longitude`, and `latLong` as the provider's text, an empty string or decimal
   text, keeps `bodyText` as unmodified HTML, and uses the shared NPSImage, NPSQuickFact,
   NPSRelatedOrganization, and NPSRelatedPark.
+- Park audio: ParkAudio, ParkAudio.Version, ParkAudioQuery, Endpoint.parkAudio(query:),
+  NPSDataRequest.parkAudio(query:), and the lazy NPSDataClient.parkAudio(query:) and
+  parkAudioPages(query:), with recorded park audio responses from `/multimedia/audio`.
+  ParkAudioQuery sends sort fields without validation; the live endpoint sorts by `title`.
+  ParkAudio keeps transcripts as plain text or HTML and each version's `fileSize` as the
+  provider's number, for which NPS documents no unit, and uses the shared NPSImage and
+  NPSRelatedPark.
 
 ## [0.4.0] - 2026-09-20
 

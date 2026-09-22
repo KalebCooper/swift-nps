@@ -3,7 +3,7 @@
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
-releases, and people) using the application identity
+releases, park audio, and people) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
 not examples copied from the specification. Tests read them locally and never contact NPS.
 
@@ -28,6 +28,10 @@ not examples copied from the specification. Tests read them locally and never co
 | articles-page-first.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=arch&start=0 | 200 |
 | articles-page-last.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=arch&start=1 | 200 |
 | articles-search.json | GET https://developer.nps.gov/api/v1/articles?limit=2&parkCode=gumo&q=Salt&start=0&stateCode=TX | 200 |
+| audio-empty.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=1&parkCode=zzzz&start=0 | 200 |
+| audio-page-first.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=1&parkCode=choh&start=0 | 200 |
+| audio-page-last.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=1&parkCode=choh&start=1 | 200 |
+| audio-search.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=2&parkCode=ever&q=alligator&sort=title&start=0&stateCode=FL | 200 |
 | campgrounds-empty.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=zzzz&start=0 | 200 |
 | campgrounds-page-first.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=0 | 200 |
 | campgrounds-page-last.json | GET https://developer.nps.gov/api/v1/campgrounds?limit=1&parkCode=acad&sort=name&start=1 | 200 |
@@ -164,6 +168,15 @@ recordings. The recordings profile historical figures (Thomas Moran, Horace M. A
 and Marion Olmsted) and carry no personal contact details, so nothing was redacted. Decoded values
 were compared with the downloads and are identical.
 
+The park audio recordings arrived with CRLF line endings, blank lines, trailing spaces, and commas
+leading each line, and are reindented the same way, keeping the provider's key order, the
+transcripts, and the numbers and `null` values as written. The recordings are ASCII throughout.
+The search recording's results are NPS Natural Sounds Program recordings with empty transcripts.
+The empty recording is byte-identical to the other empty recordings. Credits are empty or name
+an NPS program, no recording names a member of the public, and no recording carries personal
+contact details, so nothing was redacted. Decoded values were compared with the downloads and are
+identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -190,6 +203,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | articles-page-first.json | f00b3950dd2d0a77cb2e6123a896204a210d64f120abd9214f8c4b99505066be |
 | articles-page-last.json | 5a30c5473bd9e41adbd330741a4f913ec2a35f8bba487cca502b17801c5d5d5b |
 | articles-search.json | e065b61a3da949bca37cdbe79a5c03f91fff6b1eadd499661f66bc718f6e23d6 |
+| audio-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| audio-page-first.json | 59871cdb65a7115979ef5dabc830a1b27d89b0241ac99c6952db2f6da079de7d |
+| audio-page-last.json | a3e682956644b22ce219eb812ff3eb0d78a887f5f3705a01ae310c06c42eb004 |
+| audio-search.json | e3c05a5768b2183f745bff2955986cbe0736c93b47cb0a178c021a35a58d9241 |
 | campgrounds-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | campgrounds-page-first.json | 452d7fa85a1cd58f954961e3716b8c2075ad8bc9d4b13e1acaa58bb452251742 |
 | campgrounds-page-last.json | 4778b70345af7bd999e4943e99dc43dfe227e9eba2fcef57b8dcebf3418aa104 |
@@ -413,6 +430,17 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   images send every field empty. `relatedOrganizations` elements are `{id, url, name}`; the scan
   found 24 populated, and both search results carry `US Park Police`. `latitude` and `longitude`
   were JSON `null` in every scanned release, and no release sends `latLong` or `tags`.
+- The live park audio body uses the same envelope. `/multimedia/audio` accepts parkCode,
+  stateCode, q, sort, limit, and start. `sort=title` and `sort=-title` each answer HTTP 200 in the
+  order named, while `sort=relevanceScore` and an unknown field answer HTTP 400 with an empty
+  envelope. The choh pages report total 13 and the thro search reports total 5. In a live scan of
+  500 recordings, every item carries one `versions` entry of `{fileSize, fileType, url}` with
+  `fileType` `audio/mp3`; `fileSize` is a JSON number such as `170844.0`, 91 of the 500 send `0.0`,
+  and NPS documents no unit for it. `transcript` is plain text or HTML (171 of 500 begin with a
+  tag). `splashImage` carries only `url`, empty in 472 of 500. `latitude` and `longitude` are JSON
+  numbers or `null` (112 of 500 send numbers), and `durationMs` is a JSON integer or `null` (8 of
+  500, including the second search result). Every `permalinkUrl` points at
+  `https://www.nps.gov/media/video/view.htm`, even for audio.
 - The live people body uses the same envelope. `/people` accepts parkCode, stateCode, q, limit,
   and start. `sort=title` and `sort=lastName` each answer HTTP 400 with an empty envelope. The
   yell pages report total 4 and the frla search reports total 30. `latitude`, `longitude`, and

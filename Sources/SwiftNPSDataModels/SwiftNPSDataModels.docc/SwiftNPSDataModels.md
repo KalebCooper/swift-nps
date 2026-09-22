@@ -5,8 +5,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park boundaries, parks, people, places, road events, things
-to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+articles, campgrounds, news releases, park audio, park boundaries, parks, people, places, road
+events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
 with no pagination. Construction performs no I/O, and this module never imports a transport or
@@ -220,6 +220,28 @@ every field empty. Parks are ``NPSRelatedPark`` values and organizations are
 ``NPSRelatedOrganization`` values, either of which can be an empty array.
 ``NewsRelease/latitude`` and ``NewsRelease/longitude`` are JSON numbers or `null`; every recorded
 release sends `null`.
+
+Real responses were recorded on September 21, 2026.
+
+### Park Audio
+
+``ParkAudioQuery`` describes all six park audio parameters: park codes, state codes, text search,
+sort criteria, page limit, and start offset. The live service sorts by `title`, with a leading
+minus for descending order, and answers another field such as `relevanceScore` with HTTP 400;
+sort fields are still sent without validation. Empty code and sort arrays omit the parameter, and
+search text is preserved and percent encoded, including empty text. Park audio pages are
+`NPSCollection<ParkAudio>`, from ``Endpoint/parkAudio(query:)`` or
+``NPSDataRequest/parkAudio(query:)``.
+
+``ParkAudio`` requires an identifier and title; other documented fields remain optional, and
+unknown JSON fields are ignored. ``ParkAudio/transcript`` is the provider's plain text or HTML,
+kept as sent. ``ParkAudio/splashImage`` is one shared ``NPSImage`` carrying only its URL text,
+which is often empty. ``ParkAudio/durationMs`` is a JSON integer or `null`, and
+``ParkAudio/latitude`` and ``ParkAudio/longitude`` are JSON numbers or `null`. Each
+``ParkAudio/Version`` is one downloadable file whose ``ParkAudio/Version/fileSize`` keeps the
+provider's number, such as `170844.0`, and can be `0.0`; NPS documents no unit for it.
+``ParkAudio/permalinkUrl`` is the provider's web page link, kept as sent. Parks are
+``NPSRelatedPark`` values.
 
 Real responses were recorded on September 21, 2026.
 
@@ -497,6 +519,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``NewsRelease``
 - ``NewsReleaseQuery``
+
+### Park Audio
+
+- ``ParkAudio``
+- ``ParkAudioQuery``
 
 ### Park Boundaries
 

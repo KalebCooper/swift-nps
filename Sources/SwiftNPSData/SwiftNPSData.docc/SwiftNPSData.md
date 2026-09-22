@@ -20,8 +20,9 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Alerts, amenities, articles, campgrounds, news releases, park boundaries, parks, people, places,
-road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
+Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, parks,
+people, places, road events, things to do, tours, visitor centers, and webcams are the implemented
+endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -180,6 +181,26 @@ let samePage = try await client.send(.newsReleases(query: query))
 ```
 
 Release and indexing timestamps are the provider's text without a time zone, kept as sent.
+
+### Park Audio
+
+``NPSDataClient/parkAudio(query:)`` and ``NPSDataClient/parkAudioPages(query:)`` search
+`/multimedia/audio` by park codes, state codes, text, and sorting. Each page is
+`NPSCollection<ParkAudio>`. The live service sorts by `title` and answers another field such as
+`relevanceScore` with HTTP 400; fields are sent without validation:
+
+```swift
+let query = try ParkAudioQuery(parkCodes: [ParkCode("choh")], sort: [.ascending("title")])
+for try await audio in client.parkAudio(query: query) {
+  print(audio.title, audio.versions?.first?.url ?? "")
+}
+let request = NPSDataRequest.parkAudio(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.parkAudio(query: query))
+```
+
+Transcripts are the provider's plain text or HTML, and file sizes keep the provider's number, for
+which NPS documents no unit.
 
 ### Park Boundaries
 
@@ -433,6 +454,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/newsReleases(query:)``
 - ``NPSDataClient/newsReleasePages(query:)``
+
+### Park Audio
+
+- ``NPSDataClient/parkAudio(query:)``
+- ``NPSDataClient/parkAudioPages(query:)``
 
 ### Park Boundaries
 

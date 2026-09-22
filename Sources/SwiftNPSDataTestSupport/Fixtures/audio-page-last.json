@@ -1,0 +1,42 @@
+{
+  "total": "13",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "F9283688-390A-4B61-B0AE-55CC15A03B36",
+      "permalinkUrl": "https://www.nps.gov/media/video/view.htm?id=F9283688-390A-4B61-B0AE-55CC15A03B36",
+      "title": "Sounds Along the Canal: Cars Under Key Bridge",
+      "description": "Recorded from the sidewalk under the historic Francis Scott Key Bridge located in Washington, DC. This audio clip features city sounds and sounds of cars whooshing by under the bridge.",
+      "splashImage": {
+        "url": "https://www.nps.gov/common/uploads/ncr/park/choh//3B9AE488-A03D-D8F8-7CE061F37C83AB3A/3B9AE488-A03D-D8F8-7CE061F37C83AB3A-large.png"
+      },
+      "relatedParks": [
+        {
+          "states": "DC,MD,WV",
+          "parkCode": "choh",
+          "designation": "National Historical Park",
+          "fullName": "Chesapeake & Ohio Canal National Historical Park",
+          "url": "https://www.nps.gov/choh/index.htm",
+          "name": "Chesapeake & Ohio Canal"
+        }
+      ],
+      "tags": [],
+      "latitude": null,
+      "longitude": null,
+      "geometryPoiId": "",
+      "durationMs": 14837,
+      "credit": "",
+      "transcript": "Recorded from the sidewalk under the historic Francis Scott Key Bridge in Washington, DC. This audio clip features city sounds and sounds of cars whooshing by under the bridge.",
+      "callToAction": "",
+      "callToActionUrl": "",
+      "versions": [
+        {
+          "fileSize": 150507.0,
+          "fileType": "audio/mp3",
+          "url": "https://www.nps.gov/nps-audiovideo/audiovideo/96fc914d-91ba-418f-84e6-64a42a364a9b.mp3"
+        }
+      ]
+    }
+  ]
+}
