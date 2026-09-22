@@ -567,6 +567,13 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   failures; they are explicitly separate from these recordings.
 - A personal email address in the recorded `visitorcenters-search.json` body was replaced with
   `redacted@example.com`; the listed sha256 is of the original recording.
+- Five contact values for the Afterbay campground in `campgrounds-search.json` were replaced: the
+  contact email, the voice number in `contacts` and its repeat in `reservationInfo`, the fax
+  number, and the after-hours number in `reservationInfo` now read `redacted@example.com` and 555
+  placeholders in each value's original format. The listed sha256 is of the original download;
+  the committed file's sha256 is
+  `033439626a6f996008aa14b6468b8fb938402d81ccaff4817c6e1af0eea88e7b`, and after whitespace
+  normalization it differs from the download only by these redactions.
 
 NPS content and media retain their [upstream usage terms](https://www.nps.gov/aboutus/disclaimer.htm).
 No referenced image or media file is downloaded into these fixtures.

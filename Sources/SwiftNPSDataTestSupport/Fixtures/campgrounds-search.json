@@ -17,7 +17,7 @@
       "passportStampLocationDescription": "",
       "passportStampImages": [],
       "geometryPoiId": "7F24B353-91F9-56B7-83CB-47807B7C6080",
-      "reservationInfo": "Please place a reservation for your site by calling 406-666-2333 (Yellowtail Market) during normal operating hours or after hours call 406-679-2435",
+      "reservationInfo": "Please place a reservation for your site by calling 406-555-0100 (Yellowtail Market) during normal operating hours or after hours call 406-555-0102",
       "reservationUrl": "",
       "regulationsurl": "",
       "regulationsOverview": "1. Overnight stays/camping in park is only allowed in established sites 2. Check-out is 12:00 pm 3. Quiet hours from 10:00 pm to 6:00 am; idling of motor vehicles is prohibited during quiet hours 4. Generators permitted from 8 am to 8 pm 5. Campsite occupancy may not exceed 14 cumulative days within a 28-day period 6. Collection of firewood is prohibited within the park 7. No attaching or tying items to trees 8. Pets must be leashed at all times and may not be left unattended",
@@ -46,13 +46,13 @@
       "contacts": {
         "phoneNumbers": [
           {
-            "phoneNumber": "(406) 666-2333",
+            "phoneNumber": "(406) 555-0100",
             "description": "",
             "extension": "",
             "type": "Voice"
           },
           {
-            "phoneNumber": "406-679-5599",
+            "phoneNumber": "406-555-0101",
             "description": "",
             "extension": "",
             "type": "Fax"
@@ -61,7 +61,7 @@
         "emailAddresses": [
           {
             "description": "",
-            "emailAddress": "dyanna.threeirons@crow-nsn.gov"
+            "emailAddress": "redacted@example.com"
           }
         ]
       },
