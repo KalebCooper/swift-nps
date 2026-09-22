@@ -5,12 +5,13 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
-articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people,
-photo galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
-core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
-values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
-with no pagination. Construction performs no I/O, and this module never imports a transport or
-holds credentials.
+articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people, photo
+galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and
+webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a
+validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
+reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
+pagination. Construction performs no I/O, and this module never imports a transport or holds
+credentials.
 
 ```swift
 import SwiftNPSDataModels
@@ -108,9 +109,10 @@ the one image type: every image object NPS sends is a variant that differs only 
 ``NPSImageCrop``, whose ``NPSImageCrop/aspectRatio`` is text because the provider sends a JSON
 number on some paths and a JSON string on others: `/tours` sends the number under `images`,
 `/campgrounds` and `/visitorcenters` send empty `images` crops and the number under
-`passportStampImages`, `/thingstodo` sends a string, and one `/places` response mixes both, text
-under `images` and a number under `passportStampImages`; a string is stored exactly as sent and a
-number as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric.
+`passportStampImages`, `/thingstodo` and `/people` send a string, `/people` as `"0.8"` or `"1"`, and
+one `/places` response mixes both, text under `images` and a number under `passportStampImages`; a
+string is stored exactly as sent and a number as its decimal text, with ``NPSImageCrop/ratio``
+parsing it when numeric.
 ``NPSRelatedPark`` is the park summary attached to records from other groups, with `states` kept
 as the provider's comma-joined text. ``NPSQuickFact`` and ``NPSRelatedOrganization`` are the
 labeled facts and linked organizations ``Place`` declares, kept as the provider sends them.
@@ -169,7 +171,8 @@ percent encoded, including empty text. Articles pages are `NPSCollection<Article
 ``Article`` requires an identifier and title; other documented fields remain optional, and unknown
 JSON fields are ignored. ``Article/latitude`` and ``Article/longitude`` are JSON numbers or `null`,
 and most articles send `null`. ``Article/latLong`` is the provider's own coordinate text, such as
-`"{lat:31.97, long:-104.75}"` or an empty string, kept without parsing or cross-checking.
+`"{lat:31.976943969726562, long:-104.75194549560547}"` or an empty string, kept without parsing or
+cross-checking.
 ``Article/listingImage`` is one shared ``NPSImage``; no recorded article image carries crops, so
 its ``NPSImage/crops`` is nil. Parks are ``NPSRelatedPark`` values in ``Article/relatedParks``, and
 tags are plain strings in provider order.
@@ -386,8 +389,8 @@ asset in several galleries repeats its ``PhotoGalleryAsset/id`` with a different
 ``PhotoGalleryAsset/ordinal`` and ``PhotoGalleryAsset/permalinkUrl``; the entry has no gallery
 identifier field, and only the permalink names the gallery. ``PhotoGalleryAsset/fileInfo`` is a
 ``PhotoGalleryAsset/FileInfo`` with the file URL, media type, pixel dimensions, and
-``PhotoGalleryAsset/FileInfo/fileSizeKb``, the provider's number, such as `5428193` for a 2736 by
-3648 pixel `image/jpeg`, for which NPS documents no unit. ``PhotoGalleryAsset/constraintsInfo`` is
+``PhotoGalleryAsset/FileInfo/fileSizeKb``, the provider's number, such as `11170890` for a 6000 by
+4000 pixel `image/jpeg`, for which NPS documents no unit. ``PhotoGalleryAsset/constraintsInfo`` is
 an ``NPSConstraintsInfo`` of open text, and ``PhotoGalleryAsset/copyright`` is the provider's
 copyright text, which varies by asset and is kept as sent, including mis-encoded characters.
 Tags are strings, and parks are ``NPSRelatedPark`` values; either can be an empty array.

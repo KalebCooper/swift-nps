@@ -95,11 +95,11 @@ contact NPS.
 
 Every successful recording sent its credential in the `X-Api-Key` header. The parks, alerts, and
 visitor centers recordings used the service's public demonstration credential, which reported a
-limit of 10. The campgrounds, things to do, and amenities recordings, and the park boundaries,
-places, road events, tours, and webcams recordings made on September 20, and the articles, news
-releases, and people recordings made on September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers or credentials are stored. The
-missing-key recording deliberately omitted that header. Response ordering is retained, rather than
-alphabetized, to preserve the provider's representation.
+limit of 10. The campgrounds, things to do, and amenities recordings, the park boundaries, places,
+road events, tours, and webcams recordings made on September 20, and every recording made on
+September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers
+or credentials are stored. The missing-key recording deliberately omitted that header. Response
+ordering is retained, rather than alphabetized, to preserve the provider's representation.
 
 JSON whitespace is normalized to LF without trailing blanks. The Unicode em dash in Yellowstone
 is written as the JSON escape `\u2014` to satisfy repository text rules. Decoded JSON was compared

@@ -29,8 +29,8 @@ rather than a collection.
 | News releases | Park codes, state codes, text search, sorting. | `newsReleasePages`, `newsReleases` | The live service sorts by `releaseDate` and `title` and answers other fields with HTTP 400; release timestamps stay the provider's text without a time zone. |
 | Park audio | Park codes, state codes, text search, sorting. | `parkAudioPages`, `parkAudio` | The live service sorts by `title` and answers other fields with HTTP 400; transcripts stay plain text or HTML, and file sizes keep the provider's number, for which NPS documents no unit. |
 | Park videos | Park codes, state codes, text search, sorting. | `parkVideoPages`, `parkVideos` | The live service sorts by `title` and answers other fields with HTTP 400; accessibility flags stay Booleans, and file sizes keep the provider's number or null, for which NPS documents no unit. |
-| People | Park codes, state codes, text search. | `peoplePages`, `people` | The endpoint answers a sort value with HTTP 400, so the query offers none; coordinates stay the provider's text, usually empty, and profiles stay HTML. |
 | Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
+| People | Park codes, state codes, text search. | `peoplePages`, `people` | The endpoint answers a sort value with HTTP 400, so the query offers none; coordinates stay the provider's text, usually empty, and profiles stay HTML. |
 | Photo galleries | Park codes, state codes, text search, sorting. | `photoGalleryPages`, `photoGalleries` | The live service sorts by `title` and answers other fields with HTTP 400; each gallery carries one preview image and the provider's asset count, and rights constraints stay open text. |
 | Photo gallery assets | Gallery identifiers, identifiers, park codes, state codes, text search, sorting. | `photoGalleryAssetPages`, `photoGalleryAssets` | The live service sorts by `title` and answers other fields with HTTP 400; a gallery or asset identifier that is not UUID-shaped is ignored and every asset comes back, an asset in several galleries appears once per gallery, and file sizes keep the provider's number, for which NPS documents no unit. |
 | Places | Park codes, state codes, text search. | `placePages`, `places` | The endpoint answers every sort value with HTTP 400, so the query offers none. |
@@ -130,6 +130,9 @@ Open `Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` for an iOS 26 SwiftU
 Choose a group, enter your API key, then tap the group's **Search** button. Collection groups take
 park and state codes and search text, except amenities, which takes search text alone; road events
 takes one optional park code and an optional event type, and park boundaries takes one park code.
+Articles, news releases, park audio, park videos, people, photo galleries, and photo gallery
+assets sit after Webcams in the picker and take park codes, state codes, and search text like the
+other collection groups; photo gallery assets also takes comma-separated gallery IDs.
 Use **Load more** to request the next page of a collection group or **Cancel** to stop an in-flight
 request; road events and park boundaries arrive as one response.
 The demo shows loading, results, empty results, and failures. It keeps the key in memory and

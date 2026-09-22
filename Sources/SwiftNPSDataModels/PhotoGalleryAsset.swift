@@ -25,7 +25,7 @@ public struct PhotoGalleryAsset: Codable, Hashable, Sendable {
   /// }
   /// ```
   public struct FileInfo: Codable, Hashable, Sendable {
-    /// The provider's file size number, such as `5428193` for a 2736 by 3648 pixel `image/jpeg`.
+    /// The provider's file size number, such as `11170890` for a 6000 by 4000 pixel `image/jpeg`.
     ///
     /// NPS documents no unit for this value, and it is kept as sent without conversion.
     public let fileSizeKb: Double?

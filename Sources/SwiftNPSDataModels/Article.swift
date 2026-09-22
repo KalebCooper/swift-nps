@@ -24,8 +24,8 @@ public struct Article: Codable, Hashable, Sendable {
   /// The latitude as a JSON number, or nil when the provider sends `null`.
   public let latitude: Double?
 
-  /// The provider's combined coordinate text, such as `"{lat:31.97, long:-104.75}"`, or an empty
-  /// string, kept as sent without parsing.
+  /// The provider's combined coordinate text, such as `"{lat:31.976943969726562,
+  /// long:-104.75194549560547}"`, or an empty string, kept as sent without parsing.
   public let latLong: String?
 
   /// The provider's summary of the article, including an empty string.
