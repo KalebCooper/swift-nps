@@ -3,9 +3,10 @@
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
-releases, park audio, park videos, people, and photo galleries) using the application identity
-`(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
-not examples copied from the specification. Tests read them locally and never contact NPS.
+releases, park audio, park videos, people, photo galleries, and photo gallery assets) using the
+application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real
+response bodies, not examples copied from the specification. Tests read them locally and never
+contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
@@ -28,6 +29,11 @@ not examples copied from the specification. Tests read them locally and never co
 | articles-page-first.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=arch&start=0 | 200 |
 | articles-page-last.json | GET https://developer.nps.gov/api/v1/articles?limit=1&parkCode=arch&start=1 | 200 |
 | articles-search.json | GET https://developer.nps.gov/api/v1/articles?limit=2&parkCode=gumo&q=Salt&start=0&stateCode=TX | 200 |
+| assets-empty.json | GET https://developer.nps.gov/api/v1/multimedia/galleries/assets?limit=1&parkCode=zzzz&start=0 | 200 |
+| assets-gallery.json | GET https://developer.nps.gov/api/v1/multimedia/galleries/assets?galleryId=1FFC7EF8-155D-4519-3ECC-B652E2E95E20&limit=2&start=0 | 200 |
+| assets-page-first.json | GET https://developer.nps.gov/api/v1/multimedia/galleries/assets?limit=1&parkCode=cowp&start=0 | 200 |
+| assets-page-last.json | GET https://developer.nps.gov/api/v1/multimedia/galleries/assets?limit=1&parkCode=cowp&start=1 | 200 |
+| assets-search.json | GET https://developer.nps.gov/api/v1/multimedia/galleries/assets?limit=2&parkCode=heho&q=snow&sort=title&start=0&stateCode=IA | 200 |
 | audio-empty.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=1&parkCode=zzzz&start=0 | 200 |
 | audio-page-first.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=1&parkCode=choh&start=0 | 200 |
 | audio-page-last.json | GET https://developer.nps.gov/api/v1/multimedia/audio?limit=1&parkCode=choh&start=1 | 200 |
@@ -200,6 +206,13 @@ byte-identical to the other empty recordings. Image descriptions name photograph
 `NPS/Denise Collar`, and no recording carries personal contact details, so nothing was redacted.
 Decoded values were compared with the downloads and are identical.
 
+The photo gallery asset recordings arrived with the same CRLF layout and are reindented the same
+way, keeping the provider's key order and the numbers as written. The pages are ASCII throughout
+and have no JSON Unicode escapes. The empty recording is byte-identical to the other empty
+recordings. Credits name institutions and archives, such as `NPS photo` and `National Archives &
+Records Administration`, and no recording carries personal contact details, so nothing was
+redacted. Decoded values were compared with the downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -226,6 +239,11 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | articles-page-first.json | f00b3950dd2d0a77cb2e6123a896204a210d64f120abd9214f8c4b99505066be |
 | articles-page-last.json | 5a30c5473bd9e41adbd330741a4f913ec2a35f8bba487cca502b17801c5d5d5b |
 | articles-search.json | e065b61a3da949bca37cdbe79a5c03f91fff6b1eadd499661f66bc718f6e23d6 |
+| assets-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| assets-gallery.json | 54c6fb070260d79b4cb59e138624a028a990a8e1281e806e64814315e4777f17 |
+| assets-page-first.json | 57252f9678555679988c849b75c1d85217e65070a6c0450f734c7f9fe0c8ebf1 |
+| assets-page-last.json | abfb6a956d0f8cce303c892fc5d4f802515985a7dd723e72105d3b81af13f865 |
+| assets-search.json | 02133baef9d6d22a7b859fa9a8489c669c23bde21eafccd742c173e17981603a |
 | audio-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | audio-page-first.json | 59871cdb65a7115979ef5dabc830a1b27d89b0241ac99c6952db2f6da079de7d |
 | audio-page-last.json | a3e682956644b22ce219eb812ff3eb0d78a887f5f3705a01ae310c06c42eb004 |
@@ -496,6 +514,25 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   1,000; and `copyright` is the same boilerplate text on every gallery. `constraintsInfo` is
   `{constraint, grantingRights}`, `Public domain` and `Unknown` on 999 of 1,000 and `Restrictions
   apply on use and/or reproduction` with `Unknown` on one; the set is open.
+- The live photo gallery assets body uses the same envelope. `/multimedia/galleries/assets` accepts
+  galleryId, id, parkCode, stateCode, q, sort, limit, and start. `sort=title` and `sort=-title` each
+  answer HTTP 200 in the order named, while `sort=relevanceScore` and an unknown field answer HTTP
+  400 with an empty envelope. The cowp pages report total 301, and `q=snow` narrows heho in IA from
+  727 assets to 15. `galleryId=1FFC7EF8-155D-4519-3ECC-B652E2E95E20` reports total 2, equal to that
+  gallery's `assetCount`; a comma list of two galleries returns the sum of their counts, a lowercase
+  or unknown UUID returns 0, and a value that is not UUID-shaped, such as `zzzz`, is ignored and
+  returns all 206,378 assets. `id` behaves the same way. The service returns one entry per gallery
+  membership: the search page carries asset `F67A3393-6933-4650-9253-137B7A1887CF` twice, with
+  ordinals 3 and 85 and two `gid` values in `permalinkUrl`, and no entry names its gallery in any
+  other field. In two live scans of 500 assets each (start 0 and 150,000), every asset sends the
+  same twelve keys and every `fileInfo` the same five; `fileSizeKb`, `widthPixels`, `heightPixels`,
+  and `ordinal` are JSON integers, and `fileType` is `image/jpeg` on 985, `image/gif` on 12,
+  `image/png` on 2, and `image/tiff` on one. `constraintsInfo` is `Public domain` with `Full` on
+  845, `Public domain` with `Unknown` on 153, and `Restrictions apply on use and/or reproduction`
+  with `Full` on 2; the set is open. `copyright` takes 9 distinct values, including the gallery
+  boilerplate, photographer names, and one mis-encoded copyright sign kept as sent. `tags` are empty
+  on 394 of 1,000, `credit` is empty on 536, and `relatedParks` is empty on 41 and holds more than
+  one park on 4.
 - The live people body uses the same envelope. `/people` accepts parkCode, stateCode, q, limit,
   and start. `sort=title` and `sort=lastName` each answer HTTP 400 with an empty envelope. The
   yell pages report total 4 and the frla search reports total 30. `latitude`, `longitude`, and

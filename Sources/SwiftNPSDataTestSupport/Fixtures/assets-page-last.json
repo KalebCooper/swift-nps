@@ -1,0 +1,42 @@
+{
+  "total": "301",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "C432E255-D179-4812-9EB0-55EA4E17B07E",
+      "permalinkUrl": "https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=C432E255-D179-4812-9EB0-55EA4E17B07E&gid=1BBC09C6-5953-4AF1-8081-C4F1D68C6DA3",
+      "title": "Three-pounder \"grasshopper\" cannon.",
+      "description": "A Three-pounder cannon sits alone in a field.",
+      "altText": "A three-pounder \"grasshopper\" cannon made of bronze and a carriage made of blue-painted wood sits in a field under the shade of a tree during the early morning hours.",
+      "fileInfo": {
+        "url": "https://www.nps.gov/npgallery/GetAsset/C432E255-D179-4812-9EB0-55EA4E17B07E",
+        "fileType": "image/jpeg",
+        "widthPixels": 6000,
+        "heightPixels": 4000,
+        "fileSizeKb": 11170890
+      },
+      "relatedParks": [
+        {
+          "states": "SC",
+          "parkCode": "cowp",
+          "designation": "National Battlefield",
+          "fullName": "Cowpens National Battlefield",
+          "url": "https://www.nps.gov/cowp/index.htm",
+          "name": "Cowpens"
+        }
+      ],
+      "tags": [
+        "grasshopper",
+        "cowpens 243rd"
+      ],
+      "credit": "NPS photo",
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Full"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.",
+      "ordinal": 2
+    }
+  ]
+}

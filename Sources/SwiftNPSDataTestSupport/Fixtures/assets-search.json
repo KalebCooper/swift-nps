@@ -1,0 +1,79 @@
+{
+  "total": "15",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "F67A3393-6933-4650-9253-137B7A1887CF",
+      "permalinkUrl": "https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=F67A3393-6933-4650-9253-137B7A1887CF&gid=DF8E57F2-CD05-4163-B10C-47DF77EB1C2C",
+      "title": "1877 Bank Building",
+      "description": "Bandstand and old pump (left), and 1877 bank building (right), predecessor to the Old West Branch State Bank Building, circa 1910",
+      "altText": "Snow covers a street intersection with a bandstand in the middle and a bank on the corner.",
+      "fileInfo": {
+        "url": "https://www.nps.gov/npgallery/GetAsset/F67A3393-6933-4650-9253-137B7A1887CF",
+        "fileType": "image/jpeg",
+        "widthPixels": 3721,
+        "heightPixels": 2509,
+        "fileSizeKb": 1255792
+      },
+      "relatedParks": [
+        {
+          "states": "IA",
+          "parkCode": "heho",
+          "designation": "National Historic Site",
+          "fullName": "Herbert Hoover National Historic Site",
+          "url": "https://www.nps.gov/heho/index.htm",
+          "name": "Herbert Hoover"
+        }
+      ],
+      "tags": [
+        "national register of historic places",
+        "old west branch state bank",
+        "west branch commercial historic district"
+      ],
+      "credit": "National Archives & Records Administration",
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Full"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.",
+      "ordinal": 3
+    },
+    {
+      "id": "F67A3393-6933-4650-9253-137B7A1887CF",
+      "permalinkUrl": "https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=F67A3393-6933-4650-9253-137B7A1887CF&gid=65356FE2-ABFD-42E5-BF92-E60467D6172A",
+      "title": "1877 Bank Building",
+      "description": "Bandstand and old pump (left), and 1877 bank building (right), predecessor to the Old West Branch State Bank Building, circa 1910",
+      "altText": "Snow covers a street intersection with a bandstand in the middle and a bank on the corner.",
+      "fileInfo": {
+        "url": "https://www.nps.gov/npgallery/GetAsset/F67A3393-6933-4650-9253-137B7A1887CF",
+        "fileType": "image/jpeg",
+        "widthPixels": 3721,
+        "heightPixels": 2509,
+        "fileSizeKb": 1255792
+      },
+      "relatedParks": [
+        {
+          "states": "IA",
+          "parkCode": "heho",
+          "designation": "National Historic Site",
+          "fullName": "Herbert Hoover National Historic Site",
+          "url": "https://www.nps.gov/heho/index.htm",
+          "name": "Herbert Hoover"
+        }
+      ],
+      "tags": [
+        "national register of historic places",
+        "old west branch state bank",
+        "west branch commercial historic district"
+      ],
+      "credit": "National Archives & Records Administration",
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Full"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.",
+      "ordinal": 85
+    }
+  ]
+}

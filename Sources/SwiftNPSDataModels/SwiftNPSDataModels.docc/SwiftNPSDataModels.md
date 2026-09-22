@@ -6,7 +6,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 This module describes National Park Service Data API operations as values. Alerts, amenities,
 articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people,
-photo galleries, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
+photo galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared
 core: a validated ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint``
 values, and the reusable ``NPSDataRequest``. Park boundaries and road events are single responses
 with no pagination. Construction performs no I/O, and this module never imports a transport or
@@ -114,8 +114,8 @@ number as its decimal text, with ``NPSImageCrop/ratio`` parsing it when numeric.
 ``NPSRelatedPark`` is the park summary attached to records from other groups, with `states` kept
 as the provider's comma-joined text. ``NPSQuickFact`` and ``NPSRelatedOrganization`` are the
 labeled facts and linked organizations ``Place`` declares, kept as the provider sends them.
-``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` carries, kept as
-open strings.
+``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` and
+``PhotoGalleryAsset`` carry, kept as open strings.
 
 ### Alerts
 
@@ -363,6 +363,37 @@ be an empty array.
 
 Real responses were recorded on September 21, 2026.
 
+### Photo Gallery Assets
+
+``PhotoGalleryAssetQuery`` describes all eight photo gallery asset parameters: gallery
+identifiers sent as `galleryId`, asset identifiers sent as `id`, park codes, state codes, text
+search, sort criteria, page limit, and start offset. The live service sorts by `title`, with a
+leading minus for descending order, and answers another field such as `relevanceScore` with HTTP
+400; sort fields are still sent without validation. Empty identifier, code, and sort arrays omit
+the parameter, and search text is preserved and percent encoded, including empty text. Photo
+gallery asset pages are `NPSCollection<PhotoGalleryAsset>`, from
+``Endpoint/photoGalleryAssets(query:)`` or ``NPSDataRequest/photoGalleryAssets(query:)``.
+
+A `galleryId` of an uppercase gallery UUID returns exactly that gallery's assets, as many as its
+``PhotoGallery/assetCount``, and a comma-separated list returns the sum. The service matches
+case sensitively, so a lowercase UUID returns none, and an unknown UUID returns none. A value
+that is not UUID-shaped, such as `zzzz`, is silently ignored, and every asset comes back. `id`
+behaves the same way. The query validates neither.
+
+``PhotoGalleryAsset`` requires an identifier and title; other documented fields remain optional,
+and unknown JSON fields are ignored. The service returns one entry per gallery membership, so an
+asset in several galleries repeats its ``PhotoGalleryAsset/id`` with a different
+``PhotoGalleryAsset/ordinal`` and ``PhotoGalleryAsset/permalinkUrl``; the entry has no gallery
+identifier field, and only the permalink names the gallery. ``PhotoGalleryAsset/fileInfo`` is a
+``PhotoGalleryAsset/FileInfo`` with the file URL, media type, pixel dimensions, and
+``PhotoGalleryAsset/FileInfo/fileSizeKb``, the provider's number, such as `5428193` for a 2736 by
+3648 pixel `image/jpeg`, for which NPS documents no unit. ``PhotoGalleryAsset/constraintsInfo`` is
+an ``NPSConstraintsInfo`` of open text, and ``PhotoGalleryAsset/copyright`` is the provider's
+copyright text, which varies by asset and is kept as sent, including mis-encoded characters.
+Tags are strings, and parks are ``NPSRelatedPark`` values; either can be an empty array.
+
+Real responses were recorded on September 21, 2026.
+
 ### Places
 
 ``PlaceQuery`` describes all five documented places parameters: park codes, state codes, text
@@ -602,6 +633,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``PhotoGallery``
 - ``PhotoGalleryQuery``
+
+### Photo Gallery Assets
+
+- ``PhotoGalleryAsset``
+- ``PhotoGalleryAssetQuery``
 
 ### Places
 

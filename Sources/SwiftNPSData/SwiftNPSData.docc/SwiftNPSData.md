@@ -21,8 +21,8 @@ for try await park in client.parks(query: query) {
 ```
 
 Alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos,
-parks, people, photo galleries, places, road events, things to do, tours, visitor centers, and
-webcams are the implemented endpoint groups. The collection groups are built
+parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours,
+visitor centers, and webcams are the implemented endpoint groups. The collection groups are built
 on a generic collection core that executes any offset-paginated NPS collection the same way; park
 boundaries and road events are single responses.
 
@@ -299,6 +299,31 @@ let samePage = try await client.send(.photoGalleries(query: query))
 A gallery carries one preview image, not its contents, and the provider's asset count. Rights and
 usage constraints stay the provider's open text; upstream rights still apply.
 
+### Photo Gallery Assets
+
+``NPSDataClient/photoGalleryAssets(query:)`` and ``NPSDataClient/photoGalleryAssetPages(query:)``
+search `/multimedia/galleries/assets` by gallery identifiers, asset identifiers, park codes, state
+codes, text, and sorting. Each page is `NPSCollection<PhotoGalleryAsset>`. The live service sorts
+by `title` and answers another field such as `relevanceScore` with HTTP 400; fields are sent
+without validation:
+
+```swift
+let query = try PhotoGalleryAssetQuery(
+  galleryIdentifiers: [NPSIdentifier("1FFC7EF8-155D-4519-3ECC-B652E2E95E20")])
+for try await asset in client.photoGalleryAssets(query: query) {
+  print(asset.title, asset.fileInfo?.url ?? "")
+}
+let request = NPSDataRequest.photoGalleryAssets(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.photoGalleryAssets(query: query))
+```
+
+An uppercase gallery UUID returns that gallery's assets. The service matches identifiers case
+sensitively and ignores a value that is not UUID-shaped, returning every asset instead, so a
+mistyped identifier can yield the full collection rather than an error. An asset in several
+galleries appears once per gallery; the sequences do not deduplicate. File sizes are the
+provider's number, for which NPS documents no unit.
+
 ### Places
 
 ``NPSDataClient/places(query:)`` and ``NPSDataClient/placePages(query:)`` search `/places` by park
@@ -526,6 +551,11 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/photoGalleries(query:)``
 - ``NPSDataClient/photoGalleryPages(query:)``
+
+### Photo Gallery Assets
+
+- ``NPSDataClient/photoGalleryAssets(query:)``
+- ``NPSDataClient/photoGalleryAssetPages(query:)``
 
 ### Places
 

@@ -47,6 +47,14 @@ All notable changes are documented here. This project follows
   the shared NPSRelatedPark.
 - NPSConstraintsInfo, the rights and usage constraint text photo galleries carry, with
   `constraint` and `grantingRights` kept as open strings.
+- Photo gallery assets: PhotoGalleryAsset, PhotoGalleryAssetQuery,
+  Endpoint.photoGalleryAssets(query:), NPSDataRequest.photoGalleryAssets(query:), and the lazy
+  NPSDataClient.photoGalleryAssets(query:) and photoGalleryAssetPages(query:), with recorded
+  asset responses from `/multimedia/galleries/assets`. PhotoGalleryAssetQuery filters by gallery
+  identifiers sent as `galleryId` and asset identifiers sent as `id`, and sends sort fields
+  without validation; the live endpoint sorts by `title`. PhotoGalleryAsset keeps its file
+  details as PhotoGalleryAsset.FileInfo, whose `fileSizeKb` is the provider's number, for which
+  NPS documents no unit, and uses the shared NPSConstraintsInfo and NPSRelatedPark.
 
 ## [0.4.0] - 2026-09-20
 

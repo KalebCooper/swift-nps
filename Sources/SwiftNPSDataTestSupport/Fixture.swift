@@ -210,6 +210,28 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// HTTP 200. Recorded September 21, 2026.
   case photoGalleriesSearch = "galleries-search"
 
+  /// GET /api/v1/multimedia/galleries/assets?limit=1&parkCode=zzzz&start=0; HTTP 200 with no
+  /// matches. Recorded September 21, 2026.
+  case photoGalleryAssetsEmpty = "assets-empty"
+
+  /// GET
+  /// /api/v1/multimedia/galleries/assets?galleryId=1FFC7EF8-155D-4519-3ECC-B652E2E95E20&limit=2&start=0;
+  /// HTTP 200, the gallery's complete asset set. Recorded September 21, 2026.
+  case photoGalleryAssetsGallery = "assets-gallery"
+
+  /// GET /api/v1/multimedia/galleries/assets?limit=1&parkCode=cowp&start=0; HTTP 200.
+  /// Recorded September 21, 2026.
+  case photoGalleryAssetsPageFirst = "assets-page-first"
+
+  /// GET /api/v1/multimedia/galleries/assets?limit=1&parkCode=cowp&start=1; HTTP 200.
+  /// Recorded September 21, 2026.
+  case photoGalleryAssetsPageLast = "assets-page-last"
+
+  /// GET
+  /// /api/v1/multimedia/galleries/assets?limit=2&parkCode=heho&q=snow&sort=title&start=0&stateCode=IA;
+  /// HTTP 200. Recorded September 21, 2026.
+  case photoGalleryAssetsSearch = "assets-search"
+
   /// GET /api/v1/places?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 20, 2026.
   case placesEmpty = "places-empty"

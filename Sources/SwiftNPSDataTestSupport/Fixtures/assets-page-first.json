@@ -1,0 +1,42 @@
+{
+  "total": "301",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "83ADD5BA-4D24-4DB9-BDC6-10506A4E86CA",
+      "permalinkUrl": "https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=83ADD5BA-4D24-4DB9-BDC6-10506A4E86CA&gid=1BBC09C6-5953-4AF1-8081-C4F1D68C6DA3",
+      "title": "Continental soldiers firing muskets.",
+      "description": "Three living historians portraying Continental soldiers fire muskets at a historic weapons demonstration.",
+      "altText": "Three people dressed as Continental soldiers fire muskets in a cloud of smoke towards the woods.",
+      "fileInfo": {
+        "url": "https://www.nps.gov/npgallery/GetAsset/83ADD5BA-4D24-4DB9-BDC6-10506A4E86CA",
+        "fileType": "image/jpeg",
+        "widthPixels": 6000,
+        "heightPixels": 4000,
+        "fileSizeKb": 7712262
+      },
+      "relatedParks": [
+        {
+          "states": "SC",
+          "parkCode": "cowp",
+          "designation": "National Battlefield",
+          "fullName": "Cowpens National Battlefield",
+          "url": "https://www.nps.gov/cowp/index.htm",
+          "name": "Cowpens"
+        }
+      ],
+      "tags": [
+        "american revolution",
+        "cowpens 243rd"
+      ],
+      "credit": "NPS photo",
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Full"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.",
+      "ordinal": 1
+    }
+  ]
+}

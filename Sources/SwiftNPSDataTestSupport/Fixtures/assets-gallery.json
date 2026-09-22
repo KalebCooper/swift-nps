@@ -1,0 +1,71 @@
+{
+  "total": "2",
+  "limit": "2",
+  "start": "0",
+  "data": [
+    {
+      "id": "1FFC7F25-155D-4519-3E03-2F63E4D4DEF6",
+      "permalinkUrl": "https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=1FFC7F25-155D-4519-3E03-2F63E4D4DEF6&gid=1FFC7EF8-155D-4519-3ECC-B652E2E95E20",
+      "title": "Chaplain Offers Prayer",
+      "description": "Chaplain offers prayer",
+      "altText": "Chaplain offers prayer",
+      "fileInfo": {
+        "url": "https://www.nps.gov/npgallery/GetAsset/1FFC7F25-155D-4519-3E03-2F63E4D4DEF6",
+        "fileType": "image/jpeg",
+        "widthPixels": 800,
+        "heightPixels": 1200,
+        "fileSizeKb": 287785
+      },
+      "relatedParks": [
+        {
+          "states": "GU",
+          "parkCode": "wapa",
+          "designation": "National Historical Park",
+          "fullName": "War In The Pacific National Historical Park",
+          "url": "https://www.nps.gov/wapa/index.htm",
+          "name": "War In The Pacific"
+        }
+      ],
+      "tags": [],
+      "credit": "",
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Full"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.",
+      "ordinal": 1
+    },
+    {
+      "id": "1FFD9D01-155D-4519-3E22-7E6621EA92B3",
+      "permalinkUrl": "https://www.nps.gov/media/photo/gallery-item.htm?pg=1&id=1FFD9D01-155D-4519-3E22-7E6621EA92B3&gid=1FFC7EF8-155D-4519-3ECC-B652E2E95E20",
+      "title": "Colors",
+      "description": "Colors",
+      "altText": "Colors",
+      "fileInfo": {
+        "url": "https://www.nps.gov/npgallery/GetAsset/1FFD9D01-155D-4519-3E22-7E6621EA92B3",
+        "fileType": "image/jpeg",
+        "widthPixels": 1200,
+        "heightPixels": 800,
+        "fileSizeKb": 386052
+      },
+      "relatedParks": [
+        {
+          "states": "GU",
+          "parkCode": "wapa",
+          "designation": "National Historical Park",
+          "fullName": "War In The Pacific National Historical Park",
+          "url": "https://www.nps.gov/wapa/index.htm",
+          "name": "War In The Pacific"
+        }
+      ],
+      "tags": [],
+      "credit": "",
+      "constraintsInfo": {
+        "constraint": "Public domain",
+        "grantingRights": "Full"
+      },
+      "copyright": "Permission must be secured from the individual copyright owners to reproduce any copyrighted materials contained within this website. Digital assets without any copyright restrictions are public domain.",
+      "ordinal": 2
+    }
+  ]
+}

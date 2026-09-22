@@ -9,7 +9,7 @@ Find and browse parks through the National Park Service Data API.
 Released as 0.4.0, which covers eleven endpoint groups: alerts, amenities (with its park places
 and park visitor centers subgroups), campgrounds, park boundaries, parks, places, road events,
 things to do, tours, visitor centers, and webcams. Articles, news releases, park audio, park
-videos, people, and photo galleries are built and not yet released.
+videos, people, photo galleries, and photo gallery assets are built and not yet released.
 CHANGELOG lists what each release added.
 
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
@@ -32,6 +32,7 @@ rather than a collection.
 | People | Park codes, state codes, text search. | `peoplePages`, `people` | The endpoint answers a sort value with HTTP 400, so the query offers none; coordinates stay the provider's text, usually empty, and profiles stay HTML. |
 | Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
 | Photo galleries | Park codes, state codes, text search, sorting. | `photoGalleryPages`, `photoGalleries` | The live service sorts by `title` and answers other fields with HTTP 400; each gallery carries one preview image and the provider's asset count, and rights constraints stay open text. |
+| Photo gallery assets | Gallery identifiers, identifiers, park codes, state codes, text search, sorting. | `photoGalleryAssetPages`, `photoGalleryAssets` | The live service sorts by `title` and answers other fields with HTTP 400; a gallery or asset identifier that is not UUID-shaped is ignored and every asset comes back, an asset in several galleries appears once per gallery, and file sizes keep the provider's number, for which NPS documents no unit. |
 | Places | Park codes, state codes, text search. | `placePages`, `places` | The endpoint answers every sort value with HTTP 400, so the query offers none. |
 | Things to do | Identifiers, park codes, state codes, text search, sorting. | `thingToDoPages`, `thingsToDo` | NPS documents only `relevanceScore` as a sort field and answers others with HTTP 400. |
 | Tours | Identifiers, park codes, state codes, text search, sorting. | `tourPages`, `tours` | `relevanceScore` is the only sort field the live service accepts; each tour links one park; durations and stop ordinals stay provider text. |
@@ -139,8 +140,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people, photo galleries, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, article, campground, news release, park audio, park boundary, park video, park, person, photo gallery, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park videos, parks, people, photo galleries, photo gallery assets, places, road events, things to do, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; alert, amenity, article, campground, news release, park audio, park boundary, park video, park, person, photo gallery, photo gallery asset, place, road event, thing to do, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 
