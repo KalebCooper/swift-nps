@@ -328,6 +328,25 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 17, 2026.
   case thingsToDoSearch = "thingstodo-search"
 
+  /// GET /api/v1/topics/parks?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 22, 2026.
+  case topicParksEmpty = "topics-parks-empty"
+
+  /// GET /api/v1/topics/parks?id=28AEAE85-9DDA-45B6-981B-1CFCDCC61E14,
+  /// 7DA81DAB-5045-4953-9C20-36590AD9FA95&limit=1&parkCode=mamc&sort=-name&start=0; HTTP 200.
+  /// Recorded September 22, 2026.
+  case topicParksPageFirst = "topics-parks-page-first"
+
+  /// GET /api/v1/topics/parks?id=28AEAE85-9DDA-45B6-981B-1CFCDCC61E14,
+  /// 7DA81DAB-5045-4953-9C20-36590AD9FA95&limit=1&parkCode=mamc&sort=-name&start=1; HTTP 200.
+  /// Recorded September 22, 2026.
+  case topicParksPageLast = "topics-parks-page-last"
+
+  /// GET /api/v1/topics/parks?id=28AEAE85-9DDA-45B6-981B-1CFCDCC61E14,
+  /// 7DA81DAB-5045-4953-9C20-36590AD9FA95&limit=2&parkCode=acad,mamc&q=history&sort=-name&start=0;
+  /// HTTP 200. Recorded September 22, 2026.
+  case topicParksSearch = "topics-parks-search"
+
   /// GET /api/v1/tours?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 20, 2026.
   case toursEmpty = "tours-empty"

@@ -33,6 +33,13 @@ All notable changes are documented here. This project follows
   ordinary items with no flattening. ActivityParksQuery takes activity identifiers, park codes,
   text search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
   `stateCode`, and narrows each activity's `parks` to the requested park codes.
+- Topic parks: TopicParks, TopicParksQuery, Endpoint.topicParks(query:),
+  NPSDataRequest.topicParks(query:), and the lazy NPSDataClient.topicParks(query:) and
+  topicParkPages(query:), with recorded topic parks responses from `/topics/parks`. TopicParks
+  lists each topic's parks as NPSRelatedPark values in a plain array, iterated as ordinary items
+  with no flattening. TopicParksQuery takes topic identifiers, park codes, text search, and sort
+  fields sent without validation; the live endpoint sorts by `name`, ignores `stateCode`, and
+  narrows each topic's `parks` to the requested park codes.
 
 ## [0.5.0] - 2026-09-21
 

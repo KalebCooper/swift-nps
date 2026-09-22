@@ -1,0 +1,21 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "28AEAE85-9DDA-45B6-981B-1CFCDCC61E14",
+      "name": "African American Heritage",
+      "parks": [
+        {
+          "states": "DC",
+          "parkCode": "mamc",
+          "designation": "National Historic Site\r\n",
+          "fullName": "Mary McLeod Bethune Council House National Historic Site",
+          "url": "https://www.nps.gov/mamc/index.htm",
+          "name": "Mary McLeod Bethune Council House"
+        }
+      ]
+    }
+  ]
+}

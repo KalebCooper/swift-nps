@@ -7,8 +7,8 @@ Typed NPS collection responses, queries, and requests without a networking depen
 This module describes National Park Service Data API operations as values. Activity parks,
 alerts, amenities, articles, campgrounds, news releases, park audio, park boundaries, park fees
 and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets,
-places, road events, things to do, tours, visitor centers, and webcams are the implemented
-endpoint groups. Every offset-paginated one is built on a shared core: a validated
+places, road events, things to do, topic parks, tours, visitor centers, and webcams are the
+implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
 ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
 reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
 pagination. Construction performs no I/O, and this module never imports
@@ -562,6 +562,26 @@ The specification and real responses were checked on September 17, 2026. The spe
 integer, omits image descriptions, `credit`, and `amenities`, and says an invalid sort property is
 ignored; the live responses differ, and the model follows them.
 
+### Topic Parks
+
+``TopicParksQuery`` describes all six topic parks parameters: topic identifiers, park codes, text
+search, sort criteria, page limit, and start offset. The live service sorts by `name`, ascending
+or descending, and answers another field such as `fullName`, `parkCode`, or `relevanceScore` with
+HTTP 400; sort fields are still sent without validation. It ignores `stateCode`, so the query has
+none, and it ignores an identifier it does not recognize rather than matching nothing. Empty
+identifier, code, and sort arrays omit the parameter, and search text is preserved and percent
+encoded, including empty text. Topic parks pages are `NPSCollection<TopicParks>`, from
+``Endpoint/topicParks(query:)`` or ``NPSDataRequest/topicParks(query:)``.
+
+``TopicParks`` requires an identifier and a name, and lists the parks associated with that topic
+as ``NPSRelatedPark`` values in ``TopicParks/parks``, optional and in provider order. Each page's
+`data` is a plain array of topics, so pages iterate as ordinary items. Park codes both select the
+topics associated with those parks and narrow each topic's `parks` to the requested parks; without
+them, one topic can list more than a hundred parks. Park fields keep the provider's text as sent:
+one recorded park's `designation` ends with a carriage return and line feed.
+
+Real responses were recorded on September 22, 2026.
+
 ### Tours
 
 ``TourQuery`` describes all seven tours parameters: identifiers, park codes, state codes, text
@@ -774,6 +794,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``ThingToDo``
 - ``ThingToDoQuery``
+
+### Topic Parks
+
+- ``TopicParks``
+- ``TopicParksQuery``
 
 ### Tours
 

@@ -1,0 +1,21 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "7DA81DAB-5045-4953-9C20-36590AD9FA95",
+      "name": "Women's History",
+      "parks": [
+        {
+          "states": "DC",
+          "parkCode": "mamc",
+          "designation": "National Historic Site\r\n",
+          "fullName": "Mary McLeod Bethune Council House National Historic Site",
+          "url": "https://www.nps.gov/mamc/index.htm",
+          "name": "Mary McLeod Bethune Council House"
+        }
+      ]
+    }
+  ]
+}

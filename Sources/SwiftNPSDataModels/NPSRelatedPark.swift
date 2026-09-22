@@ -1,8 +1,8 @@
 /// A park summary NPS attaches to records from other endpoint groups.
 ///
-/// Places, things to do, and webcams list these under `relatedParks`, activity parks list them
-/// under `parks`, a tour links exactly one as its singular `park`, and the amenity park endpoints
-/// nest one inside each park entry. Every field is optional and kept as sent, including empty
+/// Places, things to do, and webcams list these under `relatedParks`, activity and topic parks
+/// list them under `parks`, a tour links exactly one as its singular `park`, and the amenity park
+/// endpoints nest one inside each park entry. Every field is optional and kept as sent, including empty
 /// strings; `states` stays the provider's comma-joined text and is not split or validated.
 ///
 /// ```swift

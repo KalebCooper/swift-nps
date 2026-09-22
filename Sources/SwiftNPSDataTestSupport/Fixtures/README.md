@@ -4,9 +4,10 @@ Recorded from the NPS Data API on September 13, 2026 (parks and the missing key)
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
 releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
-lots), and September 22, 2026 (activity parks and park fees and passes) using the application
-identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real response bodies,
-not examples copied from the specification. Tests read them locally and never contact NPS.
+lots), and September 22, 2026 (activity parks, park fees and passes, and topic parks) using the
+application identity `(swift-nps, https://github.com/KalebCooper/swift-nps)`. These are real
+response bodies, not examples copied from the specification. Tests read them locally and never
+contact NPS.
 
 | File | Exact request | HTTP status |
 | --- | --- | --- |
@@ -88,6 +89,10 @@ not examples copied from the specification. Tests read them locally and never co
 | thingstodo-page-first.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=0 | 200 |
 | thingstodo-page-last.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=1&parkCode=acad&sort=-relevanceScore&start=1 | 200 |
 | thingstodo-search.json | GET https://developer.nps.gov/api/v1/thingstodo?limit=2&q=hike&sort=-relevanceScore&start=0&stateCode=ME | 200 |
+| topics-parks-empty.json | GET https://developer.nps.gov/api/v1/topics/parks?limit=1&parkCode=zzzz&start=0 | 200 |
+| topics-parks-page-first.json | GET https://developer.nps.gov/api/v1/topics/parks?id=28AEAE85-9DDA-45B6-981B-1CFCDCC61E14,7DA81DAB-5045-4953-9C20-36590AD9FA95&limit=1&parkCode=mamc&sort=-name&start=0 | 200 |
+| topics-parks-page-last.json | GET https://developer.nps.gov/api/v1/topics/parks?id=28AEAE85-9DDA-45B6-981B-1CFCDCC61E14,7DA81DAB-5045-4953-9C20-36590AD9FA95&limit=1&parkCode=mamc&sort=-name&start=1 | 200 |
+| topics-parks-search.json | GET https://developer.nps.gov/api/v1/topics/parks?id=28AEAE85-9DDA-45B6-981B-1CFCDCC61E14,7DA81DAB-5045-4953-9C20-36590AD9FA95&limit=2&parkCode=acad,mamc&q=history&sort=-name&start=0 | 200 |
 | tours-empty.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=zzzz&start=0 | 200 |
 | tours-page-first.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=cavo&start=0 | 200 |
 | tours-page-last.json | GET https://developer.nps.gov/api/v1/tours?limit=1&parkCode=cavo&start=1 | 200 |
@@ -250,6 +255,13 @@ institutional NPS credit, one image shows unnamed visitors on a ranger-led tour,
 carries names of private individuals or personal contact details, so nothing was redacted.
 Decoded values were compared with the downloads and are identical.
 
+The topic parks recordings arrived with the same CRLF layout and are reindented the same way,
+keeping the provider's key order. They are ASCII only; the one JSON escape is the carriage return
+and line feed ending one park's `designation`, kept as written. The empty recording is
+byte-identical to the other empty recordings. The recordings name only topics and parks, with no
+people or contact details, so nothing was redacted. Decoded values were compared with the
+downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -335,6 +347,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | thingstodo-page-first.json | 84da2d8510aca676afc2d8fca68f82c358c3bf79c9687cf160304e8de1c14544 |
 | thingstodo-page-last.json | 844a678ac81713b3128ed806fad66718223cf39bd9c83d4e1efa37064fa55c50 |
 | thingstodo-search.json | df1700c73e585d46183566bcd56b9964bb7b0ca3def44c316af85428cac46731 |
+| topics-parks-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| topics-parks-page-first.json | 44afa2cb5adb74cb5fbca8c1a6c20ff04a26609f0e400befd0eace5a643b9676 |
+| topics-parks-page-last.json | 2e26944856fd547d408bd333b794256035e253ee6a33075c20960f7f6148fa89 |
+| topics-parks-search.json | d2135eb27989003ad307aed350fc572950db952bc0b22d742424dddfb5c49464 |
 | tours-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | tours-page-first.json | fcdc5d7a9ce2645424fa3493574e72e6339cd021b591e53593cb80fecc60725e |
 | tours-page-last.json | c5e2ab0840633bc7195de8158b213196af7d672140bac8c8770de1819daa0443 |
