@@ -211,25 +211,25 @@ struct ContentView: View {
     let text = searchText.isEmpty ? nil : searchText
     switch group {
     case .activities:
-      let query = try ActivityQuery(
+      let query = try ParkActivityQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
       return .pages(
-        DemoPager(pages: client.activityPages(query: query), query: query) {
+        DemoPager(pages: client.parkActivityPages(query: query), query: query) {
           ResultRow(detail: nil, title: $0.name)
         })
     case .activityParks:
-      let query = try ActivityParksQuery(
+      let query = try ParkActivityParksQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
       return .pages(
-        DemoPager(pages: client.activityParkPages(query: query), query: query) { activity in
+        DemoPager(pages: client.parkActivityParkPages(query: query), query: query) { activity in
           ResultRow(detail: relatedParkCodes(activity.parks), title: activity.name)
         })
     case .alerts:
-      let query = try AlertQuery(
+      let query = try ParkAlertQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
         stateCodes: parsedStateCodes())
       return .pages(
-        DemoPager(pages: client.alertPages(query: query), query: query) {
+        DemoPager(pages: client.parkAlertPages(query: query), query: query) {
           ResultRow(detail: $0.parkCode, title: $0.title)
         })
     case .amenities:
@@ -388,17 +388,17 @@ struct ContentView: View {
           ResultRow(detail: relatedParkCodes(thing.relatedParks), title: thing.title)
         })
     case .topicParks:
-      let query = try TopicParksQuery(
+      let query = try ParkTopicParksQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
       return .pages(
-        DemoPager(pages: client.topicParkPages(query: query), query: query) { topic in
+        DemoPager(pages: client.parkTopicParkPages(query: query), query: query) { topic in
           ResultRow(detail: relatedParkCodes(topic.parks), title: topic.name)
         })
     case .topics:
-      let query = try TopicQuery(
+      let query = try ParkTopicQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
       return .pages(
-        DemoPager(pages: client.topicPages(query: query), query: query) {
+        DemoPager(pages: client.parkTopicPages(query: query), query: query) {
           ResultRow(detail: nil, title: $0.name)
         })
     case .tours:

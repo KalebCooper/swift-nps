@@ -26,20 +26,20 @@ All notable changes are documented here. This project follows
   currency claimed, and SeasonDate keeps `day`, `holiday`, and `month` as sent, including the
   holiday-only form with a null day and month that a floating holiday such as Memorial Day cannot
   be derived from.
-- Activity parks: ActivityParks, ActivityParksQuery, Endpoint.activityParks(query:),
-  NPSDataRequest.activityParks(query:), and the lazy NPSDataClient.activityParks(query:) and
-  activityParkPages(query:), with recorded activity parks responses from `/activities/parks`.
-  ActivityParks lists each activity's parks as NPSRelatedPark values in a plain array, iterated as
-  ordinary items with no flattening. ActivityParksQuery takes activity identifiers, park codes,
-  text search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
-  `stateCode`, and narrows each activity's `parks` to the requested park codes.
-- Topic parks: TopicParks, TopicParksQuery, Endpoint.topicParks(query:),
-  NPSDataRequest.topicParks(query:), and the lazy NPSDataClient.topicParks(query:) and
-  topicParkPages(query:), with recorded topic parks responses from `/topics/parks`. TopicParks
-  lists each topic's parks as NPSRelatedPark values in a plain array, iterated as ordinary items
-  with no flattening. TopicParksQuery takes topic identifiers, park codes, text search, and sort
-  fields sent without validation; the live endpoint sorts by `name`, ignores `stateCode`, and
-  narrows each topic's `parks` to the requested park codes.
+- Activity parks: ParkActivityParks, ParkActivityParksQuery, Endpoint.parkActivityParks(query:),
+  NPSDataRequest.parkActivityParks(query:), and the lazy NPSDataClient.parkActivityParks(query:) and
+  parkActivityParkPages(query:), with recorded activity parks responses from `/activities/parks`.
+  ParkActivityParks lists each activity's parks as NPSRelatedPark values in a plain array, iterated
+  as ordinary items with no flattening. ParkActivityParksQuery takes activity identifiers, park
+  codes, text search, and sort fields sent without validation; the live endpoint sorts by `name`,
+  ignores `stateCode`, and narrows each activity's `parks` to the requested park codes.
+- Topic parks: ParkTopicParks, ParkTopicParksQuery, Endpoint.parkTopicParks(query:),
+  NPSDataRequest.parkTopicParks(query:), and the lazy NPSDataClient.parkTopicParks(query:) and
+  parkTopicParkPages(query:), with recorded topic parks responses from `/topics/parks`.
+  ParkTopicParks lists each topic's parks as NPSRelatedPark values in a plain array, iterated as
+  ordinary items with no flattening. ParkTopicParksQuery takes topic identifiers, park codes, text
+  search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
+  `stateCode`, and narrows each topic's `parks` to the requested park codes.
 - Lesson plans: LessonPlan, LessonPlan.CommonCore, LessonPlanQuery, Endpoint.lessonPlans(query:),
   NPSDataRequest.lessonPlans(query:), and the lazy NPSDataClient.lessonPlans(query:) and
   lessonPlanPages(query:), with recorded lesson plans responses from `/lessonplans`.
@@ -47,19 +47,20 @@ All notable changes are documented here. This project follows
   fields sent without validation; the live endpoint sorts by `title`, ignores an unrecognized
   identifier rather than matching nothing, and does not narrow each plan's `parks` by the
   requested park codes.
-- Activities: Activity, ActivityQuery, Endpoint.activities(query:),
-  NPSDataRequest.activities(query:), and the lazy NPSDataClient.activities(query:) and
-  activityPages(query:), with recorded activities responses from `/activities`. Activity keeps
-  only an identifier and a name, with its own type rather than ActivityParks or NPSNamedItem, and
-  no nested parks. ActivityQuery takes activity identifiers, park codes, text search, and sort
-  fields sent without validation; the live endpoint sorts by `name`, ignores `stateCode`, and
-  filters activities by park code with nothing to narrow.
-- Topics: Topic, TopicQuery, Endpoint.topics(query:), NPSDataRequest.topics(query:), and the lazy
-  NPSDataClient.topics(query:) and topicPages(query:), with recorded topics responses from
-  `/topics`. Topic keeps only an identifier and a name, with its own type rather than TopicParks
-  or NPSNamedItem, and no nested parks. TopicQuery takes topic identifiers, park codes, text
+- Activities: ParkActivity, ParkActivityQuery, Endpoint.parkActivities(query:),
+  NPSDataRequest.parkActivities(query:), and the lazy NPSDataClient.parkActivities(query:) and
+  parkActivityPages(query:), with recorded activities responses from `/activities`. ParkActivity
+  keeps only an identifier and a name, with its own type rather than ParkActivityParks or
+  NPSNamedItem, and no nested parks. ParkActivityQuery takes activity identifiers, park codes, text
   search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
-  `stateCode`, and filters topics by park code with nothing to narrow.
+  `stateCode`, and filters activities by park code with nothing to narrow.
+- Topics: ParkTopic, ParkTopicQuery, Endpoint.parkTopics(query:), NPSDataRequest.parkTopics(query:),
+and the lazy
+  NPSDataClient.parkTopics(query:) and parkTopicPages(query:), with recorded topics responses from
+  `/topics`. ParkTopic keeps only an identifier and a name, with its own type rather than
+  ParkTopicParks or NPSNamedItem, and no nested parks. ParkTopicQuery takes topic identifiers, park
+  codes, text search, and sort fields sent without validation; the live endpoint sorts by `name`,
+  ignores `stateCode`, and filters topics by park code with nothing to narrow.
 - Passport stamp locations: PassportStampLocation, PassportStampLocationQuery,
   Endpoint.passportStampLocations(query:), NPSDataRequest.passportStampLocations(query:), and the
   lazy NPSDataClient.passportStampLocations(query:) and passportStampLocationPages(query:), with
@@ -71,6 +72,12 @@ All notable changes are documented here. This project follows
 - Parking lots, park fees and passes, passport stamp locations, activities, activity parks,
   topics, topic parks, and lesson plans in the iOS demo's group picker, each with search and
   paging. Activities, activity parks, topics, and topic parks take park codes without state codes.
+
+### Changed
+
+- Rename AlertQuery to ParkAlertQuery, NPSDataClient.alerts(query:) and alertPages(query:) to
+  parkAlerts(query:) and parkAlertPages(query:), and Endpoint.alerts(query:) and
+  NPSDataRequest.alerts(query:) to parkAlerts(query:), matching ParkAlert.
 
 ## [0.5.0] - 2026-09-21
 

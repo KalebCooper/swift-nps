@@ -15,9 +15,9 @@ import SwiftNPSDataModels
 /// authentication and errors.
 ///
 /// Every collection group offers a matching pair of lazy conveniences, such as
-/// ``alertPages(query:)``/``alerts(query:)`` and ``parkPages(query:)``/``parks(query:)``, or use
-/// ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or redirects are
-/// performed automatically.
+/// ``parkAlertPages(query:)``/``parkAlerts(query:)`` and ``parkPages(query:)``/``parks(query:)``,
+/// or use ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or redirects
+/// are performed automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration

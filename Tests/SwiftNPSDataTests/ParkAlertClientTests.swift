@@ -16,7 +16,7 @@ struct ParkAlertClientTests {
         .success(.ok(json: Fixture.alertsPageFirst.data())),
         .success(.ok(json: Fixture.alertsPageLast.data())),
       ])
-    let sequence = try makeClient(transport).alerts(query: makeQuery())
+    let sequence = try makeClient(transport).parkAlerts(query: makeQuery())
     let _: NPSItemSequence<ParkAlert> = sequence
     var iterator = sequence.makeAsyncIterator()
     #expect(transport.requests.isEmpty)
@@ -35,7 +35,7 @@ struct ParkAlertClientTests {
     let first = try Fixture.alertsPageFirst.data()
     let last = try Fixture.alertsPageLast.data()
     let transport = MockTransport(results: [.success(.ok(json: first)), .success(.ok(json: last))])
-    let sequence = try makeClient(transport).alertPages(query: makeQuery())
+    let sequence = try makeClient(transport).parkAlertPages(query: makeQuery())
     let _: NPSPageSequence<ParkAlert> = sequence
     var iterator = sequence.makeAsyncIterator()
     #expect(transport.requests.isEmpty)
@@ -60,14 +60,14 @@ struct ParkAlertClientTests {
   func anEmptyAlertPageEndsIterationWithoutAnotherRequest(_ items: Bool) async throws {
     let transport = MockTransport(results: [.success(.ok(json: try Fixture.alertsEmpty.data()))])
     let client = try makeClient(transport)
-    let query = try AlertQuery(limit: 1, parkCodes: [ParkCode("zzzz")])
+    let query = try ParkAlertQuery(limit: 1, parkCodes: [ParkCode("zzzz")])
     if items {
       var alerts: [ParkAlert] = []
-      for try await alert in client.alerts(query: query) { alerts.append(alert) }
+      for try await alert in client.parkAlerts(query: query) { alerts.append(alert) }
       #expect(alerts.isEmpty)
     } else {
       var pages: [NPSCollection<ParkAlert>] = []
-      for try await page in client.alertPages(query: query) { pages.append(page) }
+      for try await page in client.parkAlertPages(query: query) { pages.append(page) }
       #expect(pages.map(\.total) == ["0"])
       #expect(pages.first?.data.isEmpty == true)
     }
@@ -80,9 +80,9 @@ struct ParkAlertClientTests {
     let body = try Fixture.alertsSearch.data()
     let transport = MockTransport(results: [.success(.ok(json: body)), .success(.ok(json: body))])
     let client = try makeClient(transport)
-    let query = try AlertQuery(limit: 2, parkCodes: [ParkCode("acad"), ParkCode("yell")])
-    let reusable = try await client.value(for: .alerts(query: query))
-    let endpoint = try await client.send(.alerts(query: query))
+    let query = try ParkAlertQuery(limit: 2, parkCodes: [ParkCode("acad"), ParkCode("yell")])
+    let reusable = try await client.value(for: .parkAlerts(query: query))
+    let endpoint = try await client.send(.parkAlerts(query: query))
     #expect(reusable == endpoint)
     #expect(reusable.data.map(\.parkCode) == ["acad", "yell"])
     #expect(
@@ -97,7 +97,7 @@ struct ParkAlertClientTests {
       configuration: try NPSDataConfiguration(apiKey: "private-test-key"), transport: transport)
   }
 
-  private func makeQuery() throws -> AlertQuery {
-    try AlertQuery(limit: 1, parkCodes: [ParkCode("acad")])
+  private func makeQuery() throws -> ParkAlertQuery {
+    try ParkAlertQuery(limit: 1, parkCodes: [ParkCode("acad")])
   }
 }

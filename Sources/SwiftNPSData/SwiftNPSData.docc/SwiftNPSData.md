@@ -81,40 +81,41 @@ when the provider reports more results.
 
 ### Activities
 
-``NPSDataClient/activities(query:)`` and ``NPSDataClient/activityPages(query:)`` search
+``NPSDataClient/parkActivities(query:)`` and ``NPSDataClient/parkActivityPages(query:)`` search
 `/activities` by activity identifiers, park codes, text, and sorting. Each page is
-`NPSCollection<Activity>`. The live service sorts by `name`, ascending or descending, and answers
-another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without validation:
-
-```swift
-let query = try ActivityQuery(parkCodes: [ParkCode("drto")], sort: [.ascending("name")])
-for try await activity in client.activities(query: query) {
-  print(activity.name)
-}
-let request = NPSDataRequest.activities(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.activities(query: query))
-```
-
-Unlike `/activities/parks`, a page carries no nested parks; use
-``NPSDataClient/activityParks(query:)`` to see which parks offer an activity.
-
-### Activity Parks
-
-``NPSDataClient/activityParks(query:)`` and ``NPSDataClient/activityParkPages(query:)`` search
-`/activities/parks` by activity identifiers, park codes, text, and sorting. Each page is
-`NPSCollection<ActivityParks>`. The live service sorts by `name`, ascending or descending, and
+`NPSCollection<ParkActivity>`. The live service sorts by `name`, ascending or descending, and
 answers another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without
 validation:
 
 ```swift
-let query = try ActivityParksQuery(parkCodes: [ParkCode("drto")], sort: [.ascending("name")])
-for try await activity in client.activityParks(query: query) {
+let query = try ParkActivityQuery(parkCodes: [ParkCode("drto")], sort: [.ascending("name")])
+for try await activity in client.parkActivities(query: query) {
+  print(activity.name)
+}
+let request = NPSDataRequest.parkActivities(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.parkActivities(query: query))
+```
+
+Unlike `/activities/parks`, a page carries no nested parks; use
+``NPSDataClient/parkActivityParks(query:)`` to see which parks offer an activity.
+
+### Activity Parks
+
+``NPSDataClient/parkActivityParks(query:)`` and ``NPSDataClient/parkActivityParkPages(query:)``
+search `/activities/parks` by activity identifiers, park codes, text, and sorting. Each page is
+`NPSCollection<ParkActivityParks>`. The live service sorts by `name`, ascending or descending, and
+answers another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without
+validation:
+
+```swift
+let query = try ParkActivityParksQuery(parkCodes: [ParkCode("drto")], sort: [.ascending("name")])
+for try await activity in client.parkActivityParks(query: query) {
   print(activity.name, activity.parks?.compactMap(\.parkCode) ?? [])
 }
-let request = NPSDataRequest.activityParks(query: query)
+let request = NPSDataRequest.parkActivityParks(query: query)
 let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.activityParks(query: query))
+let samePage = try await client.send(.parkActivityParks(query: query))
 ```
 
 Park codes narrow each activity's `parks` to the requested parks as well as selecting the
@@ -122,18 +123,18 @@ activities, which keeps pages small; an unfiltered activity can list more than a
 
 ### Alerts
 
-``NPSDataClient/alerts(query:)`` and ``NPSDataClient/alertPages(query:)`` read `/alerts` by park
-codes, state codes, and text. Each page is `NPSCollection<ParkAlert>`, and alerts arrive in the
+``NPSDataClient/parkAlerts(query:)`` and ``NPSDataClient/parkAlertPages(query:)`` read `/alerts` by
+park codes, state codes, and text. Each page is `NPSCollection<ParkAlert>`, and alerts arrive in the
 provider's order, since NPS documents no alerts sorting:
 
 ```swift
-let query = try AlertQuery(parkCodes: [ParkCode("acad"), ParkCode("yell")])
-for try await alert in client.alerts(query: query) {
+let query = try ParkAlertQuery(parkCodes: [ParkCode("acad"), ParkCode("yell")])
+for try await alert in client.parkAlerts(query: query) {
   print(alert.category ?? "", alert.title)
 }
-let request = NPSDataRequest.alerts(query: query)
+let request = NPSDataRequest.parkAlerts(query: query)
 let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.alerts(query: query))
+let samePage = try await client.send(.parkAlerts(query: query))
 ```
 
 Alerts describe current park conditions as NPS publishes them; the package makes no freshness
@@ -524,19 +525,20 @@ booking service.
 
 ### Topic Parks
 
-``NPSDataClient/topicParks(query:)`` and ``NPSDataClient/topicParkPages(query:)`` search
+``NPSDataClient/parkTopicParks(query:)`` and ``NPSDataClient/parkTopicParkPages(query:)`` search
 `/topics/parks` by topic identifiers, park codes, text, and sorting. Each page is
-`NPSCollection<TopicParks>`. The live service sorts by `name`, ascending or descending, and answers
-another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without validation:
+`NPSCollection<ParkTopicParks>`. The live service sorts by `name`, ascending or descending, and
+answers another field such as `fullName` or `parkCode` with HTTP 400; fields are sent without
+validation:
 
 ```swift
-let query = try TopicParksQuery(parkCodes: [ParkCode("mamc")], sort: [.ascending("name")])
-for try await topic in client.topicParks(query: query) {
+let query = try ParkTopicParksQuery(parkCodes: [ParkCode("mamc")], sort: [.ascending("name")])
+for try await topic in client.parkTopicParks(query: query) {
   print(topic.name, topic.parks?.compactMap(\.parkCode) ?? [])
 }
-let request = NPSDataRequest.topicParks(query: query)
+let request = NPSDataRequest.parkTopicParks(query: query)
 let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.topicParks(query: query))
+let samePage = try await client.send(.parkTopicParks(query: query))
 ```
 
 Park codes narrow each topic's `parks` to the requested parks as well as selecting the topics,
@@ -544,22 +546,22 @@ which keeps pages small; an unfiltered topic can list more than a hundred parks.
 
 ### Topics
 
-``NPSDataClient/topics(query:)`` and ``NPSDataClient/topicPages(query:)`` search `/topics` by
-topic identifiers, park codes, text, and sorting. Each page is `NPSCollection<Topic>`. The live
-service sorts by `name`, ascending or descending, and answers another field such as `fullName` or
-`parkCode` with HTTP 400; fields are sent without validation:
+``NPSDataClient/parkTopics(query:)`` and ``NPSDataClient/parkTopicPages(query:)`` search `/topics`
+by topic identifiers, park codes, text, and sorting. Each page is `NPSCollection<ParkTopic>`. The
+live service sorts by `name`, ascending or descending, and answers another field such as `fullName`
+or `parkCode` with HTTP 400; fields are sent without validation:
 
 ```swift
-let query = try TopicQuery(parkCodes: [ParkCode("mamc")], sort: [.ascending("name")])
-for try await topic in client.topics(query: query) {
+let query = try ParkTopicQuery(parkCodes: [ParkCode("mamc")], sort: [.ascending("name")])
+for try await topic in client.parkTopics(query: query) {
   print(topic.name)
 }
-let request = NPSDataRequest.topics(query: query)
+let request = NPSDataRequest.parkTopics(query: query)
 let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.topics(query: query))
+let samePage = try await client.send(.parkTopics(query: query))
 ```
 
-Unlike `/topics/parks`, a page carries no nested parks; use ``NPSDataClient/topicParks(query:)``
+Unlike `/topics/parks`, a page carries no nested parks; use ``NPSDataClient/parkTopicParks(query:)``
 to see which parks relate to a topic.
 
 ### Tours
@@ -648,18 +650,18 @@ The package makes no freshness or completeness guarantee.
 
 ### Activities
 
-- ``NPSDataClient/activities(query:)``
-- ``NPSDataClient/activityPages(query:)``
+- ``NPSDataClient/parkActivities(query:)``
+- ``NPSDataClient/parkActivityPages(query:)``
 
 ### Activity Parks
 
-- ``NPSDataClient/activityParks(query:)``
-- ``NPSDataClient/activityParkPages(query:)``
+- ``NPSDataClient/parkActivityParks(query:)``
+- ``NPSDataClient/parkActivityParkPages(query:)``
 
 ### Alerts
 
-- ``NPSDataClient/alerts(query:)``
-- ``NPSDataClient/alertPages(query:)``
+- ``NPSDataClient/parkAlerts(query:)``
+- ``NPSDataClient/parkAlertPages(query:)``
 
 ### Amenities
 
@@ -777,13 +779,13 @@ The package makes no freshness or completeness guarantee.
 
 ### Topic Parks
 
-- ``NPSDataClient/topicParks(query:)``
-- ``NPSDataClient/topicParkPages(query:)``
+- ``NPSDataClient/parkTopicParks(query:)``
+- ``NPSDataClient/parkTopicParkPages(query:)``
 
 ### Topics
 
-- ``NPSDataClient/topics(query:)``
-- ``NPSDataClient/topicPages(query:)``
+- ``NPSDataClient/parkTopics(query:)``
+- ``NPSDataClient/parkTopicPages(query:)``
 
 ### Tours
 

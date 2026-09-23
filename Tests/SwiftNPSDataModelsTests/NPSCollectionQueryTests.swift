@@ -34,7 +34,7 @@ struct NPSCollectionQueryTests {
       NPSCollection<ParkAlert>.self, from: Fixture.alertsPageLast.data())
     let empty = try JSONDecoder().decode(
       NPSCollection<ParkAlert>.self, from: Fixture.alertsEmpty.data())
-    let query = try AlertQuery(
+    let query = try ParkAlertQuery(
       limit: 1, parkCodes: [ParkCode("acad")], searchText: "closure", stateCodes: [StateCode("ME")])
     let following = try #require(try query.next(after: first))
     #expect(following.start == 1)
@@ -43,7 +43,7 @@ struct NPSCollectionQueryTests {
     #expect(following.searchText == "closure")
     #expect(following.stateCodes == query.stateCodes)
     #expect(try following.next(after: last)?.start == 2)
-    #expect(try AlertQuery(limit: 1).next(after: empty) == nil)
+    #expect(try ParkAlertQuery(limit: 1).next(after: empty) == nil)
   }
 
   @Test("Recorded amenity pages advance without changing query options")

@@ -9,40 +9,6 @@ struct NPSCollectionQueryContinuationTests {
     "Every collection query keeps its filters and sort and advances by the returned count",
     arguments: [
       ContinuationCase(
-        try ActivityParksQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 3),
-        page: .activityParksSearch,
-        expected: try ActivityParksQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 4),
-        items: [
-          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
-          ("sort", ["name", "-title"]), ("start", ["4"]),
-        ]),
-      ContinuationCase(
-        try ActivityQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 3),
-        page: .activitiesSearch,
-        expected: try ActivityQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 4),
-        items: [
-          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
-          ("sort", ["name", "-title"]), ("start", ["4"]),
-        ]),
-      ContinuationCase(
-        try AlertQuery(
-          limit: 7, parkCodes: parks(), searchText: "trail", start: 3, stateCodes: states()),
-        page: .alertsSearch,
-        expected: try AlertQuery(
-          limit: 7, parkCodes: parks(), searchText: "trail", start: 5, stateCodes: states()),
-        items: [
-          ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]), ("start", ["5"]),
-          ("stateCode", ["ME", "WY"]),
-        ]),
-      ContinuationCase(
         try AmenityParkPlacesQuery(
           identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
           sort: sort(), start: 3),
@@ -119,6 +85,40 @@ struct NPSCollectionQueryContinuationTests {
           ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
         ]),
       ContinuationCase(
+        try ParkActivityParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3),
+        page: .activityParksSearch,
+        expected: try ParkActivityParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 4),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["4"]),
+        ]),
+      ContinuationCase(
+        try ParkActivityQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3),
+        page: .activitiesSearch,
+        expected: try ParkActivityQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 4),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["4"]),
+        ]),
+      ContinuationCase(
+        try ParkAlertQuery(
+          limit: 7, parkCodes: parks(), searchText: "trail", start: 3, stateCodes: states()),
+        page: .alertsSearch,
+        expected: try ParkAlertQuery(
+          limit: 7, parkCodes: parks(), searchText: "trail", start: 5, stateCodes: states()),
+        items: [
+          ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]), ("start", ["5"]),
+          ("stateCode", ["ME", "WY"]),
+        ]),
+      ContinuationCase(
         try ParkAudioQuery(
           limit: 7, parkCodes: parks(), searchText: "trail", sort: sort(), start: 3,
           stateCodes: states()),
@@ -165,6 +165,30 @@ struct NPSCollectionQueryContinuationTests {
         items: [
           ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
           ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
+        ]),
+      ContinuationCase(
+        try ParkTopicParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3),
+        page: .topicParksSearch,
+        expected: try ParkTopicParksQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 4),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["4"]),
+        ]),
+      ContinuationCase(
+        try ParkTopicQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3),
+        page: .topicsSearch,
+        expected: try ParkTopicQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 4),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["4"]),
         ]),
       ContinuationCase(
         try ParkVideoQuery(
@@ -246,30 +270,6 @@ struct NPSCollectionQueryContinuationTests {
         items: [
           ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
           ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
-        ]),
-      ContinuationCase(
-        try TopicParksQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 3),
-        page: .topicParksSearch,
-        expected: try TopicParksQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 4),
-        items: [
-          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
-          ("sort", ["name", "-title"]), ("start", ["4"]),
-        ]),
-      ContinuationCase(
-        try TopicQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 3),
-        page: .topicsSearch,
-        expected: try TopicQuery(
-          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
-          sort: sort(), start: 4),
-        items: [
-          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
-          ("sort", ["name", "-title"]), ("start", ["4"]),
         ]),
       ContinuationCase(
         try TourQuery(

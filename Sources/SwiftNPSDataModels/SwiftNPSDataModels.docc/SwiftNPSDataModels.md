@@ -123,37 +123,37 @@ declare, and ``NPSRelatedOrganization`` is the linked organization ``Place``, ``
 
 ### Activities
 
-``ActivityQuery`` describes all six activities parameters: activity identifiers, park codes,
+``ParkActivityQuery`` describes all six activities parameters: activity identifiers, park codes,
 text search, sort criteria, page limit, and start offset. The live service sorts by `name`,
 ascending or descending, and answers another field such as `fullName`, `parkCode`, or
 `relevanceScore` with HTTP 400; sort fields are still sent without validation. It ignores
 `stateCode`, so the query has none, and it ignores an identifier it does not recognize rather
 than matching nothing. Empty identifier, code, and sort arrays omit the parameter, and search text
 is preserved and percent encoded, including empty text. Activities pages are
-`NPSCollection<Activity>`, from ``Endpoint/activities(query:)`` or
-``NPSDataRequest/activities(query:)``.
+`NPSCollection<ParkActivity>`, from ``Endpoint/parkActivities(query:)`` or
+``NPSDataRequest/parkActivities(query:)``.
 
-``Activity`` requires only an identifier and a name. It keeps its own type rather than reusing
+``ParkActivity`` requires only an identifier and a name. It keeps its own type rather than reusing
 ``NPSNamedItem`` because activities are an independent taxonomy the provider can extend on its
-own schedule, and a caller should see what the collection holds. Unlike ``ActivityParks``, a page
-of activities carries no nested parks.
+own schedule, and a caller should see what the collection holds. Unlike ``ParkActivityParks``, a
+page of activities carries no nested parks.
 
 Real responses were recorded on September 22, 2026.
 
 ### Activity Parks
 
-``ActivityParksQuery`` describes all six activity parks parameters: activity identifiers, park
+``ParkActivityParksQuery`` describes all six activity parks parameters: activity identifiers, park
 codes, text search, sort criteria, page limit, and start offset. The live service sorts by `name`,
 ascending or descending, and answers another field such as `fullName`, `parkCode`, or
 `relevanceScore` with HTTP 400; sort fields are still sent without validation. It ignores
 `stateCode`, so the query has none, and it ignores an identifier it does not recognize rather
 than matching nothing. Empty identifier, code, and sort arrays omit the parameter, and search text
 is preserved and percent encoded, including empty text. Activity parks pages are
-`NPSCollection<ActivityParks>`, from ``Endpoint/activityParks(query:)`` or
-``NPSDataRequest/activityParks(query:)``.
+`NPSCollection<ParkActivityParks>`, from ``Endpoint/parkActivityParks(query:)`` or
+``NPSDataRequest/parkActivityParks(query:)``.
 
-``ActivityParks`` requires an identifier and a name, and lists the parks offering that activity
-as ``NPSRelatedPark`` values in ``ActivityParks/parks``, optional and in provider order. Unlike
+``ParkActivityParks`` requires an identifier and a name, and lists the parks offering that activity
+as ``NPSRelatedPark`` values in ``ParkActivityParks/parks``, optional and in provider order. Unlike
 the amenity park endpoints, each page's `data` is a plain array of activities rather than
 per-group arrays, so pages iterate as ordinary items. Park codes both select the activities
 offered at those parks and narrow each activity's `parks` to the requested parks; without them,
@@ -163,11 +163,11 @@ Real responses were recorded on September 22, 2026.
 
 ### Alerts
 
-``AlertQuery`` describes all five documented alerts parameters: park codes, state codes, text
+``ParkAlertQuery`` describes all five documented alerts parameters: park codes, state codes, text
 search, page limit, and start offset. NPS documents no alerts sort parameter, so the query has
 none. Empty code arrays omit the filter, and search text is preserved and percent encoded,
 including empty text. Alerts pages are `NPSCollection<ParkAlert>`, from
-``Endpoint/alerts(query:)`` or ``NPSDataRequest/alerts(query:)``.
+``Endpoint/parkAlerts(query:)`` or ``NPSDataRequest/parkAlerts(query:)``.
 
 ``ParkAlert`` requires an identifier and title; other documented fields remain optional, and
 unknown JSON fields are ignored. The category stays an open string, although NPS documents
@@ -630,38 +630,39 @@ ignored; the live responses differ, and the model follows them.
 
 ### Topic Parks
 
-``TopicParksQuery`` describes all six topic parks parameters: topic identifiers, park codes, text
-search, sort criteria, page limit, and start offset. The live service sorts by `name`, ascending
-or descending, and answers another field such as `fullName`, `parkCode`, or `relevanceScore` with
-HTTP 400; sort fields are still sent without validation. It ignores `stateCode`, so the query has
-none, and it ignores an identifier it does not recognize rather than matching nothing. Empty
-identifier, code, and sort arrays omit the parameter, and search text is preserved and percent
-encoded, including empty text. Topic parks pages are `NPSCollection<TopicParks>`, from
-``Endpoint/topicParks(query:)`` or ``NPSDataRequest/topicParks(query:)``.
+``ParkTopicParksQuery`` describes all six topic parks parameters: topic identifiers, park codes,
+text search, sort criteria, page limit, and start offset. The live service sorts by `name`,
+ascending or descending, and answers another field such as `fullName`, `parkCode`, or
+`relevanceScore` with HTTP 400; sort fields are still sent without validation. It ignores
+`stateCode`, so the query has none, and it ignores an identifier it does not recognize rather than
+matching nothing. Empty identifier, code, and sort arrays omit the parameter, and search text is
+preserved and percent encoded, including empty text. Topic parks pages are
+`NPSCollection<ParkTopicParks>`, from ``Endpoint/parkTopicParks(query:)`` or
+``NPSDataRequest/parkTopicParks(query:)``.
 
-``TopicParks`` requires an identifier and a name, and lists the parks associated with that topic
-as ``NPSRelatedPark`` values in ``TopicParks/parks``, optional and in provider order. Each page's
-`data` is a plain array of topics, so pages iterate as ordinary items. Park codes both select the
-topics associated with those parks and narrow each topic's `parks` to the requested parks; without
-them, one topic can list more than a hundred parks. Park fields keep the provider's text as sent:
-one recorded park's `designation` ends with a carriage return and line feed.
+``ParkTopicParks`` requires an identifier and a name, and lists the parks associated with that topic
+as ``NPSRelatedPark`` values in ``ParkTopicParks/parks``, optional and in provider order. Each
+page's `data` is a plain array of topics, so pages iterate as ordinary items. Park codes both select
+the topics associated with those parks and narrow each topic's `parks` to the requested parks;
+without them, one topic can list more than a hundred parks. Park fields keep the provider's text as
+sent: one recorded park's `designation` ends with a carriage return and line feed.
 
 Real responses were recorded on September 22, 2026.
 
 ### Topics
 
-``TopicQuery`` describes all six topics parameters: topic identifiers, park codes, text search,
+``ParkTopicQuery`` describes all six topics parameters: topic identifiers, park codes, text search,
 sort criteria, page limit, and start offset. The live service sorts by `name`, ascending or
 descending, and answers another field such as `fullName`, `parkCode`, or `relevanceScore` with
 HTTP 400; sort fields are still sent without validation. It ignores `stateCode`, so the query has
 none, and it ignores an identifier it does not recognize rather than matching nothing. Empty
 identifier, code, and sort arrays omit the parameter, and search text is preserved and percent
-encoded, including empty text. Topics pages are `NPSCollection<Topic>`, from
-``Endpoint/topics(query:)`` or ``NPSDataRequest/topics(query:)``.
+encoded, including empty text. Topics pages are `NPSCollection<ParkTopic>`, from
+``Endpoint/parkTopics(query:)`` or ``NPSDataRequest/parkTopics(query:)``.
 
-``Topic`` requires only an identifier and a name. It keeps its own type rather than reusing
+``ParkTopic`` requires only an identifier and a name. It keeps its own type rather than reusing
 ``NPSNamedItem`` because topics are an independent taxonomy the provider can extend on its own
-schedule, and a caller should see what the collection holds. Unlike ``TopicParks``, a page of
+schedule, and a caller should see what the collection holds. Unlike ``ParkTopicParks``, a page of
 topics carries no nested parks.
 
 Real responses were recorded on September 22, 2026.
@@ -744,17 +745,17 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 ### Activities
 
-- ``Activity``
-- ``ActivityQuery``
+- ``ParkActivity``
+- ``ParkActivityQuery``
 
 ### Activity Parks
 
-- ``ActivityParks``
-- ``ActivityParksQuery``
+- ``ParkActivityParks``
+- ``ParkActivityParksQuery``
 
 ### Alerts
 
-- ``AlertQuery``
+- ``ParkAlertQuery``
 - ``ParkAlert``
 
 ### Amenities
@@ -896,13 +897,13 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 ### Topic Parks
 
-- ``TopicParks``
-- ``TopicParksQuery``
+- ``ParkTopicParks``
+- ``ParkTopicParksQuery``
 
 ### Topics
 
-- ``Topic``
-- ``TopicQuery``
+- ``ParkTopic``
+- ``ParkTopicQuery``
 
 ### Tours
 
