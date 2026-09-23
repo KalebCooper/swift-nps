@@ -297,7 +297,8 @@ struct ContentView: View {
       return .pages(
         DemoPager(pages: client.parkFeesAndPassesPages(query: query), query: query) { park in
           ResultRow(
-            detail: "Fees: \(park.fees?.count ?? 0), passes: \(park.passes?.count ?? 0)",
+            detail: "Fees: \(park.fees.map(\.count.description) ?? "n/a"), "
+              + "passes: \(park.passes.map(\.count.description) ?? "n/a")",
             title: park.parkCode)
         })
     case .parkingLots:

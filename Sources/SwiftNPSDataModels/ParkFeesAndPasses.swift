@@ -207,7 +207,7 @@ public struct ParkFeesAndPasses: Codable, Hashable, Sendable {
   ///
   /// ```swift
   /// var calendar = Calendar(identifier: .gregorian)
-  /// calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+  /// calendar.timeZone = .gmt
   /// if let start = fee.startDate?.date(in: 2026, calendar: calendar) {
   ///   print(start)
   /// }

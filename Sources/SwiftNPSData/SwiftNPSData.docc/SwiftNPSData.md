@@ -290,7 +290,7 @@ error envelope, so it surfaces as ``NPSDataError/transport(_:)`` holding the HTT
 and its original body. Boundary geometry is published cartographic data, not a survey or a legal
 record.
 
-### Park Fees And Passes
+### Park Fees and Passes
 
 ``NPSDataClient/parkFeesAndPasses(query:)`` and ``NPSDataClient/parkFeesAndPassesPages(query:)``
 search `/feespasses` by park codes, state codes, text, and sorting. Each page is
@@ -720,7 +720,7 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/parkBoundary(parkCode:)``
 
-### Park Fees And Passes
+### Park Fees and Passes
 
 - ``NPSDataClient/parkFeesAndPasses(query:)``
 - ``NPSDataClient/parkFeesAndPassesPages(query:)``

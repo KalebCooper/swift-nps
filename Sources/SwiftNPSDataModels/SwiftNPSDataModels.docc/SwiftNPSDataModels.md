@@ -341,7 +341,7 @@ data, not a survey or a legal record.
 
 Real responses were recorded on September 20, 2026.
 
-### Park Fees And Passes
+### Park Fees and Passes
 
 ``ParkFeesAndPassesQuery`` describes all six fees and passes parameters: park codes, state codes,
 text search, sort criteria, page limit, and start offset. The live service sorts by `parkCode` and
@@ -416,7 +416,7 @@ keys, including the misspelled `numberofAdaVanAccessbileSpaces`, in conventional
 properties. ``ParkingLot/LiveStatus`` is the provider's status report, which is stale and not
 guaranteed to be current: ``ParkingLot/LiveStatus/occupancy`` and
 ``ParkingLot/LiveStatus/expirationDate`` are usually empty and are kept as sent.
-``ParkingLot/latitude`` and ``ParkingLot/longitude`` are JSON numbers or `null`. Contacts, fees,
+``ParkingLot/latitude`` and ``ParkingLot/longitude`` are JSON numbers. Contacts, fees,
 and operating hours reuse the shared ``NPSContacts``, ``NPSFee``, and ``NPSOperatingHours``
 shapes. Parks are ``NPSRelatedPark`` values.
 
@@ -816,7 +816,7 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkBoundaryDetails``
 - ``ParkBoundaryFeature``
 
-### Park Fees And Passes
+### Park Fees and Passes
 
 - ``ParkFeesAndPasses``
 - ``ParkFeesAndPassesQuery``

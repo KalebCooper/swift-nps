@@ -1,5 +1,6 @@
 extension Endpoint where Response == NPSCollection<ParkFeesAndPasses> {
-  /// Describes one fees and passes page with filters, text search, sorting, and explicit pagination.
+  /// Describes one fees and passes page with filters, text search, sorting, and explicit
+  /// pagination.
   ///
   /// ```swift
   /// let query = try ParkFeesAndPassesQuery(

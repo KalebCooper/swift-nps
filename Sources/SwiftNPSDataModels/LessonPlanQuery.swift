@@ -36,7 +36,8 @@ public struct LessonPlanQuery: NPSCollectionQuery {
   public let parkCodes: [ParkCode]
   /// The exact text sent as `q`, or nil to omit text search.
   public let searchText: String?
-  /// Sort criteria in priority order; empty uses the provider's default order.
+  /// Sort criteria in priority order; empty uses the provider's default order, which matches
+  /// `title` ascending.
   ///
   /// The live endpoint sorts by `title`, ascending or descending, and answers HTTP 400 for other
   /// fields such as `name`, `parkCode`, and `relevanceScore`. Fields are sent without validation.

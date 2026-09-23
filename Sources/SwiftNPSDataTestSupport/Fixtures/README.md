@@ -131,9 +131,9 @@ Every successful recording sent its credential in the `X-Api-Key` header. The pa
 visitor centers recordings used the service's public demonstration credential, which reported a
 limit of 10. The campgrounds, things to do, and amenities recordings, the park boundaries, places,
 road events, tours, and webcams recordings made on September 20, and every recording made on
-September 21, used the maintainer's private key, which reported a limit of 1,000. No request headers
-or credentials are stored. The missing-key recording deliberately omitted that header. Response
-ordering is retained, rather than alphabetized, to preserve the provider's representation.
+September 21 or 22, used the maintainer's private key, which reported a limit of 1,000. No request
+headers or credentials are stored. The missing-key recording deliberately omitted that header.
+Response ordering is retained, rather than alphabetized, to preserve the provider's representation.
 
 JSON whitespace is normalized to LF without trailing blanks. The Unicode em dash in Yellowstone
 is written as the JSON escape `\u2014` to satisfy repository text rules. Decoded JSON was compared
@@ -258,11 +258,9 @@ are identical.
 
 The activities recordings arrived with the same CRLF layout and are reindented the same way,
 keeping the provider's key order. They are ASCII only, with no JSON escapes. The empty recording
-is byte-identical to the other empty recordings. Swagger documents no sort or park-code parameter
-for `/activities`, but the live endpoint accepts `sort=name`/`-name` (HTTP 400 on other fields) and
-`parkCode` narrows the returned activities, so `ActivityQuery` sends both. The recordings name only
-activities, with no people or contact details, so nothing was redacted. Decoded values were
-compared with the downloads and are identical.
+is byte-identical to the other empty recordings. The recordings name only activities, with no
+people or contact details, so nothing was redacted. Decoded values were compared with the
+downloads and are identical.
 
 The activity parks recordings arrived with the same CRLF layout and are reindented the same way,
 keeping the provider's key order. They are ASCII only, with no JSON escapes. The empty recording
@@ -297,11 +295,9 @@ downloads and are identical.
 
 The topics recordings arrived with the same CRLF layout and are reindented the same way, keeping
 the provider's key order. They are ASCII only, with no JSON escapes. The empty recording is
-byte-identical to the other empty recordings. Swagger documents no sort or park-code parameter for
-`/topics`, but the live endpoint accepts `sort=name`/`-name` (HTTP 400 on other fields) and
-`parkCode` narrows the returned topics, so `TopicQuery` sends both. The recordings name only
-topics, with no people or contact details, so nothing was redacted. Decoded values were compared
-with the downloads and are identical.
+byte-identical to the other empty recordings. The recordings name only topics, with no people or
+contact details, so nothing was redacted. Decoded values were compared with the downloads and are
+identical.
 
 The passport stamp locations recordings arrived with the same CRLF layout and are reindented the
 same way, keeping the provider's key order. They are ASCII only; the search recording keeps the
@@ -687,6 +683,76 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
   `url`, and `name`, plus `places` (`title`, `id`, `url`) or lowercase `visitorcenters` (`id`,
   `url`, `name`). The acad pages report totals 59 and 27, and their `start=1` pages are the second
   group, not the collection's last. Park and visitor center links mix `http` and `https` as sent.
+- The live parking lots body uses the same envelope. `/parkinglots` accepts parkCode, stateCode,
+  q, limit, and start; the specification lists no sort and no id. The live endpoint answers `name`,
+  `-name`, `parkCode`, and `-parkCode` with HTTP 200, and `title`, `relevanceScore`, and an unknown
+  field with HTTP 400 and an empty envelope. `id=ZZZ` is accepted and answered the same bytes as
+  `sort=name`. The specification types `latitude` and `longitude` as strings; a scan of all 608
+  lots found JSON numbers every time. The accessibility keys, including the spelling
+  `numberofAdaVanAccessbileSpaces`, match the specification, and their values are integers.
+- The live park fees and passes body uses the same envelope. `/feespasses` accepts parkCode,
+  stateCode, q, sort, limit, and start. The specification spells the state parameter `statecode`,
+  but `stateCode=WY` filters. The specification lists no id, and `id=ZZZ` answers the unfiltered
+  page byte for byte; `parkCode=zzzz` answers an empty HTTP 200. No sort, `sort=parkCode`, and
+  `sort=fullName` answer identical bytes, `-parkCode` and `-fullName` answer bytes that differ from
+  those and from each other, and `-parkCode,fullName` answers HTTP 200, while `name`,
+  `relevanceScore`, `isFeeFreePark`, `-isFeeFreePark,parkCode`, and an unknown field answer HTTP
+  400. A scan of 474 records confirms that the live body differs from the specification's schema:
+  `entrancePassesDescription` is `entrancePassDescription`; `contentOrderOrdinals` is an object of
+  four integers (`customFee`, `entranceFee`, `paidParking`, `timedEntry`) rather than a string;
+  all 544 fees send `npsGovPurchaseUrl` and none sends `purchaseUrl`; and all 3 multi-site passes
+  send `image` rather than `images`, with no `purchaseLocations`.
+- The live activity parks body uses the same envelope. The specification lists id, q, sort, limit,
+  and start for `/activities/parks`, and no parkCode. The live endpoint accepts `parkCode`: it
+  filters the activities and narrows each activity's `parks` to the requested parks (`acad` reports
+  total 24 of 40, each listing only acad), and `zzzz` answers an empty HTTP 200. `stateCode=WY` and
+  `id=ZZZ` answer the unfiltered page byte for byte, so both are ignored, while a real id filters.
+  `sort=name` answers the same bytes as no sort and `-name` answers HTTP 200, while `fullName`,
+  `parkCode`, `relevanceScore`, `id`, and an unknown field answer HTTP 400 with an empty envelope.
+  The specification's `parks` items are the same six string fields as `NPSRelatedPark`.
+- The live topic parks body uses the same envelope. `/topics/parks` answers every probe the way
+  `/activities/parks` does: the specification lists no parkCode, the live `parkCode` filters and
+  narrows each topic's `parks` (`acad` reports total 20 of 83), `zzzz` answers an empty HTTP 200,
+  `stateCode` and `id=ZZZ` are ignored, and the sort results match. `q=wildlife` reports total 0,
+  and `q=animals` and `q=history` report 1 each. mamc sends `designation` as
+  `"National Historic Site\r\n"`, and all three fixtures carry it as sent.
+- The live lesson plans body uses the same envelope. `/lessonplans` accepts parkCode, stateCode,
+  q, sort, limit, and start, and also `id`, which the specification omits: a real id reports total
+  1, and `id=ZZZ` answers the unfiltered page byte for byte. No sort, `sort=title`, and `id=ZZZ`
+  answer identical bytes, so the default order is title ascending; `-title` answers HTTP 200, and
+  `relevanceScore`, `name`, `parkCode`, and an unknown field answer HTTP 400. `parkCode` filters
+  without narrowing `parks` (`yell` reports 13), and `zzzz` answers an empty HTTP 200;
+  `stateCode=WY` reports 23 and `q=volcano` 21. The specification's keys are lowercase
+  (`commoncore`, `gradelevel`, `questionobjective`, and the `commoncore` members `statestandards`,
+  `mathstandards`, `elastandards`, and `additionalstandards`), while the live keys are camelCase
+  (`commonCore`, `gradeLevel`, `questionObjective`, `stateStandards`, `mathStandards`,
+  `elaStandards`, and `additionalStandards`). The specification types `subject` as a string, and
+  the live body sends an array. `parks` is an array of strings in both.
+- The live activities body uses the same envelope. The specification lists id, q, sort, limit, and
+  start for `/activities`, and no parkCode. The live endpoint accepts `parkCode`: it filters the
+  activities (`acad` reports total 24 of 40) with nothing to narrow, and `zzzz` answers an empty
+  HTTP 200. `stateCode=WY` and `id=ZZZ` answer the unfiltered page byte for byte, so both are
+  ignored, while a real id filters. `sort=name` answers the same bytes as no sort and `-name`
+  answers HTTP 200, while `fullName`, `parkCode`, `relevanceScore`, `id`, and an unknown field
+  answer HTTP 400 with an empty envelope.
+- The live topics body uses the same envelope. The specification lists id, q, sort, limit, and
+  start for `/topics`, and no parkCode. The live endpoint accepts `parkCode`: it filters the
+  topics (`acad` reports total 20 of 83) with nothing to narrow, and `zzzz` answers an empty HTTP
+  200. `stateCode` and `id=ZZZ` are ignored, while a real id filters. `sort=name` answers the same
+  bytes as no sort and `-name` answers HTTP 200, while `fullName`, `parkCode`, `relevanceScore`,
+  `id`, and an unknown field answer HTTP 400 with an empty envelope. `q=hiking` reports total 0.
+- The live passport stamp locations body uses the same envelope. `/passportstamplocations`
+  accepts parkCode, stateCode, q, limit, and start, and also `sort` and `id`, which the
+  specification omits. A real id filters, a two-id list reports 2, and `id=ZZZ` answers the
+  unfiltered page byte for byte. No sort and `sort=name` answer identical bytes, ordered by
+  `label`, and `-name` answers HTTP 200. `sort=parkCode` and `-parkCode` answer HTTP 200 with
+  identical bytes, which differ from the unsorted request when two parks are named, so no ordering
+  by park is established. `label`, `-label`, `title`, `relevanceScore`, `fullName`, `type`, `id`,
+  and an unknown field answer HTTP 400. `parkCode` filters without narrowing `parks`, and `zzzz`
+  answers an empty HTTP 200; `stateCode=WY` filters (50), and `q` also matches park-side text. The
+  specification's data keys (`label`, `id`, `type`, `parks`) match the live body. mamc's
+  `designation` ends in a carriage return and line feed, and the search fixture carries it as
+  sent.
 - The guide supports `X-Api-Key` as well as the query key represented in the Swagger security
   definition. The SDK uses the header exclusively and refuses redirects.
 - The guide documents HTTP 429 for rate limiting, and limits can vary. The public demonstration

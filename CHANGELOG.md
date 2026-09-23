@@ -25,7 +25,9 @@ All notable changes are documented here. This project follows
   `parkCode` and `fullName`. ParkFeesAndPasses keeps `cost` as the provider's text with no
   currency claimed, and SeasonDate keeps `day`, `holiday`, and `month` as sent, including the
   holiday-only form with a null day and month that a floating holiday such as Memorial Day cannot
-  be derived from.
+  be derived from. SeasonDate.dateComponents and SeasonDate.date(in:calendar:) give the month and
+  day, or that day in a caller-supplied year and calendar, and return nil for the holiday-only form
+  or a day that does not exist.
 - Activity parks: ParkActivityParks, ParkActivityParksQuery, Endpoint.parkActivityParks(query:),
   NPSDataRequest.parkActivityParks(query:), and the lazy NPSDataClient.parkActivityParks(query:) and
   parkActivityParkPages(query:), with recorded activity parks responses from `/activities/parks`.

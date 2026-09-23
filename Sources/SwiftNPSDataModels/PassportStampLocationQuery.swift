@@ -86,7 +86,8 @@ public struct PassportStampLocationQuery: NPSCollectionQuery {
     self.stateCodes = copy.stateCodes
   }
 
-  /// The passport stamp locations parameters for this page, omitting empty identifier, code, and sort arrays.
+  /// The passport stamp locations parameters for this page, omitting empty identifier, code, and
+  /// sort arrays.
   public var queryItems: [NPSQueryItem] {
     var items: [NPSQueryItem] = []
     if !identifiers.isEmpty {
