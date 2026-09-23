@@ -1,0 +1,60 @@
+{
+  "total": "3",
+  "limit": "3",
+  "start": "0",
+  "data": [
+    {
+      "id": "37139FC2-8292-4A60-95E7-26178E03C2D2",
+      "label": "Mary McLeod Bethune Council House National Historic Site",
+      "parks": [
+        {
+          "states": "DC",
+          "parkCode": "mamc",
+          "designation": "National Historic Site\r\n",
+          "fullName": "Mary McLeod Bethune Council House National Historic Site",
+          "url": "https://www.nps.gov/mamc/index.htm",
+          "name": "Mary McLeod Bethune Council House"
+        }
+      ],
+      "type": "visitorcenters"
+    },
+    {
+      "id": "78B129E9-F9C3-436F-B3D7-B455F880E2EF",
+      "label": "Casa Grande Ruins National Monument",
+      "parks": [
+        {
+          "states": "AZ",
+          "parkCode": "cagr",
+          "designation": "National Monument",
+          "fullName": "Casa Grande Ruins National Monument",
+          "url": "https://www.nps.gov/cagr/index.htm",
+          "name": "Casa Grande Ruins"
+        }
+      ],
+      "type": "visitorcenters"
+    },
+    {
+      "id": "44D6BE84-330B-493C-A1F6-A592497ACA6E",
+      "label": "Casa Grande Ruins",
+      "parks": [
+        {
+          "states": "AZ",
+          "parkCode": "cagr",
+          "designation": "National Monument",
+          "fullName": "Casa Grande Ruins National Monument",
+          "url": "https://www.nps.gov/cagr/index.htm",
+          "name": "Casa Grande Ruins"
+        },
+        {
+          "states": "AZ,CA",
+          "parkCode": "juba",
+          "designation": "National Historic Trail",
+          "fullName": "Juan Bautista de Anza National Historic Trail",
+          "url": "https://www.nps.gov/juba/index.htm",
+          "name": "Juan Bautista de Anza"
+        }
+      ],
+      "type": "places"
+    }
+  ]
+}

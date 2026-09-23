@@ -21,9 +21,9 @@ for try await park in client.parks(query: query) {
 ```
 
 Activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases,
-park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo
-galleries, photo gallery assets, places, road events, things to do, topic parks, topics, tours,
-visitor centers, and webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
+park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport
+stamp locations, people, photo galleries, photo gallery assets, places, road events, things to do,
+topic parks, topics, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
 executes any offset-paginated NPS collection the same way; park boundaries and road events are
 single responses.
 
@@ -371,6 +371,30 @@ let anotherPage = try await client.send(.parks(parkCode: code))
 An unknown code can return an empty data array. No first result is selected, no next page is
 fetched, and no retries or redirects are performed.
 
+### Passport Stamp Locations
+
+``NPSDataClient/passportStampLocations(query:)`` and
+``NPSDataClient/passportStampLocationPages(query:)`` search `/passportstamplocations` by location
+identifiers, park codes, state codes, text, and sorting. Each page is
+`NPSCollection<PassportStampLocation>`. The live service orders by label for `name`, ascending or
+descending, accepts `parkCode` with no observed ordering, and answers `label`, `title`,
+`relevanceScore`, `fullName`, `type`, `id`, and unknown fields with HTTP 400; fields are sent
+without validation:
+
+```swift
+let query = try PassportStampLocationQuery(
+  parkCodes: [ParkCode("cato")], sort: [.ascending("name")])
+for try await location in client.passportStampLocations(query: query) {
+  print(location.label)
+}
+let request = NPSDataRequest.passportStampLocations(query: query)
+let firstPage = try await client.value(for: request)
+let samePage = try await client.send(.passportStampLocations(query: query))
+```
+
+Park codes select the locations related to those parks without narrowing each location's `parks`,
+and an unrecognized park code returns an empty page.
+
 ### People
 
 ``NPSDataClient/people(query:)`` and ``NPSDataClient/personPages(query:)`` search `/people` by
@@ -716,6 +740,11 @@ The package makes no freshness or completeness guarantee.
 - ``NPSDataClient/parks(for:)``
 - ``NPSDataClient/parkPages(for:)``
 - ``NPSDataClient/parks(parkCode:)``
+
+### Passport Stamp Locations
+
+- ``NPSDataClient/passportStampLocations(query:)``
+- ``NPSDataClient/passportStampLocationPages(query:)``
 
 ### People
 

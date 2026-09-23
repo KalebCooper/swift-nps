@@ -10,8 +10,8 @@ Released as 0.5.0, which covers eighteen endpoint groups: alerts, amenities (wit
 and park visitor centers subgroups), articles, campgrounds, news releases, park audio, park
 boundaries, park videos, parks, people, photo galleries, photo gallery assets, places, road
 events, things to do, tours, visitor centers, and webcams. Activities, activity parks, lesson
-plans, parking lots, park fees and passes, topic parks, and topics are built and not yet
-released. CHANGELOG lists what each release added.
+plans, parking lots, park fees and passes, passport stamp locations, topic parks, and topics
+are built and not yet released. CHANGELOG lists what each release added.
 
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
 envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
@@ -36,6 +36,7 @@ rather than a collection.
 | Park videos | Park codes, state codes, text search, sorting. | `parkVideoPages`, `parkVideos` | The live service sorts by `title` and answers other fields with HTTP 400; accessibility flags stay Booleans, and file sizes keep the provider's number or null, for which NPS documents no unit. |
 | Parking lots | Park codes, state codes, text search, sorting. | `parkingLotPages`, `parkingLots` | The live service sorts by `name` and `parkCode` and answers other fields with HTTP 400; live status fields stay as sent, are stale, and are not guaranteed to be current. |
 | Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
+| Passport stamp locations | Identifiers, park codes, state codes, text search, sorting. | `passportStampLocationPages`, `passportStampLocations` | The live service orders by label for `name`, accepts `parkCode` with no observed ordering, and answers the other fields it was probed with using HTTP 400; park codes select locations without narrowing each location's `parks`, the type stays open text, and an unrecognized identifier is ignored rather than matching nothing. |
 | People | Park codes, state codes, text search. | `personPages`, `people` | The endpoint answers `sort=title` and `sort=lastName` with HTTP 400, so the query offers no sort; coordinates stay the provider's text, usually empty, and profiles stay HTML. |
 | Photo galleries | Park codes, state codes, text search, sorting. | `photoGalleryPages`, `photoGalleries` | The live service sorts by `title` and answers other fields with HTTP 400; each gallery carries one preview image and the provider's asset count, and rights constraints stay open text. |
 | Photo gallery assets | Gallery identifiers, identifiers, park codes, state codes, text search, sorting. | `photoGalleryAssetPages`, `photoGalleryAssets` | The live service sorts by `title` and answers other fields with HTTP 400; a gallery or asset identifier that is not UUID-shaped is ignored and every asset comes back, an asset in several galleries appears once per gallery, and file sizes keep the provider's number, for which NPS documents no unit. |
@@ -151,8 +152,8 @@ duplicate local-package resolution in Xcode.
 
 | Product | Status | Dependencies |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries, photo gallery assets, places, road events, things to do, topic parks, topics, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; activity, activity parks, alert, amenity, article, campground, lesson plan, news release, park audio, park boundary, park fees and passes, park video, parking lot, park, person, photo gallery, photo gallery asset, place, road event, thing to do, topic, topic parks, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport stamp locations, people, photo galleries, photo gallery assets, places, road events, things to do, topic parks, topics, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; activity, activity parks, alert, amenity, article, campground, lesson plan, news release, park audio, park boundary, park fees and passes, park video, parking lot, park, passport stamp location, person, photo gallery, photo gallery asset, place, road event, thing to do, topic, topic parks, tour, visitor center, webcam, and shared detail models. | None. |
 
 ## Requirements
 

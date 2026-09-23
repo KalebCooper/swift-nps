@@ -1,0 +1,22 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "1",
+  "data": [
+    {
+      "id": "9EE76DDC-80AB-4283-BCE9-F85952ED03E1",
+      "label": "Camp Misty Mount",
+      "parks": [
+        {
+          "states": "MD",
+          "parkCode": "cato",
+          "designation": "Park",
+          "fullName": "Catoctin Mountain Park",
+          "url": "https://www.nps.gov/cato/index.htm",
+          "name": "Catoctin Mountain"
+        }
+      ],
+      "type": "campgrounds"
+    }
+  ]
+}

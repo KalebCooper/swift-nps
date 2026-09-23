@@ -60,6 +60,14 @@ All notable changes are documented here. This project follows
   or NPSNamedItem, and no nested parks. TopicQuery takes topic identifiers, park codes, text
   search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
   `stateCode`, and filters topics by park code with nothing to narrow.
+- Passport stamp locations: PassportStampLocation, PassportStampLocationQuery,
+  Endpoint.passportStampLocations(query:), NPSDataRequest.passportStampLocations(query:), and the
+  lazy NPSDataClient.passportStampLocations(query:) and passportStampLocationPages(query:), with
+  recorded responses from `/passportstamplocations`. PassportStampLocation keeps an identifier, a
+  label, its related parks, and an open-text type. PassportStampLocationQuery takes location
+  identifiers, park codes, state codes, text search, and sort fields sent without validation; the
+  live endpoint orders `name` by label, ignores an unrecognized identifier rather than matching
+  nothing, and does not narrow each location's `parks` by the requested park codes.
 
 ## [0.5.0] - 2026-09-21
 

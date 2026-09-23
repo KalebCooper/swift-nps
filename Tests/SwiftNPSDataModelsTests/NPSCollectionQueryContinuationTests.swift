@@ -179,6 +179,18 @@ struct NPSCollectionQueryContinuationTests {
           ("sort", ["name", "-title"]), ("start", ["5"]), ("stateCode", ["ME", "WY"]),
         ]),
       ContinuationCase(
+        try PassportStampLocationQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 3, stateCodes: states()),
+        page: .passportStampLocationsSearch,
+        expected: try PassportStampLocationQuery(
+          identifiers: identifiers(), limit: 7, parkCodes: parks(), searchText: "trail",
+          sort: sort(), start: 6, stateCodes: states()),
+        items: [
+          ("id", ["A1", "B2"]), ("limit", ["7"]), ("parkCode", ["acad", "yell"]), ("q", ["trail"]),
+          ("sort", ["name", "-title"]), ("start", ["6"]), ("stateCode", ["ME", "WY"]),
+        ]),
+      ContinuationCase(
         try PersonQuery(
           limit: 7, parkCodes: parks(), searchText: "trail", start: 3, stateCodes: states()),
         page: .peopleSearch,

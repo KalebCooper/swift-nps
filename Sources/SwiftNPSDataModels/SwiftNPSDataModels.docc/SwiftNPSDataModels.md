@@ -6,9 +6,9 @@ Typed NPS collection responses, queries, and requests without a networking depen
 
 This module describes National Park Service Data API operations as values. Activities, activity
 parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
-boundaries, park fees and passes, park videos, parking lots, parks, people, photo galleries,
-photo gallery assets, places, road events, things to do, topic parks, topics, tours, visitor
-centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
+boundaries, park fees and passes, park videos, parking lots, parks, passport stamp locations,
+people, photo galleries, photo gallery assets, places, road events, things to do, topic parks,
+topics, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
 ``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
 reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
 pagination. Construction performs no I/O, and this module never imports
@@ -448,6 +448,29 @@ and real responses were checked on September 13, 2026. Its outer parks array dec
 not match the live object envelope. The live recordings confirm the envelope and nested objects;
 the schema's illustrative examples also differ in places from its property definitions.
 
+### Passport Stamp Locations
+
+``PassportStampLocationQuery`` describes all seven passport stamp locations parameters: location
+identifiers, park codes, state codes, text search, sort criteria, page limit, and start offset.
+The live service orders by label for `name`, ascending or descending, and its default order
+matches `name` ascending. It accepts `parkCode`, ascending or descending, with no observed
+ordering, and answers `label`, `title`, `relevanceScore`, `fullName`, `type`, `id`, and unknown
+fields with HTTP 400; sort fields are still sent without validation. It ignores an identifier it
+does not recognize rather than matching nothing. Text search also matches text on a location's
+related parks, not only its label. Empty identifier, code, and sort arrays omit the parameter,
+and search text is preserved and percent encoded, including empty text. Passport stamp locations
+pages are `NPSCollection<PassportStampLocation>`, from ``Endpoint/passportStampLocations(query:)``
+or ``NPSDataRequest/passportStampLocations(query:)``.
+
+``PassportStampLocation`` requires an identifier and a label. ``PassportStampLocation/type`` is
+open text: a full scan observed only `visitorcenters`, `places`, and `campgrounds`, and other
+values pass through unchanged. ``PassportStampLocation/parks`` lists ``NPSRelatedPark`` values,
+optional and in provider order, and can be empty. Park codes select locations without narrowing
+this array, so a location related to several parks keeps all of them. One recorded park's
+`designation` ends with a carriage return and line feed.
+
+Real responses were recorded on September 22, 2026.
+
 ### People
 
 ``PersonQuery`` describes all five people parameters: park codes, state codes, text search, page
@@ -813,6 +836,11 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``ParkCode``
 - ``ParkQuery``
 - ``StateCode``
+
+### Passport Stamp Locations
+
+- ``PassportStampLocation``
+- ``PassportStampLocationQuery``
 
 ### People
 

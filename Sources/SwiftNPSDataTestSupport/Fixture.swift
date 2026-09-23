@@ -264,6 +264,24 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// HTTP 200. Recorded September 21, 2026.
   case parkVideosSearch = "videos-search"
 
+  /// GET /api/v1/passportstamplocations?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
+  /// Recorded September 22, 2026.
+  case passportStampLocationsEmpty = "passportstamplocations-empty"
+
+  /// GET /api/v1/passportstamplocations?id=74C8535F-4F9C-411F-B3F1-AE14E8C14AA2,
+  /// 9EE76DDC-80AB-4283-BCE9-F85952ED03E1&limit=1&parkCode=cato&sort=-name&start=0;
+  /// HTTP 200. Recorded September 22, 2026.
+  case passportStampLocationsPageFirst = "passportstamplocations-page-first"
+
+  /// GET /api/v1/passportstamplocations?id=74C8535F-4F9C-411F-B3F1-AE14E8C14AA2,
+  /// 9EE76DDC-80AB-4283-BCE9-F85952ED03E1&limit=1&parkCode=cato&sort=-name&start=1;
+  /// HTTP 200. Recorded September 22, 2026.
+  case passportStampLocationsPageLast = "passportstamplocations-page-last"
+
+  /// GET /api/v1/passportstamplocations?limit=3&parkCode=cagr,mamc&q=national&sort=-name&start=0
+  /// &stateCode=AZ,DC; HTTP 200. Recorded September 22, 2026.
+  case passportStampLocationsSearch = "passportstamplocations-search"
+
   /// GET /api/v1/people?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 21, 2026.
   case peopleEmpty = "people-empty"

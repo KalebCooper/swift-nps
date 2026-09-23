@@ -5,7 +5,7 @@ Recorded from the NPS Data API on September 13, 2026 (parks and the missing key)
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news
 releases, park audio, park videos, people, photo galleries, photo gallery assets, and parking
 lots), and September 22, 2026 (activities, activity parks, lesson plans, park fees and passes,
-topic parks, and topics) using the application identity
+passport stamp locations, topic parks, and topics) using the application identity
 `(swift-nps, https://github.com/KalebCooper/swift-nps)`.
 These are real response bodies, not examples copied from the specification. Tests read them
 locally and never contact NPS.
@@ -82,6 +82,10 @@ locally and never contact NPS.
 | parks-page-last.json | GET https://developer.nps.gov/api/v1/parks?limit=1&parkCode=acad,yell&sort=parkCode&start=1 | 200 |
 | parks-search.json | GET https://developer.nps.gov/api/v1/parks?limit=2&q=history&sort=-relevanceScore&start=0&stateCode=ME,MA | 200 |
 | parks-yell.json | GET https://developer.nps.gov/api/v1/parks?parkCode=yell&limit=1&start=0 | 200 |
+| passportstamplocations-empty.json | GET https://developer.nps.gov/api/v1/passportstamplocations?limit=1&parkCode=zzzz&start=0 | 200 |
+| passportstamplocations-page-first.json | GET https://developer.nps.gov/api/v1/passportstamplocations?id=74C8535F-4F9C-411F-B3F1-AE14E8C14AA2,9EE76DDC-80AB-4283-BCE9-F85952ED03E1&limit=1&parkCode=cato&sort=-name&start=0 | 200 |
+| passportstamplocations-page-last.json | GET https://developer.nps.gov/api/v1/passportstamplocations?id=74C8535F-4F9C-411F-B3F1-AE14E8C14AA2,9EE76DDC-80AB-4283-BCE9-F85952ED03E1&limit=1&parkCode=cato&sort=-name&start=1 | 200 |
+| passportstamplocations-search.json | GET https://developer.nps.gov/api/v1/passportstamplocations?limit=3&parkCode=cagr,mamc&q=national&sort=-name&start=0&stateCode=AZ,DC | 200 |
 | people-empty.json | GET https://developer.nps.gov/api/v1/people?limit=1&parkCode=zzzz&start=0 | 200 |
 | people-page-first.json | GET https://developer.nps.gov/api/v1/people?limit=1&parkCode=yell&start=0 | 200 |
 | people-page-last.json | GET https://developer.nps.gov/api/v1/people?limit=1&parkCode=yell&start=1 | 200 |
@@ -299,6 +303,13 @@ byte-identical to the other empty recordings. Swagger documents no sort or park-
 topics, with no people or contact details, so nothing was redacted. Decoded values were compared
 with the downloads and are identical.
 
+The passport stamp locations recordings arrived with the same CRLF layout and are reindented the
+same way, keeping the provider's key order. They are ASCII only; the search recording keeps the
+one JSON escape the provider sent, the `\r\n` ending one park's `designation`. The empty recording
+is byte-identical to the other empty recordings. The recordings name only locations and parks,
+with no people or contact details, so nothing was redacted. Decoded values were compared with the
+downloads and are identical.
+
 The parks pagination and search recordings additionally escape non-ASCII characters using JSON
 Unicode escapes. Their decoded values were compared with the downloads and are identical.
 
@@ -376,6 +387,10 @@ SHA-256 of the original downloaded bodies, before whitespace normalization and l
 | parks-page-last.json | 76e1eeea6fde0f15c64aab4f073f068002f1dde043b332aa197725798da0f8d2 |
 | parks-search.json | 1302400226103d947077e3d10908462b433ffc6b1e69511807af852640a67009 |
 | parks-yell.json | 243bbc33c1ffee6ff2d86794e2b546d32da28c9a9f605449aa2e88968697b53d |
+| passportstamplocations-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
+| passportstamplocations-page-first.json | 9a5062f3d9784e78abeae41fc974376177af9f5cc93857c99593edd6ae74740d |
+| passportstamplocations-page-last.json | bff520da1a093497a12901e08daf43e7f8a78ee0ccdcfce9aa38654f04f5ddc8 |
+| passportstamplocations-search.json | acbe46c16f1a04b6a66f592cae1ee4bb7627739780015e3d32825bc64d6e2126 |
 | people-empty.json | 1ad0336e6b3c625d4a2b4107f727d7060e449f1f9bf484d0c94933ff8f9bac6c |
 | people-page-first.json | 87f3fe2ee2f08e81a155cb984cfd36b01ddc632ef02877fe28fdc0018fac7908 |
 | people-page-last.json | 5d72b28bf7d91b9c0a50345f67876f423aa4b4ee53e9d4ae5b6457df38ff0435 |

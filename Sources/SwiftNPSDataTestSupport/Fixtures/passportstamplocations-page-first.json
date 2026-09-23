@@ -1,0 +1,22 @@
+{
+  "total": "2",
+  "limit": "1",
+  "start": "0",
+  "data": [
+    {
+      "id": "74C8535F-4F9C-411F-B3F1-AE14E8C14AA2",
+      "label": "Visitor Center",
+      "parks": [
+        {
+          "states": "MD",
+          "parkCode": "cato",
+          "designation": "Park",
+          "fullName": "Catoctin Mountain Park",
+          "url": "https://www.nps.gov/cato/index.htm",
+          "name": "Catoctin Mountain"
+        }
+      ],
+      "type": "visitorcenters"
+    }
+  ]
+}
