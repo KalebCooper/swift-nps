@@ -6,12 +6,12 @@ Find and browse parks through the National Park Service Data API.
 
 ## Status
 
-Released as 0.5.0, which covers eighteen endpoint groups: alerts, amenities (with its park places
-and park visitor centers subgroups), articles, campgrounds, news releases, park audio, park
-boundaries, park videos, parks, people, photo galleries, photo gallery assets, places, road
-events, things to do, tours, visitor centers, and webcams. Activities, activity parks, lesson
-plans, parking lots, park fees and passes, passport stamp locations, topic parks, and topics
-are built and not yet released. CHANGELOG lists what each release added.
+Released as 0.6.0, which covers twenty-six endpoint groups: activities, activity parks, alerts,
+amenities (with its park places and park visitor centers subgroups), articles, campgrounds, lesson
+plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots,
+parks, passport stamp locations, people, photo galleries, photo gallery assets, places, road
+events, things to do, topic parks, topics, tours, visitor centers, and webcams. CHANGELOG lists
+what each release added.
 
 Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
 envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
@@ -171,7 +171,7 @@ duplicate local-package resolution in Xcode.
 Add the package dependency and select either product:
 
 ```swift
-.package(url: "https://github.com/KalebCooper/swift-nps.git", from: "0.5.0")
+.package(url: "https://github.com/KalebCooper/swift-nps.git", from: "0.6.0")
 ```
 
 The repository is [KalebCooper/swift-nps](https://github.com/KalebCooper/swift-nps).
