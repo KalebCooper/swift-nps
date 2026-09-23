@@ -62,6 +62,10 @@ struct ContentView: View {
               }
             }
             .pickerStyle(.menu)
+          case .parkCodesAndText:
+            TextField("Park codes, separated by commas", text: $parkCodes)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
           case .requiredParkCode:
             TextField("Park code", text: $parkCode)
               .textInputAutocapitalization(.never)
@@ -130,16 +134,21 @@ struct ContentView: View {
     // field except relevance on things to do and tours, so the demo sends no sort criteria for them.
     case .alerts, .amenities, .articles, .people, .places, .thingsToDo, .tours, .webcams:
       "Results are in the order NPS returns them."
-    case .campgrounds, .visitorCenters:
+    case .activities, .activityParks, .campgrounds, .parkingLots, .topicParks, .topics,
+      .visitorCenters:
       "Results are sorted by name."
+    case .lessonPlans, .parkAudio, .parkVideos, .photoGalleries, .photoGalleryAssets:
+      "Results are sorted by title."
     case .newsReleases:
       "Results are sorted by release date, newest first."
     case .parkBoundaries:
       "A park's boundary arrives as one feature collection with no pagination."
-    case .parkAudio, .parkVideos, .photoGalleries, .photoGalleryAssets:
-      "Results are sorted by title."
+    case .parkFeesAndPasses:
+      "Results are sorted by park code."
     case .parks:
       "Results are sorted by full name."
+    case .passportStampLocations:
+      "Results are sorted by label, which is how NPS applies a sort by name."
     case .roadEvents:
       "The road events feed arrives as one response with no pagination."
     }
@@ -201,6 +210,20 @@ struct ContentView: View {
   private func makeLoad(client: NPSDataClient) throws -> DemoLoad {
     let text = searchText.isEmpty ? nil : searchText
     switch group {
+    case .activities:
+      let query = try ActivityQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
+      return .pages(
+        DemoPager(pages: client.activityPages(query: query), query: query) {
+          ResultRow(detail: nil, title: $0.name)
+        })
+    case .activityParks:
+      let query = try ActivityParksQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
+      return .pages(
+        DemoPager(pages: client.activityParkPages(query: query), query: query) { activity in
+          ResultRow(detail: relatedParkCodes(activity.parks), title: activity.name)
+        })
     case .alerts:
       let query = try AlertQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
@@ -231,6 +254,14 @@ struct ContentView: View {
         DemoPager(pages: client.campgroundPages(query: query), query: query) {
           ResultRow(detail: $0.parkCode, title: $0.name)
         })
+    case .lessonPlans:
+      let query = try LessonPlanQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.ascending("title")], stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.lessonPlanPages(query: query), query: query) {
+          ResultRow(detail: $0.gradeLevel, title: $0.title)
+        })
     case .newsReleases:
       let query = try NewsReleaseQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
@@ -259,6 +290,24 @@ struct ContentView: View {
             title: details?.fullName ?? details?.name ?? "Park boundary")
         }
       }
+    case .parkFeesAndPasses:
+      let query = try ParkFeesAndPassesQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
+        sort: [.ascending("parkCode")], stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.parkFeesAndPassesPages(query: query), query: query) { park in
+          ResultRow(
+            detail: "Fees: \(park.fees?.count ?? 0), passes: \(park.passes?.count ?? 0)",
+            title: park.parkCode)
+        })
+    case .parkingLots:
+      let query = try ParkingLotQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.parkingLotPages(query: query), query: query) { lot in
+          ResultRow(detail: relatedParkCodes(lot.relatedParks), title: lot.name)
+        })
     case .parks:
       let query = try ParkQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
@@ -275,6 +324,15 @@ struct ContentView: View {
       return .pages(
         DemoPager(pages: client.parkVideoPages(query: query), query: query) { video in
           ResultRow(detail: relatedParkCodes(video.relatedParks), title: video.title)
+        })
+    case .passportStampLocations:
+      // NPS orders a sort by name by each location's label.
+      let query = try PassportStampLocationQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")],
+        stateCodes: parsedStateCodes())
+      return .pages(
+        DemoPager(pages: client.passportStampLocationPages(query: query), query: query) {
+          ResultRow(detail: relatedParkCodes($0.parks), title: $0.label)
         })
     case .people:
       let query = try PersonQuery(
@@ -328,6 +386,20 @@ struct ContentView: View {
       return .pages(
         DemoPager(pages: client.thingToDoPages(query: query), query: query) { thing in
           ResultRow(detail: relatedParkCodes(thing.relatedParks), title: thing.title)
+        })
+    case .topicParks:
+      let query = try TopicParksQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
+      return .pages(
+        DemoPager(pages: client.topicParkPages(query: query), query: query) { topic in
+          ResultRow(detail: relatedParkCodes(topic.parks), title: topic.name)
+        })
+    case .topics:
+      let query = try TopicQuery(
+        limit: pageSize, parkCodes: parsedParkCodes(), searchText: text, sort: [.ascending("name")])
+      return .pages(
+        DemoPager(pages: client.topicPages(query: query), query: query) {
+          ResultRow(detail: nil, title: $0.name)
         })
     case .tours:
       let query = try TourQuery(
@@ -413,9 +485,11 @@ struct ContentView: View {
       message =
         group.filters == .codeListsTextAndGalleries
         ? "Use comma-separated gallery IDs, park codes of 4 to 10 letters or digits, and two-letter state codes, without spaces."
-        : group.filters.isPaged
-          ? "Use comma-separated park codes of 4 to 10 letters or digits and two-letter state codes, without spaces."
-          : "Use one park code of 4 to 10 letters or digits, without spaces."
+        : group.filters == .parkCodesAndText
+          ? "Use comma-separated park codes of 4 to 10 letters or digits, without spaces."
+          : group.filters.isPaged
+            ? "Use comma-separated park codes of 4 to 10 letters or digits and two-letter state codes, without spaces."
+            : "Use one park code of 4 to 10 letters or digits, without spaces."
     }
   }
 

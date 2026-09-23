@@ -142,6 +142,9 @@ takes one optional park code and an optional event type, and park boundaries tak
 Articles, news releases, park audio, park videos, people, photo galleries, and photo gallery
 assets sit after Webcams in the picker and take park codes, state codes, and search text like the
 other collection groups; photo gallery assets also takes comma-separated gallery IDs.
+Parking lots, park fees and passes, passport stamp locations, activities, activity parks, topics,
+topic parks, and lesson plans follow them; activities, activity parks, topics, and topic parks
+take park codes and search text without state codes.
 Use **Load more** to request the next page of a collection group or **Cancel** to stop an in-flight
 request; road events and park boundaries arrive as one response.
 The demo shows loading, results, empty results, and failures. It keeps the key in memory and

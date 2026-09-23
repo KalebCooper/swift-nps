@@ -9,6 +9,8 @@ enum DemoFilters {
   case codeListsTextAndGalleries
   /// One optional park code and one optional road event type.
   case optionalParkCodeAndType
+  /// A comma-separated park code list with text search, for groups that take no state codes.
+  case parkCodesAndText
   /// One required park code and nothing else.
   case requiredParkCode
   /// Text search only.
@@ -17,7 +19,7 @@ enum DemoFilters {
   /// Whether results arrive a page at a time rather than as one complete response.
   var isPaged: Bool {
     switch self {
-    case .codeListsAndText, .codeListsTextAndGalleries, .textOnly: true
+    case .codeListsAndText, .codeListsTextAndGalleries, .parkCodesAndText, .textOnly: true
     case .optionalParkCodeAndType, .requiredParkCode: false
     }
   }
@@ -42,20 +44,30 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   case parkVideos = "Park Videos"
   case photoGalleries = "Photo Galleries"
   case photoGalleryAssets = "Photo Gallery Assets"
+  case parkingLots = "Parking Lots"
+  case parkFeesAndPasses = "Park Fees and Passes"
+  case passportStampLocations = "Passport Stamp Locations"
+  case activities = "Activities"
+  case activityParks = "Activity Parks"
+  case topics = "Topics"
+  case topicParks = "Topic Parks"
+  case lessonPlans = "Lesson Plans"
   case roadEvents = "Road Events"
   case parkBoundaries = "Park Boundaries"
 
   /// Names what a result's second line holds, read before its value by assistive technology.
   ///
-  /// Amenities show a name alone, so they name nothing.
+  /// Activities, amenities, and topics show a name alone, so they name nothing.
   var detailLabel: String? {
     switch self {
     case .alerts, .campgrounds, .parks, .tours, .visitorCenters: "Park code"
-    case .amenities: nil
+    case .activities, .amenities, .topics: nil
+    case .lessonPlans: "Grade level"
     case .newsReleases: "Release date"
     case .parkBoundaries: "Geometry type"
-    case .articles, .parkAudio, .parkVideos, .people, .photoGalleries, .photoGalleryAssets, .places,
-      .thingsToDo, .webcams:
+    case .parkFeesAndPasses: "Fees and passes"
+    case .activityParks, .articles, .parkAudio, .parkingLots, .parkVideos, .passportStampLocations,
+      .people, .photoGalleries, .photoGalleryAssets, .places, .thingsToDo, .topicParks, .webcams:
       "Related park codes"
     case .roadEvents: "Road event type"
     }
@@ -64,9 +76,12 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   /// The search inputs this group accepts.
   var filters: DemoFilters {
     switch self {
-    case .alerts, .articles, .campgrounds, .newsReleases, .parkAudio, .parkVideos, .parks, .people,
+    case .alerts, .articles, .campgrounds, .lessonPlans, .newsReleases, .parkAudio,
+      .parkFeesAndPasses, .parkingLots, .parkVideos, .parks, .passportStampLocations, .people,
       .photoGalleries, .places, .thingsToDo, .tours, .visitorCenters, .webcams:
       .codeListsAndText
+    case .activities, .activityParks, .topicParks, .topics:
+      .parkCodesAndText
     case .photoGalleryAssets:
       .codeListsTextAndGalleries
     case .amenities:
@@ -85,7 +100,7 @@ enum DemoGroup: String, CaseIterable, Identifiable {
 }
 
 /// One result shown by the demo: a display name and an optional second line, such as a park code,
-/// a release date, a road event type, or a boundary's geometry type.
+/// a release date, a grade level, a road event type, or a boundary's geometry type.
 struct ResultRow {
   let detail: String?
   let title: String

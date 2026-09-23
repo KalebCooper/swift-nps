@@ -68,6 +68,9 @@ All notable changes are documented here. This project follows
   identifiers, park codes, state codes, text search, and sort fields sent without validation; the
   live endpoint orders `name` by label, ignores an unrecognized identifier rather than matching
   nothing, and does not narrow each location's `parks` by the requested park codes.
+- Parking lots, park fees and passes, passport stamp locations, activities, activity parks,
+  topics, topic parks, and lesson plans in the iOS demo's group picker, each with search and
+  paging. Activities, activity parks, topics, and topic parks take park codes without state codes.
 
 ## [0.5.0] - 2026-09-21
 
