@@ -2,72 +2,81 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Find and browse parks through the National Park Service Data API.
+Swift models and a typed client for the
+[National Park Service Data API](https://www.nps.gov/subjects/developer/api-documentation.htm).
+
+The package provides `Codable` models and endpoint descriptions you can send through any networking
+stack, plus an SDK that sends them for you through
+[swifty-networking](https://github.com/KalebCooper/swifty-networking), with authentication, lazy
+pagination, and typed failures. The
+[documentation site](https://kalebcooper.github.io/swift-nps/documentation/) covers every type and
+each endpoint group's behavior in detail.
 
 ## Status
 
-Released as 0.6.0, which covers twenty-six endpoint groups: activities, activity parks, alerts,
-amenities (with its park places and park visitor centers subgroups), articles, campgrounds, lesson
-plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots,
-parks, passport stamp locations, people, photo galleries, photo gallery assets, places, road
-events, things to do, topic parks, topics, tours, visitor centers, and webcams. CHANGELOG lists
-what each release added.
+Release 0.6.0 covers twenty-six endpoint groups. Only `/events` is not built.
+[CHANGELOG.md](CHANGELOG.md) lists what each release added.
 
-Every offset-paginated group shares one collection core: a validated query, the `NPSCollection`
-envelope, reusable typed requests, and transport-independent endpoints. Each group is available as
-a lazy page sequence, a lazy item sequence, or a single page, and pagination uses
-swifty-networking 1.1.0. Two groups, park boundaries and road events, return one complete response
-rather than a collection.
+Twenty-four groups are offset-paginated collections that share one core: a validated query, the
+`NPSCollection` envelope, a reusable `NPSDataRequest`, and a typed `Endpoint` for one page. Each
+group's query is its item type plus `Query`, such as `ParkQuery` for `Park`.
 
-| Group | Filters and sort | Methods | Notes |
+| Group | Path | Item | Lazy pages | Lazy items |
+| --- | --- | --- | --- | --- |
+| Activities | `/activities` | `ParkActivity` | `parkActivityPages` | `parkActivities` |
+| Activity parks | `/activities/parks` | `ParkActivityParks` | `parkActivityParkPages` | `parkActivityParks` |
+| Alerts | `/alerts` | `ParkAlert` | `parkAlertPages` | `parkAlerts` |
+| Amenities | `/amenities` | `Amenity` | `amenityPages` | `amenities` |
+| Amenity park places | `/amenities/parksplaces` | `AmenityParkPlaces` | `amenityParkPlacePages` | `amenityParkPlaces` |
+| Amenity park visitor centers | `/amenities/parksvisitorcenters` | `AmenityParkVisitorCenters` | `amenityParkVisitorCenterPages` | `amenityParkVisitorCenters` |
+| Articles | `/articles` | `Article` | `articlePages` | `articles` |
+| Campgrounds | `/campgrounds` | `Campground` | `campgroundPages` | `campgrounds` |
+| Lesson plans | `/lessonplans` | `LessonPlan` | `lessonPlanPages` | `lessonPlans` |
+| News releases | `/newsreleases` | `NewsRelease` | `newsReleasePages` | `newsReleases` |
+| Park audio | `/multimedia/audio` | `ParkAudio` | `parkAudioPages` | `parkAudio` |
+| Park fees and passes | `/feespasses` | `ParkFeesAndPasses` | `parkFeesAndPassesPages` | `parkFeesAndPasses` |
+| Park videos | `/multimedia/videos` | `ParkVideo` | `parkVideoPages` | `parkVideos` |
+| Parking lots | `/parkinglots` | `ParkingLot` | `parkingLotPages` | `parkingLots` |
+| Parks | `/parks` | `Park` | `parkPages` | `parks` |
+| Passport stamp locations | `/passportstamplocations` | `PassportStampLocation` | `passportStampLocationPages` | `passportStampLocations` |
+| People | `/people` | `Person` | `personPages` | `people` |
+| Photo galleries | `/multimedia/galleries` | `PhotoGallery` | `photoGalleryPages` | `photoGalleries` |
+| Photo gallery assets | `/multimedia/galleries/assets` | `PhotoGalleryAsset` | `photoGalleryAssetPages` | `photoGalleryAssets` |
+| Places | `/places` | `Place` | `placePages` | `places` |
+| Things to do | `/thingstodo` | `ThingToDo` | `thingToDoPages` | `thingsToDo` |
+| Topic parks | `/topics/parks` | `ParkTopicParks` | `parkTopicParkPages` | `parkTopicParks` |
+| Topics | `/topics` | `ParkTopic` | `parkTopicPages` | `parkTopics` |
+| Tours | `/tours` | `Tour` | `tourPages` | `tours` |
+| Visitor centers | `/visitorcenters` | `VisitorCenter` | `visitorCenterPages` | `visitorCenters` |
+| Webcams | `/webcams` | `Webcam` | `webcamPages` | `webcams` |
+
+Two groups return one complete response with no pagination:
+
+| Group | Path | Response | Method |
 | --- | --- | --- | --- |
-| Activities | Identifiers, park codes, text search, sorting. | `parkActivityPages`, `parkActivities` | The live service sorts by `name` and answers other fields with HTTP 400; park codes filter the returned activities, but a page carries no nested parks, and an unrecognized identifier is ignored rather than matching nothing. |
-| Activity parks | Identifiers, park codes, text search, sorting. | `parkActivityParkPages`, `parkActivityParks` | The live service sorts by `name` and answers other fields with HTTP 400; park codes also narrow each activity's `parks` to the requested parks, and an unrecognized identifier is ignored rather than matching nothing. |
-| Alerts | Park codes, state codes, text search. NPS documents no sort. | `parkAlertPages`, `parkAlerts` | |
-| Amenities | Identifiers, text search. NPS documents no park, state, or sort parameter. | `amenityPages`, `amenities` | |
-| Amenity park places | Identifiers, park codes, text search, sorting. | `amenityParkPlacePages`, `amenityParkPlaces` | Pages keep the provider's per-amenity groups; `amenityParkPlaces` yields each entry. |
-| Amenity park visitor centers | Identifiers, park codes, text search, sorting. | `amenityParkVisitorCenterPages`, `amenityParkVisitorCenters` | Pages keep the provider's per-amenity groups; `amenityParkVisitorCenters` yields each entry. |
-| Articles | Park codes, state codes, text search. | `articlePages`, `articles` | The endpoint answers `sort=title` with HTTP 400, so the query offers no sort; coordinates stay numbers or null and most articles send none. |
-| Campgrounds | Park codes, state codes, text search, sorting. | `campgroundPages`, `campgrounds` | Published site counts and fees are not live availability. |
-| Lesson plans | Identifiers, park codes, state codes, text search, sorting. | `lessonPlanPages`, `lessonPlans` | The live service sorts by `title` and answers other fields with HTTP 400; park codes select lesson plans without narrowing each plan's `parks`, and an unrecognized identifier is ignored rather than matching nothing. |
-| News releases | Park codes, state codes, text search, sorting. | `newsReleasePages`, `newsReleases` | The live service sorts by `releaseDate` and `title` and answers other fields with HTTP 400; release timestamps stay the provider's text without a time zone. |
-| Park audio | Park codes, state codes, text search, sorting. | `parkAudioPages`, `parkAudio` | The live service sorts by `title` and answers other fields with HTTP 400; transcripts stay plain text or HTML, and file sizes keep the provider's number, for which NPS documents no unit. |
-| Park fees and passes | Park codes, state codes, text search, sorting. | `parkFeesAndPassesPages`, `parkFeesAndPasses` | The live service sorts by `parkCode` and `fullName` and answers other fields with HTTP 400; fee and pass `cost` stays the provider's text with no currency claimed, and a season date can carry only a holiday name, with no derivable date. |
-| Park videos | Park codes, state codes, text search, sorting. | `parkVideoPages`, `parkVideos` | The live service sorts by `title` and answers other fields with HTTP 400; accessibility flags stay Booleans, and file sizes keep the provider's number or null, for which NPS documents no unit. |
-| Parking lots | Park codes, state codes, text search, sorting. | `parkingLotPages`, `parkingLots` | The live service sorts by `name` and `parkCode` and answers other fields with HTTP 400; live status fields stay as sent, are stale, and are not guaranteed to be current. |
-| Parks | Park codes, state codes, text search, sorting. | `parkPages`, `parks` | The single park code lookup (`parks(parkCode:)`) keeps its own exact request and response. |
-| Passport stamp locations | Identifiers, park codes, state codes, text search, sorting. | `passportStampLocationPages`, `passportStampLocations` | The live service orders by label for `name`, accepts `parkCode` with no observed ordering, and answers the other fields it was probed with using HTTP 400; park codes select locations without narrowing each location's `parks`, the type stays open text, and an unrecognized identifier is ignored rather than matching nothing. |
-| People | Park codes, state codes, text search. | `personPages`, `people` | The endpoint answers `sort=title` and `sort=lastName` with HTTP 400, so the query offers no sort; coordinates stay the provider's text, usually empty, and profiles stay HTML. |
-| Photo galleries | Park codes, state codes, text search, sorting. | `photoGalleryPages`, `photoGalleries` | The live service sorts by `title` and answers other fields with HTTP 400; each gallery carries one preview image and the provider's asset count, and rights constraints stay open text. |
-| Photo gallery assets | Gallery identifiers, identifiers, park codes, state codes, text search, sorting. | `photoGalleryAssetPages`, `photoGalleryAssets` | The live service sorts by `title` and answers other fields with HTTP 400; a gallery or asset identifier that is not UUID-shaped is ignored and every asset comes back, an asset in several galleries appears once per gallery, and file sizes keep the provider's number, for which NPS documents no unit. |
-| Places | Park codes, state codes, text search. | `placePages`, `places` | The endpoint answers every sort value with HTTP 400, so the query offers none. |
-| Things to do | Identifiers, park codes, state codes, text search, sorting. | `thingToDoPages`, `thingsToDo` | NPS documents only `relevanceScore` as a sort field and answers others with HTTP 400. |
-| Topic parks | Identifiers, park codes, text search, sorting. | `parkTopicParkPages`, `parkTopicParks` | The live service sorts by `name` and answers other fields with HTTP 400; park codes also narrow each topic's `parks` to the requested parks, and an unrecognized identifier is ignored rather than matching nothing. |
-| Topics | Identifiers, park codes, text search, sorting. | `parkTopicPages`, `parkTopics` | The live service sorts by `name` and answers other fields with HTTP 400; park codes filter the returned topics, but a page carries no nested parks, and an unrecognized identifier is ignored rather than matching nothing. |
-| Tours | Identifiers, park codes, state codes, text search, sorting. | `tourPages`, `tours` | `relevanceScore` is the only sort field the live service accepts; each tour links one park; durations and stop ordinals stay provider text. |
-| Visitor centers | Park codes, state codes, text search, sorting. | `visitorCenterPages`, `visitorCenters` | |
-| Webcams | Identifiers, park codes, state codes, text search. | `webcamPages`, `webcams` | The endpoint answers every sort value with HTTP 400; the streaming flag stays a Boolean; coordinates stay numbers or null and are not guaranteed to locate the camera. |
-| Park boundaries | One park code, as a path segment; no query parameters. | `parkBoundary` | One complete response, no pagination; usually a `MultiPolygon`, with coordinates kept as sent. |
-| Road events | Optional park code, optional event type. | `roadEvents` | One complete response, no pagination; most parks return an empty feed, and an unrecognized park code returns every park's events. |
+| Park boundaries | `/mapdata/parkboundaries/{sitecode}` | `ParkBoundary` | `parkBoundary(parkCode:)` |
+| Road events | `/roadevents` | `RoadEventFeed` | `roadEvents(parkCode:type:)` |
 
-The package includes required API-key configuration, typed failures, and recorded-response tests.
-The events endpoint group is not implemented.
+Each query offers only the filters and sort the live endpoint accepts. Where the live API diverges
+from the NPS specification, for example by rejecting a documented sort field or ignoring an
+unrecognized identifier, the documentation for that group says so.
 
-NPS destination data does not imply live campsite booking availability or reservation support.
-This package provides no freshness, ordering, completeness, or availability guarantees.
+The package preserves the provider's data as sent: identifiers, timestamps, units, nulls, and
+unknown codes. It provides no freshness, ordering, completeness, or availability guarantees.
+Campground, fee, and reservation fields describe published information, not live campsite
+availability or a booking service.
 
 ## Usage
 
-Every NPS collection in this package is available at three equivalent levels: an everyday client
-method, a reusable `NPSDataRequest`, and a typed `Endpoint` for one page. Parks work as the example
-below; every other implemented collection follows the same three levels. A validated `ParkQuery`
-drives all three:
+[Get a private NPS API key](https://www.nps.gov/subjects/developer/get-started.htm), then reach any
+collection at three equivalent levels: an everyday client method, a reusable `NPSDataRequest`, and a
+typed `Endpoint` for one page. Parks show the pattern; every other collection follows it.
 
 ```swift
 import SwiftNPSData
 import SwiftNPSDataModels
 
-// Supply your private key at runtime; never put it in source or an application bundle.
+// Supply your key at runtime; never put it in source or an application bundle.
 let client = try NPSDataClient(apiKey: apiKey)
 let query = try ParkQuery(
   limit: 20, searchText: "history", sort: [.descending("relevanceScore")],
@@ -91,92 +100,106 @@ let onePage = try await client.value(for: request)
 let samePage = try await client.send(.parks(query: query))
 ```
 
-Each page is `NPSCollection<Park>`, including string-valued `limit`, `start`, and `total` and the
-provider's result order. The parks conveniences delegate to the generic `pages(for:)` and
-`items(for:)`, so every level shares request construction, authentication, and typed failures.
+All three levels share request construction, authentication, and typed failures. Each page is
+`NPSCollection<Park>`, with the provider's string-valued `limit`, `start`, and `total` and its
+result order.
 
-`ParkQuery` explicitly defaults to `limit=50` and `start=0`, with both overridable. Code filters
-preserve caller order and case. Empty filter arrays omit the filter; empty sorting uses NPS's
-full-name default. Search text is encoded without trimming. Sort by full name, park code, or
-relevance in either direction; relevance cannot be combined with other sort criteria.
+### Pagination
 
-Each loop starts its own traversal. Construction sends nothing. Pages fetch on demand; individual
-items drain the current page before fetching another. Breaking a loop prevents later requests.
+Queries default to `limit=50` and `start=0`, both overridable. Each loop starts its own traversal,
+and constructing a sequence sends nothing. Pages fetch on demand, individual items drain the current
+page before fetching another, and breaking a loop prevents later requests.
+
 Pagination advances by the returned item count and stops when that range reaches the reported
-total. Empty pages terminate only at or beyond the total. Invalid numeric metadata, an unexpected
-offset, contradictory counts, or overflow throws `NPSDataError.pagination` before yielding the
-affected page. Earlier results do not imply completion. Results can change between requests;
-the sequences do not deduplicate or promise a stable snapshot.
+total. Invalid metadata, an unexpected offset, or contradictory counts throw
+`NPSDataError.pagination` before the affected page is yielded. Results can change between
+requests; the sequences do not deduplicate or promise a stable snapshot.
 
-To look up one park code, use any of the same three levels:
+### Single-response groups
+
+Park boundaries and road events return one response through the same levels:
 
 ```swift
-let code = try ParkCode("acad")
-let page = try await client.parks(parkCode: code)
-let samePage = try await client.value(for: .parks(parkCode: code))
-let anotherPage = try await client.send(.parks(parkCode: code))
+let boundary = try await client.parkBoundary(parkCode: ParkCode("drto"))
+let feed = try await client.roadEvents(parkCode: ParkCode("yell"), type: .workZone)
+let sameFeed = try await client.value(for: .roadEvents(parkCode: try ParkCode("yell")))
 ```
 
-Each call sends one GET to `/api/v1/parks?parkCode=acad&limit=1&start=0` and declares no
-continuation. An unknown code can return an empty `data` array. The client does not select a
-first result, follow pages, retry, or follow redirects. `ParkCode` accepts 4 to 10 ASCII letters
-or digits and preserves case. A request created with `init(endpoint:)` also yields one page.
+`parks(parkCode:)` is a single-code lookup that sends exactly
+`/parks?parkCode=acad&limit=1&start=0` and yields that one page.
 
-[Obtain a private NPS API key](https://www.nps.gov/subjects/developer/get-started.htm).
-The client sends it in `X-Api-Key`; there is no default key or environment lookup.
-Client operations throw `NPSDataError`, preserving recognized gateway errors and their HTTP
-metadata, or the underlying transport, decoding, status, or cancellation failure.
-NPS rate limits vary; HTTP 429 is returned without automatic retry.
+### Authentication and failures
 
-On non-Apple platforms, create `NPSDataClient(configuration:transport:)` with an explicit
-`NPSDataConfiguration(apiKey:)` and an HTTPCore transport. Request and endpoint values also
-work with a custom executor, which sends `NPSCollectionResolution.endpoint` and continues with
-`next(after:)`, including consumer-defined response models through `NPSDataRequest.init(endpoint:)`.
+The client sends the key only in the `X-Api-Key` header, never in a URL. There is no default key
+and no environment lookup. Every operation throws `NPSDataError`:
+
+- `.invalidAPIKey` when the key is empty or unusable as a header value.
+- `.service` for a recognized NPS error body, keeping the HTTP status, body, and headers, including
+  rate-limit headers.
+- `.pagination` for page metadata that cannot establish progress or completion.
+- `.transport` for other HTTP statuses, decoding, connection, and cancellation failures. Redirects
+  are reported here and never followed with the key.
+
+NPS rate limits vary by key, and HTTP 429 is returned without automatic retry.
+
+### Other platforms and custom networking
+
+On Linux and Android, enable the `HTTPPortable` trait and create
+`NPSDataClient(configuration:transport:)` with an `NPSDataConfiguration(apiKey:)` and an HTTPCore
+transport. To use your own networking stack instead, depend on `SwiftNPSDataModels` alone: a
+request's `resolution` holds the endpoint to send and, for a collection, a `next(after:)` rule for
+the following page. `NPSDataRequest.init(endpoint:)` accepts your own response models.
 
 ## Example
 
-Open `Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` for an iOS 26 SwiftUI demo.
-Choose a group, enter your API key, then tap the group's **Search** button. Collection groups take
-park and state codes and search text, except amenities, which takes search text alone; road events
-takes one optional park code and an optional event type, and park boundaries takes one park code.
-Articles, news releases, park audio, park videos, people, photo galleries, and photo gallery
-assets sit after Webcams in the picker and take park codes, state codes, and search text like the
-other collection groups; photo gallery assets also takes comma-separated gallery IDs.
-Parking lots, park fees and passes, passport stamp locations, activities, activity parks, topics,
-topic parks, and lesson plans follow them; activities, activity parks, topics, and topic parks
-take park codes and search text without state codes.
-Use **Load more** to request the next page of a collection group or **Cancel** to stop an in-flight
-request; road events and park boundaries arrive as one response.
-The demo shows loading, results, empty results, and failures. It keeps the key in memory and
-does not save it. Close the standalone package window before building the demo to avoid
-duplicate local-package resolution in Xcode.
+[`Examples/SwiftNPSDataDemo`](Examples/SwiftNPSDataDemo) is an iOS 26 SwiftUI app that browses
+each of the twenty-six endpoint groups. Pick a group, enter your API key, and tap **Search**.
+Collection groups take park codes, state codes, and search text where the group supports them, and
+page with **Load more**; **Cancel** stops an in-flight request. Park boundaries and road events show one response. The key stays in
+memory and is never saved.
+
+The demo references this package by local path. Open
+`Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj` with the package itself closed in Xcode,
+since Xcode lets a local package be open in only one window.
 
 ## Products
 
-| Product | Status | Dependencies |
+| Product | What it is | Depends on |
 | --- | --- | --- |
-| `SwiftNPSData` | Authenticated collection execution, lazy page and item sequences, activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport stamp locations, people, photo galleries, photo gallery assets, places, road events, things to do, topic parks, topics, tours, visitor centers, and webcams conveniences, typed failures. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
-| `SwiftNPSDataModels` | Generic collection envelope, queries, continuation rules, requests, and endpoints; activity, activity parks, alert, amenity, article, campground, lesson plan, news release, park audio, park boundary, park fees and passes, park video, parking lot, park, passport stamp location, person, photo gallery, photo gallery asset, place, road event, thing to do, topic, topic parks, tour, visitor center, webcam, and shared detail models. | None. |
+| `SwiftNPSDataModels` | Portable `Codable` response models, validated queries, `NPSCollection`, `NPSDataRequest`, and `Endpoint` values for every implemented group. Usable with any networking stack. | Nothing. |
+| `SwiftNPSData` | `NPSDataClient`, which sends requests with authentication and lazy pagination, plus `NPSDataConfiguration` and one typed error, `NPSDataError`. It re-exports swifty-networking's `HTTPCore`, so `Transport` and `TransportError` need no import of their own. | `SwiftNPSDataModels`, swifty-networking, swift-http-types. |
+
+A consumer with its own networking stack adds only `SwiftNPSDataModels` and fetches no dependency.
 
 ## Requirements
 
-- Swift 6.2 tools and Swift 6 language mode.
-- A private NPS API key for network requests.
-- iOS, macOS, tvOS, visionOS, or watchOS 26 and later.
-- Linux and Android verification lanes are configured; their results must be verified separately.
-- The default trait set is empty. `HTTPPortable` enables the portable transport dependency.
+- Swift 6.2 or later.
+- iOS, macOS, tvOS, visionOS, and watchOS 26 or later, Linux, or Android.
+- A private NPS API key.
+- `SwiftNPSData` depends on [swifty-networking](https://github.com/KalebCooper/swifty-networking)
+  1.1.0 or later and [swift-http-types](https://github.com/apple/swift-http-types) 1.6.0 or later.
+  On Apple platforms it sends through `URLSession`. On Linux and Android, enable the off-by-default
+  `HTTPPortable` trait, which pulls in AsyncHTTPClient and SwiftNIO; a consumer who leaves the trait
+  off never fetches or builds either.
 
 ## Installation
-
-Add the package dependency and select either product:
 
 ```swift
 .package(url: "https://github.com/KalebCooper/swift-nps.git", from: "0.6.0")
 ```
 
-The repository is [KalebCooper/swift-nps](https://github.com/KalebCooper/swift-nps).
+On Linux or Android, enable the trait on the dependency:
+
+```swift
+.package(
+  url: "https://github.com/KalebCooper/swift-nps.git", from: "0.6.0",
+  traits: ["HTTPPortable"])
+```
+
+Then add `SwiftNPSData`, or `SwiftNPSDataModels` alone, to your target's dependencies.
 
 ## License
 
-MIT. See [LICENSE](LICENSE). This project is independent of the National Park Service.
-NPS data and media have their own [usage terms](https://www.nps.gov/aboutus/disclaimer.htm).
+MIT. See [LICENSE](LICENSE). This project is independent of the National Park Service. NPS data
+and media have their own [usage terms](https://www.nps.gov/aboutus/disclaimer.htm), which this
+package's license does not grant.

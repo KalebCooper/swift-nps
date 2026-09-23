@@ -21,11 +21,11 @@ for try await park in client.parks(query: query) {
 ```
 
 Activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases,
-park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport
-stamp locations, people, photo galleries, photo gallery assets, places, road events, things to do,
-topic parks, topics, tours, visitor centers, and webcams are the implemented endpoint groups. The collection groups are built on a generic collection core that
-executes any offset-paginated NPS collection the same way; park boundaries and road events are
-single responses.
+park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport stamp
+locations, people, photo galleries, photo gallery assets, places, road events, things to do, topic
+parks, topics, tours, visitor centers, and webcams are the implemented endpoint groups. The
+collection groups are built on a generic collection core that executes any offset-paginated NPS
+collection the same way; park boundaries and road events are single responses.
 
 ### Collection execution
 
@@ -648,6 +648,24 @@ The package makes no freshness or completeness guarantee.
 
 ## Topics
 
+### Client and configuration
+
+- ``NPSDataClient``
+- ``NPSDataConfiguration``
+
+### Collections
+
+- ``NPSDataClient/pages(for:)``
+- ``NPSDataClient/items(for:)``
+- ``NPSDataClient/value(for:)``
+- ``NPSDataClient/send(_:)``
+- ``NPSPageSequence``
+- ``NPSItemSequence``
+
+### Errors
+
+- ``NPSDataError``
+
 ### Activities
 
 - ``NPSDataClient/parkActivities(query:)``
@@ -682,24 +700,6 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/campgrounds(query:)``
 - ``NPSDataClient/campgroundPages(query:)``
-
-### Client and configuration
-
-- ``NPSDataClient``
-- ``NPSDataConfiguration``
-
-### Collections
-
-- ``NPSDataClient/pages(for:)``
-- ``NPSDataClient/items(for:)``
-- ``NPSDataClient/value(for:)``
-- ``NPSDataClient/send(_:)``
-- ``NPSPageSequence``
-- ``NPSItemSequence``
-
-### Errors
-
-- ``NPSDataError``
 
 ### Lesson Plans
 

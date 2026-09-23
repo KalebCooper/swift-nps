@@ -8,11 +8,11 @@ This module describes National Park Service Data API operations as values. Activ
 parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
 boundaries, park fees and passes, park videos, parking lots, parks, passport stamp locations,
 people, photo galleries, photo gallery assets, places, road events, things to do, topic parks,
-topics, tours, visitor centers, and webcams are the implemented endpoint groups. Every offset-paginated one is built on a shared core: a validated
-``NPSCollectionQuery``, the ``NPSCollection`` envelope, typed ``Endpoint`` values, and the
-reusable ``NPSDataRequest``. Park boundaries and road events are single responses with no
-pagination. Construction performs no I/O, and this module never imports
-a transport or holds credentials.
+topics, tours, visitor centers, and webcams are the implemented endpoint groups. Every
+offset-paginated one is built on a shared core: a validated ``NPSCollectionQuery``, the
+``NPSCollection`` envelope, typed ``Endpoint`` values, and the reusable ``NPSDataRequest``. Park
+boundaries and road events are single responses with no pagination. Construction performs no I/O,
+and this module never imports a transport or holds credentials.
 
 ```swift
 import SwiftNPSDataModels
@@ -282,13 +282,13 @@ News releases pages are `NPSCollection<NewsRelease>`, from ``Endpoint/newsReleas
 ``NPSDataRequest/newsReleases(query:)``.
 
 ``NewsRelease`` requires an identifier and title; other documented fields remain optional, and
-unknown JSON fields are ignored. The summary is ``NewsRelease/abstract``. ``NewsRelease/releaseDate``
-and ``NewsRelease/lastIndexedDate`` are the provider's text, such as `"2026-09-17 15:34:00.0"`,
-which is not ISO 8601 and names no time zone, so no date is derived. ``NewsRelease/parkCode`` is
-the provider's text, which can be one code, a comma-separated list such as `"anac,nace"`, or an
-empty string. ``NewsRelease/image`` is one shared ``NPSImage`` with no crops, and can arrive with
-every field empty. Parks are ``NPSRelatedPark`` values and organizations are
-``NPSRelatedOrganization`` values, either of which can be an empty array.
+unknown JSON fields are ignored. The summary is ``NewsRelease/abstract``.
+``NewsRelease/releaseDate`` and ``NewsRelease/lastIndexedDate`` are the provider's text, such as
+`"2026-09-17 15:34:00.0"`, which is not ISO 8601 and names no time zone, so no date is derived.
+``NewsRelease/parkCode`` is the provider's text, which can be one code, a comma-separated list such
+as `"anac,nace"`, or an empty string. ``NewsRelease/image`` is one shared ``NPSImage`` with no
+crops, and can arrive with every field empty. Parks are ``NPSRelatedPark`` values and organizations
+are ``NPSRelatedOrganization`` values, either of which can be an empty array.
 ``NewsRelease/latitude`` and ``NewsRelease/longitude`` are JSON numbers or `null`; every recorded
 release sends `null`.
 
@@ -358,10 +358,10 @@ park's own entrance fees and annual passes, and ``ParkFeesAndPasses/relatedMulti
 passes sold across several parks, such as the Hawai'i Tri-Park Annual Pass. Every
 ``ParkFeesAndPasses/Fee/cost``, ``ParkFeesAndPasses/Pass/cost``, and
 ``ParkFeesAndPasses/MultiSitePass/cost`` is the provider's text, such as `"55.00"`; NPS documents
-no currency or unit for it. On both ``ParkFeesAndPasses/Pass`` and ``ParkFeesAndPasses/MultiSitePass``,
-the Swift property is `images`, decoded from the provider's `image` key, which holds an array; pass
-images carry attribution, text, and URL fields but no crops, and every recorded multi-site pass
-sends that array empty.
+no currency or unit for it. On both ``ParkFeesAndPasses/Pass`` and
+``ParkFeesAndPasses/MultiSitePass``, the Swift property is `images`, decoded from the provider's
+`image` key, which holds an array; pass images carry attribution, text, and URL fields but no crops,
+and every recorded multi-site pass sends that array empty.
 
 ``ParkFeesAndPasses/SeasonDate`` stores a fee's season boundary exactly as sent:
 ``ParkFeesAndPasses/SeasonDate/day``, ``ParkFeesAndPasses/SeasonDate/holiday``, and
@@ -743,6 +743,40 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 ## Topics
 
+### Collections
+
+- ``NPSCollection``
+- ``NPSCollectionQuery``
+- ``NPSCollectionResolution``
+- ``NPSDataRequest``
+- ``NPSIdentifier``
+- ``NPSPaginationError``
+- ``NPSQueryItem``
+- ``NPSSort``
+
+### Endpoints and errors
+
+- ``Endpoint``
+- ``ServiceErrorResponse``
+
+### Shared park and facility details
+
+- ``NPSAddress``
+- ``NPSConstraintsInfo``
+- ``NPSContacts``
+- ``NPSEmailAddress``
+- ``NPSFee``
+- ``NPSImage``
+- ``NPSImageCrop``
+- ``NPSMultimedia``
+- ``NPSNamedItem``
+- ``NPSOperatingHours``
+- ``NPSOperatingHoursException``
+- ``NPSPhoneNumber``
+- ``NPSQuickFact``
+- ``NPSRelatedOrganization``
+- ``NPSRelatedPark``
+
 ### Activities
 
 - ``ParkActivity``
@@ -776,22 +810,6 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``Campground``
 - ``CampgroundQuery``
-
-### Collections
-
-- ``NPSCollection``
-- ``NPSCollectionQuery``
-- ``NPSCollectionResolution``
-- ``NPSDataRequest``
-- ``NPSIdentifier``
-- ``NPSPaginationError``
-- ``NPSQueryItem``
-- ``NPSSort``
-
-### Endpoints and errors
-
-- ``Endpoint``
-- ``ServiceErrorResponse``
 
 ### Lesson Plans
 
@@ -871,24 +889,6 @@ NPS data describes destinations, not live reservation availability, freshness, o
 - ``RoadEventFeed``
 - ``RoadEventFeedInfo``
 - ``RoadEventType``
-
-### Shared park and facility details
-
-- ``NPSAddress``
-- ``NPSConstraintsInfo``
-- ``NPSContacts``
-- ``NPSEmailAddress``
-- ``NPSFee``
-- ``NPSImage``
-- ``NPSImageCrop``
-- ``NPSMultimedia``
-- ``NPSNamedItem``
-- ``NPSOperatingHours``
-- ``NPSOperatingHoursException``
-- ``NPSPhoneNumber``
-- ``NPSQuickFact``
-- ``NPSRelatedOrganization``
-- ``NPSRelatedPark``
 
 ### Things to Do
 

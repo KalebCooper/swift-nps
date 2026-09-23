@@ -59,12 +59,11 @@ All notable changes are documented here. This project follows
   search, and sort fields sent without validation; the live endpoint sorts by `name`, ignores
   `stateCode`, and filters activities by park code with nothing to narrow.
 - Topics: ParkTopic, ParkTopicQuery, Endpoint.parkTopics(query:), NPSDataRequest.parkTopics(query:),
-and the lazy
-  NPSDataClient.parkTopics(query:) and parkTopicPages(query:), with recorded topics responses from
-  `/topics`. ParkTopic keeps only an identifier and a name, with its own type rather than
-  ParkTopicParks or NPSNamedItem, and no nested parks. ParkTopicQuery takes topic identifiers, park
-  codes, text search, and sort fields sent without validation; the live endpoint sorts by `name`,
-  ignores `stateCode`, and filters topics by park code with nothing to narrow.
+  and the lazy NPSDataClient.parkTopics(query:) and parkTopicPages(query:), with recorded topics
+  responses from `/topics`. ParkTopic keeps only an identifier and a name, with its own type
+  rather than ParkTopicParks or NPSNamedItem, and no nested parks. ParkTopicQuery takes topic
+  identifiers, park codes, text search, and sort fields sent without validation; the live endpoint
+  sorts by `name`, ignores `stateCode`, and filters topics by park code with nothing to narrow.
 - Passport stamp locations: PassportStampLocation, PassportStampLocationQuery,
   Endpoint.passportStampLocations(query:), NPSDataRequest.passportStampLocations(query:), and the
   lazy NPSDataClient.passportStampLocations(query:) and passportStampLocationPages(query:), with
