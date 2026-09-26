@@ -18,6 +18,8 @@ All notable changes are documented here. This project follows
 
 ### Changed
 
+- Simplified the README and documentation introductions with short usage examples, product guidance,
+  and links to the full reference. Clarified contribution and verification instructions.
 - `NPSDataRequest.Resolution` adds `parkEvents`, and `NPSDataError` adds `eventService`.
   Exhaustive consumer switches must handle the new cases. The models stay transport-independent.
 

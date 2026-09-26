@@ -1,28 +1,30 @@
 # ``SwiftNPSDataModels``
 
-Typed NPS collection responses, queries, and requests without a networking dependency.
+Typed National Park Service models, queries, and requests for use with any networking stack.
 
 ## Overview
 
-This module describes National Park Service Data API operations as values. Activities, activity
-parks, alerts, amenities, articles, campgrounds, events, lesson plans, news releases, park audio, park
-boundaries, park fees and passes, park videos, parking lots, parks, passport stamp locations,
-people, photo galleries, photo gallery assets, places, road events, things to do, topic parks,
-topics, tours, visitor centers, and webcams are the implemented endpoint groups. Every
-offset-paginated one is built on a shared core: a validated ``NPSCollectionQuery``, the
-``NPSCollection`` envelope, typed ``Endpoint`` values, and the reusable ``NPSDataRequest``. Park
-boundaries and road events are single responses with no pagination. Construction performs no I/O,
-and this module never imports a transport or holds credentials.
+Use this product when you want `Codable` response models and typed request descriptions without
+networking dependencies. It covers parks, facilities, activities, articles, multimedia, and other
+published NPS data. Constructing a query or request performs no network work and needs no API key.
 
 ```swift
 import SwiftNPSDataModels
 
-let query = try ParkQuery(
-  limit: 20, searchText: "history", sort: [.descending("relevanceScore")],
-  stateCodes: [StateCode("ME"), StateCode("MA")])
+let query = try ParkQuery(stateCodes: [StateCode("ME")])
 let endpoint = Endpoint.parks(query: query)
 let request = NPSDataRequest.parks(query: query)
+
+print(endpoint.path)
 ```
+
+``Endpoint`` describes one response; ``NPSDataRequest`` also describes how to request subsequent
+pages when created from a paginated query. Use either with your own executor, or add `SwiftNPSData`
+for a client that handles authentication and lazy pagination.
+
+The sections below explain the shared request types, followed by guides for every endpoint group.
+Events are implemented on `main` and are not included in 0.6.0; see
+[the changelog](https://github.com/KalebCooper/swift-nps/blob/main/CHANGELOG.md) for release details.
 
 ### Collection queries
 
@@ -120,6 +122,11 @@ declare, and ``NPSRelatedOrganization`` is the linked organization ``Place``, ``
 ``NewsRelease`` declare, both kept as the provider sends them.
 ``NPSConstraintsInfo`` is the rights and usage constraint text ``PhotoGallery`` and
 ``PhotoGalleryAsset`` carry, kept as open strings.
+
+## Endpoint guides
+
+Each section describes supported query options and how NPS fields are represented. The topic groups
+at the end link to individual types and their full reference.
 
 ### Activities
 
@@ -780,7 +787,7 @@ are strings, and images are the shared ``NPSImage`` with its URL text kept exact
 
 Real responses were recorded on September 20, 2026.
 
-### Endpoint boundaries
+## Endpoint boundaries
 
 ``Endpoint/init(path:)`` accepts only relative paths without fragments, traversal, or an
 `api_key` query parameter. ``Endpoint/init(link:)`` accepts only HTTPS links below

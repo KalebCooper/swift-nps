@@ -1,13 +1,15 @@
 # ``SwiftNPSData``
 
-Execute National Park Service Data API collection requests with authentication, lazy pagination,
-and typed failures.
+Explore National Park Service data with an async client, authentication, and automatic pagination.
 
 ## Overview
 
-Create a client with a required private API key. On Apple platforms the client uses URLSession.
-A supplied HTTPCore transport works on other supported platforms. The library never reads
-environment variables or supplies a default key.
+Use ``NPSDataClient`` to find parks, read alerts, browse campgrounds, and discover activities,
+articles, multimedia, and other published park information. Import `SwiftNPSDataModels` for the
+queries and response types.
+
+[Get an NPS API key](https://www.nps.gov/subjects/developer/get-started.htm), then supply it at
+runtime. These examples use the Apple-platform client in an async, throwing context:
 
 ```swift
 import SwiftNPSData
@@ -15,69 +17,56 @@ import SwiftNPSDataModels
 
 let client = try NPSDataClient(apiKey: apiKey)
 let query = try ParkQuery(stateCodes: [StateCode("ME")])
+
 for try await park in client.parks(query: query) {
   print(park.fullName)
 }
 ```
 
-Activities, activity parks, alerts, amenities, articles, campgrounds, events, lesson plans, news releases,
-park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport stamp
-locations, people, photo galleries, photo gallery assets, places, road events, things to do, topic
-parks, topics, tours, visitor centers, and webcams are the implemented endpoint groups. The
-collection groups are built on a generic collection core that executes any offset-paginated NPS
-collection the same way; park boundaries and road events are single responses.
+Most collections follow this query-and-loop pattern. Browse the endpoint sections below for
+supported filters and examples. Events are implemented on `main` and are not included in 0.6.0;
+see [the changelog](https://github.com/KalebCooper/swift-nps/blob/main/CHANGELOG.md) for release details.
 
-### Collection execution
+### Pages and requests
 
-Every collection operation is available at three equivalent levels: an everyday client method,
-a reusable ``/SwiftNPSDataModels/NPSDataRequest``, and a typed ``/SwiftNPSDataModels/Endpoint``
-for one page. For parks, one validated ``/SwiftNPSDataModels/ParkQuery`` drives all of them:
+Use ``NPSDataClient/parkPages(query:)`` when you want whole pages and their metadata:
 
 ```swift
-let query = try ParkQuery(
-  limit: 20, searchText: "history", sort: [.descending("relevanceScore")],
-  stateCodes: [StateCode("ME"), StateCode("MA")])
-
 for try await page in client.parkPages(query: query) {
   print("Received \(page.data.count) of \(page.total) parks")
 }
-
-let request = NPSDataRequest.parks(query: query)
-let pages = client.pages(for: request)
-let parks = client.items(for: request)
-let onePage = try await client.value(for: request)
-let samePage = try await client.send(.parks(query: query))
 ```
 
-The group conveniences, such as ``NPSDataClient/parkPages(query:)`` and
-``NPSDataClient/parks(query:)``, delegate to the generic ``NPSDataClient/pages(for:)->NPSPageSequence<Item>`` and
-``NPSDataClient/items(for:)->NPSItemSequence<Item>``. Single-page calls go through ``NPSDataClient/value(for:)``, which
-sends the request's first endpoint with ``NPSDataClient/send(_:)``. Every path shares request
-construction, authentication, and typed error mapping. Each page is
-``/SwiftNPSDataModels/NPSCollection`` of the group's item type, with its string-valued `limit`,
-`start`, and `total` and the provider's result order preserved.
+To fetch only the first page, create a reusable ``/SwiftNPSDataModels/NPSDataRequest``:
 
-### Lazy pagination
+```swift
+let request = NPSDataRequest.parks(query: query)
+let page = try await client.value(for: request)
+```
 
-Each loop starts an independent traversal. ``NPSPageSequence`` uses swifty-networking 1.1.0
-pagination to fetch one page per read. ``NPSItemSequence`` drains that page before fetching another.
-Construction performs no I/O, no pages are prefetched, and breaking iteration sends no later
-request.
-Cancellation is checked before requests and when reading buffered items. Any failure ends the
-iterator; later reads return nil.
+For lower-level access, ``NPSDataClient/send(_:)`` accepts a typed
+``/SwiftNPSDataModels/Endpoint``. The request and endpoint APIs share authentication and error
+handling with the collection conveniences.
 
-Queries explicitly default to `limit=50` and `start=0`, with both overridable. Pagination advances
-by the number of returned items, retaining filters, sorting, and authentication. A returned range
-ending at the reported total completes iteration. An empty page is terminal only at or beyond
-the total. Metadata strings remain unchanged in each page.
+### Pagination behavior
 
-Unusable metadata, an unexpected offset, contradictory counts, or overflow throws
-``NPSDataError/pagination(_:)`` before yielding the affected page. Previously yielded results do
-not imply completion. Data can change between requests; neither sequence deduplicates, reorders,
-or promises a stable snapshot.
+Pages are fetched on demand. Items drain the current page before fetching another, and breaking
+out of a loop prevents later requests. Each loop starts an independent traversal; creating a
+sequence sends nothing. Cancellation is checked before requests and while reading buffered items.
+A failure ends that iterator.
 
-A request made with `init(endpoint:)` declares no continuation, and yields only its one page even
-when the provider reports more results.
+Offset queries default to `limit=50` and `start=0`. They advance by the returned item count until
+the reported total is reached. Invalid metadata throws ``NPSDataError/pagination(_:)`` before
+yielding the affected page. Events use page numbers instead; park boundaries and road events
+return single responses. An endpoint-only request also returns just one response.
+
+Pages preserve provider metadata and result order. Results can change between requests, so
+pagination does not guarantee a stable snapshot or remove duplicate items.
+
+## Endpoint guides
+
+Each section shows a client call and describes the endpoint's filters and response behavior.
+For model fields and custom request execution, see ``/SwiftNPSDataModels``.
 
 ### Activities
 
@@ -92,9 +81,6 @@ let query = try ParkActivityQuery(parkCodes: [ParkCode("drto")], sort: [.ascendi
 for try await activity in client.parkActivities(query: query) {
   print(activity.name)
 }
-let request = NPSDataRequest.parkActivities(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkActivities(query: query))
 ```
 
 Unlike `/activities/parks`, a page carries no nested parks; use
@@ -113,9 +99,6 @@ let query = try ParkActivityParksQuery(parkCodes: [ParkCode("drto")], sort: [.as
 for try await activity in client.parkActivityParks(query: query) {
   print(activity.name, activity.parks?.compactMap(\.parkCode) ?? [])
 }
-let request = NPSDataRequest.parkActivityParks(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkActivityParks(query: query))
 ```
 
 Park codes narrow each activity's `parks` to the requested parks as well as selecting the
@@ -132,9 +115,6 @@ let query = try ParkAlertQuery(parkCodes: [ParkCode("acad"), ParkCode("yell")])
 for try await alert in client.parkAlerts(query: query) {
   print(alert.category ?? "", alert.title)
 }
-let request = NPSDataRequest.parkAlerts(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkAlerts(query: query))
 ```
 
 Alerts describe current park conditions as NPS publishes them; the package makes no freshness
@@ -161,9 +141,6 @@ let query = try AmenityParkPlacesQuery(parkCodes: [ParkCode("acad")])
 for try await amenity in client.amenityParkPlaces(query: query) {
   print(amenity.name, amenity.parks?.first?.places?.map(\.title) ?? [])
 }
-let request = NPSDataRequest.amenityParkPlaces(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.amenityParkPlaces(query: query))
 ```
 
 Listing an amenity at a park or place describes published facilities, not current availability.
@@ -179,9 +156,6 @@ let query = try ArticleQuery(parkCodes: [ParkCode("arch")], searchText: "geology
 for try await article in client.articles(query: query) {
   print(article.title, article.url ?? "")
 }
-let request = NPSDataRequest.articles(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.articles(query: query))
 ```
 
 Coordinates are published values kept as sent; most articles send none.
@@ -197,9 +171,6 @@ let query = try CampgroundQuery(parkCodes: [ParkCode("acad")], sort: [.ascending
 for try await campground in client.campgrounds(query: query) {
   print(campground.name, campground.campsites?.totalSites ?? "")
 }
-let request = NPSDataRequest.campgrounds(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.campgrounds(query: query))
 ```
 
 Published site counts, fees, and reservation links describe the campground; they are not live
@@ -266,9 +237,6 @@ let query = try LessonPlanQuery(parkCodes: [ParkCode("tusk")], sort: [.descendin
 for try await plan in client.lessonPlans(query: query) {
   print(plan.title, plan.gradeLevel ?? "")
 }
-let request = NPSDataRequest.lessonPlans(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.lessonPlans(query: query))
 ```
 
 Park codes select the lesson plans related to those parks without narrowing each plan's
@@ -288,9 +256,6 @@ let query = try NewsReleaseQuery(
 for try await release in client.newsReleases(query: query) {
   print(release.releaseDate ?? "", release.title)
 }
-let request = NPSDataRequest.newsReleases(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.newsReleases(query: query))
 ```
 
 Release and indexing timestamps are the provider's text without a time zone, kept as sent.
@@ -307,9 +272,6 @@ let query = try ParkAudioQuery(parkCodes: [ParkCode("choh")], sort: [.ascending(
 for try await audio in client.parkAudio(query: query) {
   print(audio.title, audio.versions?.first?.url ?? "")
 }
-let request = NPSDataRequest.parkAudio(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkAudio(query: query))
 ```
 
 Transcripts are the provider's plain text or HTML, and file sizes keep the provider's number, for
@@ -352,9 +314,6 @@ let query = try ParkFeesAndPassesQuery(
 for try await park in client.parkFeesAndPasses(query: query) {
   print(park.parkCode, park.fees?.count ?? 0, park.passes?.count ?? 0)
 }
-let request = NPSDataRequest.parkFeesAndPasses(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkFeesAndPasses(query: query))
 ```
 
 Fee and pass `cost` stays the provider's text such as `"55.00"`, with no currency claimed. A
@@ -374,9 +333,6 @@ let query = try ParkVideoQuery(parkCodes: [ParkCode("crmo")], sort: [.ascending(
 for try await video in client.parkVideos(query: query) {
   print(video.title, video.versions?.first?.url ?? "")
 }
-let request = NPSDataRequest.parkVideos(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkVideos(query: query))
 ```
 
 Accessibility flags are the provider's JSON Booleans, caption files keep their language text, and
@@ -395,9 +351,6 @@ let query = try ParkingLotQuery(parkCodes: [ParkCode("chsc")], sort: [.descendin
 for try await lot in client.parkingLots(query: query) {
   print(lot.name, lot.accessibility?.totalSpaces ?? 0)
 }
-let request = NPSDataRequest.parkingLots(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkingLots(query: query))
 ```
 
 Accessibility space counts are the provider's integers, correcting the misspelled
@@ -436,9 +389,6 @@ let query = try PassportStampLocationQuery(
 for try await location in client.passportStampLocations(query: query) {
   print(location.label)
 }
-let request = NPSDataRequest.passportStampLocations(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.passportStampLocations(query: query))
 ```
 
 Park codes select the locations related to those parks without narrowing each location's `parks`,
@@ -455,9 +405,6 @@ let query = try PersonQuery(parkCodes: [ParkCode("yell")], searchText: "Moran")
 for try await person in client.people(query: query) {
   print(person.title, person.quickFacts?.first?.value ?? "")
 }
-let request = NPSDataRequest.people(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.people(query: query))
 ```
 
 Coordinates are text kept as sent, usually empty, and profiles are the provider's HTML.
@@ -474,9 +421,6 @@ let query = try PhotoGalleryQuery(parkCodes: [ParkCode("thrb")], sort: [.ascendi
 for try await gallery in client.photoGalleries(query: query) {
   print(gallery.title, gallery.assetCount ?? 0)
 }
-let request = NPSDataRequest.photoGalleries(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.photoGalleries(query: query))
 ```
 
 A gallery carries one preview image, not its contents, and the provider's asset count. Rights and
@@ -496,9 +440,6 @@ let query = try PhotoGalleryAssetQuery(
 for try await asset in client.photoGalleryAssets(query: query) {
   print(asset.title, asset.fileInfo?.url ?? "")
 }
-let request = NPSDataRequest.photoGalleryAssets(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.photoGalleryAssets(query: query))
 ```
 
 An uppercase gallery UUID returns that gallery's assets. The service matches identifiers case
@@ -518,9 +459,6 @@ let query = try PlaceQuery(parkCodes: [ParkCode("acad")], searchText: "trail")
 for try await place in client.places(query: query) {
   print(place.title, place.latLong ?? "")
 }
-let request = NPSDataRequest.places(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.places(query: query))
 ```
 
 Coordinates, flags, and descriptions are published text kept as sent, not parsed values.
@@ -563,9 +501,6 @@ let query = try ThingToDoQuery(
 for try await thing in client.thingsToDo(query: query) {
   print(thing.title, thing.duration ?? "")
 }
-let request = NPSDataRequest.thingsToDo(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.thingsToDo(query: query))
 ```
 
 Reservation, fee, and season fields are published descriptions, not live availability or a
@@ -584,9 +519,6 @@ let query = try ParkTopicParksQuery(parkCodes: [ParkCode("mamc")], sort: [.ascen
 for try await topic in client.parkTopicParks(query: query) {
   print(topic.name, topic.parks?.compactMap(\.parkCode) ?? [])
 }
-let request = NPSDataRequest.parkTopicParks(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkTopicParks(query: query))
 ```
 
 Park codes narrow each topic's `parks` to the requested parks as well as selecting the topics,
@@ -604,9 +536,6 @@ let query = try ParkTopicQuery(parkCodes: [ParkCode("mamc")], sort: [.ascending(
 for try await topic in client.parkTopics(query: query) {
   print(topic.name)
 }
-let request = NPSDataRequest.parkTopics(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.parkTopics(query: query))
 ```
 
 Unlike `/topics/parks`, a page carries no nested parks; use ``NPSDataClient/parkTopicParks(query:)``
@@ -625,9 +554,6 @@ let query = try TourQuery(
 for try await tour in client.tours(query: query) {
   print(tour.title, tour.stops?.map(\.ordinal) ?? [])
 }
-let request = NPSDataRequest.tours(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.tours(query: query))
 ```
 
 Durations and stop ordinals are published text kept as sent, and each tour links one park.
@@ -643,9 +569,6 @@ let query = try VisitorCenterQuery(parkCodes: [ParkCode("acad")], sort: [.ascend
 for try await center in client.visitorCenters(query: query) {
   print(center.name, center.operatingHours?.first?.description ?? "")
 }
-let request = NPSDataRequest.visitorCenters(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.visitorCenters(query: query))
 ```
 
 Published operating hours are descriptive text, not a live open-or-closed status.
@@ -661,21 +584,20 @@ let query = try WebcamQuery(parkCodes: [ParkCode("grte")])
 for try await webcam in client.webcams(query: query) {
   print(webcam.title, webcam.status ?? "", webcam.isStreaming ?? false)
 }
-let request = NPSDataRequest.webcams(query: query)
-let firstPage = try await client.value(for: request)
-let samePage = try await client.send(.webcams(query: query))
 ```
 
 A webcam's status and streaming flag are published values, not a live check that the camera is
 reachable, and its coordinates are not guaranteed to locate the camera.
 
-### Authentication and failures
+## Authentication and failures
 
 [NPS requires an API key](https://www.nps.gov/subjects/developer/guides.htm).
 The client sends it only in `X-Api-Key`, never in a URL. Keep keys outside source control and
 application bundles. Configuration descriptions are redacted; never log request headers.
 
-Client operations throw ``NPSDataError``. A recognized gateway envelope produces
+Client operations throw ``NPSDataError``. Invalid local key syntax produces
+``NPSDataError/invalidAPIKey``. Event error entries produce ``NPSDataError/eventService(_:)``.
+A recognized gateway envelope produces
 ``NPSDataError/service(_:response:)``, preserving its open provider code along with the
 original HTTP status, body, and headers. This includes rate-limit headers and `Retry-After`
 when supplied. Other HTTP errors, malformed successful responses, connection failures, and
@@ -684,7 +606,12 @@ cancellation use ``NPSDataError/transport(_:)``. Cancellation maps to `Transport
 NPS documents a default rolling limit of 1,000 requests per hour per key, but limits vary.
 HTTP 429 is returned to the caller without automatic retry.
 
-### Custom execution
+## Other platforms and custom networking
+
+On Apple platforms, `NPSDataClient(apiKey:)` uses URLSession. On Linux or Android, enable the
+`HTTPPortable` package trait and supply a transport to `NPSDataClient(configuration:transport:)`.
+Use ``NPSDataConfiguration`` to supply the API key. The library does not read environment variables
+or provide a default key.
 
 ``/SwiftNPSDataModels/NPSDataRequest`` and ``/SwiftNPSDataModels/Endpoint`` are
 transport-independent values. Their response types stay concrete, including consumer-defined
