@@ -22,7 +22,7 @@ public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
   public let configuration: NPSDataConfiguration
 
-  private let client: HTTPClient
+  let client: HTTPClient
 
   /// Creates a client using a supplied transport on any supported platform.
   /// - Parameters:
@@ -123,7 +123,7 @@ public struct NPSDataClient: Sendable {
     }
   }
 
-  private func request<Value>(for endpoint: Endpoint<Value>) -> Request {
+  func request<Value>(for endpoint: Endpoint<Value>) -> Request {
     var headers = HTTPFields()
     headers[.accept] = "application/json"
     headers[Self.apiKeyField] = configuration.apiKey
