@@ -19,7 +19,7 @@ concurrency:
 jobs:
   build:
     name: Build DocC site
-    runs-on: macos-26
+    runs-on: xcode-27
     # Every job in this repository is bounded, so a hang fails the job instead of sitting for the
     # six-hour default. The ceiling is meant to be that job's slowest green run on `main` under its
     # current definition, rounded up to the next five minutes and then tripled. `Scripts/verify.sh`
@@ -48,7 +48,7 @@ jobs:
           set -o pipefail
           xcodebuild docbuild \
             -scheme SwiftNPSDataModels \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
             -derivedDataPath .derivedData-models \
             -skipPackagePluginValidation \
             OTHER_DOCC_FLAGS='--enable-experimental-external-link-support' \
@@ -81,7 +81,7 @@ jobs:
           set -o pipefail
           xcodebuild docbuild \
             -scheme SwiftNPSData \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
             -derivedDataPath .derivedData \
             -skipPackagePluginValidation \
             OTHER_DOCC_FLAGS="--enable-experimental-external-link-support --dependency ${{ steps.models.outputs.archive }}" \
