@@ -5,18 +5,11 @@
 	};
 	objectVersion = 77;
 	objects = {
-/* Begin PBXBuildFile section */
-        A00000000000000000000001 = {isa = PBXBuildFile; productRef = A00000000000000000000003; };
-        A00000000000000000000002 = {isa = PBXBuildFile; productRef = A00000000000000000000004; };
-/* End PBXBuildFile section */
-/* Begin XCLocalSwiftPackageReference section */
-        A00000000000000000000005 = {isa = XCLocalSwiftPackageReference; relativePath = ../..; };
-/* End XCLocalSwiftPackageReference section */
-/* Begin XCSwiftPackageProductDependency section */
-        A00000000000000000000003 = {isa = XCSwiftPackageProductDependency; productName = SwiftNPSData; };
-        A00000000000000000000004 = {isa = XCSwiftPackageProductDependency; productName = SwiftNPSDataModels; };
-/* End XCSwiftPackageProductDependency section */
 
+/* Begin PBXBuildFile section */
+		A00000000000000000000001 /* SwiftNPSData in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000003 /* SwiftNPSData */; };
+		A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000004 /* SwiftNPSDataModels */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0857A284305766A200DBEBC7 /* SwiftNPSDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNPSDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,10 +26,12 @@
 /* Begin PBXFrameworksBuildPhase section */
 		0857A281305766A200DBEBC7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
-                A00000000000000000000001,
-                A00000000000000000000002,
-            );
+				A00000000000000000000001 /* SwiftNPSData in Frameworks */,
+				A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -62,7 +57,6 @@
 /* Begin PBXNativeTarget section */
 		0857A283305766A200DBEBC7 /* SwiftNPSDataDemo */ = {
 			isa = PBXNativeTarget;
-            packageProductDependencies = (A00000000000000000000003, A00000000000000000000004,);
 			buildConfigurationList = 0857A28F305766A400DBEBC7 /* Build configuration list for PBXNativeTarget "SwiftNPSDataDemo" */;
 			buildPhases = (
 				0857A280305766A200DBEBC7 /* Sources */,
@@ -71,10 +65,16 @@
 			);
 			buildRules = (
 			);
+			dependencies = (
+			);
 			fileSystemSynchronizedGroups = (
 				0857A286305766A200DBEBC7 /* SwiftNPSDataDemo */,
 			);
 			name = SwiftNPSDataDemo;
+			packageProductDependencies = (
+				A00000000000000000000003 /* SwiftNPSData */,
+				A00000000000000000000004 /* SwiftNPSDataModels */,
+			);
 			productName = SwiftNPSDataDemo;
 			productReference = 0857A284305766A200DBEBC7 /* SwiftNPSDataDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -84,7 +84,6 @@
 /* Begin PBXProject section */
 		0857A27C305766A200DBEBC7 /* Project object */ = {
 			isa = PBXProject;
-            packageReferences = (A00000000000000000000005,);
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2700;
@@ -104,6 +103,9 @@
 			);
 			mainGroup = 0857A27B305766A200DBEBC7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A00000000000000000000005 /* XCLocalSwiftPackageReference "../.." */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0857A285305766A200DBEBC7 /* Products */;
 			projectDirPath = "";
@@ -117,21 +119,25 @@
 /* Begin PBXResourcesBuildPhase section */
 		0857A282305766A200DBEBC7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0857A280305766A200DBEBC7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0857A28D305766A400DBEBC7 /* Debug configuration for PBXProject "SwiftNPSDataDemo" */ = {
+		0857A28D305766A400DBEBC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -192,7 +198,7 @@
 			};
 			name = Debug;
 		};
-		0857A28E305766A400DBEBC7 /* Release configuration for PBXProject "SwiftNPSDataDemo" */ = {
+		0857A28E305766A400DBEBC7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -245,13 +251,14 @@
 			};
 			name = Release;
 		};
-		0857A290305766A400DBEBC7 /* Debug configuration for PBXNativeTarget "SwiftNPSDataDemo" */ = {
+		0857A290305766A400DBEBC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -287,13 +294,14 @@
 			};
 			name = Debug;
 		};
-		0857A291305766A400DBEBC7 /* Release configuration for PBXNativeTarget "SwiftNPSDataDemo" */ = {
+		0857A291305766A400DBEBC7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -335,20 +343,40 @@
 		0857A27F305766A200DBEBC7 /* Build configuration list for PBXProject "SwiftNPSDataDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0857A28D305766A400DBEBC7 /* Debug configuration for PBXProject "SwiftNPSDataDemo" */,
-				0857A28E305766A400DBEBC7 /* Release configuration for PBXProject "SwiftNPSDataDemo" */,
+				0857A28D305766A400DBEBC7 /* Debug */,
+				0857A28E305766A400DBEBC7 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		0857A28F305766A400DBEBC7 /* Build configuration list for PBXNativeTarget "SwiftNPSDataDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0857A290305766A400DBEBC7 /* Debug configuration for PBXNativeTarget "SwiftNPSDataDemo" */,
-				0857A291305766A400DBEBC7 /* Release configuration for PBXNativeTarget "SwiftNPSDataDemo" */,
+				0857A290305766A400DBEBC7 /* Debug */,
+				0857A291305766A400DBEBC7 /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A00000000000000000000005 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A00000000000000000000003 /* SwiftNPSData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftNPSData;
+		};
+		A00000000000000000000004 /* SwiftNPSDataModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftNPSDataModels;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0857A27C305766A200DBEBC7 /* Project object */;
 }
