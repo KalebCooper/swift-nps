@@ -1,5 +1,26 @@
 # Recorded responses
 
+## Events recordings, September 26, 2026
+
+Recorded with the repository application identity, using a private X-Api-Key header.
+Original bytes are retained without normalization; decoded equality was verified. Event contact
+fields are empty in these selected bodies.
+
+| File | Exact request | HTTP | Bytes | Original SHA-256 |
+| --- | --- | --- | --- | --- |
+| events-beyond.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&pageNumber=2` | 200 | 68 | 8fa83027975e36563586d827184bf2a73762c0513be0bd952e3b84de7a4c98c2 |
+| events-cancellation.json | `GET https://developer.nps.gov/api/v1/events?id=4D880C81-B51E-599B-0508AC52B5058CA6&dateStart=2026-09-01&dateEnd=2026-09-30&pageSize=1&pageNumber=1&expandRecurring=false` | 200 | 2026 | 409b088ccec19724c9b25548c4ddab68d466d34778d4eb04b252c70b1947f6cc |
+| events-empty.json | `GET https://developer.nps.gov/api/v1/events?parkCode=zzzz&dateStart=2026-09-26&dateEnd=2026-10-02` | 200 | 68 | bd10a873ffcfed4d6341e499e70a3e2a7fddbf2309f67f5ffac49e46417fac27 |
+| events-expanded.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&id=29B71501-9354-F7EC-6621568238F935A9&expandRecurring=true` | 200 | 14227 | a98fd52a772bc655e393d090286a4199225bd30a28bbf0d4e234e5b31ca4f4af |
+| events-expanded-empty.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=1&pageNumber=3&expandRecurring=true` | 200 | 2 | 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945 |
+| events-full-terminal.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=3` | 200 | 6788 | fa1339355cc5e6526ae4c4efc67f3f34ba5df41037499bcc0eb793d33c6a46d4 |
+| events-invalid-date.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=nope` | 400 | 276 | eb91291e56aea734ee815f62e327de97396c240a6182f19d4b5a472bf0c140cc |
+| events-page-first.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=2&pageNumber=1` | 200 | 4404 | 40c3a34b5875c3238abef06b335813549b25ada8a49da5b427cfefc6f8d725dd |
+| events-page-last.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=2&pageNumber=2` | 200 | 2450 | 2545f8bc9736211e33f771110f65584e7d89724a8780b0d57e15ec40ed357865 |
+| events-recurring.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&id=29B71501-9354-F7EC-6621568238F935A9` | 200 | 2451 | c93834305181c5bdb68dea7d9ef7cc32a34dc6339d1339941bd54f68b9c6a269 |
+| events-search.json | `GET https://developer.nps.gov/api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&q=Artist` | 200 | 2107 | 91e93db5c4feee8d43642cee5629c68dac293327ff16f7f86c466556c0fab439 |
+
+
 Recorded from the NPS Data API on September 13, 2026 (parks and the missing key) and September 17,
 2026 (alerts, amenities, campgrounds, things to do, and visitor centers), and September 20, 2026
 (park boundaries, places, road events, tours, and webcams), and September 21, 2026 (articles, news

@@ -126,6 +126,50 @@ package enum Fixture: String, CaseIterable, Sendable {
   /// Recorded September 17, 2026.
   case campgroundsSearch = "campgrounds-search"
 
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&pageNumber=2; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsBeyond = "events-beyond"
+
+  /// GET /api/v1/events?id=4D880C81-B51E-599B-0508AC52B5058CA6&dateStart=2026-09-01&dateEnd=2026-09-30&pageSize=1&pageNumber=1&expandRecurring=false; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsCancellation = "events-cancellation"
+
+  /// GET /api/v1/events?parkCode=zzzz&dateStart=2026-09-26&dateEnd=2026-10-02; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsEmpty = "events-empty"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&id=29B71501-9354-F7EC-6621568238F935A9&expandRecurring=true; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsExpanded = "events-expanded"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=1&pageNumber=3&expandRecurring=true; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsExpandedEmpty = "events-expanded-empty"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=3; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsFullTerminal = "events-full-terminal"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=nope; HTTP 400.
+  /// Recorded September 26, 2026.
+  case eventsInvalidDate = "events-invalid-date"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=2&pageNumber=1; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsPageFirst = "events-page-first"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=2&pageNumber=2; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsPageLast = "events-page-last"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&id=29B71501-9354-F7EC-6621568238F935A9; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsRecurring = "events-recurring"
+
+  /// GET /api/v1/events?parkCode=yell&dateStart=2026-09-26&dateEnd=2026-10-02&pageSize=10&q=Artist; HTTP 200.
+  /// Recorded September 26, 2026.
+  case eventsSearch = "events-search"
+
   /// GET /api/v1/lessonplans?limit=1&parkCode=zzzz&start=0; HTTP 200 with no matches.
   /// Recorded September 22, 2026.
   case lessonPlansEmpty = "lessonplans-empty"
