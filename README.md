@@ -14,7 +14,8 @@ each endpoint group's behavior in detail.
 
 ## Status
 
-Release 0.6.0 covers twenty-six endpoint groups. Only `/events` is not built.
+Release 0.6.0 covers twenty-six endpoint groups. Unreleased adds `/events`, bringing coverage to
+twenty-seven groups; it uses page-number pagination and an event-specific response.
 [CHANGELOG.md](CHANGELOG.md) lists what each release added.
 
 Twenty-four groups are offset-paginated collections that share one core: a validated query, the
@@ -31,6 +32,7 @@ group's query is its item type plus `Query`, such as `ParkQuery` for `Park`.
 | Amenity park visitor centers | `/amenities/parksvisitorcenters` | `AmenityParkVisitorCenters` | `amenityParkVisitorCenterPages` | `amenityParkVisitorCenters` |
 | Articles | `/articles` | `Article` | `articlePages` | `articles` |
 | Campgrounds | `/campgrounds` | `Campground` | `campgroundPages` | `campgrounds` |
+| Events | `/events` | `ParkEvent` | `parkEventPages` | `parkEvents` |
 | Lesson plans | `/lessonplans` | `LessonPlan` | `lessonPlanPages` | `lessonPlans` |
 | News releases | `/newsreleases` | `NewsRelease` | `newsReleasePages` | `newsReleases` |
 | Park audio | `/multimedia/audio` | `ParkAudio` | `parkAudioPages` | `parkAudio` |
@@ -117,6 +119,42 @@ requests; the sequences do not deduplicate or promise a stable snapshot.
 
 ### Single-response groups
 
+Events use `ParkEventQuery` with positive page numbers, page sizes 1...50 (default 10), and
+validated Gregorian `yyyy-MM-dd` dates. The default is unexpanded event definitions:
+
+```swift
+let query = try ParkEventQuery(
+  dateEnd: .init("2026-10-02"), dateStart: .init("2026-09-26"),
+  pageSize: 2, parkCodes: [ParkCode("yell")])
+let request = NPSDataRequest.parkEvents(query: query)
+let first = try await client.value(for: request)
+let same = try await client.send(.parkEvents(query: query))
+for try await event in client.items(for: request) {
+  print(event.title, event.date as Any, event.location as Any)
+}
+for try await page in client.parkEventPages(query: query) {
+  print(page.page?.total as Any)
+}
+```
+
+`ParkEventCollection` preserves two provider shapes: `.page` with string metadata and `.expanded`
+with a bare event array. Both expose `data`; expanded responses have no `page` metadata. Event dates,
+local times, recurrence rules, cancellation dates, flags, and coordinates stay as provider strings.
+Nonempty event `errors` produce `NPSDataError.eventService`, preserving the decoded response,
+HTTP status, and headers. Malformed continuation fails before yielding the page.
+
+Set `expandRecurring: true` only for a single-response call to `value(for:)` or `send(_:)`.
+Expansion returns no metadata and observed later pages omitted occurrences, so lazy expanded
+query traversal fails with `.pagination(.eventExpansionUnavailable)` before sending. Expanded
+responses preserve all returned occurrences and repeated IDs, but may omit occurrences or extend
+beyond the requested end date. There is no client-side expansion or deduplication. An endpoint-only
+request always yields one response, even for expansion.
+
+Event filters also include types, a singular identifier, organization/portal codes, park/state
+lists, search text, and tagsAll/tagsNone/tagsOne. State codes override park codes; unknown
+organization/portal codes may be ignored, and mixed tagsOne values did not reliably behave as a
+union. Events have no sort or offset inputs. See DocC for the measured contract and limitations.
+
 Park boundaries and road events return one response through the same levels:
 
 ```swift
@@ -153,9 +191,11 @@ the following page. `NPSDataRequest.init(endpoint:)` accepts your own response m
 ## Example
 
 [`Examples/SwiftNPSDataDemo`](Examples/SwiftNPSDataDemo) is an iOS 26 SwiftUI app that browses
-each of the twenty-six endpoint groups. Pick a group, enter your API key, and tap **Search**.
+each of the twenty-seven endpoint groups. Pick a group, enter your API key, and tap **Search**.
 Collection groups take park codes, state codes, and search text where the group supports them, and
-page with **Load more**; **Cancel** stops an in-flight request. Park boundaries and road events show one response. The key stays in
+page with **Load more**; **Cancel** stops an in-flight request. Events add optional start/end dates
+and recurrence expansion. Changing an event filter clears the previous traversal. Expanded events
+show one response with an explicit completeness limitation and no **Load more**. Park boundaries and road events show one response. The key stays in
 memory and is never saved.
 
 The demo references this package by local path. Open

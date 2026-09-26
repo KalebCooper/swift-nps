@@ -20,7 +20,7 @@ for try await park in client.parks(query: query) {
 }
 ```
 
-Activities, activity parks, alerts, amenities, articles, campgrounds, lesson plans, news releases,
+Activities, activity parks, alerts, amenities, articles, campgrounds, events, lesson plans, news releases,
 park audio, park boundaries, park fees and passes, park videos, parking lots, parks, passport stamp
 locations, people, photo galleries, photo gallery assets, places, road events, things to do, topic
 parks, topics, tours, visitor centers, and webcams are the implemented endpoint groups. The
@@ -50,8 +50,8 @@ let samePage = try await client.send(.parks(query: query))
 ```
 
 The group conveniences, such as ``NPSDataClient/parkPages(query:)`` and
-``NPSDataClient/parks(query:)``, delegate to the generic ``NPSDataClient/pages(for:)`` and
-``NPSDataClient/items(for:)``. Single-page calls go through ``NPSDataClient/value(for:)``, which
+``NPSDataClient/parks(query:)``, delegate to the generic ``NPSDataClient/pages(for:)->NPSPageSequence<Item>`` and
+``NPSDataClient/items(for:)->NPSItemSequence<Item>``. Single-page calls go through ``NPSDataClient/value(for:)``, which
 sends the request's first endpoint with ``NPSDataClient/send(_:)``. Every path shares request
 construction, authentication, and typed error mapping. Each page is
 ``/SwiftNPSDataModels/NPSCollection`` of the group's item type, with its string-valued `limit`,
@@ -204,6 +204,54 @@ let samePage = try await client.send(.campgrounds(query: query))
 
 Published site counts, fees, and reservation links describe the campground; they are not live
 campsite availability, and the package provides no booking or reservation support.
+
+### Events
+
+``NPSDataClient/parkEventPages(query:)`` and ``NPSDataClient/parkEvents(query:)`` lazily
+execute page-number event queries. Each iterator starts independently, buffers at most one page,
+and sends nothing until read. Breaking a loop prevents later requests. There is no prefetch,
+reordering, deduplication, automatic retry, or stable-snapshot guarantee.
+
+```swift
+let query = try ParkEventQuery(
+  dateEnd: .init("2026-10-02"), dateStart: .init("2026-09-26"),
+  pageSize: 2, parkCodes: [ParkCode("yell")])
+let request = NPSDataRequest.parkEvents(query: query)
+let first = try await client.value(for: request)
+let same = try await client.send(.parkEvents(query: query))
+for try await page in client.pages(for: request) {
+  print(page.page?.total as Any)
+}
+for try await event in client.items(for: request) {
+  print(event.title, event.date as Any, event.location as Any)
+}
+```
+
+The query defaults to unexpanded definitions, page 1 and size 10; valid sizes are 1...50.
+`CalendarDate` requires real Gregorian dates in `yyyy-MM-dd` form. Invalid dates, reversed
+ranges and invalid page settings fail locally. Dates and times in responses are preserved as text.
+See ``/SwiftNPSDataModels/ParkEventQuery`` for all filters and their measured limitations.
+
+``ParkEventPageSequence`` validates ordinary page metadata before yielding. Inconsistent pages
+throw ``NPSDataError/pagination(_:)``; a nonempty errors array throws
+``NPSDataError/eventService(_:)``, retaining the decoded response, status and headers. Unknown
+error entries are not silently treated as warnings or empty results. Cancellation and any other
+failure permanently end that iterator. Endpoint-only requests produce exactly one response.
+
+Expansion is deliberately a single-response operation:
+```swift
+let expandedQuery = try ParkEventQuery(
+  dateEnd: .init("2026-10-07"), dateStart: .init("2026-10-01"),
+  expandRecurring: true, parkCodes: [ParkCode("yell")])
+let expanded = try await client.value(for: .parkEvents(query: expandedQuery))
+for event in expanded.data { print(event.id, event.date as Any) }
+```
+
+The provider returns a bare array for expansion, with no total or page metadata, and observed
+later pages omitted occurrences. Request-based lazy expansion therefore throws
+`eventExpansionUnavailable` before sending. Expanded single responses preserve repeated IDs and
+provider order, but cannot guarantee every occurrence or strict date-range filtering. The SDK
+does not invent continuation, expand recurrence locally, or remove duplicate identifiers.
 
 ### Lesson Plans
 
@@ -655,8 +703,8 @@ The package makes no freshness or completeness guarantee.
 
 ### Collections
 
-- ``NPSDataClient/pages(for:)``
-- ``NPSDataClient/items(for:)``
+- ``NPSDataClient/pages(for:)->NPSPageSequence<Item>``
+- ``NPSDataClient/items(for:)->NPSItemSequence<Item>``
 - ``NPSDataClient/value(for:)``
 - ``NPSDataClient/send(_:)``
 - ``NPSPageSequence``
@@ -700,6 +748,13 @@ The package makes no freshness or completeness guarantee.
 
 - ``NPSDataClient/campgrounds(query:)``
 - ``NPSDataClient/campgroundPages(query:)``
+
+### Events
+
+- ``NPSDataClient/parkEventPages(query:)``
+- ``NPSDataClient/parkEvents(query:)``
+- ``ParkEventItemSequence``
+- ``ParkEventPageSequence``
 
 ### Lesson Plans
 

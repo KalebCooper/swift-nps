@@ -5,7 +5,7 @@ Typed NPS collection responses, queries, and requests without a networking depen
 ## Overview
 
 This module describes National Park Service Data API operations as values. Activities, activity
-parks, alerts, amenities, articles, campgrounds, lesson plans, news releases, park audio, park
+parks, alerts, amenities, articles, campgrounds, events, lesson plans, news releases, park audio, park
 boundaries, park fees and passes, park videos, parking lots, parks, passport stamp locations,
 people, photo galleries, photo gallery assets, places, road events, things to do, topic parks,
 topics, tours, visitor centers, and webcams are the implemented endpoint groups. Every
@@ -246,6 +246,54 @@ availability or a booking service. The specification and real responses were che
 September 17, 2026. The specification spells nested keys in lowercase, names the reservation
 fields differently, and declares fees, images, and operating hours as arrays of strings; the live
 responses send camelCase keys and objects, and add passport stamp fields, which the model follows.
+
+### Events
+
+``ParkEventQuery`` describes `/events` separately from the offset collection core. It defaults
+to page 1, size 10, and unexpanded event definitions. Page numbers must be positive; sizes must
+be 1...50. ``ParkEventQuery/CalendarDate`` validates canonical Gregorian `yyyy-MM-dd` inputs,
+and the query rejects reversed ranges without I/O. Dates in responses remain raw provider text.
+
+Starting at `pageNumber: 2` requests that page directly; it does not fetch page 1 first.
+For example, `try ParkEventQuery(eventTypes: ["Talk"], pageNumber: 2, pageSize: 10,
+parkCodes: [ParkCode("yell")], searchText: "Ranger", tagsNone: ["Virtual"], tagsOne: ["History"])`
+retains those filters on every ordinary continuation. The optional `identifier` is one provider
+ID; `organizations`, `portals`, and `tagsAll` accept open string lists in caller order.
+
+Filters include start/end dates, event types, a singular identifier, organization and portal codes,
+park/state lists, search text, and tagsAll/tagsNone/tagsOne. Lists use comma-separated values;
+state codes take precedence over park codes. Unknown organization/portal codes may be ignored;
+positive matching site-code values were not established. Mixed tagsOne values did not reliably
+behave as a union. No effective subject filter was observed. Events take no sort, offset, or limit.
+
+``Endpoint/parkEvents(query:)`` and ``NPSDataRequest/parkEvents(query:)`` return
+``ParkEventCollection``. Ordinary responses are `page` values with string pageNumber, pageSize,
+total, errors and event data. Expanded responses are bare arrays represented by `expanded`;
+`data` works for both shapes and `page` is nil for expansion. Metadata is never invented.
+
+``ParkEvent`` keeps IDs, HTML, coordinates, string flags, local times, cancellation dates,
+recurrence rules and zoneless timestamps as received. Its nested image and time shapes are
+event-specific, including relative image paths. A recorded cancellation list used `MM/dd/yyyy`;
+that canceled day had an empty occurrence list and expansion returned no occurrence for that day.
+These observations do not guarantee future scheduling, time zones, freshness or booking availability.
+Nonempty undocumented error entries are preserved by the scoped
+``ParkEventCollection/ErrorValue``; custom executors must handle these before continuation.
+
+``ParkEventResolution`` exposes the query and endpoint. Its pure continuation validates echoed
+page number and size, numeric metadata, returned count, and checked arithmetic. A short page is
+terminal only when its returned range reaches total; an empty page is terminal only at/beyond
+total. Totals count event definitions and do not promise a stable snapshot.
+
+Expanded traversal cannot be made reliable from observed responses: expansion returns no page
+metadata and later pages omitted occurrences seen in a larger first page. The SDK refuses lazy
+expanded query traversal before sending. A single expanded endpoint remains available, preserving
+every occurrence and repeated ID in order. Occurrences may extend beyond dateEnd; the SDK does
+not expand, filter, or deduplicate them. Populated successful-response errors have not been
+observed; their meanings remain unknown.
+
+Real responses and the official specification were checked on September 26, 2026. The live
+default size is 50 despite the documented 10; requests above 50 were clamped. The SDK sends its
+explicit size 10 default and validates echoes rather than silently following a changed size.
 
 ### Lesson Plans
 
@@ -810,6 +858,15 @@ NPS data describes destinations, not live reservation availability, freshness, o
 
 - ``Campground``
 - ``CampgroundQuery``
+
+### Events
+
+- ``ParkEvent``
+- ``ParkEventCollection``
+- ``ParkEventQuery``
+- ``ParkEventResolution``
+- ``Endpoint/parkEvents(query:)``
+- ``NPSDataRequest/parkEvents(query:)``
 
 ### Lesson Plans
 

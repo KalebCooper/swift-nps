@@ -4,6 +4,9 @@ import SwiftUI
 
 struct ContentView: View {
   @State private var apiKey = ""
+  @State private var dateEnd = ""
+  @State private var dateStart = ""
+  @State private var expandRecurring = false
   @State private var galleryIdentifiers = ""
   @State private var group = DemoGroup.parks
   @State private var isLoading = false
@@ -51,6 +54,20 @@ struct ContentView: View {
             TextField("State codes, separated by commas", text: $stateCodes)
               .textInputAutocapitalization(.characters)
               .autocorrectionDisabled()
+          case .events:
+            TextField("Park codes, separated by commas", text: $parkCodes)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+            TextField("State codes, separated by commas", text: $stateCodes)
+              .textInputAutocapitalization(.characters)
+              .autocorrectionDisabled()
+            TextField("Start date (yyyy-MM-dd), or empty", text: $dateStart)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+            TextField("End date (yyyy-MM-dd), or empty", text: $dateEnd)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+            Toggle("Expand recurring events", isOn: $expandRecurring)
           case .optionalParkCodeAndType:
             TextField("Park code, or empty for every park", text: $parkCode)
               .textInputAutocapitalization(.never)
@@ -97,8 +114,10 @@ struct ContentView: View {
         ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
           VStack(alignment: .leading) {
             Text(row.title)
+              .fixedSize(horizontal: false, vertical: true)
             if let detail = row.detail, let label = group.detailLabel {
               Text(detail)
+                .fixedSize(horizontal: false, vertical: true)
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .accessibilityLabel("\(label) \(detail)")
@@ -108,7 +127,11 @@ struct ContentView: View {
 
         Section {
           Text(orderDescription)
-          if group.filters.isPaged {
+          if group == .events && expandRecurring {
+            Text(
+              "Expanded events show one response only. NPS does not provide reliable continuation or a total for this mode; occurrences may be missing or outside the date range."
+            )
+          } else if group.filters.isPaged {
             Text("Load more fetches one page at a time.")
           }
           Text(
@@ -120,6 +143,13 @@ struct ContentView: View {
         .font(.footnote)
       }
       .navigationTitle("NPS \(group.noun)")
+      .onChange(of: dateEnd) { reset() }
+      .onChange(of: dateStart) { reset() }
+      .onChange(of: expandRecurring) { reset() }
+      .onChange(of: pageSize) { reset() }
+      .onChange(of: parkCodes) { reset() }
+      .onChange(of: searchText) { reset() }
+      .onChange(of: stateCodes) { reset() }
       .onDisappear { loadTask?.cancel() }
     }
   }
@@ -137,6 +167,8 @@ struct ContentView: View {
     case .activities, .activityParks, .campgrounds, .parkingLots, .topicParks, .topics,
       .visitorCenters:
       "Results are sorted by name."
+    case .events:
+      "Events retain NPS order and repeated identifiers. Dates and times are shown as supplied by the park."
     case .lessonPlans, .parkAudio, .parkVideos, .photoGalleries, .photoGalleryAssets:
       "Results are sorted by title."
     case .newsReleases:
@@ -201,6 +233,9 @@ struct ContentView: View {
             rows.count == 1
             ? "NPS returned one result." : "NPS returned \(rows.count) results."
         }
+        if group == .events && expandRecurring {
+          message += " One expanded response; this may not include every occurrence."
+        }
       } catch {
         show(error)
       }
@@ -254,6 +289,19 @@ struct ContentView: View {
         DemoPager(pages: client.campgroundPages(query: query), query: query) {
           ResultRow(detail: $0.parkCode, title: $0.name)
         })
+    case .events:
+      let query = try ParkEventQuery(
+        dateEnd: dateEnd.isEmpty ? nil : .init(dateEnd),
+        dateStart: dateStart.isEmpty ? nil : .init(dateStart),
+        expandRecurring: expandRecurring, pageSize: pageSize,
+        parkCodes: parsedParkCodes(), searchText: text, stateCodes: parsedStateCodes())
+      if expandRecurring {
+        return .single { () async throws(NPSDataError) -> [ResultRow] in
+          let response = try await client.value(for: .parkEvents(query: query))
+          return response.data.map(DemoEventPager.row)
+        }
+      }
+      return .pages(DemoEventPager(pages: client.parkEventPages(query: query), query: query))
     case .lessonPlans:
       let query = try LessonPlanQuery(
         limit: pageSize, parkCodes: parsedParkCodes(), searchText: text,
@@ -479,6 +527,14 @@ struct ContentView: View {
         loadNextPage()
       case .single(let load):
         loadSingleResponse(load)
+      }
+    } catch let error as ParkEventQuery.ValidationError {
+      switch error {
+      case .invalidDate:
+        message = "Use real calendar dates in yyyy-MM-dd format, or leave them empty."
+      case .invalidPageNumber: message = "The first page must be at least 1."
+      case .invalidPageSize: message = "Use between 1 and 50 results per page."
+      case .reversedDateRange: message = "The end date must be on or after the start date."
       }
     } catch let error as NPSDataError {
       show(error)

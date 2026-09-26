@@ -3,7 +3,7 @@ import SwiftNPSDataModels
 extension NPSDataClient {
   /// Iterates pages from an inspectable parks request without sending during construction.
   /// - Parameter request: The first-page operation and, for a query, its continuation settings.
-  /// - Returns: The same lazy page iterators as ``pages(for:)``.
+  /// - Returns: The same lazy page iterators as ``pages(for:)->NPSPageSequence<Item>``.
   public func parkPages(for request: NPSDataRequest<NPSCollection<Park>>) -> NPSPageSequence<Park> {
     pages(for: request)
   }
@@ -17,7 +17,7 @@ extension NPSDataClient {
 
   /// Iterates individual parks from a reusable first-page request.
   /// - Parameter request: An inspectable parks operation.
-  /// - Returns: The same lazy item iterators as ``items(for:)``.
+  /// - Returns: The same lazy item iterators as ``items(for:)->NPSItemSequence<Item>``.
   public func parks(for request: NPSDataRequest<NPSCollection<Park>>) -> NPSItemSequence<Park> {
     items(for: request)
   }

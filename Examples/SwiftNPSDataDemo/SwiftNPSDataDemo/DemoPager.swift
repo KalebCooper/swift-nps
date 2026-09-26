@@ -1,12 +1,47 @@
 import SwiftNPSData
 import SwiftNPSDataModels
 
+/// On-demand event pages with provider dates and locations shown as received.
+struct DemoEventPager: ResultPaging {
+  private var iterator: ParkEventPageSequence.Iterator
+  private var nextQuery: ParkEventQuery?
+
+  init(pages: ParkEventPageSequence, query: ParkEventQuery) {
+    iterator = pages.makeAsyncIterator()
+    nextQuery = query
+  }
+
+  mutating func nextPage() async throws(NPSDataError) -> ResultPage? {
+    var pages = iterator
+    guard let query = nextQuery, let response = try await pages.next() else { return nil }
+    iterator = pages
+    guard !Task.isCancelled else { throw .transport(.cancelled) }
+    guard let page = response.page else { throw .pagination(.eventExpansionUnavailable) }
+    do throws(NPSPaginationError) {
+      nextQuery = try query.next(after: response)
+    } catch { throw .pagination(error) }
+    return ResultPage(hasMore: nextQuery != nil, rows: page.data.map(Self.row), total: page.total)
+  }
+
+  static func row(_ event: ParkEvent) -> ResultRow {
+    let times = (event.times ?? []).map {
+      [$0.timeStart, $0.timeEnd].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " - ")
+    }.filter { !$0.isEmpty }.joined(separator: ", ")
+    let details = [event.date ?? event.dateStart, times, event.location, event.parkFullName]
+      .compactMap { $0 }.filter { !$0.isEmpty }
+    return ResultRow(
+      detail: details.isEmpty ? nil : details.joined(separator: " · "), title: event.title)
+  }
+}
+
 /// The inputs one group's search accepts.
 enum DemoFilters {
   /// Comma-separated park and state code lists with text search.
   case codeListsAndText
   /// Comma-separated park and state code lists with text search, plus gallery identifiers.
   case codeListsTextAndGalleries
+  /// Event dates, recurrence expansion, park/state lists and text.
+  case events
   /// One optional park code and one optional road event type.
   case optionalParkCodeAndType
   /// A comma-separated park code list with text search, for groups that take no state codes.
@@ -19,7 +54,7 @@ enum DemoFilters {
   /// Whether results arrive a page at a time rather than as one complete response.
   var isPaged: Bool {
     switch self {
-    case .codeListsAndText, .codeListsTextAndGalleries, .parkCodesAndText, .textOnly: true
+    case .codeListsAndText, .codeListsTextAndGalleries, .events, .parkCodesAndText, .textOnly: true
     case .optionalParkCodeAndType, .requiredParkCode: false
     }
   }
@@ -32,6 +67,7 @@ enum DemoGroup: String, CaseIterable, Identifiable {
   case alerts = "Alerts"
   case visitorCenters = "Visitor Centers"
   case campgrounds = "Campgrounds"
+  case events = "Events"
   case thingsToDo = "Things to Do"
   case amenities = "Amenities"
   case places = "Places"
@@ -62,6 +98,7 @@ enum DemoGroup: String, CaseIterable, Identifiable {
     switch self {
     case .alerts, .campgrounds, .parks, .tours, .visitorCenters: "Park code"
     case .activities, .amenities, .topics: nil
+    case .events: "Date, time and location"
     case .lessonPlans: "Grade level"
     case .newsReleases: "Release date"
     case .parkBoundaries: "Geometry type"
@@ -82,6 +119,8 @@ enum DemoGroup: String, CaseIterable, Identifiable {
       .codeListsAndText
     case .activities, .activityParks, .topicParks, .topics:
       .parkCodesAndText
+    case .events:
+      .events
     case .photoGalleryAssets:
       .codeListsTextAndGalleries
     case .amenities:

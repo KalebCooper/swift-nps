@@ -16,7 +16,7 @@ import SwiftNPSDataModels
 ///
 /// Every collection group offers a matching pair of lazy conveniences, such as
 /// ``parkAlertPages(query:)``/``parkAlerts(query:)`` and ``parkPages(query:)``/``parks(query:)``,
-/// or use ``pages(for:)`` and ``items(for:)`` for any collection request. No retries or redirects
+/// or use ``pages(for:)->NPSPageSequence<Item>`` and ``items(for:)->NPSItemSequence<Item>`` for any collection request. No retries or redirects
 /// are performed automatically.
 public struct NPSDataClient: Sendable {
   /// The explicit credential configuration used by this client.
@@ -35,7 +35,7 @@ public struct NPSDataClient: Sendable {
 
   /// Iterates individual items from a reusable first-page collection request.
   /// - Parameter request: An inspectable collection operation.
-  /// - Returns: Items flattened lazily from ``pages(for:)``, with the same typed failures.
+  /// - Returns: Items flattened lazily from ``pages(for:)->NPSPageSequence<Item>``, with the same typed failures.
   public func items<Item>(
     for request: NPSDataRequest<NPSCollection<Item>>
   ) -> NPSItemSequence<Item> {
@@ -106,7 +106,7 @@ public struct NPSDataClient: Sendable {
 
   /// Executes a reusable request without changing its response type.
   ///
-  /// A collection request sends only its first page; use ``pages(for:)`` to continue.
+  /// A collection request sends only its first page; use ``pages(for:)->NPSPageSequence<Item>`` to continue.
   /// - Parameter request: The portable operation to execute.
   /// - Returns: The concrete response selected by its factory or consumer-defined endpoint.
   /// - Throws: The same ``NPSDataError`` as ``send(_:)``, including cancellation.

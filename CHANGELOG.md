@@ -6,6 +6,21 @@ All notable changes are documented here. This project follows
 
 ## Unreleased
 
+### Added
+
+- Events: provider-shaped models, validated calendar dates and page queries, typed endpoints and
+  inspectable requests, lazy page/item sequences, original-response fixtures, demo search and DocC.
+  Ordinary event pages validate echoed metadata and preserve provider order. Expanded events are
+  available as single responses; lazy expanded query traversal fails before I/O because the provider
+  exposes no reliable continuation. Repeated identifiers and raw event dates/times are preserved.
+- Event service failures preserve unknown error entries with their decoded response, status and
+  headers; reported errors cannot silently become successful empty results.
+
+### Changed
+
+- `NPSDataRequest.Resolution` adds `parkEvents`, and `NPSDataError` adds `eventService`.
+  Exhaustive consumer switches must handle the new cases. The models stay transport-independent.
+
 ## [0.6.0] - 2026-09-22
 
 ### Added
