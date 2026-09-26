@@ -14,6 +14,8 @@ public struct NPSDataRequest<Response>: Hashable, Sendable {
     case collection(NPSCollectionResolution<Response>)
     /// Send one endpoint and decode the response body as `Response`.
     case endpoint(Endpoint<Response>)
+    /// Send an events query, whose page-number continuation is independent of offset collections.
+    case parkEvents(ParkEventResolution<Response>)
   }
 
   /// The operation a custom executor interprets.

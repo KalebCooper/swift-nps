@@ -10,6 +10,12 @@ import SwiftNPSDataModels
 
 /// The typed failure of an NPS client operation or credential configuration.
 public enum NPSDataError: Error {
+  /// A successful HTTP response reported errors in its events envelope.
+  ///
+  /// Preserves the decoded envelope, HTTP status, and headers. The undocumented errors are
+  /// not interpreted as warnings or successful empty results.
+  case eventService(DecodedResponse<ParkEventCollection>)
+
   /// The API key is empty or contains characters unsuitable for an HTTP header.
   ///
   /// The rejected credential is deliberately not attached to the error.

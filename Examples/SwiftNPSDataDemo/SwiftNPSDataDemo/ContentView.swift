@@ -496,6 +496,8 @@ struct ContentView: View {
 
   private func show(_ error: NPSDataError) {
     switch error {
+    case .eventService:
+      message = "NPS reported an event service error. Search again later."
     case .invalidAPIKey:
       message = "Enter an API key without spaces or line breaks."
     case .pagination:

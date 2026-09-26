@@ -60,6 +60,8 @@ public struct NPSDataClient: Sendable {
     case .endpoint(let value):
       endpoint = value
       resolution = nil
+    case .parkEvents:
+      preconditionFailure("An events resolution can only be constructed for ParkEventCollection.")
     }
     let pages = client.pages(self.request(for: endpoint), as: NPSCollection<Item>.self) {
       page, sent in
@@ -86,11 +88,20 @@ public struct NPSDataClient: Sendable {
     _ endpoint: Endpoint<Value>
   ) async throws(NPSDataError) -> Value {
     guard !Task.isCancelled else { throw .transport(.cancelled) }
-    do {
-      return try await client.execute(request(for: endpoint))
+    let response: DecodedResponse<Value>
+    do throws(TransportError) {
+      response = try await client.execute(request(for: endpoint))
     } catch {
       throw NPSDataError(error)
     }
+    if let events = response.value as? ParkEventCollection,
+      let page = events.page, !page.errors.isEmpty
+    {
+      throw .eventService(
+        DecodedResponse(
+          headers: response.headers, status: response.status, value: events))
+    }
+    return response.value
   }
 
   /// Executes a reusable request without changing its response type.
@@ -107,6 +118,8 @@ public struct NPSDataClient: Sendable {
       return try await send(resolution.endpoint)
     case .endpoint(let endpoint):
       return try await send(endpoint)
+    case .parkEvents(let resolution):
+      return try await send(resolution.endpoint)
     }
   }
 
