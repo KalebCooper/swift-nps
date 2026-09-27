@@ -826,3 +826,24 @@ and [authentication guide](https://www.nps.gov/subjects/developer/guides.htm).
 
 NPS content and media retain their [upstream usage terms](https://www.nps.gov/aboutus/disclaimer.htm).
 No referenced image or media file is downloaded into these fixtures.
+
+## IRMA Units
+
+Original key-free GET responses recorded September 27, 2026. Each path is relative to `https://irmaservices.nps.gov/Unit/v2/api`. Profile searches and links return arrays; plural catalogs contain Code/Name/Units summaries; singular catalogs return objects. Administrative nulls, ordering and open lifecycle codes are preserved. Unknown singular catalogs return HTTP 500 with an empty body. Logical-link recordings are empty; populated logical membership remains unverified.
+
+- `acad.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD?format=json`, HTTP 200, original SHA-256 `74799491315568fcd42b27dd09df4e8bef9b74b6a0382e77ca0fb423e6eaa4d8`.
+- `yell.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/YELL?format=json`, HTTP 200, original SHA-256 `e69bc6ba8e31ad5e0b14811c931553883f368d83bdb9f18054f0ae43fd027ba6`.
+- `name.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/Acadia?format=json`, HTTP 200, original SHA-256 `4441e7d2568e3b344d4a2edcb0797993e5030e33f871d0101c828259bf81f012`.
+- `multiple.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD,YELL?format=json`, HTTP 200, original SHA-256 `696fbb34a59a2ab6f9748e13692869ee7972b858eafa294437c9b0aaa109cf82`.
+- `unknown.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ZZZZ?format=json`, HTTP 200, original SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.
+- `collections.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/collections?format=json`, HTTP 200, original SHA-256 `1c10b950739cb3f4b21ce7b638cc2d50b0b2d0699c61601556c482b3d6d9e46e`.
+- `designations.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/designations?format=json`, HTTP 200, original SHA-256 `187e603c23065ef555822285fec62bad61fa92cff6bd10ab87789ec84332d843`.
+- `designation-np.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/designations/NP?format=json`, HTTP 200, original SHA-256 `48ea7be058b100e6da6e88b7bad9f9afb9572d7d66331c036286a1abd7008094`.
+- `designation-unknown.bin`: GET `https://irmaservices.nps.gov/Unit/v2/api/designations/ZZZZ?format=json`, HTTP 500, original SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+- `subtypes.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/subtypes?format=json`, HTTP 200, original SHA-256 `ce2b17cc45a89c54a30332e965deb19c518325ee7f37bd1fbc7c300fc9562dbf`.
+- `netn-linked.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/NETN/linked?format=json`, HTTP 200, original SHA-256 `e042d53ddc8b985f72374803c26b49dc0e2501a03f4b4133cc4ce0e71fa770b6`.
+- `netn-linked-functional.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/NETN/linked/functional?format=json`, HTTP 200, original SHA-256 `d02a8e7f57b0082095d0409b9a3a5c18a88b80314263327d6a13738fb0e8f938`.
+- `netn-linked-logical.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/NETN/linked/logical?format=json`, HTTP 200, original SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.
+- `subtype-op.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/subtypes/OP?format=json`, HTTP 200, original SHA-256 `128d0bea59b29f1a77abed66ddef572a9bbde7342a0aa01c4e7a62bd482c5ce5`.
+- `nps.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/NPS?format=json`, HTTP 200, original SHA-256 `8b96c26acfe97dffdd02975d0b0f5ba07f1eb6f127fcdfb21e8992c7fb4c7c17`.
+- `semicolon.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD;YELL?format=json`, HTTP 200, original SHA-256 `696fbb34a59a2ab6f9748e13692869ee7972b858eafa294437c9b0aaa109cf82`.

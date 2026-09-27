@@ -13,6 +13,8 @@ let package = Package(
     .library(name: "SwiftNPSDataModels", targets: ["SwiftNPSDataModels"]),
     .library(name: "SwiftNPSSpecies", targets: ["SwiftNPSSpecies"]),
     .library(name: "SwiftNPSSpeciesModels", targets: ["SwiftNPSSpeciesModels"]),
+    .library(name: "SwiftNPSUnits", targets: ["SwiftNPSUnits"]),
+    .library(name: "SwiftNPSUnitsModels", targets: ["SwiftNPSUnitsModels"]),
     .library(name: "SwiftNPSVisitation", targets: ["SwiftNPSVisitation"]),
     .library(name: "SwiftNPSVisitationModels", targets: ["SwiftNPSVisitationModels"]),
   ],
@@ -111,6 +113,39 @@ let package = Package(
         "SwiftNPSDataTestSupport",
         "SwiftNPSSpecies",
         "SwiftNPSSpeciesModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(
+      name: "SwiftNPSUnits",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(
+          name: "HTTPPortable", package: "swifty-networking",
+          condition: .when(traits: ["HTTPPortable"])),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        .product(
+          name: "HTTPURLSession", package: "swifty-networking",
+          condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS, .watchOS])),
+        "SwiftNPSUnitsModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(name: "SwiftNPSUnitsModels", swiftSettings: swiftSettings),
+    .testTarget(
+      name: "SwiftNPSUnitsModelsTests",
+      dependencies: ["SwiftNPSDataTestSupport", "SwiftNPSUnitsModels"],
+      swiftSettings: swiftSettings
+    ),
+    .testTarget(
+      name: "SwiftNPSUnitsTests",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(name: "HTTPTesting", package: "swifty-networking"),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        "SwiftNPSDataTestSupport",
+        "SwiftNPSUnits",
+        "SwiftNPSUnitsModels",
       ],
       swiftSettings: swiftSettings
     ),

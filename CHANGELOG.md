@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Key-free Unit profiles, linked units and classification catalogs, with administrative codes,
+  nullable fields, independent request descriptions, recorded responses and demo browsing.
+
 - Species category discovery with inspectable XML requests, exact alias guidance, and strict
   XML validation. Category aliases with interior spaces retain their original spelling.
 

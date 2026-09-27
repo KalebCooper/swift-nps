@@ -107,11 +107,23 @@ preserves its exact values; Android runtime qualification for category discovery
 Checklist, full, and detailed lists preserve their separate membership. These inventories do not
 describe current wildlife sightings. The Species products are unreleased and require no key.
 
+### Find administrative units
+
+```swift
+import SwiftNPSUnits
+import SwiftNPSUnitsModels
+
+let units = try await NPSUnitsClient().units(matching: "ACAD;YELL")
+```
+
+The unreleased Unit products preserve administrative identifiers, nullable fields and provider order.
+Use the Unit DocC guides for linked units, collections, designations and subtypes.
+
 ## Example
 
 The [SwiftUI demo app](Examples/SwiftNPSDataDemo) lets you browse the supported endpoint groups,
 search, and load more results. The Data API tab keeps your entered key in memory.
-The IRMA tab offers Species and Visitation without a key.
+The IRMA tab offers Species, Units, and Visitation without a key.
 
 Open [SwiftNPSDataDemo.xcodeproj](Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj) in Xcode
 with the standalone package window closed, since Xcode opens a local package in only one window
@@ -125,6 +137,8 @@ at a time.
 | `SwiftNPSDataModels` | `Codable` models, validated queries, and typed requests and endpoints. Has no dependencies and works with your own networking stack. |
 | `SwiftNPSSpecies` | Key-free checklist, full, and detailed species lists. |
 | `SwiftNPSSpeciesModels` | Portable list records, safe queries, and inspectable requests. |
+| `SwiftNPSUnits` | Key-free unit profiles, linked units, and classification catalogs. |
+| `SwiftNPSUnitsModels` | Administrative records and independent request descriptions. |
 | `SwiftNPSVisitation` | Key-free monthly unit and national visitation statistics. |
 | `SwiftNPSVisitationModels` | Portable monthly records, validated ranges, and inspectable requests. |
 
@@ -135,7 +149,7 @@ It describes published park information; it does not provide live campsite avail
 
 - Swift 6.2 or later.
 - iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android are also supported.
-- An NPS API key for Data API requests. IRMA Species and Visitation require no key.
+- An NPS API key for Data API requests. IRMA Species, Units, and Visitation require no key.
 
 ## Installation
 
