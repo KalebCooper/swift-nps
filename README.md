@@ -13,7 +13,8 @@ an async client that handles authentication and pagination.
 
 The latest release, **0.6.0**, includes park and visitor information, activities and topics,
 articles and multimedia, fees and passes, educational resources, park boundaries, and road events.
-Events are implemented on `main` and are **unreleased**. See the [changelog](CHANGELOG.md) for
+Events are implemented on `main` and are **unreleased**. Key-free IRMA visitation statistics are
+also available in the unreleased `SwiftNPSVisitation` and `SwiftNPSVisitationModels` products. See the [changelog](CHANGELOG.md) for
 release details.
 
 ## Usage
@@ -76,6 +77,19 @@ Keep the key outside source control and application bundles. Requests are not au
 For all supported collections, filters, error handling, custom transports, and event limitations,
 see the [client guide](https://kalebcooper.github.io/swift-nps/documentation/swiftnpsdata/).
 
+### Read monthly visitation
+
+```swift
+import SwiftNPSVisitation
+import SwiftNPSVisitationModels
+
+let visits = NPSVisitationClient()
+let months = try await visits.nationalVisitation(year: 2025)
+```
+
+National results are monthly records. Missing months remain absent; no annual total is calculated.
+IRMA statistics use no Data API key. See the Visitation DocC catalogs for unit and month queries.
+
 ## Example
 
 The [SwiftUI demo app](Examples/SwiftNPSDataDemo) lets you browse the supported endpoint groups,
@@ -91,6 +105,8 @@ at a time.
 | --- | --- |
 | `SwiftNPSData` | An async client with authentication, lazy pagination, and typed errors. Uses [swifty-networking](https://github.com/KalebCooper/swifty-networking), with URLSession on Apple platforms. |
 | `SwiftNPSDataModels` | `Codable` models, validated queries, and typed requests and endpoints. Has no dependencies and works with your own networking stack. |
+| `SwiftNPSVisitation` | Key-free monthly unit and national visitation statistics. |
+| `SwiftNPSVisitationModels` | Portable monthly records, validated ranges, and inspectable requests. |
 
 The package preserves NPS data, including provider identifiers, timestamps, and unknown codes.
 It describes published park information; it does not provide live campsite availability or bookings.
@@ -99,7 +115,7 @@ It describes published park information; it does not provide live campsite avail
 
 - Swift 6.2 or later.
 - iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android are also supported.
-- An NPS API key for requests.
+- An NPS API key for Data API requests. IRMA visitation requires no key.
 
 ## Installation
 

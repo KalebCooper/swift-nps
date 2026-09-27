@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5675461B3561EC31B31AA70B /* SwiftNPSVisitation in Frameworks */ = {isa = PBXBuildFile; productRef = DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */; };
+		9D7F8EAC8DED5B7F11389E3F /* SwiftNPSVisitationModels in Frameworks */ = {isa = PBXBuildFile; productRef = 8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */; };
 		A00000000000000000000001 /* SwiftNPSData in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000003 /* SwiftNPSData */; };
 		A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000004 /* SwiftNPSDataModels */; };
 /* End PBXBuildFile section */
@@ -18,6 +20,8 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0857A286305766A200DBEBC7 /* SwiftNPSDataDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = SwiftNPSDataDemo;
 			sourceTree = "<group>";
 		};
@@ -30,6 +34,8 @@
 			files = (
 				A00000000000000000000001 /* SwiftNPSData in Frameworks */,
 				A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */,
+				5675461B3561EC31B31AA70B /* SwiftNPSVisitation in Frameworks */,
+				9D7F8EAC8DED5B7F11389E3F /* SwiftNPSVisitationModels in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +80,8 @@
 			packageProductDependencies = (
 				A00000000000000000000003 /* SwiftNPSData */,
 				A00000000000000000000004 /* SwiftNPSDataModels */,
+				DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */,
+				8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */,
 			);
 			productName = SwiftNPSDataDemo;
 			productReference = 0857A284305766A200DBEBC7 /* SwiftNPSDataDemo.app */;
@@ -104,7 +112,7 @@
 			mainGroup = 0857A27B305766A200DBEBC7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				A00000000000000000000005 /* XCLocalSwiftPackageReference "../.." */,
+				A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0857A285305766A200DBEBC7 /* Products */;
@@ -361,13 +369,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A00000000000000000000005 /* XCLocalSwiftPackageReference "../.." */ = {
+		A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../..;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
+			productName = SwiftNPSVisitationModels;
+		};
 		A00000000000000000000003 /* SwiftNPSData */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftNPSData;
@@ -375,6 +388,11 @@
 		A00000000000000000000004 /* SwiftNPSDataModels */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftNPSDataModels;
+		};
+		DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
+			productName = SwiftNPSVisitation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -11,6 +11,8 @@ let package = Package(
   products: [
     .library(name: "SwiftNPSData", targets: ["SwiftNPSData"]),
     .library(name: "SwiftNPSDataModels", targets: ["SwiftNPSDataModels"]),
+    .library(name: "SwiftNPSVisitation", targets: ["SwiftNPSVisitation"]),
+    .library(name: "SwiftNPSVisitationModels", targets: ["SwiftNPSVisitationModels"]),
   ],
   traits: [
     // Nothing is on by default, stated at the declaration site rather than left to SwiftPM's implicit
@@ -73,6 +75,39 @@ let package = Package(
         "SwiftNPSData",
         "SwiftNPSDataModels",
         "SwiftNPSDataTestSupport",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(
+      name: "SwiftNPSVisitation",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(
+          name: "HTTPPortable", package: "swifty-networking",
+          condition: .when(traits: ["HTTPPortable"])),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        .product(
+          name: "HTTPURLSession", package: "swifty-networking",
+          condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS, .watchOS])),
+        "SwiftNPSVisitationModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(name: "SwiftNPSVisitationModels", swiftSettings: swiftSettings),
+    .testTarget(
+      name: "SwiftNPSVisitationModelsTests",
+      dependencies: ["SwiftNPSDataTestSupport", "SwiftNPSVisitationModels"],
+      swiftSettings: swiftSettings
+    ),
+    .testTarget(
+      name: "SwiftNPSVisitationTests",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(name: "HTTPTesting", package: "swifty-networking"),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        "SwiftNPSDataTestSupport",
+        "SwiftNPSVisitation",
+        "SwiftNPSVisitationModels",
       ],
       swiftSettings: swiftSettings
     ),

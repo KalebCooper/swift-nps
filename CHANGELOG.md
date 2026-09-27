@@ -8,6 +8,10 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- IRMA visitation: independent client and Models products for unit month ranges and national monthly
+  records, with key-free execution, typed failures, recorded fixtures, documentation, and demo browsing.
+  Missing months and national null unit identifiers are preserved without aggregation.
+
 - Events: provider-shaped models, validated calendar dates and page queries, typed endpoints and
   inspectable requests, lazy page/item sequences, original-response fixtures, demo search and DocC.
   Ordinary event pages validate echoed metadata and preserve provider order. Expanded events are

@@ -151,10 +151,9 @@ check_job_timeouts() {
 # Prohibition. SwiftNPSDataModels builds on every platform the package supports, so it imports Foundation
 # only under the `#else` of a `#if canImport(FoundationEssentials)`.
 check_models_foundation_import() {
-  local name="every import Foundation in Sources/SwiftNPSDataModels sits under #else"
+  local name="every import Foundation in all declared Models targets sits under #else"
   local files hits
-  files=$(swift_files Sources/SwiftNPSDataModels)
-  if [ -z "$files" ]; then fail "$name (Sources/SwiftNPSDataModels holds no Swift file; the check has lost its subject)"; return; fi
+  if ! files=$(models_files); then fail "$name (a declared Models target has no sources)"; return; fi
   # awk rather than grep -B1: a file whose first line is the import has no preceding line for -B1 to
   # show, and the filter would drop the hit.
   hits=$(awk 'FNR == 1 { prev = "" } /^import Foundation$/ && prev != "#else" { print FILENAME ":" FNR ": " $0 } { prev = $0 }' $files 2>/dev/null || true)
@@ -167,11 +166,10 @@ check_models_foundation_import() {
 # declaration kind), so an import cannot hide behind one; `\b` keeps `SwiftNPSDataModels` itself out of
 # the `SwiftNPSData` match.
 check_models_import_boundary() {
-  local name="no swifty-networking, transport, or SDK import in Sources/SwiftNPSDataModels"
+  local name="no swifty-networking, transport, or SDK import in all declared Models targets"
   local files hits
-  files=$(swift_files Sources/SwiftNPSDataModels)
-  if [ -z "$files" ]; then fail "$name (Sources/SwiftNPSDataModels holds no Swift file; the check has lost its subject)"; return; fi
-  hits=$(code_lines $files | grep -E ':[0-9]+:[[:space:]]*(@[A-Za-z_]+(\([^)]*\))?[[:space:]]+)*((public|package|internal|fileprivate|private)[[:space:]]+)?import[[:space:]]+((typealias|struct|class|enum|protocol|let|var|func)[[:space:]]+)?(AsyncHTTPClient|FoundationNetworking|HTTPCore|HTTPPortable|HTTPTesting|HTTPTypes|HTTPTypesFoundation|HTTPURLSession|_?NIO[A-Za-z0-9_]*|SwiftNPSData)\b|\bURLSession' || true)
+  if ! files=$(models_files); then fail "$name (a declared Models target has no sources)"; return; fi
+  hits=$(code_lines $files | grep -E ':[0-9]+:[[:space:]]*(@[A-Za-z_]+(\([^)]*\))?[[:space:]]+)*((public|package|internal|fileprivate|private)[[:space:]]+)?import[[:space:]]+((typealias|struct|class|enum|protocol|let|var|func)[[:space:]]+)?(AsyncHTTPClient|FoundationNetworking|HTTPCore|HTTPPortable|HTTPTesting|HTTPTypes|HTTPTypesFoundation|HTTPURLSession|_?NIO[A-Za-z0-9_]*|SwiftNPS[A-Za-z0-9_]*)\b|\bURLSession' || true)
   if [ -z "$hits" ]; then pass "$name"; else fail "$name"; printf '%s\n' "$hits"; fi
 }
 
@@ -300,6 +298,27 @@ code_lines() {
 }
 
 fail() { printf '[FAIL] %s\n' "$1"; FAILURES=$((FAILURES + 1)); }
+
+# Derive every declared Models subject; a missing directory must fail closed.
+models_files() {
+  python3 - "$ROOT" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+root = Path(sys.argv[1])
+manifest = (root / "Package.swift").read_text()
+targets = sorted(set(re.findall(r'\.target\s*\(\s*name:\s*"([^"]+Models)"', manifest)))
+if not targets:
+    sys.exit("No declared Models targets")
+for target in targets:
+    files = sorted((root / "Sources" / target).rglob("*.swift"))
+    if not files:
+        sys.exit("Missing Swift sources for declared Models target " + target)
+    for path in files:
+        print(path)
+PY
+}
 
 # Runs one check against $1 and echoes its outcome as PASS or FAIL, swallowing output.
 outcome_of() {
@@ -518,6 +537,24 @@ self_test() {
       if [ "$got" = FAIL ]; then pass "self-test: $check fails when its subject is gone"; else fail "self-test: $check PASSED with its subject gone"; fi
     fi
   done
+  for check in check_models_foundation_import check_models_import_boundary; do
+    planted="$scratch/additional-$check"
+    write_clean_tree "$planted"
+    if [ "$check" = check_models_foundation_import ]; then
+      printf 'import Foundation\n' > "$planted/Sources/SwiftNPSExtraModels/Leak.swift"
+    else
+      printf 'import SwiftNPSVisitation\n' > "$planted/Sources/SwiftNPSExtraModels/Leak.swift"
+    fi
+    got=$(outcome_of "$planted" "$check")
+    arms=$((arms + 1))
+    if [ "$got" = FAIL ]; then pass "self-test: $check covers another Models target"; else fail "self-test: $check MISSED another Models target"; fi
+    planted="$scratch/missing-extra-$check"
+    write_clean_tree "$planted"
+    rm -rf "$planted/Sources/SwiftNPSExtraModels"
+    got=$(outcome_of "$planted" "$check")
+    arms=$((arms + 1))
+    if [ "$got" = FAIL ]; then pass "self-test: $check requires each declared Models target"; else fail "self-test: $check MISSED a missing Models target"; fi
+  done
   printf '%d self-test arms\n' "$arms"
 }
 
@@ -636,7 +673,9 @@ EOF
   printf '# Changelog\n' > "$d/CHANGELOG.md"
   printf '# Contributing\n' > "$d/CONTRIBUTING.md"
   printf 'version: 1\n' > "$d/.spi.yml"
-  printf '// swift-tools-version: 6.2\n' > "$d/Package.swift"
+  printf '// swift-tools-version: 6.2\n.target(name: "SwiftNPSDataModels"),\n.target(name: "SwiftNPSExtraModels"),\n' > "$d/Package.swift"
+  mkdir -p "$d/Sources/SwiftNPSExtraModels"
+  cp "$d/Sources/SwiftNPSDataModels/MediaType.swift" "$d/Sources/SwiftNPSExtraModels/Value.swift"
 }
 
 case "${1:-}" in

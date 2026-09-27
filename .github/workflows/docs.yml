@@ -87,9 +87,28 @@ jobs:
             OTHER_DOCC_FLAGS="--enable-experimental-external-link-support --dependency ${{ steps.models.outputs.archive }}" \
             | xcbeautify --renderer github-actions
 
-      # Two products means two archives. A merged archive gets a synthesized landing page at
-      # /documentation/ that lists both modules, so one site covers the whole package. The test support
-      # target is in no product and is not documented.
+      # Each Models archive is staged before its SDK build.
+      - name: Build Visitation documentation
+        run: |
+          set -euo pipefail
+          for product in SwiftNPSVisitationModels SwiftNPSVisitation; do
+            flags='--enable-experimental-external-link-support --warnings-as-errors'
+            if [ "$product" = SwiftNPSVisitation ]; then
+              flags="$flags --dependency $PWD/.docc-deps/SwiftNPSVisitationModels.doccarchive"
+            fi
+            xcodebuild docbuild \
+              -scheme "$product" \
+              -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
+              -derivedDataPath ".derivedData-$product" \
+              -skipPackagePluginValidation \
+              OTHER_DOCC_FLAGS="$flags" | xcbeautify --renderer github-actions
+            found="$(find ".derivedData-$product" -type d -name "$product.doccarchive" | head -1)"
+            test -n "$found"
+            test -f "$found/linkable-entities.json"
+            cp -R "$found" ".docc-deps/$product.doccarchive"
+          done
+
+      # A merged landing page lists every public product; test support stays private.
       - name: Merge archives
         run: |
           set -euo pipefail
@@ -98,7 +117,9 @@ jobs:
             echo "::error::no SwiftNPSData.doccarchive under .derivedData"
             exit 1
           fi
+          test -f "$found/linkable-entities.json"
           "$(xcrun --find docc)" merge .docc-deps/SwiftNPSDataModels.doccarchive "$found" \
+            .docc-deps/SwiftNPSVisitationModels.doccarchive .docc-deps/SwiftNPSVisitation.doccarchive \
             --synthesized-landing-page-name swift-nps \
             --synthesized-landing-page-kind Package \
             --output-path .merged.doccarchive

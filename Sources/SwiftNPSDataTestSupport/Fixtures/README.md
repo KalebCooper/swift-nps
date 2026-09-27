@@ -1,5 +1,19 @@
 # Recorded responses
 
+## IRMA Visitation recordings, September 27, 2026
+
+Public key-free GET requests with Accept application/json. Bodies are original bytes, including the HTTP failure BOM. Identity: swift-nps, https://github.com/KalebCooper/swift-nps.
+
+| File under IRMA/Visitation | Exact request | HTTP | Bytes | SHA-256 |
+| --- | --- | --- | --- | --- |
+| acadia-months.json | `GET https://irmaservices.nps.gov/v3/rest/stats/visitation?endMonth=2&endYear=2025&format=json&startMonth=1&startYear=2025&unitCodes=ACAD` | 200 | 241 | 3e02df13bf9936653212b9c15309f6d75514f2f328b166a16118a439679ae3e7 |
+| national-months.json | `GET https://irmaservices.nps.gov/v3/rest/stats/total/2025?format=json` | 200 | 1432 | 3bcabc096e76536ed5ed86f57769e793782a193041f6026903c44fefb533f36d |
+| empty.json | `GET https://irmaservices.nps.gov/v3/rest/stats/visitation?endMonth=2&endYear=2025&format=json&startMonth=1&startYear=2025&unitCodes=ZZZZ` | 200 | 2 | 4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945 |
+| http-failure.html | `GET https://irmaservices.nps.gov/v3/rest/stats/visitation?endMonth=13&endYear=2025&format=json&startMonth=0&startYear=2025&unitCodes=ACAD` | 500 | 190 | 00108c653afccabd0fc5a4eb4dac61a2089fb92021483e0edb77b891ca73c992 |
+| sparse.json | `GET https://irmaservices.nps.gov/v3/rest/stats/visitation?endMonth=2&endYear=2026&format=json&startMonth=11&startYear=2025&unitCodes=ACAD` | 200 | 243 | e0850b04d2db56d0947c144034cc22d13ccab44147f64cc25b64db8200236066 |
+
+National totals are monthly arrays with null unit identifiers. Cross-year sparse results omit unreported 2026 months. Invalid months return HTML HTTP 500; the SDK preserves it as a transport failure. No rate-limit headers were observed; no rate limit is promised.
+
 ## Events recordings, September 26, 2026
 
 Recorded with the repository application identity, using a private X-Api-Key header.

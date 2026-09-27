@@ -4,7 +4,10 @@ import SwiftUI
 struct SwiftNPSDataDemoApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      TabView {
+        Tab("Data API", systemImage: "tree") { ContentView() }
+        Tab("IRMA", systemImage: "leaf") { IRMAExplorerView() }
+      }
     }
   }
 }
