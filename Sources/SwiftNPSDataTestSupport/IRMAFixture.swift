@@ -2,6 +2,32 @@ import Foundation
 
 /// Original public IRMA response bytes, recorded September 27, 2026.
 package enum IRMAFixture: String, CaseIterable, Sendable {
+  /// Original Landmark landmark-code response.
+  case landmarkAppleton = "Landmarks/landmark-code.json"
+  /// Original Landmark county-all response.
+  case landmarkCountyAll = "Landmarks/county-all.json"
+  /// Original Landmark county-me response.
+  case landmarkCountyMaine = "Landmarks/county-me.json"
+  /// Original Landmark county-wy response.
+  case landmarkCountyWyoming = "Landmarks/county-wy.json"
+  /// Original Landmark landmark-unknown response.
+  case landmarkEmpty = "Landmarks/landmark-unknown.json"
+  /// Original Landmark state-unknown response.
+  case landmarkHTTPFailure = "Landmarks/state-unknown.json"
+  /// Original Landmark landmarks-me response.
+  case landmarkMaine = "Landmarks/landmarks-me.json"
+  /// Original Landmark landmarks-county response.
+  case landmarkPerCounty = "Landmarks/landmarks-county.json"
+  /// Original Landmark landmarks-county-missing response.
+  case landmarkPerCountyEmpty = "Landmarks/landmarks-county-missing.json"
+  /// Original Landmark state-me response.
+  case landmarkStateMaine = "Landmarks/state-me.json"
+  /// Original Landmark states response.
+  case landmarkStates = "Landmarks/states.json"
+  /// Original Landmark state-missing response.
+  case landmarkStateUnknown = "Landmarks/state-missing.json"
+  /// Original Landmark landmarks-wy response.
+  case landmarkWyoming = "Landmarks/landmarks-wy.json"
   /// Recorded Species acad-checklist.json response.
   case speciesAcadiaChecklist = "Species/acad-checklist.json"
   /// Recorded Species acad-details.json response.

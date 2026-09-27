@@ -11,6 +11,8 @@ let package = Package(
   products: [
     .library(name: "SwiftNPSData", targets: ["SwiftNPSData"]),
     .library(name: "SwiftNPSDataModels", targets: ["SwiftNPSDataModels"]),
+    .library(name: "SwiftNPSLandmarks", targets: ["SwiftNPSLandmarks"]),
+    .library(name: "SwiftNPSLandmarksModels", targets: ["SwiftNPSLandmarksModels"]),
     .library(name: "SwiftNPSSpecies", targets: ["SwiftNPSSpecies"]),
     .library(name: "SwiftNPSSpeciesModels", targets: ["SwiftNPSSpeciesModels"]),
     .library(name: "SwiftNPSUnits", targets: ["SwiftNPSUnits"]),
@@ -80,6 +82,39 @@ let package = Package(
         "SwiftNPSData",
         "SwiftNPSDataModels",
         "SwiftNPSDataTestSupport",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(
+      name: "SwiftNPSLandmarks",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(
+          name: "HTTPPortable", package: "swifty-networking",
+          condition: .when(traits: ["HTTPPortable"])),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        .product(
+          name: "HTTPURLSession", package: "swifty-networking",
+          condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS, .watchOS])),
+        "SwiftNPSLandmarksModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(name: "SwiftNPSLandmarksModels", swiftSettings: swiftSettings),
+    .testTarget(
+      name: "SwiftNPSLandmarksModelsTests",
+      dependencies: ["SwiftNPSDataTestSupport", "SwiftNPSLandmarksModels"],
+      swiftSettings: swiftSettings
+    ),
+    .testTarget(
+      name: "SwiftNPSLandmarksTests",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(name: "HTTPTesting", package: "swifty-networking"),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        "SwiftNPSDataTestSupport",
+        "SwiftNPSLandmarks",
+        "SwiftNPSLandmarksModels",
       ],
       swiftSettings: swiftSettings
     ),

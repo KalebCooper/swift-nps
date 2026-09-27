@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- National Natural Landmark discovery with state/county lookup, distinct county-enriched records,
+  explicit ID filters, independent SDK/Models products, original fixtures and key-free demo browsing.
+
 - Unit geography as raw WKT/GML, state and county hierarchies, optional point coordinates, and
   selector nodes with separate active/inactive direct/indirect leaves.
 

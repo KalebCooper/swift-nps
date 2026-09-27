@@ -864,3 +864,23 @@ Original GET responses preserve WKT/GML text, leading-zero FIPS, omitted point c
 - `geo-envelope.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?detail=envelope&dataformat=wkt&format=json`, HTTP 200, original SHA-256 `3678c61070a3592c1e8860497e91a4e8379eebd1068c0681921630256784d175`.
 - `geo-feature.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?detail=feature&dataformat=wkt&format=json`, HTTP 200, original SHA-256 `47fd1339341f2946015729bbffa0e55000ea3a5bcbdc00ee3e53303b9654db0f`.
 - `geo-gml.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?detail=envelope&dataformat=gml&format=json`, HTTP 200, original SHA-256 `d1885021eacea9f988631d4477636ef009c8b6aa497649e3a924f4cbe4481c69`.
+
+## IRMA National Natural Landmarks
+
+Original key-free JSON GET bodies recorded September 27, 2026. URLs are relative to https://irmaservices.nps.gov/NNLApi/v1. State/County are singular objects, including unfiltered County; unknown object filters can return HTTP500. PerCounty returns county-enriched records while ordinary landmark searches return primary/secondary states. IDs remain distinct. All measured URLs were null and acreage integral; decimal/populatedURL tests are synthetic. No access or ownership inference.
+
+| File | Route | Status | Bytes | SHA-256 |
+| --- | --- | --- | --- | --- |
+| `county-all.json` | `/api/County` | 200 | 112 | `d09e516819f122d70be1756b5973548b5dbbf523bfdb8efa4fdf53d2b3513fee` |
+| `county-me.json` | `/api/County?StateCode=ME` | 200 | 114 | `fe37e0c6c0dcad68b360a0346e57583b2f2cc32a3c6ec87335aef274e504779d` |
+| `county-wy.json` | `/api/County?StateCode=WY` | 200 | 107 | `9098ff148babcc51313cd17c74b7d628c7bd9b124617f31b12bc628b25a54015` |
+| `landmark-code.json` | `/api/LandmarkInformation?Code=APBO-ME` | 200 | 501 | `caf977e08c3585fa558311a6e763c593d843e6287139e97e4973050a15fb34d4` |
+| `landmark-unknown.json` | `/api/LandmarkInformation?Code=ZZZZ` | 200 | 2 | `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945` |
+| `landmarks-county.json` | `/api/LandmarkInformationPerCounty?CountyID=4347` | 200 | 413 | `44090b0f36da5f240cc10020a899227609c8cd8cc50353b33dd9e4835d7e326e` |
+| `landmarks-county-missing.json` | `/api/LandmarkInformationPerCounty?CountyID=99999999` | 200 | 2 | `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945` |
+| `landmarks-me.json` | `/api/LandmarkInformationPerStateCode?StateCode=ME` | 200 | 6294 | `d108c939221d48746b815d3ee8cd19b7d87ca7bd67d589adb4bb145b0a393460` |
+| `landmarks-wy.json` | `/api/LandmarkInformationPerStateCode?StateCode=WY` | 200 | 2943 | `77812452af2e51d47ff77f1362d9b383e7a8abb5ba9ac28c3e546b85a4570a97` |
+| `state-me.json` | `/api/State?StateCode=ME` | 200 | 34 | `e1bcdb47393850b35b90cd10786f88969bfb6cf644266b3e066acc335a0af182` |
+| `state-missing.json` | `/api/State` | 200 | 36 | `a93ca7a517927f666ea1b5e361d6b704fda99ee5f3d0c0bc4210ac4fccdf99f8` |
+| `state-unknown.json` | `/api/State?StateCode=ZZ` | 500 | 36 | `149eaa4336ccd232538de8dacd6bc12c73fb341afae12d14352dbd2db60097ea` |
+| `states.json` | `/api/AllStates` | 200 | 2173 | `fc351197604ade051598d446d70eff9bafc73392a1c9adadc01823f17a2495f4` |

@@ -107,6 +107,17 @@ preserves its exact values; Android runtime qualification for category discovery
 Checklist, full, and detailed lists preserve their separate membership. These inventories do not
 describe current wildlife sightings. The Species products are unreleased and require no key.
 
+### Explore landmarks
+
+```swift
+import SwiftNPSLandmarks
+
+let landmarks = try await NPSLandmarksClient().landmarks(stateCode: "ME")
+```
+
+These unreleased records preserve landmark and county identifiers. Designation does not imply
+public access or NPS ownership. See the Landmark DocC catalog for query and response shapes.
+
 ### Find administrative units
 
 ```swift
@@ -124,7 +135,7 @@ selector groups and raw WKT/GML geography.
 
 The [SwiftUI demo app](Examples/SwiftNPSDataDemo) lets you browse the supported endpoint groups,
 search, and load more results. The Data API tab keeps your entered key in memory.
-The IRMA tab offers Species, Units, and Visitation without a key.
+The IRMA tab offers Landmarks, Species, Units, and Visitation without a key.
 
 Open [SwiftNPSDataDemo.xcodeproj](Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj) in Xcode
 with the standalone package window closed, since Xcode opens a local package in only one window
@@ -136,6 +147,8 @@ at a time.
 | --- | --- |
 | `SwiftNPSData` | An async client with authentication, lazy pagination, and typed errors. Uses [swifty-networking](https://github.com/KalebCooper/swifty-networking), with URLSession on Apple platforms. |
 | `SwiftNPSDataModels` | `Codable` models, validated queries, and typed requests and endpoints. Has no dependencies and works with your own networking stack. |
+| `SwiftNPSLandmarks` | Key-free state/county discovery and landmark records. |
+| `SwiftNPSLandmarksModels` | Landmark records and independent request descriptions. |
 | `SwiftNPSSpecies` | Key-free checklist, full, and detailed species lists. |
 | `SwiftNPSSpeciesModels` | Portable list records, safe queries, and inspectable requests. |
 | `SwiftNPSUnits` | Key-free unit profiles, linked units, and classification catalogs. |
@@ -150,7 +163,7 @@ It describes published park information; it does not provide live campsite avail
 
 - Swift 6.2 or later.
 - iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android are also supported.
-- An NPS API key for Data API requests. IRMA Species, Units, and Visitation require no key.
+- An NPS API key for Data API requests. IRMA Landmarks, Species, Units, and Visitation require no key.
 
 ## Installation
 

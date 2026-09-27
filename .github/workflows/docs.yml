@@ -91,7 +91,7 @@ jobs:
       - name: Build IRMA documentation
         run: |
           set -euo pipefail
-          for product in SwiftNPSSpeciesModels SwiftNPSSpecies SwiftNPSUnitsModels SwiftNPSUnits SwiftNPSVisitationModels SwiftNPSVisitation; do
+          for product in SwiftNPSLandmarksModels SwiftNPSLandmarks SwiftNPSSpeciesModels SwiftNPSSpecies SwiftNPSUnitsModels SwiftNPSUnits SwiftNPSVisitationModels SwiftNPSVisitation; do
             flags='--enable-experimental-external-link-support --warnings-as-errors'
             case "$product" in
               *Models) ;;
@@ -120,6 +120,7 @@ jobs:
           fi
           test -f "$found/linkable-entities.json"
           "$(xcrun --find docc)" merge .docc-deps/SwiftNPSDataModels.doccarchive "$found" \
+            .docc-deps/SwiftNPSLandmarksModels.doccarchive .docc-deps/SwiftNPSLandmarks.doccarchive \
             .docc-deps/SwiftNPSSpeciesModels.doccarchive .docc-deps/SwiftNPSSpecies.doccarchive \
             .docc-deps/SwiftNPSUnitsModels.doccarchive .docc-deps/SwiftNPSUnits.doccarchive \
             .docc-deps/SwiftNPSVisitationModels.doccarchive .docc-deps/SwiftNPSVisitation.doccarchive \

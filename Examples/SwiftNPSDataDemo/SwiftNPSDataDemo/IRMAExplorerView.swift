@@ -5,6 +5,7 @@ struct IRMAExplorerView: View {
     NavigationStack {
       List {
         Section {
+          NavigationLink("Landmarks") { LandmarksExplorerView() }
           NavigationLink("Species") { SpeciesExplorerView() }
           NavigationLink("Units") { UnitsExplorerView() }
           NavigationLink("Visitation") { VisitationExplorerView() }

@@ -1,0 +1,38 @@
+# ``SwiftNPSLandmarks``
+
+Fetch National Natural Landmark records without a Data API key.
+
+## Overview
+
+The client targets `https://irmaservices.nps.gov/NNLApi/v1`; all built-in operations are GET routes under `/api`. Records preserve provider identifiers and ordering. A landmark designation does not establish public access or NPS ownership.
+
+```swift
+import SwiftNPSLandmarks
+import SwiftNPSLandmarksModels
+
+let client = NPSLandmarksClient()
+let records = try await client.landmarks(stateCode: "ME")
+```
+
+## Discovery shapes
+
+- `landmarkStates()`: an array of states, including the raw unknown code `--`.
+- `landmarkState(stateCode:)`: one state object.
+- `landmarkCounty(query:)`: one county relationship, even without filters.
+- `landmarks(stateCode:)` and `landmarks(query:)`: ordinary records with primary and optional secondary states.
+- `landmarks(countyID:)`: county-enriched records, including CountyID and optional CountyLabel/StateCode. These are `LandmarkWithCounty`, not ordinary records.
+
+`LandmarkQuery` retains Code, CountyID, ID and StateCode independently in that order. CountyID identifies a county; ID identifies the landmark in these records. IDs in 1...Int32.max are required because invalid or nonpositive filters can cause the provider to return the entire catalog. Omitted filters are not sent. Text is encoded without trimming or case normalization.
+
+Acreage uses Swift's floating-point numeric type. AuthoritativeURL remains optional raw text; no URL or access status is invented. Unknown landmark searches return empty arrays; unknown state or county object queries may fail with HTTP500. There is no pagination metadata, caching, retry, or rate-limit guarantee.
+
+## Execution
+
+Every convenience operation also has a constrained `NPSLandmarksRequest` factory for `value(for:)` and a `LandmarkEndpoint` factory for `send(_:)`. Inject any HTTPCore Transport for testing or portable execution. On Apple platforms the zero-argument initializer uses URLSession. Redirects are rejected. NPSLandmarksError preserves transport, HTTP response bytes/headers, decoding, and cancellation failures.
+
+## Topics
+
+### Client and failures
+
+- ``NPSLandmarksClient``
+- ``NPSLandmarksError``
