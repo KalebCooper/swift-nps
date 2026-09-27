@@ -178,7 +178,10 @@ struct UnitsExplorerView: View {
         }
         guard !Task.isCancelled else { return }
         rows = result
-        status = result.isEmpty ? "No matching records." : "\(result.count) records."
+        status =
+          result.isEmpty
+          ? "No matching records."
+          : result.count == 1 ? "1 record." : "\(result.count) records."
       } catch {
         guard !Task.isCancelled else { return }
         if error is UnitGeographyQuery.ValidationError {

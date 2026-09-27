@@ -154,6 +154,8 @@ Choose NPS taxon code or ITIS TSN explicitly: the same number can identify diffe
 Taxonomy also supports explicit GET/POST code lists and lazy page/item traversal. See its DocC catalogs
 for filters, continuation rules, and source/category/rank discovery.
 
+See [IRMA implementation scope and verification](IRMA_IMPLEMENTATION.md) for the complete route inventory and limitations.
+
 ## Products
 
 | Product | Use it for |
@@ -177,7 +179,8 @@ It describes published park information; it does not provide live campsite avail
 ## Requirements
 
 - Swift 6.2 or later.
-- iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android are also supported.
+- iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android transport options are available.
+  Android runtime verification for the new IRMA services is deferred and unverified.
 - An NPS API key for Data API requests. IRMA Landmarks, Species, Taxonomy, Units, and Visitation require no key.
 
 ## Installation
