@@ -151,7 +151,8 @@ let taxon = try await NPSTaxonomyClient().taxonSummary(code: "81838", kind: .nps
 ```
 
 Choose NPS taxon code or ITIS TSN explicitly: the same number can identify different taxa.
-See the Taxonomy DocC catalogs for name searches and source/category/rank discovery.
+Taxonomy also supports explicit GET/POST code lists and lazy page/item traversal. See its DocC catalogs
+for filters, continuation rules, and source/category/rank discovery.
 
 ## Products
 

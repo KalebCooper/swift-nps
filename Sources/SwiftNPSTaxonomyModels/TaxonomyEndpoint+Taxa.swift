@@ -13,14 +13,14 @@ extension TaxonomyEndpoint where Response == NPSTaxonProfile {
 extension TaxonomyEndpoint where Response == [NPSTaxonProfile] {
   /// Describes taxonProfilesResponse as one response, preserving provider order and identifiers.
   public static func taxonProfilesResponse(query: TaxonProfileQuery) -> Self {
-    route(query.path)
+    route(query.path, body: query.body, method: query.method)
   }
 }
 
 extension TaxonomyEndpoint where Response == [NPSTaxonSummary] {
   /// Describes taxonSummariesResponse as one response, preserving provider order and identifiers.
   public static func taxonSummariesResponse(query: TaxonSummaryQuery) -> Self {
-    route(query.path)
+    route(query.path, body: query.body, method: query.method)
   }
 }
 

@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Taxonomy GET/POST code batches and lazy page/item sequences with checked continuation,
+  explicit namespaces, preserved POST bodies and terminal empty pages; demo load-more/reset controls.
+
 - Taxonomy SDK and dependency-free Models: explicit NPS/ITIS lookup, distinct basic/profile name
   searches, source/category/rank discovery and query options. Key-free demo and recorded tests.
 

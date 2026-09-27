@@ -11,7 +11,7 @@ import SwiftNPSTaxonomyModels
 ///
 /// Requests preserve provider response shapes without retries or redirect following.
 public struct NPSTaxonomyClient: Sendable {
-  private let client: HTTPClient
+  let client: HTTPClient
 
   /// Creates a client using a supplied transport on any supported platform.
   /// - Parameter transport: The transport used to execute service requests.
@@ -32,7 +32,7 @@ public struct NPSTaxonomyClient: Sendable {
     guard !Task.isCancelled else { throw .transport(.cancelled) }
     do throws(TransportError) {
       let response: DecodedResponse<Value> = try await client.execute(
-        Request(headers: [.accept: "application/json"], path: endpoint.path))
+        Self.request(for: endpoint))
       guard !Task.isCancelled else { throw .cancelled }
       return response.value
     } catch { throw .transport(error) }
@@ -48,4 +48,10 @@ public struct NPSTaxonomyClient: Sendable {
     try await send(request.endpoint)
   }
 
+  static func request<Value>(for endpoint: TaxonomyEndpoint<Value>) -> Request {
+    Request(
+      body: endpoint.body.map { .bytes($0, contentType: "application/json") } ?? .none,
+      headers: [.accept: "application/json"], method: endpoint.method == .post ? .post : .get,
+      path: endpoint.path)
+  }
 }

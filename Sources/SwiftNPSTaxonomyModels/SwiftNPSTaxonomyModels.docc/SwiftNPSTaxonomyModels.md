@@ -33,6 +33,16 @@ Sources have three distinct representations: basic list, profile list/single rec
 
 Requests and endpoints are Hashable and Sendable values with no I/O. Inspect request.endpoint.path in a custom executor or create a typed TaxonomyEndpoint for a consumer-defined response. Link initialization accepts this service's measured casing variants only; external ITIS links, credentials, traversal and API-key parameters are refused.
 
+## Batch searches and lazy traversal
+
+Choose `TaxonSearch.codes(_:kind:submission:)` with an explicit NPS or ITIS namespace and `.get` or `.post`. GET sends comma-separated codes; POST sends a JSON array of strings with application/json. Empty arrays and invalid codes fail locally. Order, duplicate inputs and leading zeros are retained in the request; provider response order can differ. The library never changes methods based on URL length.
+
+`TaxonSummaryQuery.next(after:)` and `TaxonProfileQuery.next(after:)` are pure continuation rules. A nonempty response advances startIndex by returned count, including a short page. Only an empty response stops. Oversized pages and Int32 overflow fail before a lazy page is yielded. Filters, namespace, detail, deriveIfBroken and POST body remain unchanged.
+
+Page sequences use HTTPClient.pages, yield the actual arrays, and include the terminal empty page. Item sequences preserve duplicates and order, buffer one page, and check cancellation before yielding buffered records. Iterators are independent, do not prefetch, and permanently stop after failure. No stable snapshot or total is promised.
+
+`.all` is available through a single-response method; a query with all mode fails lazy traversal before I/O. `NPSTaxonomyRequest(endpoint:)` deliberately has no continuation and yields one response, including an empty array. Request factories retain an inspectable `query` alongside their typed endpoint; endpoint method and body are public values.
+
 ## Topics
 
 ### Records
@@ -58,3 +68,10 @@ Requests and endpoints are Hashable and Sendable values with no I/O. Inspect req
 - ``TaxonomyOptionKind``
 - ``TaxonomyPaging``
 - ``TaxonomyValidationError``
+
+### Batch and continuation
+
+- ``TaxonomyMethod``
+- ``TaxonomyPaginationError``
+- ``TaxonomySearchQuery``
+- ``TaxonomySubmission``

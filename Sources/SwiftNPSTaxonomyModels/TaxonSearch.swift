@@ -1,18 +1,37 @@
-/// A bounded name-search operation with only its documented optional filters.
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
+import Foundation
+#endif
+
+/// A bounded search with explicit code namespaces, submission and route-specific filters.
 public enum TaxonSearch: Hashable, Sendable {
+  /// Search a nonempty code list with an explicit namespace and submission method.
+  case codes([String], kind: TaxonCodeKind, submission: TaxonomySubmission)
   /// Search common names; exact text is encoded without trimming or case folding.
   case commonName(String, category: String?, source: String?)
   /// Search scientific names, retaining the provider's search syntax.
   case scientificName(String, category: String?, source: String?)
 
   func components() throws(TaxonomyValidationError) -> (
-    path: String, parameters: [(String, String)]
+    body: Data?, method: TaxonomyMethod, path: String, parameters: [(String, String)]
   ) {
     let category: String?
     let prefix: String
     let source: String?
     let text: String
     switch self {
+    case .codes(let values, let kind, let submission):
+      guard !values.isEmpty else { throw .invalidCode }
+      var codes: [String] = []
+      for value in values { codes.append(try TaxonomyEncoding.code(value)) }
+      let body =
+        submission == .post
+        ? Data(("[" + codes.map { "\"" + $0 + "\"" }.joined(separator: ",") + "]").utf8) : nil
+      return (
+        body, submission == .post ? .post : .get, "/searchByCodes/" + kind.rawValue,
+        submission == .get ? [("codes", codes.joined(separator: ","))] : []
+      )
     case .commonName(let value, let filter, let classification):
       category = filter; prefix = "/searchByCommonName/"; source = classification; text = value
     case .scientificName(let value, let filter, let classification):
@@ -28,7 +47,7 @@ public enum TaxonSearch: Hashable, Sendable {
       try TaxonomyEncoding.validateText(source)
       parameters.append(("source", source))
     }
-    return (path, parameters)
+    return (nil, .get, path, parameters)
   }
 }
 

@@ -40,10 +40,10 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case landmarkStateIndex = "Landmarks/groups.json"
   /// Original Landmark state-me.json response.
   case landmarkStateMaine = "Landmarks/state-me.json"
-  /// Original Landmark states.json response.
-  case landmarkStates = "Landmarks/states.json"
   /// Original Landmark state-missing.json response.
   case landmarkStateUnknown = "Landmarks/state-missing.json"
+  /// Original Landmark states.json response.
+  case landmarkStates = "Landmarks/states.json"
   /// Original Landmark withcounty-appleton.json response.
   case landmarkWithCounty = "Landmarks/withcounty-appleton.json"
   /// Original Landmark withcounty-unknown.json response.
@@ -82,6 +82,136 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case taxonomyBasicITIS = "Taxonomy/tsn-81838-basic.json"
   /// Original taxonomy taxoncode-81838-basic response.
   case taxonomyBasicNPS = "Taxonomy/taxoncode-81838-basic.json"
+  /// Original read-only batch batch-taxoncode-get-basic-0.json bytes.
+  case taxonomyBatchTaxoncodeGetBasic0 = "Taxonomy/batch-taxoncode-get-basic-0.json"
+  /// Original read-only batch batch-taxoncode-get-basic-1.json bytes.
+  case taxonomyBatchTaxoncodeGetBasic1 = "Taxonomy/batch-taxoncode-get-basic-1.json"
+  /// Original read-only batch batch-taxoncode-get-basic-2.json bytes.
+  case taxonomyBatchTaxoncodeGetBasic2 = "Taxonomy/batch-taxoncode-get-basic-2.json"
+  /// Original read-only batch batch-taxoncode-get-basic-3.json bytes.
+  case taxonomyBatchTaxoncodeGetBasic3 = "Taxonomy/batch-taxoncode-get-basic-3.json"
+  /// Original read-only batch batch-taxoncode-get-basic-all.json bytes.
+  case taxonomyBatchTaxoncodeGetBasicAll = "Taxonomy/batch-taxoncode-get-basic-all.json"
+  /// Original read-only batch batch-taxoncode-get-profile-0.json bytes.
+  case taxonomyBatchTaxoncodeGetProfile0 = "Taxonomy/batch-taxoncode-get-profile-0.json"
+  /// Original read-only batch batch-taxoncode-get-profile-1.json bytes.
+  case taxonomyBatchTaxoncodeGetProfile1 = "Taxonomy/batch-taxoncode-get-profile-1.json"
+  /// Original read-only batch batch-taxoncode-get-profile-2.json bytes.
+  case taxonomyBatchTaxoncodeGetProfile2 = "Taxonomy/batch-taxoncode-get-profile-2.json"
+  /// Original read-only batch batch-taxoncode-get-profile-3.json bytes.
+  case taxonomyBatchTaxoncodeGetProfile3 = "Taxonomy/batch-taxoncode-get-profile-3.json"
+  /// Original read-only batch batch-taxoncode-get-profile-all.json bytes.
+  case taxonomyBatchTaxoncodeGetProfileAll = "Taxonomy/batch-taxoncode-get-profile-all.json"
+  /// Original read-only batch batch-taxoncode-post-basic-0.json bytes.
+  case taxonomyBatchTaxoncodePostBasic0 = "Taxonomy/batch-taxoncode-post-basic-0.json"
+  /// Original read-only batch batch-taxoncode-post-basic-0.request.json bytes.
+  case taxonomyBatchTaxoncodePostBasic0Request =
+    "Taxonomy/batch-taxoncode-post-basic-0.request.json"
+  /// Original read-only batch batch-taxoncode-post-basic-1.json bytes.
+  case taxonomyBatchTaxoncodePostBasic1 = "Taxonomy/batch-taxoncode-post-basic-1.json"
+  /// Original read-only batch batch-taxoncode-post-basic-1.request.json bytes.
+  case taxonomyBatchTaxoncodePostBasic1Request =
+    "Taxonomy/batch-taxoncode-post-basic-1.request.json"
+  /// Original read-only batch batch-taxoncode-post-basic-2.json bytes.
+  case taxonomyBatchTaxoncodePostBasic2 = "Taxonomy/batch-taxoncode-post-basic-2.json"
+  /// Original read-only batch batch-taxoncode-post-basic-2.request.json bytes.
+  case taxonomyBatchTaxoncodePostBasic2Request =
+    "Taxonomy/batch-taxoncode-post-basic-2.request.json"
+  /// Original read-only batch batch-taxoncode-post-basic-3.json bytes.
+  case taxonomyBatchTaxoncodePostBasic3 = "Taxonomy/batch-taxoncode-post-basic-3.json"
+  /// Original read-only batch batch-taxoncode-post-basic-3.request.json bytes.
+  case taxonomyBatchTaxoncodePostBasic3Request =
+    "Taxonomy/batch-taxoncode-post-basic-3.request.json"
+  /// Original read-only batch batch-taxoncode-post-basic-all.json bytes.
+  case taxonomyBatchTaxoncodePostBasicAll = "Taxonomy/batch-taxoncode-post-basic-all.json"
+  /// Original read-only batch batch-taxoncode-post-basic-all.request.json bytes.
+  case taxonomyBatchTaxoncodePostBasicAllRequest =
+    "Taxonomy/batch-taxoncode-post-basic-all.request.json"
+  /// Original read-only batch batch-taxoncode-post-profile-0.json bytes.
+  case taxonomyBatchTaxoncodePostProfile0 = "Taxonomy/batch-taxoncode-post-profile-0.json"
+  /// Original read-only batch batch-taxoncode-post-profile-0.request.json bytes.
+  case taxonomyBatchTaxoncodePostProfile0Request =
+    "Taxonomy/batch-taxoncode-post-profile-0.request.json"
+  /// Original read-only batch batch-taxoncode-post-profile-1.json bytes.
+  case taxonomyBatchTaxoncodePostProfile1 = "Taxonomy/batch-taxoncode-post-profile-1.json"
+  /// Original read-only batch batch-taxoncode-post-profile-1.request.json bytes.
+  case taxonomyBatchTaxoncodePostProfile1Request =
+    "Taxonomy/batch-taxoncode-post-profile-1.request.json"
+  /// Original read-only batch batch-taxoncode-post-profile-2.json bytes.
+  case taxonomyBatchTaxoncodePostProfile2 = "Taxonomy/batch-taxoncode-post-profile-2.json"
+  /// Original read-only batch batch-taxoncode-post-profile-2.request.json bytes.
+  case taxonomyBatchTaxoncodePostProfile2Request =
+    "Taxonomy/batch-taxoncode-post-profile-2.request.json"
+  /// Original read-only batch batch-taxoncode-post-profile-3.json bytes.
+  case taxonomyBatchTaxoncodePostProfile3 = "Taxonomy/batch-taxoncode-post-profile-3.json"
+  /// Original read-only batch batch-taxoncode-post-profile-3.request.json bytes.
+  case taxonomyBatchTaxoncodePostProfile3Request =
+    "Taxonomy/batch-taxoncode-post-profile-3.request.json"
+  /// Original read-only batch batch-taxoncode-post-profile-all.json bytes.
+  case taxonomyBatchTaxoncodePostProfileAll = "Taxonomy/batch-taxoncode-post-profile-all.json"
+  /// Original read-only batch batch-taxoncode-post-profile-all.request.json bytes.
+  case taxonomyBatchTaxoncodePostProfileAllRequest =
+    "Taxonomy/batch-taxoncode-post-profile-all.request.json"
+  /// Original read-only batch batch-tsn-get-basic-0.json bytes.
+  case taxonomyBatchTsnGetBasic0 = "Taxonomy/batch-tsn-get-basic-0.json"
+  /// Original read-only batch batch-tsn-get-basic-1.json bytes.
+  case taxonomyBatchTsnGetBasic1 = "Taxonomy/batch-tsn-get-basic-1.json"
+  /// Original read-only batch batch-tsn-get-basic-2.json bytes.
+  case taxonomyBatchTsnGetBasic2 = "Taxonomy/batch-tsn-get-basic-2.json"
+  /// Original read-only batch batch-tsn-get-basic-3.json bytes.
+  case taxonomyBatchTsnGetBasic3 = "Taxonomy/batch-tsn-get-basic-3.json"
+  /// Original read-only batch batch-tsn-get-basic-all.json bytes.
+  case taxonomyBatchTsnGetBasicAll = "Taxonomy/batch-tsn-get-basic-all.json"
+  /// Original read-only batch batch-tsn-get-profile-0.json bytes.
+  case taxonomyBatchTsnGetProfile0 = "Taxonomy/batch-tsn-get-profile-0.json"
+  /// Original read-only batch batch-tsn-get-profile-1.json bytes.
+  case taxonomyBatchTsnGetProfile1 = "Taxonomy/batch-tsn-get-profile-1.json"
+  /// Original read-only batch batch-tsn-get-profile-2.json bytes.
+  case taxonomyBatchTsnGetProfile2 = "Taxonomy/batch-tsn-get-profile-2.json"
+  /// Original read-only batch batch-tsn-get-profile-3.json bytes.
+  case taxonomyBatchTsnGetProfile3 = "Taxonomy/batch-tsn-get-profile-3.json"
+  /// Original read-only batch batch-tsn-get-profile-all.json bytes.
+  case taxonomyBatchTsnGetProfileAll = "Taxonomy/batch-tsn-get-profile-all.json"
+  /// Original read-only batch batch-tsn-post-basic-0.json bytes.
+  case taxonomyBatchTsnPostBasic0 = "Taxonomy/batch-tsn-post-basic-0.json"
+  /// Original read-only batch batch-tsn-post-basic-0.request.json bytes.
+  case taxonomyBatchTsnPostBasic0Request = "Taxonomy/batch-tsn-post-basic-0.request.json"
+  /// Original read-only batch batch-tsn-post-basic-1.json bytes.
+  case taxonomyBatchTsnPostBasic1 = "Taxonomy/batch-tsn-post-basic-1.json"
+  /// Original read-only batch batch-tsn-post-basic-1.request.json bytes.
+  case taxonomyBatchTsnPostBasic1Request = "Taxonomy/batch-tsn-post-basic-1.request.json"
+  /// Original read-only batch batch-tsn-post-basic-2.json bytes.
+  case taxonomyBatchTsnPostBasic2 = "Taxonomy/batch-tsn-post-basic-2.json"
+  /// Original read-only batch batch-tsn-post-basic-2.request.json bytes.
+  case taxonomyBatchTsnPostBasic2Request = "Taxonomy/batch-tsn-post-basic-2.request.json"
+  /// Original read-only batch batch-tsn-post-basic-3.json bytes.
+  case taxonomyBatchTsnPostBasic3 = "Taxonomy/batch-tsn-post-basic-3.json"
+  /// Original read-only batch batch-tsn-post-basic-3.request.json bytes.
+  case taxonomyBatchTsnPostBasic3Request = "Taxonomy/batch-tsn-post-basic-3.request.json"
+  /// Original read-only batch batch-tsn-post-basic-all.json bytes.
+  case taxonomyBatchTsnPostBasicAll = "Taxonomy/batch-tsn-post-basic-all.json"
+  /// Original read-only batch batch-tsn-post-basic-all.request.json bytes.
+  case taxonomyBatchTsnPostBasicAllRequest = "Taxonomy/batch-tsn-post-basic-all.request.json"
+  /// Original read-only batch batch-tsn-post-profile-0.json bytes.
+  case taxonomyBatchTsnPostProfile0 = "Taxonomy/batch-tsn-post-profile-0.json"
+  /// Original read-only batch batch-tsn-post-profile-0.request.json bytes.
+  case taxonomyBatchTsnPostProfile0Request = "Taxonomy/batch-tsn-post-profile-0.request.json"
+  /// Original read-only batch batch-tsn-post-profile-1.json bytes.
+  case taxonomyBatchTsnPostProfile1 = "Taxonomy/batch-tsn-post-profile-1.json"
+  /// Original read-only batch batch-tsn-post-profile-1.request.json bytes.
+  case taxonomyBatchTsnPostProfile1Request = "Taxonomy/batch-tsn-post-profile-1.request.json"
+  /// Original read-only batch batch-tsn-post-profile-2.json bytes.
+  case taxonomyBatchTsnPostProfile2 = "Taxonomy/batch-tsn-post-profile-2.json"
+  /// Original read-only batch batch-tsn-post-profile-2.request.json bytes.
+  case taxonomyBatchTsnPostProfile2Request = "Taxonomy/batch-tsn-post-profile-2.request.json"
+  /// Original read-only batch batch-tsn-post-profile-3.json bytes.
+  case taxonomyBatchTsnPostProfile3 = "Taxonomy/batch-tsn-post-profile-3.json"
+  /// Original read-only batch batch-tsn-post-profile-3.request.json bytes.
+  case taxonomyBatchTsnPostProfile3Request = "Taxonomy/batch-tsn-post-profile-3.request.json"
+  /// Original read-only batch batch-tsn-post-profile-all.json bytes.
+  case taxonomyBatchTsnPostProfileAll = "Taxonomy/batch-tsn-post-profile-all.json"
+  /// Original read-only batch batch-tsn-post-profile-all.request.json bytes.
+  case taxonomyBatchTsnPostProfileAllRequest = "Taxonomy/batch-tsn-post-profile-all.request.json"
   /// Original taxonomy categories response.
   case taxonomyCategories = "Taxonomy/categories.json"
   /// Original taxonomy category-bird response.
@@ -122,6 +252,10 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case taxonomyRankSpecies = "Taxonomy/rank-species.json"
   /// Original taxonomy ranks response.
   case taxonomyRanks = "Taxonomy/ranks.json"
+  /// Original filtered scientific-name basic page.
+  case taxonomyScientificPageBasic = "Taxonomy/page-bankia-corrected-basic-0.json"
+  /// Original filtered scientific-name profile page.
+  case taxonomyScientificPageProfile = "Taxonomy/page-bankia-corrected-profile-0.json"
   /// Original taxonomy searchbyscientificname-profile response.
   case taxonomyScientificProfiles = "Taxonomy/searchbyscientificname-profile.json"
   /// Original taxonomy searchbyscientificname-basic response.
@@ -194,10 +328,10 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case unitSemicolon = "Units/semicolon.json"
   /// Original Unit state-me response.
   case unitStateMaine = "Units/state-me.json"
-  /// Original Unit states response.
-  case unitStates = "Units/states.json"
   /// Original Unit state-wy response.
   case unitStateWyoming = "Units/state-wy.json"
+  /// Original Unit states response.
+  case unitStates = "Units/states.json"
   /// Original Unit subtype-op response.
   case unitSubtype = "Units/subtype-op.json"
   /// Original Unit subtypes response.

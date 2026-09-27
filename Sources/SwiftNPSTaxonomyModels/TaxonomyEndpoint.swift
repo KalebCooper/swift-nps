@@ -4,10 +4,14 @@ import FoundationEssentials
 import Foundation
 #endif
 
-/// A typed, inspectable GET path confined to the NPS Taxonomy service.
+/// A typed, inspectable operation confined to the NPS Taxonomy service.
 ///
 /// Use a consumer-defined Decodable response to execute another operation below this service base.
 public struct TaxonomyEndpoint<Response: Decodable & SendableMetatype>: Hashable, Sendable {
+  /// JSON code-list bytes for explicit POST searches; nil for GET.
+  public let body: Data?
+  /// The explicit read-only submission method.
+  public let method: TaxonomyMethod
   /// The encoded service-relative path and query, beginning with one slash.
   public let path: String
 
@@ -43,13 +47,21 @@ public struct TaxonomyEndpoint<Response: Decodable & SendableMetatype>: Hashable
         ["api_key", "apikey", "key", "x-api-key"].contains($0.name.lowercased())
       })
     else { return nil }
+    body = nil
+    method = .get
     self.path = path
   }
 
-  static func route(_ path: String) -> Self {
+  private init(body: Data?, method: TaxonomyMethod, validatedPath: String) {
+    self.body = body
+    self.method = method
+    path = validatedPath
+  }
+
+  static func route(_ path: String, body: Data? = nil, method: TaxonomyMethod = .get) -> Self {
     guard let endpoint = Self(path: path) else {
       preconditionFailure("Validated components produce a service-relative path.")
     }
-    return endpoint
+    return Self(body: body, method: method, validatedPath: endpoint.path)
   }
 }

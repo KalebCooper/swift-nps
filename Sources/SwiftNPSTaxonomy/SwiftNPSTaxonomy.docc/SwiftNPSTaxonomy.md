@@ -34,9 +34,26 @@ Sources have three distinct representations: basic list, profile list/single rec
 
 Single responses delegate through value(for:) and send(_:). Inject an HTTPCore Transport; the Apple convenience initializer uses URLSession. Redirects are disabled, no credentials are added, and NPSTaxonomyError preserves HTTP bytes/status/headers, decoding, transport and cancellation failures. No retries, caching or snapshot guarantees are provided.
 
+## Batch searches and lazy traversal
+
+Choose `TaxonSearch.codes(_:kind:submission:)` with an explicit NPS or ITIS namespace and `.get` or `.post`. GET sends comma-separated codes; POST sends a JSON array of strings with application/json. Empty arrays and invalid codes fail locally. Order, duplicate inputs and leading zeros are retained in the request; provider response order can differ. The library never changes methods based on URL length.
+
+`TaxonSummaryQuery.next(after:)` and `TaxonProfileQuery.next(after:)` are pure continuation rules. A nonempty response advances startIndex by returned count, including a short page. Only an empty response stops. Oversized pages and Int32 overflow fail before a lazy page is yielded. Filters, namespace, detail, deriveIfBroken and POST body remain unchanged.
+
+Page sequences use HTTPClient.pages, yield the actual arrays, and include the terminal empty page. Item sequences preserve duplicates and order, buffer one page, and check cancellation before yielding buffered records. Iterators are independent, do not prefetch, and permanently stop after failure. No stable snapshot or total is promised.
+
+`.all` is available through a single-response method; a query with all mode fails lazy traversal before I/O. `NPSTaxonomyRequest(endpoint:)` deliberately has no continuation and yields one response, including an empty array. Request factories retain an inspectable `query` alongside their typed endpoint; endpoint method and body are public values.
+
 ## Topics
 
 ### Client and failures
 
 - ``NPSTaxonomyClient``
 - ``NPSTaxonomyError``
+
+### Lazy sequences
+
+- ``TaxonProfileItemSequence``
+- ``TaxonProfilePageSequence``
+- ``TaxonSummaryItemSequence``
+- ``TaxonSummaryPageSequence``

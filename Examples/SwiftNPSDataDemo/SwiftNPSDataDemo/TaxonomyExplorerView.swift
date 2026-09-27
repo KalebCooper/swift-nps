@@ -5,6 +5,7 @@ import SwiftUI
 struct TaxonomyExplorerView: View {
   private enum Operation: String, CaseIterable {
     case categories = "Categories"
+    case codes = "Batch codes"
     case commonName = "Common name"
     case lookup = "Single code"
     case options = "Query options"
@@ -16,8 +17,11 @@ struct TaxonomyExplorerView: View {
 
   @State private var category = ""
   @State private var code = "81838"
+  @State private var codes = "81838,719252,719251"
   @State private var kind = TaxonCodeKind.nps
   @State private var name = "hawk"
+  @State private var nextProfile: TaxonProfileQuery?
+  @State private var nextSummary: TaxonSummaryQuery?
   @State private var operation = Operation.lookup
   @State private var optionKind = TaxonomyOptionKind.codeType
   @State private var pageSize = "10"
@@ -27,6 +31,7 @@ struct TaxonomyExplorerView: View {
   @State private var source = ""
   @State private var sourceCode = "ITIS"
   @State private var status = "Choose an operation, then load records."
+  @State private var submission = TaxonomySubmission.get
 
   var body: some View {
     Form {
@@ -34,20 +39,29 @@ struct TaxonomyExplorerView: View {
         Picker("Operation", selection: $operation) {
           ForEach(Operation.allCases, id: \.self) { Text($0.rawValue).tag($0) }
         }
-        if operation == .lookup {
-          field("Taxon code", text: $code)
+        if operation == .codes { field("Codes (comma separated)", text: $codes) }
+        if operation == .lookup || operation == .codes {
+          if operation == .lookup { field("Taxon code", text: $code) }
           Picker("Code namespace", selection: $kind) {
             Text("NPS taxon code").tag(TaxonCodeKind.nps)
             Text("ITIS TSN").tag(TaxonCodeKind.itis)
+          }
+        }
+        if operation == .codes {
+          Picker("Submission", selection: $submission) {
+            Text("GET query").tag(TaxonomySubmission.get)
+            Text("POST JSON").tag(TaxonomySubmission.post)
           }
         }
         if [.commonName, .scientificName].contains(operation) {
           field("Name", text: $name)
           field("Category (optional)", text: $category)
           field("Source (optional)", text: $source)
+        }
+        if [.codes, .commonName, .scientificName].contains(operation) {
           field("Page size", text: $pageSize)
         }
-        if [.commonName, .lookup, .scientificName, .sources].contains(operation) {
+        if [.codes, .commonName, .lookup, .scientificName, .sources].contains(operation) {
           Toggle("Full profile", isOn: $profile)
         }
         if operation == .sourceTree { field("Source code", text: $sourceCode) }
@@ -60,7 +74,10 @@ struct TaxonomyExplorerView: View {
             }
           }
         }
-        Button("Load records", action: load).disabled(requestTask != nil)
+        Button("Load records") { load() }.disabled(requestTask != nil)
+        if nextProfile != nil || nextSummary != nil {
+          Button("Load more") { load(continuing: true) }.disabled(requestTask != nil)
+        }
         if requestTask != nil { Button("Cancel", action: cancel) }
       }
       Section {
@@ -73,11 +90,12 @@ struct TaxonomyExplorerView: View {
       }
     }
     .navigationTitle("Taxonomy")
-    .onChange(of: [category, code, name, pageSize, source, sourceCode]) { reset() }
+    .onChange(of: [category, code, codes, name, pageSize, source, sourceCode]) { reset() }
     .onChange(of: kind) { reset() }
     .onChange(of: operation) { reset() }
     .onChange(of: optionKind) { reset() }
     .onChange(of: profile) { reset() }
+    .onChange(of: submission) { reset() }
     .onDisappear(perform: cancel)
   }
 
@@ -95,45 +113,68 @@ struct TaxonomyExplorerView: View {
     }
   }
 
-  private func load() {
-    rows = []
+  private func load(continuing: Bool = false) {
+    if !continuing {
+      rows = []
+      nextProfile = nil
+      nextSummary = nil
+    }
     status = "Loading…"
     let capturedCategory = category
     let capturedCode = code
+    let capturedCodes = codes
     let capturedKind = kind
     let capturedName = name
+    let capturedNextProfile = nextProfile
+    let capturedNextSummary = nextSummary
     let capturedOperation = operation
     let capturedOptionKind = optionKind
     let capturedPageSize = pageSize
     let capturedProfile = profile
     let capturedSource = source
     let capturedSourceCode = sourceCode
+    let capturedSubmission = submission
     requestTask = Task {
       guard !Task.isCancelled else { return }
       do {
         let client = NPSTaxonomyClient()
         let result: [String]
+        var followingProfile: TaxonProfileQuery?
+        var followingSummary: TaxonSummaryQuery?
         switch capturedOperation {
         case .categories:
           result = try await client.taxonomicCategories().map { "\($0.name) · \($0.code)" }
-        case .commonName, .scientificName:
+        case .codes, .commonName, .scientificName:
           guard let size = Int(capturedPageSize) else {
             throw TaxonomyValidationError.invalidPageSize
           }
           let category = capturedCategory.isEmpty ? nil : capturedCategory
           let source = capturedSource.isEmpty ? nil : capturedSource
-          let search: TaxonSearch =
-            capturedOperation == .commonName
-            ? .commonName(capturedName, category: category, source: source)
-            : .scientificName(capturedName, category: category, source: source)
-          if capturedProfile {
-            result = try await client.taxonProfilesResponse(
-              query: TaxonProfileQuery(paging: .page(size: size, startIndex: 0), search: search)
-            ).map(Self.profileRecord)
+          let search: TaxonSearch
+          if capturedOperation == .codes {
+            search = .codes(
+              capturedCodes.split(separator: ",", omittingEmptySubsequences: false).map(
+                String.init),
+              kind: capturedKind, submission: capturedSubmission)
+          } else if capturedOperation == .commonName {
+            search = .commonName(capturedName, category: category, source: source)
           } else {
-            result = try await client.taxonSummariesResponse(
-              query: TaxonSummaryQuery(paging: .page(size: size, startIndex: 0), search: search)
-            ).map(Self.summaryRecord)
+            search = .scientificName(capturedName, category: category, source: source)
+          }
+          if capturedProfile {
+            let query =
+              try capturedNextProfile
+              ?? TaxonProfileQuery(paging: .page(size: size, startIndex: 0), search: search)
+            let page = try await client.taxonProfilesResponse(query: query)
+            followingProfile = try query.next(after: page)
+            result = page.map(Self.profileRecord)
+          } else {
+            let query =
+              try capturedNextSummary
+              ?? TaxonSummaryQuery(paging: .page(size: size, startIndex: 0), search: search)
+            let page = try await client.taxonSummariesResponse(query: query)
+            followingSummary = try query.next(after: page)
+            result = page.map(Self.summaryRecord)
           }
         case .lookup:
           if capturedProfile {
@@ -168,10 +209,17 @@ struct TaxonomyExplorerView: View {
           }
         }
         guard !Task.isCancelled else { return }
-        rows = result
-        status = result.isEmpty ? "No matching records." : "\(result.count) records."
+        rows += result
+        nextProfile = followingProfile
+        nextSummary = followingSummary
+        status =
+          result.isEmpty
+          ? (continuing ? "No more records." : "No matching records.")
+          : rows.count == 1 ? "1 record." : "\(rows.count) records."
       } catch {
         guard !Task.isCancelled else { return }
+        nextProfile = nil
+        nextSummary = nil
         if error is TaxonomyValidationError {
           status = "Enter a valid name, positive code, and page size."
         } else if case NPSTaxonomyError.invalidInput = error {
@@ -191,6 +239,8 @@ struct TaxonomyExplorerView: View {
   private func reset() {
     cancel()
     rows = []
+    nextProfile = nil
+    nextSummary = nil
     status = "Choose an operation, then load records."
   }
 
