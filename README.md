@@ -116,7 +116,8 @@ let landmarks = try await NPSLandmarksClient().landmarks(stateCode: "ME")
 ```
 
 These unreleased records preserve landmark and county identifiers. Designation does not imply
-public access or NPS ownership. See the Landmark DocC catalog for query and response shapes.
+public access or NPS ownership. Browse county relationships, the state/landmark index, and ownership
+classifications through the same client. See the Landmark DocC catalog for query and response shapes.
 
 ### Find administrative units
 

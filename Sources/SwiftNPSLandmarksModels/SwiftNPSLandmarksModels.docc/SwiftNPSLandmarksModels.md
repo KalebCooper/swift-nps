@@ -29,17 +29,32 @@ Acreage uses Swift's floating-point numeric type. AuthoritativeURL remains optio
 
 Requests and endpoints are Hashable and Sendable and perform no I/O. The generic response is consumer-definable and the endpoint initializer confines paths and links to the service base. This module depends only on Foundation and Swift.
 
+## Relationships and ownership
+
+`landmarkSiteCounties(query:)` preserves multiple county relationships for a landmark. `landmarkStateCounties(query:)` uses the narrower `LandmarkStateCountyQuery` with CountyID/StateCode only; its rows contain county/state labels without landmark IDs.
+
+`statesAndLandmarks()` returns a flat index of `LandmarkStateGroup` rows. It has no filters or nested groups; repeated site codes and cross-state membership remain repeated.
+
+`landmarksWithCounty(query:)` preserves the provider's enriched shape. Code/ID queries can return CountyID zero with null CountyLabel/StateCode; a county filter can populate those fields. Zero is response data, not a valid query identifier.
+
+`landmarkOwners(query:)` accepts only Code/ID through `LandmarkOwnerQuery`. A landmark may have several open numeric ownership categories; labels such as Private, Federal, or State do not establish public access or NPS ownership.
+
 ## Topics
 
 ### Records
 
 - ``LandmarkCounty``
+- ``LandmarkOwner``
 - ``LandmarkState``
+- ``LandmarkStateCounty``
+- ``LandmarkStateGroup``
 - ``LandmarkWithCounty``
 - ``NPSLandmark``
 
 ### Requests
 
 - ``LandmarkEndpoint``
+- ``LandmarkOwnerQuery``
 - ``LandmarkQuery``
+- ``LandmarkStateCountyQuery``
 - ``NPSLandmarksRequest``

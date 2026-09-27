@@ -6,10 +6,15 @@ struct LandmarksExplorerView: View {
   private enum Operation: String, CaseIterable {
     case county = "County relationship"
     case countyLandmarks = "Landmarks by county"
+    case index = "State and landmark index"
+    case owners = "Ownership classifications"
     case search = "Landmark search"
+    case siteCounties = "Landmark counties"
     case state = "State"
+    case stateCounties = "State counties"
     case stateLandmarks = "Landmarks by state"
     case states = "States"
+    case withCounty = "County-enriched records"
   }
 
   @State private var code = "APBO-ME"
@@ -26,13 +31,13 @@ struct LandmarksExplorerView: View {
         Picker("Operation", selection: $operation) {
           ForEach(Operation.allCases, id: \.self) { Text($0.rawValue).tag($0) }
         }
-        if operation == .search {
+        if [.owners, .search, .siteCounties, .withCounty].contains(operation) {
           LabeledContent("Landmark code") {
             TextField("Landmark code", text: $code).multilineTextAlignment(.trailing)
               .textInputAutocapitalization(.never).autocorrectionDisabled()
           }
         }
-        if [.county, .state, .stateLandmarks].contains(operation) {
+        if [.county, .state, .stateCounties, .stateLandmarks].contains(operation) {
           LabeledContent("State code") {
             TextField("State code", text: $stateCode).multilineTextAlignment(.trailing)
           }
@@ -92,16 +97,41 @@ struct LandmarksExplorerView: View {
           result = try await client.landmarks(countyID: id).map {
             "\($0.title) · \($0.code)\nCounty ID: \($0.countyID) · \($0.countyLabel ?? "Not reported")\n\($0.areaAcres) acres"
           }
+        case .index:
+          result = try await client.statesAndLandmarks().map {
+            "\($0.stateLabel) · \($0.stateCode)\n\($0.siteCode) · \($0.title)"
+          }
+        case .owners:
+          result = try await client.landmarkOwners(query: LandmarkOwnerQuery(code: capturedCode))
+            .map {
+              "Landmark ID: \($0.id)\nOwner type \($0.ownerTypeID): \($0.ownerTypeLabel)"
+            }
         case .search:
           result = try await client.landmarks(query: LandmarkQuery(code: capturedCode)).map(
             Self.record)
+        case .siteCounties:
+          result = try await client.landmarkSiteCounties(query: LandmarkQuery(code: capturedCode))
+            .map {
+              "\($0.label) · \($0.stateCode)\nCounty ID: \($0.countyID) · Landmark ID: \($0.id) · \($0.code)"
+            }
         case .state:
           let row = try await client.landmarkState(stateCode: capturedState)
           result = ["\(row.stateCode) · \(row.label)"]
+        case .stateCounties:
+          result = try await client.landmarkStateCounties(
+            query: LandmarkStateCountyQuery(stateCode: capturedState)
+          ).map {
+            "\($0.countyLabel) · \($0.countyID)\n\($0.stateLabel) · \($0.stateCode)"
+          }
         case .stateLandmarks:
           result = try await client.landmarks(stateCode: capturedState).map(Self.record)
         case .states:
           result = try await client.landmarkStates().map { "\($0.stateCode) · \($0.label)" }
+        case .withCounty:
+          result = try await client.landmarksWithCounty(query: LandmarkQuery(code: capturedCode))
+            .map {
+              "\($0.title) · \($0.code)\nCounty ID: \($0.countyID) · \($0.countyLabel ?? "Not reported")\nState: \($0.stateCode ?? "Not reported")"
+            }
         }
         guard !Task.isCancelled else { return }
         rows = result

@@ -884,3 +884,20 @@ Original key-free JSON GET bodies recorded September 27, 2026. URLs are relative
 | `state-missing.json` | `/api/State` | 200 | 36 | `a93ca7a517927f666ea1b5e361d6b704fda99ee5f3d0c0bc4210ac4fccdf99f8` |
 | `state-unknown.json` | `/api/State?StateCode=ZZ` | 500 | 36 | `149eaa4336ccd232538de8dacd6bc12c73fb341afae12d14352dbd2db60097ea` |
 | `states.json` | `/api/AllStates` | 200 | 2173 | `fc351197604ade051598d446d70eff9bafc73392a1c9adadc01823f17a2495f4` |
+
+### Landmark relationships
+
+Original GET recordings, September 27, 2026. StateCounty uses county/state filters; owners use code/ID only. StatesAndLandmarks is a flat 613-row index with repeated membership, retained as a complete 59 KB original because the route has no filter. WithCounty can return zero county IDs and null labels; multiple owner categories do not imply access. There are no nested arrays in these responses.
+
+- `groups.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/StatesAndLandmarks`, HTTP 200, 58900 bytes, SHA-256 `d2726792fe2cd9236badd3b43739ab52a28487b9ec421b70618b6537937e50b5`.
+- `owners-appleton.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/LandmarkOwnerInformation?Code=APBO-ME`, HTTP 200, 56 bytes, SHA-256 `4cdc49e2e3b4a63d4ecbe6289975703e5312d61338b2f96c2ca575a802b0454b`.
+- `owners-big-hollow.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/LandmarkOwnerInformation?Code=BIHO-WY`, HTTP 200, 158 bytes, SHA-256 `61583b736d257ab1518bb923e3bb930b1d8349cb34c7e9622ff2ddc2d849bd9e`.
+- `owners-unknown.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/LandmarkOwnerInformation?Code=ZZZZ`, HTTP 200, 2 bytes, SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.
+- `site-appleton.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/SiteCounties?Code=APBO-ME`, HTTP 200, 221 bytes, SHA-256 `aa3225f73a369e8c9c7b412dbe6abffbd52da9c9f6141350869d66a635d7fecb`.
+- `site-unknown.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/SiteCounties?Code=ZZZZ`, HTTP 200, 2 bytes, SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.
+- `site-wy.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/SiteCounties?StateCode=WY`, HTTP 200, 763 bytes, SHA-256 `410906ae195d59db5c5dd62dfc97f957a2b5a2233045b5dd3bacadf690654e3a`.
+- `statecounty-me.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/StateCounty?StateCode=ME`, HTTP 200, 1823 bytes, SHA-256 `9d44afb410160a7fe3a5d57ed3107fb0e2fede0603948337fbb1f0d88a1deed8`.
+- `statecounty-unknown.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/StateCounty?StateCode=ZZ`, HTTP 200, 2 bytes, SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.
+- `withcounty-appleton.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/LandmarkInformationWithCounty?Code=APBO-ME`, HTTP 200, 508 bytes, SHA-256 `472b1f0ec3519c8f172516f8317eb3a08546b04a5f5bc91147bd2c268da027c7`.
+- `withcounty-county.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/LandmarkInformationWithCounty?CountyID=4347`, HTTP 200, 413 bytes, SHA-256 `44090b0f36da5f240cc10020a899227609c8cd8cc50353b33dd9e4835d7e326e`.
+- `withcounty-unknown.json`: GET `https://irmaservices.nps.gov/NNLApi/v1/api/LandmarkInformationWithCounty?Code=ZZZZ`, HTTP 200, 2 bytes, SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.

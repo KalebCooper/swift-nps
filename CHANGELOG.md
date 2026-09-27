@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Landmark county relationships, flat state/landmark index, county-enriched records and open
+  ownership classifications, with route-specific filters and preserved repeated membership.
+
 - National Natural Landmark discovery with state/county lookup, distinct county-enriched records,
   explicit ID filters, independent SDK/Models products, original fixtures and key-free demo browsing.
 

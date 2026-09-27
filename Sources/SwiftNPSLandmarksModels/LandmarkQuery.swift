@@ -1,4 +1,5 @@
-/// Filters for LandmarkInformation and County. Omitted values are not sent.
+/// Filters for County, SiteCounties, LandmarkInformation, and LandmarkInformationWithCounty.
+/// Omitted values are not sent.
 public struct LandmarkQuery: Hashable, Sendable {
   /// Invalid filters are rejected rather than silently broadening a search.
   public enum ValidationError: Error, Hashable, Sendable {

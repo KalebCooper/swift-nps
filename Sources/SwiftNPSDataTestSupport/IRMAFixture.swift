@@ -2,31 +2,55 @@ import Foundation
 
 /// Original public IRMA response bytes, recorded September 27, 2026.
 package enum IRMAFixture: String, CaseIterable, Sendable {
-  /// Original Landmark landmark-code response.
+  /// Original Landmark landmark-code.json response.
   case landmarkAppleton = "Landmarks/landmark-code.json"
-  /// Original Landmark county-all response.
+  /// Original Landmark site-appleton.json response.
+  case landmarkAppletonCounties = "Landmarks/site-appleton.json"
+  /// Original Landmark county-all.json response.
   case landmarkCountyAll = "Landmarks/county-all.json"
-  /// Original Landmark county-me response.
+  /// Original Landmark county-me.json response.
   case landmarkCountyMaine = "Landmarks/county-me.json"
-  /// Original Landmark county-wy response.
+  /// Original Landmark county-wy.json response.
   case landmarkCountyWyoming = "Landmarks/county-wy.json"
-  /// Original Landmark landmark-unknown response.
+  /// Original Landmark landmark-unknown.json response.
   case landmarkEmpty = "Landmarks/landmark-unknown.json"
-  /// Original Landmark state-unknown response.
+  /// Original Landmark state-unknown.json response.
   case landmarkHTTPFailure = "Landmarks/state-unknown.json"
-  /// Original Landmark landmarks-me response.
+  /// Original Landmark landmarks-me.json response.
   case landmarkMaine = "Landmarks/landmarks-me.json"
-  /// Original Landmark landmarks-county response.
+  /// Original Landmark owners-unknown.json response.
+  case landmarkOwnerEmpty = "Landmarks/owners-unknown.json"
+  /// Original Landmark owners-big-hollow.json response.
+  case landmarkOwnerMultiple = "Landmarks/owners-big-hollow.json"
+  /// Original Landmark owners-appleton.json response.
+  case landmarkOwners = "Landmarks/owners-appleton.json"
+  /// Original Landmark landmarks-county.json response.
   case landmarkPerCounty = "Landmarks/landmarks-county.json"
-  /// Original Landmark landmarks-county-missing response.
+  /// Original Landmark landmarks-county-missing.json response.
   case landmarkPerCountyEmpty = "Landmarks/landmarks-county-missing.json"
-  /// Original Landmark state-me response.
+  /// Original Landmark site-unknown.json response.
+  case landmarkSiteCountiesEmpty = "Landmarks/site-unknown.json"
+  /// Original Landmark site-wy.json response.
+  case landmarkSiteWyoming = "Landmarks/site-wy.json"
+  /// Original Landmark statecounty-me.json response.
+  case landmarkStateCounties = "Landmarks/statecounty-me.json"
+  /// Original Landmark statecounty-unknown.json response.
+  case landmarkStateCountiesEmpty = "Landmarks/statecounty-unknown.json"
+  /// Original Landmark groups.json response.
+  case landmarkStateIndex = "Landmarks/groups.json"
+  /// Original Landmark state-me.json response.
   case landmarkStateMaine = "Landmarks/state-me.json"
-  /// Original Landmark states response.
+  /// Original Landmark states.json response.
   case landmarkStates = "Landmarks/states.json"
-  /// Original Landmark state-missing response.
+  /// Original Landmark state-missing.json response.
   case landmarkStateUnknown = "Landmarks/state-missing.json"
-  /// Original Landmark landmarks-wy response.
+  /// Original Landmark withcounty-appleton.json response.
+  case landmarkWithCounty = "Landmarks/withcounty-appleton.json"
+  /// Original Landmark withcounty-unknown.json response.
+  case landmarkWithCountyEmpty = "Landmarks/withcounty-unknown.json"
+  /// Original Landmark withcounty-county.json response.
+  case landmarkWithCountyFiltered = "Landmarks/withcounty-county.json"
+  /// Original Landmark landmarks-wy.json response.
   case landmarkWyoming = "Landmarks/landmarks-wy.json"
   /// Recorded Species acad-checklist.json response.
   case speciesAcadiaChecklist = "Species/acad-checklist.json"

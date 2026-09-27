@@ -30,6 +30,16 @@ Acreage uses Swift's floating-point numeric type. AuthoritativeURL remains optio
 
 Every convenience operation also has a constrained `NPSLandmarksRequest` factory for `value(for:)` and a `LandmarkEndpoint` factory for `send(_:)`. Inject any HTTPCore Transport for testing or portable execution. On Apple platforms the zero-argument initializer uses URLSession. Redirects are rejected. NPSLandmarksError preserves transport, HTTP response bytes/headers, decoding, and cancellation failures.
 
+## Relationships and ownership
+
+`landmarkSiteCounties(query:)` preserves multiple county relationships for a landmark. `landmarkStateCounties(query:)` uses the narrower `LandmarkStateCountyQuery` with CountyID/StateCode only; its rows contain county/state labels without landmark IDs.
+
+`statesAndLandmarks()` returns a flat index of `LandmarkStateGroup` rows. It has no filters or nested groups; repeated site codes and cross-state membership remain repeated.
+
+`landmarksWithCounty(query:)` preserves the provider's enriched shape. Code/ID queries can return CountyID zero with null CountyLabel/StateCode; a county filter can populate those fields. Zero is response data, not a valid query identifier.
+
+`landmarkOwners(query:)` accepts only Code/ID through `LandmarkOwnerQuery`. A landmark may have several open numeric ownership categories; labels such as Private, Federal, or State do not establish public access or NPS ownership.
+
 ## Topics
 
 ### Client and failures
