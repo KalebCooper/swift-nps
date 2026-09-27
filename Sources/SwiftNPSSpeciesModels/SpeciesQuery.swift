@@ -10,7 +10,7 @@ public struct SpeciesQuery: Hashable, Sendable {
   public enum ValidationError: Error, Hashable, Sendable {
     /// Supply at least one category or omit the list.
     case emptyCategories
-    /// A component is empty or contains whitespace or ambiguous path syntax.
+    /// A component is empty or contains unsafe whitespace or ambiguous path syntax.
     case invalidPathComponent
   }
   /// Exact category strings in requested order; nil omits the segment.
@@ -25,11 +25,15 @@ public struct SpeciesQuery: Hashable, Sendable {
   /// - Throws: ValidationError for empty lists or unsafe components.
   public init(categories: [String]? = nil, unitCode: String) throws(ValidationError) {
     guard categories?.isEmpty != true else { throw .emptyCategories }
+    guard !unitCode.unicodeScalars.contains(where: { $0.properties.isWhitespace }) else {
+      throw .invalidPathComponent
+    }
     for value in [unitCode] + (categories ?? []) {
       guard !value.isEmpty, value != ".", value != "..",
+        value.first?.isWhitespace != true, value.last?.isWhitespace != true,
         !value.contains(where: { ",/%\\".contains($0) }),
         !value.unicodeScalars.contains(where: {
-          $0.properties.isWhitespace || $0.value < 32 || $0.value == 127
+          $0.value < 32 || $0.value == 127
         })
       else { throw .invalidPathComponent }
     }

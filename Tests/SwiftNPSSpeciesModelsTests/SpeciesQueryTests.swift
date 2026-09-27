@@ -4,6 +4,14 @@ import Testing
 
 @Suite("Species queries", .timeLimit(.minutes(suiteTimeLimitMinutes)))
 struct SpeciesQueryTests {
+  @Test("Category aliases preserve interior spaces")
+  func categoryAliasesPreserveInteriorSpaces() throws {
+    let query = try SpeciesQuery(categories: ["Vascular Plants"], unitCode: "ACAD")
+    #expect(
+      SpeciesEndpoint.speciesChecklist(query: query).path
+        == "/checklist/ACAD/Vascular%20Plants?format=json")
+  }
+
   @Test("Category omission uses the measured trailing slash")
   func categoryOmissionUsesTheMeasuredTrailingSlash() throws {
     let query = try SpeciesQuery(unitCode: "ACAD")

@@ -101,6 +101,9 @@ let query = try SpeciesQuery(categories: ["birds"], unitCode: "ACAD")
 let checklist = try await species.speciesChecklist(query: query)
 ```
 
+Use `species.categoryOptions()` to read the provider's category alias guidance. The XML decoder
+preserves its exact values; Android runtime qualification for category discovery is pending.
+
 Checklist, full, and detailed lists preserve their separate membership. These inventories do not
 describe current wildlife sightings. The Species products are unreleased and require no key.
 

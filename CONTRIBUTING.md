@@ -68,4 +68,6 @@ and authentication headers.
 
 IRMA Species and Visitation have independent SDK and Models targets and DocC catalogs. Their
 public requests require no Data API key. Record original bodies and provenance before changing a model;
-missing months remain absent. Build each Models catalog before its SDK catalog.
+missing months remain absent. Category XML stays in its original XML fixture and receives only a
+file-specific prose-gate exemption. Category discovery requires Apple, Linux, and Android runtime
+qualification. Build each Models catalog before its SDK catalog.

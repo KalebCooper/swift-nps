@@ -29,7 +29,24 @@ remain within the fixed NPSpecies base. HTTP failures retain raw bytes, status, 
 JSON and cancellation stay typed transport errors. An invalid category can produce HTTP 400 HTML.
 An unknown unit returns an empty list. Availability and rate-limit policy are not guaranteed.
 
-Category discovery is not included in these JSON operations.
+Category discovery uses a separate concrete XML operation:
+
+```swift
+let options = try await client.categoryOptions()
+let request = SpeciesCategoriesRequest()
+let sameOptions = try await client.value(for: request)
+let alsoOptions = try await client.send(SpeciesCategoriesEndpoint())
+```
+
+The provider returns UTF-8 XML even with format=json. The SDK rejects malformed documents,
+incomplete options, DTDs, and entity declarations; external entity resolution is disabled.
+HTTP failures remain transport errors before parsing. Generic JSON execution is unchanged.
+
+Value strings are alias guidance such as "1 or Mammals or Mammal". Preserve them as reference
+text; submitting that whole string fails. Choose one alias yourself. Category names may include
+interior spaces. The SDK never turns English alias prose into an enum or silently picks an alias.
+
+Category XML runtime verification is pending on Android; local qualification is recorded separately.
 
 ## Topics
 

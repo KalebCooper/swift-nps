@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Species category discovery with inspectable XML requests, exact alias guidance, and strict
+  XML validation. Category aliases with interior spaces retain their original spelling.
+
 - Key-free Species checklist, full, and detailed lists through independent SDK and Models products,
   preserving synonyms, optional fields, provider membership, and exact query values.
 

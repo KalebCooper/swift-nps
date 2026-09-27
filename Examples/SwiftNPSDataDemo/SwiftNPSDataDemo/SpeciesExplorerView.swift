@@ -17,6 +17,8 @@ struct SpeciesExplorerView: View {
   }
 
   @State private var categories = "birds"
+  @State private var categoryOptions: [SpeciesCategoryOption] = []
+  @State private var categorySelection = ""
   @State private var kind = ListKind.checklist
   @State private var requestTask: Task<Void, Never>?
   @State private var rows: [Row] = []
@@ -39,6 +41,23 @@ struct SpeciesExplorerView: View {
         }
         Button("Load list", action: load).disabled(requestTask != nil)
         if requestTask != nil { Button("Cancel", action: cancel) }
+      }
+      Section {
+        Button("Load category options", action: loadCategoryOptions).disabled(requestTask != nil)
+        if !categoryOptions.isEmpty {
+          Picker("Provider aliases", selection: $categorySelection) {
+            ForEach(Array(categoryOptions.enumerated()), id: \.offset) { _, option in
+              Text(option.value).tag(option.value)
+            }
+          }
+          if let option = categoryOptions.first(where: { $0.value == categorySelection }) {
+            Text(option.description)
+          }
+        }
+      } header: {
+        Text("Category reference")
+      } footer: {
+        Text("Each value lists several aliases. Enter one name or number in Categories above.")
       }
       Section {
         Text(status)
@@ -114,8 +133,29 @@ struct SpeciesExplorerView: View {
         guard !Task.isCancelled else { return }
         status =
           error is SpeciesQuery.ValidationError
-          ? "Enter a unit and comma-separated categories without spaces or path punctuation."
+          ? "Enter a unit and comma-separated categories without leading or trailing spaces or path punctuation."
           : "Unable to load this list. Check the unit and category values, then try again."
+      }
+      requestTask = nil
+    }
+  }
+
+  private func loadCategoryOptions() {
+    rows = []
+    status = "Loading categories…"
+    requestTask = Task {
+      guard !Task.isCancelled else { return }
+      do {
+        let options = try await NPSSpeciesClient().categoryOptions()
+        guard !Task.isCancelled else { return }
+        categoryOptions = options
+        categorySelection = options.first?.value ?? ""
+        status =
+          options.isEmpty
+          ? "No category options returned." : "\(options.count) category options loaded."
+      } catch {
+        guard !Task.isCancelled else { return }
+        status = "Unable to load category options. Please try again."
       }
       requestTask = nil
     }

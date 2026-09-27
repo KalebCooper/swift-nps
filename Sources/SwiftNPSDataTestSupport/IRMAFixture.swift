@@ -8,6 +8,8 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case speciesAcadiaDetails = "Species/acad-details.json"
   /// Recorded Species acad-full.json response.
   case speciesAcadiaFull = "Species/acad-full.json"
+  /// Original category XML, despite the format=json query.
+  case speciesCategoryOptions = "Species/category-options.xml"
   /// Recorded Species empty.json response.
   case speciesEmpty = "Species/empty.json"
   /// Fort Point full list with category segment omitted.

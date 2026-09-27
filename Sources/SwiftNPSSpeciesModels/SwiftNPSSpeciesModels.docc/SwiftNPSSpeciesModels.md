@@ -17,14 +17,21 @@ print(request.endpoint.path)
 ```
 
 Omit categories for all categories; the endpoint retains the required trailing slash.
-Category order, duplicates, and spelling remain unchanged. An empty supplied list, whitespace,
+Category order, duplicates, and spelling remain unchanged. An empty supplied list, leading/trailing whitespace,
 controls, commas within entries, percent signs, path separators, and dot segments are rejected.
+Category names may contain interior spaces, such as Vascular Plants; unit codes may not.
 This prevents ambiguous path interpretation without imposing a closed category enum.
 
 NPSpecies TaxaCode uses the NPS taxonomy namespace. It must not be treated as an ITIS TSN.
 These records describe published inventories, not current wildlife presence or sightings.
 
 ## Topics
+
+### Category reference
+
+- ``SpeciesCategoriesEndpoint``
+- ``SpeciesCategoriesRequest``
+- ``SpeciesCategoryOption``
 
 ### Records
 

@@ -4,6 +4,8 @@
 
 Recorded September 27, 2026. No credentials sent; no rate-limit policy observed.
 
+The original category-options.xml is GET https://irmaservices.nps.gov/NPSpecies/v3/rest/urlOptions/categories?format=json, HTTP200, 2765bytes, SHA-256 `cbd6e0a035bb54924b6e315e0569bd97f7d8bef237d77b1d2f35de7edc1542ec`. It is XML despite format=json. Raw Value is alias guidance, not a directly usable category string.
+
 | Request | Status | Original SHA-256 |
 | --- | --- | --- |
 | https://irmaservices.nps.gov/NPSpecies/v3/rest/checklist/ACAD/birds?format=json | 200 | `e48c300f6152edf80871b165524787709922eca0508d510b53a88d9b61c205ce` |

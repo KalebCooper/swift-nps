@@ -11,7 +11,7 @@ import SwiftNPSSpeciesModels
 ///
 /// Requests return provider arrays without aggregation, retries, or redirect following.
 public struct NPSSpeciesClient: Sendable {
-  private let client: HTTPClient
+  let client: HTTPClient
 
   /// Creates a client using a supplied transport on any supported platform.
   /// - Parameter transport: The transport used to execute service requests.
@@ -66,7 +66,7 @@ public struct NPSSpeciesClient: Sendable {
   /// Executes an inspectable reusable request as one response.
   /// - Parameter request: A request whose response type is determined by its endpoint.
   /// - Returns: The provider's decoded response.
-  /// - Throws: The same failures as ``send(_:)``.
+  /// - Throws: The same failures as ``send(_:)->Value``.
   public func value<Value: Decodable & SendableMetatype>(
     for request: NPSSpeciesRequest<Value>
   ) async throws(NPSSpeciesError) -> Value {
