@@ -35,91 +35,57 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
-      # Names the schemes SwiftPM generated, so a scheme rename shows up here rather than as an
-      # unexplained failure in the per-product builds below.
-      - name: List schemes
-        run: xcodebuild -list
-
-      # Build models first and publish link metadata for the SDK catalog. Keep the archives
-      # separate so the SDK build cannot overwrite the archive it resolves against.
-      # The destination matches the minimum runtime pin in ci.yml.
-      - name: Build SwiftNPSDataModels documentation
+      # Compile once, then document only this package's public products. Global docbuild flags
+      # also reach dependency catalogs, whose external links are outside this site's scope.
+      - name: Build public modules
         run: |
           set -o pipefail
-          xcodebuild docbuild \
-            -scheme SwiftNPSDataModels \
-            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
-            -derivedDataPath .derivedData-models \
-            -skipPackagePluginValidation \
-            OTHER_DOCC_FLAGS='--enable-experimental-external-link-support' \
-            | xcbeautify --renderer github-actions
-
-      # Lifted out of derived data entirely, so the path handed to --dependency belongs to nothing that
-      # a later build writes to. This copy is also what the merge step reads: it is the archive the
-      # dependent product actually resolved against.
-      - name: Stage SwiftNPSDataModels archive
-        id: models
-        run: |
-          set -euo pipefail
-          found="$(find .derivedData-models -type d -name 'SwiftNPSDataModels.doccarchive' | head -1)"
-          if [ -z "$found" ]; then
-            echo "::error::no SwiftNPSDataModels.doccarchive under .derivedData-models"
-            exit 1
-          fi
-          mkdir -p .docc-deps
-          cp -R "$found" .docc-deps/SwiftNPSDataModels.doccarchive
-          if [ ! -f .docc-deps/SwiftNPSDataModels.doccarchive/linkable-entities.json ]; then
-            echo "::error::SwiftNPSDataModels.doccarchive carries no link metadata; the flag did not take"
-            exit 1
-          fi
-          echo "archive=$PWD/.docc-deps/SwiftNPSDataModels.doccarchive" >> "$GITHUB_OUTPUT"
-
-      # SwiftNPSData resolves against SwiftNPSDataModels' staged archive, and publishes its own link metadata
-      # too so the pair stays symmetrical if something later needs to link into it.
-      - name: Build SwiftNPSData documentation
-        run: |
-          set -o pipefail
-          xcodebuild docbuild \
-            -scheme SwiftNPSData \
+          xcodebuild build \
+            -scheme swift-nps-Package \
             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
             -derivedDataPath .derivedData \
             -skipPackagePluginValidation \
-            OTHER_DOCC_FLAGS="--enable-experimental-external-link-support --dependency ${{ steps.models.outputs.archive }}" \
             | xcbeautify --renderer github-actions
 
-      # Each Models archive is staged before its SDK build.
-      - name: Build IRMA documentation
+      # Every Models archive is complete before its SDK resolves links against it.
+      - name: Build product documentation
         run: |
           set -euo pipefail
-          for product in SwiftNPSLandmarksModels SwiftNPSLandmarks SwiftNPSSpeciesModels SwiftNPSSpecies SwiftNPSTaxonomyModels SwiftNPSTaxonomy SwiftNPSUnitsModels SwiftNPSUnits SwiftNPSVisitationModels SwiftNPSVisitation; do
-            flags='--enable-experimental-external-link-support --warnings-as-errors'
+          products="$PWD/.derivedData/Build/Products/Debug-iphonesimulator"
+          sdkpath="$(xcrun --sdk iphonesimulator --show-sdk-path)"
+          architecture="$(uname -m)"
+          mkdir -p .docc-cache .docc-deps .docc-symbols
+          for product in SwiftNPSDataModels SwiftNPSData SwiftNPSLandmarksModels SwiftNPSLandmarks SwiftNPSSpeciesModels SwiftNPSSpecies SwiftNPSTaxonomyModels SwiftNPSTaxonomy SwiftNPSUnitsModels SwiftNPSUnits SwiftNPSVisitationModels SwiftNPSVisitation; do
+            symbols="$PWD/.docc-symbols/$product"
+            mkdir -p "$symbols"
+            xcrun swift-symbolgraph-extract \
+              -module-name "$product" \
+              -target "$architecture-apple-ios26.0-simulator" \
+              -sdk "$sdkpath" \
+              -I "$products" -I "$products/PackageFrameworks" \
+              -module-cache-path "$PWD/.docc-cache" \
+              -minimum-access-level public -output-dir "$symbols"
+            dependency=()
             case "$product" in
               *Models) ;;
-              *) flags="$flags --dependency $PWD/.docc-deps/${product}Models.doccarchive" ;;
+              *) dependency=(--dependency "$PWD/.docc-deps/${product}Models.doccarchive") ;;
             esac
-            xcodebuild docbuild \
-              -scheme "$product" \
-              -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
-              -derivedDataPath ".derivedData-$product" \
-              -skipPackagePluginValidation \
-              OTHER_DOCC_FLAGS="$flags" | xcbeautify --renderer github-actions
-            found="$(find ".derivedData-$product" -type d -name "$product.doccarchive" | head -1)"
-            test -n "$found"
-            test -f "$found/linkable-entities.json"
-            cp -R "$found" ".docc-deps/$product.doccarchive"
+            xcrun docc convert "Sources/$product/$product.docc" \
+              --fallback-display-name "$product" \
+              --fallback-bundle-identifier "dev.cooperlabs.$product" \
+              --additional-symbol-graph-dir "$symbols" \
+              --output-path ".docc-deps/$product.doccarchive" \
+              --enable-experimental-external-link-support --warnings-as-errors \
+              ${dependency[@]+"${dependency[@]}"}
+            test -s ".docc-deps/$product.doccarchive/linkable-entities.json"
           done
 
       # A merged landing page lists every public product; test support stays private.
       - name: Merge archives
         run: |
           set -euo pipefail
-          found="$(find .derivedData -type d -name 'SwiftNPSData.doccarchive' | head -1)"
-          if [ -z "$found" ]; then
-            echo "::error::no SwiftNPSData.doccarchive under .derivedData"
-            exit 1
-          fi
-          test -f "$found/linkable-entities.json"
-          "$(xcrun --find docc)" merge .docc-deps/SwiftNPSDataModels.doccarchive "$found" \
+          "$(xcrun --find docc)" merge \
+            .docc-deps/SwiftNPSDataModels.doccarchive .docc-deps/SwiftNPSData.doccarchive \
             .docc-deps/SwiftNPSLandmarksModels.doccarchive .docc-deps/SwiftNPSLandmarks.doccarchive \
             .docc-deps/SwiftNPSSpeciesModels.doccarchive .docc-deps/SwiftNPSSpecies.doccarchive \
             .docc-deps/SwiftNPSTaxonomyModels.doccarchive .docc-deps/SwiftNPSTaxonomy.doccarchive \
