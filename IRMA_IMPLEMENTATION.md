@@ -64,4 +64,4 @@ Android runtime verification is explicitly deferred and unverified; no Android p
 
 Release UI verification exercised ACAD visitation, Species birds and XML category discovery, unit lookup and all profiles, APBO-ME landmarks, and NPS/ITIS taxonomy lookup. Species cancellation remained cancelled without stale results. Taxonomy profiles showed no raw citation HTML; GET and POST batches each advanced from one to three records before an empty terminal page removed Load more and retained existing rows. Namespace, representation, method, page size, category and search edits reset results. Common-name paging, an impossible-name empty response, invalid numeric input and a provider category error were also observed.
 
-The work is local and unreleased. No push, tag, hosted qualification, Pages publication or release is part of this implementation.
+This report records local qualification. Hosted checks and Pages publication are separate evidence; the results above do not establish either. The IRMA features remain unreleased until a version is tagged and published.
