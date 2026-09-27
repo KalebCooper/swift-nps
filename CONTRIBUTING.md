@@ -66,6 +66,6 @@ Include the expected behavior, what happened, and a minimal reproduction. For de
 include the request path and query, along with a redacted response if possible. Leave out API keys
 and authentication headers.
 
-IRMA Visitation has independent SDK and Models targets and DocC catalogs. Its public statistics
-requests require no Data API key. Record original bodies and provenance before changing a model;
+IRMA Species and Visitation have independent SDK and Models targets and DocC catalogs. Their
+public requests require no Data API key. Record original bodies and provenance before changing a model;
 missing months remain absent. Build each Models catalog before its SDK catalog.

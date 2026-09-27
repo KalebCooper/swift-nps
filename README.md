@@ -90,10 +90,25 @@ let months = try await visits.nationalVisitation(year: 2025)
 National results are monthly records. Missing months remain absent; no annual total is calculated.
 IRMA statistics use no Data API key. See the Visitation DocC catalogs for unit and month queries.
 
+### Read a species checklist
+
+```swift
+import SwiftNPSSpecies
+import SwiftNPSSpeciesModels
+
+let species = NPSSpeciesClient()
+let query = try SpeciesQuery(categories: ["birds"], unitCode: "ACAD")
+let checklist = try await species.speciesChecklist(query: query)
+```
+
+Checklist, full, and detailed lists preserve their separate membership. These inventories do not
+describe current wildlife sightings. The Species products are unreleased and require no key.
+
 ## Example
 
 The [SwiftUI demo app](Examples/SwiftNPSDataDemo) lets you browse the supported endpoint groups,
-search, and load more results. Enter your API key in the app; it stays in memory.
+search, and load more results. The Data API tab keeps your entered key in memory.
+The IRMA tab offers Species and Visitation without a key.
 
 Open [SwiftNPSDataDemo.xcodeproj](Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj) in Xcode
 with the standalone package window closed, since Xcode opens a local package in only one window
@@ -105,6 +120,8 @@ at a time.
 | --- | --- |
 | `SwiftNPSData` | An async client with authentication, lazy pagination, and typed errors. Uses [swifty-networking](https://github.com/KalebCooper/swifty-networking), with URLSession on Apple platforms. |
 | `SwiftNPSDataModels` | `Codable` models, validated queries, and typed requests and endpoints. Has no dependencies and works with your own networking stack. |
+| `SwiftNPSSpecies` | Key-free checklist, full, and detailed species lists. |
+| `SwiftNPSSpeciesModels` | Portable list records, safe queries, and inspectable requests. |
 | `SwiftNPSVisitation` | Key-free monthly unit and national visitation statistics. |
 | `SwiftNPSVisitationModels` | Portable monthly records, validated ranges, and inspectable requests. |
 
@@ -115,7 +132,7 @@ It describes published park information; it does not provide live campsite avail
 
 - Swift 6.2 or later.
 - iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android are also supported.
-- An NPS API key for Data API requests. IRMA visitation requires no key.
+- An NPS API key for Data API requests. IRMA Species and Visitation require no key.
 
 ## Installation
 

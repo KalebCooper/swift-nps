@@ -5,6 +5,7 @@ struct IRMAExplorerView: View {
     NavigationStack {
       List {
         Section {
+          NavigationLink("Species") { SpeciesExplorerView() }
           NavigationLink("Visitation") { VisitationExplorerView() }
         } footer: {
           Text("Explore public NPS records. No Data API key is required.")

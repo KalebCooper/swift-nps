@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E1DB1DFA4676451ABD64A89 /* SwiftNPSSpeciesModels in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB3817588343C414F88683A /* SwiftNPSSpeciesModels */; };
 		5675461B3561EC31B31AA70B /* SwiftNPSVisitation in Frameworks */ = {isa = PBXBuildFile; productRef = DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */; };
+		5DA0E8FC3A20856ABB0001C0 /* SwiftNPSSpecies in Frameworks */ = {isa = PBXBuildFile; productRef = FB00EE754C1ECEED855D181E /* SwiftNPSSpecies */; };
 		9D7F8EAC8DED5B7F11389E3F /* SwiftNPSVisitationModels in Frameworks */ = {isa = PBXBuildFile; productRef = 8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */; };
 		A00000000000000000000001 /* SwiftNPSData in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000003 /* SwiftNPSData */; };
 		A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000004 /* SwiftNPSDataModels */; };
@@ -34,6 +36,8 @@
 			files = (
 				A00000000000000000000001 /* SwiftNPSData in Frameworks */,
 				A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */,
+				5DA0E8FC3A20856ABB0001C0 /* SwiftNPSSpecies in Frameworks */,
+				4E1DB1DFA4676451ABD64A89 /* SwiftNPSSpeciesModels in Frameworks */,
 				5675461B3561EC31B31AA70B /* SwiftNPSVisitation in Frameworks */,
 				9D7F8EAC8DED5B7F11389E3F /* SwiftNPSVisitationModels in Frameworks */,
 			);
@@ -80,6 +84,8 @@
 			packageProductDependencies = (
 				A00000000000000000000003 /* SwiftNPSData */,
 				A00000000000000000000004 /* SwiftNPSDataModels */,
+				FB00EE754C1ECEED855D181E /* SwiftNPSSpecies */,
+				8CB3817588343C414F88683A /* SwiftNPSSpeciesModels */,
 				DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */,
 				8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */,
 			);
@@ -381,6 +387,11 @@
 			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
 			productName = SwiftNPSVisitationModels;
 		};
+		8CB3817588343C414F88683A /* SwiftNPSSpeciesModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
+			productName = SwiftNPSSpeciesModels;
+		};
 		A00000000000000000000003 /* SwiftNPSData */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftNPSData;
@@ -393,6 +404,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
 			productName = SwiftNPSVisitation;
+		};
+		FB00EE754C1ECEED855D181E /* SwiftNPSSpecies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
+			productName = SwiftNPSSpecies;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

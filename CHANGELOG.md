@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Key-free Species checklist, full, and detailed lists through independent SDK and Models products,
+  preserving synonyms, optional fields, provider membership, and exact query values.
+
 - IRMA visitation: independent client and Models products for unit month ranges and national monthly
   records, with key-free execution, typed failures, recorded fixtures, documentation, and demo browsing.
   Missing months and national null unit identifiers are preserved without aggregation.

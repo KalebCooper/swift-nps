@@ -1,5 +1,22 @@
 # Recorded responses
 
+## Species original recordings
+
+Recorded September 27, 2026. No credentials sent; no rate-limit policy observed.
+
+| Request | Status | Original SHA-256 |
+| --- | --- | --- |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/checklist/ACAD/birds?format=json | 200 | `e48c300f6152edf80871b165524787709922eca0508d510b53a88d9b61c205ce` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/checklist/YELL/mammals?format=json | 200 | `83acf55109372cc9516df9184dfbe793b23fefa8574c7663689643271f949cc9` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/checklist/ZZZZ/birds?format=json | 200 | `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/checklist/ACAD/invalid-category?format=json | 400 | `20ceb031ef2f17237c42d65db68806af24a95d57dfe4bf8dcc912fd5a4ab924f` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/detaillist/ACAD/birds?format=json | 200 | `0b95316d6e704de557c653784669327dea15692a9a6984480fa30452d0b92e2c` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/detaillist/YELL/mammals?format=json | 200 | `073a182e630af3656485bc3f5d5ad524b98d34329a5094116a7e11fc219679cb` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/fulllist/ACAD/birds?format=json | 200 | `82e81fc24602df0fce838f0df82a3cd9c521decec52ed68b509943947903d6fc` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/fulllist/YELL/mammals?format=json | 200 | `d600f07410efb0080521b81ebea08276d7c52fc980771bb486461b87c16d0ccf` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/fulllist/FOPO/?format=json | 200 | `72a1605b8c0bfe0b7fd5a656b6ac99f3ba3760e02ccb3a3d9735d94b8afaac45` |
+| https://irmaservices.nps.gov/NPSpecies/v3/rest/fulllist/FOPO/birds,mammals?format=json | 200 | `3f31ac700eb7bc98508fba8db1b9984639afd768bba0546197bad75e6f568749` |
+
 ## IRMA Visitation recordings, September 27, 2026
 
 Public key-free GET requests with Accept application/json. Bodies are original bytes, including the HTTP failure BOM. Identity: swift-nps, https://github.com/KalebCooper/swift-nps.

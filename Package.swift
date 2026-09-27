@@ -11,6 +11,8 @@ let package = Package(
   products: [
     .library(name: "SwiftNPSData", targets: ["SwiftNPSData"]),
     .library(name: "SwiftNPSDataModels", targets: ["SwiftNPSDataModels"]),
+    .library(name: "SwiftNPSSpecies", targets: ["SwiftNPSSpecies"]),
+    .library(name: "SwiftNPSSpeciesModels", targets: ["SwiftNPSSpeciesModels"]),
     .library(name: "SwiftNPSVisitation", targets: ["SwiftNPSVisitation"]),
     .library(name: "SwiftNPSVisitationModels", targets: ["SwiftNPSVisitationModels"]),
   ],
@@ -20,7 +22,8 @@ let package = Package(
     .default(enabledTraits: []),
     .trait(
       name: "HTTPPortable",
-      description: "Send through swifty-networking's AsyncHTTPClient transport on Linux and Android."
+      description:
+        "Send through swifty-networking's AsyncHTTPClient transport on Linux and Android."
     ),
   ],
   dependencies: [
@@ -75,6 +78,39 @@ let package = Package(
         "SwiftNPSData",
         "SwiftNPSDataModels",
         "SwiftNPSDataTestSupport",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(
+      name: "SwiftNPSSpecies",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(
+          name: "HTTPPortable", package: "swifty-networking",
+          condition: .when(traits: ["HTTPPortable"])),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        .product(
+          name: "HTTPURLSession", package: "swifty-networking",
+          condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS, .watchOS])),
+        "SwiftNPSSpeciesModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(name: "SwiftNPSSpeciesModels", swiftSettings: swiftSettings),
+    .testTarget(
+      name: "SwiftNPSSpeciesModelsTests",
+      dependencies: ["SwiftNPSDataTestSupport", "SwiftNPSSpeciesModels"],
+      swiftSettings: swiftSettings
+    ),
+    .testTarget(
+      name: "SwiftNPSSpeciesTests",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(name: "HTTPTesting", package: "swifty-networking"),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        "SwiftNPSDataTestSupport",
+        "SwiftNPSSpecies",
+        "SwiftNPSSpeciesModels",
       ],
       swiftSettings: swiftSettings
     ),

@@ -88,14 +88,15 @@ jobs:
             | xcbeautify --renderer github-actions
 
       # Each Models archive is staged before its SDK build.
-      - name: Build Visitation documentation
+      - name: Build IRMA documentation
         run: |
           set -euo pipefail
-          for product in SwiftNPSVisitationModels SwiftNPSVisitation; do
+          for product in SwiftNPSSpeciesModels SwiftNPSSpecies SwiftNPSVisitationModels SwiftNPSVisitation; do
             flags='--enable-experimental-external-link-support --warnings-as-errors'
-            if [ "$product" = SwiftNPSVisitation ]; then
-              flags="$flags --dependency $PWD/.docc-deps/SwiftNPSVisitationModels.doccarchive"
-            fi
+            case "$product" in
+              *Models) ;;
+              *) flags="$flags --dependency $PWD/.docc-deps/${product}Models.doccarchive" ;;
+            esac
             xcodebuild docbuild \
               -scheme "$product" \
               -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
@@ -119,6 +120,7 @@ jobs:
           fi
           test -f "$found/linkable-entities.json"
           "$(xcrun --find docc)" merge .docc-deps/SwiftNPSDataModels.doccarchive "$found" \
+            .docc-deps/SwiftNPSSpeciesModels.doccarchive .docc-deps/SwiftNPSSpecies.doccarchive \
             .docc-deps/SwiftNPSVisitationModels.doccarchive .docc-deps/SwiftNPSVisitation.doccarchive \
             --synthesized-landing-page-name swift-nps \
             --synthesized-landing-page-kind Package \
