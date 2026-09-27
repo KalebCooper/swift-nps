@@ -847,3 +847,20 @@ Original key-free GET responses recorded September 27, 2026. Each path is relati
 - `subtype-op.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/subtypes/OP?format=json`, HTTP 200, original SHA-256 `128d0bea59b29f1a77abed66ddef572a9bbde7342a0aa01c4e7a62bd482c5ce5`.
 - `nps.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/NPS?format=json`, HTTP 200, original SHA-256 `8b96c26acfe97dffdd02975d0b0f5ba07f1eb6f127fcdfb21e8992c7fb4c7c17`.
 - `semicolon.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD;YELL?format=json`, HTTP 200, original SHA-256 `696fbb34a59a2ab6f9748e13692869ee7972b858eafa294437c9b0aaa109cf82`.
+
+### Unit geography and hierarchy
+
+Original GET responses preserve WKT/GML text, leading-zero FIPS, omitted point coordinates and selector leaf lists. The live selector is an array, unlike the singular Swagger schema. Its Lifecycle is numeric and StateCodes is nullable text. Full county names, IDs and FIPS work; shortened county names do not. Unknown geography options silently fall back at the provider, so the query validates documented options.
+
+- `geography-acad.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?format=json`, HTTP 200, original SHA-256 `f420a7b143a68a634fa2029db57c738741a68414f8519fb691682ae9651da29c`.
+- `geography-unknown.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ZZZZ/geography?format=json`, HTTP 200, original SHA-256 `4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945`.
+- `states.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/states?format=json`, HTTP 200, original SHA-256 `1daf6868160b20f3d7e14c8ece8426d66d3e75ba3514d3a6234b5fb85adf710e`.
+- `state-me.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/states/ME?format=json`, HTTP 200, original SHA-256 `0e462eea43951be087f38d9827d8088986f1770729dc53f3311a38890addbadc`.
+- `state-wy.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/states/WY?format=json`, HTTP 200, original SHA-256 `167b39092e4d94a5a1d3b222ebb4bb126a233610be035a402db8d344d33ce131`.
+- `points.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/unitpoints?format=json`, HTTP 200, original SHA-256 `360b01d167a9c5ec88f7708fb17ba0592b8049b0c9f3a08dd8541beb22e3e983`.
+- `selector.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/unitselector?format=json`, HTTP 200, original SHA-256 `12b013f37d07e9aad32d77c3fad76a377da7412ce1e86499099c9c2d0fd3b383`.
+- `county-hancock-full.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/states/ME/Hancock%20County?format=json`, HTTP 200, original SHA-256 `7a7fe2c161678f3e103659d6c43b6ada9659be51c3f42e10a9ee4cc7c6290211`.
+- `county-park-full.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/states/WY/Park%20County?format=json`, HTTP 200, original SHA-256 `a39340a75b4673b97d24239f65e36fc7e7aedadbeb34661c22a7ae10f4554d0c`.
+- `geo-envelope.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?detail=envelope&dataformat=wkt&format=json`, HTTP 200, original SHA-256 `3678c61070a3592c1e8860497e91a4e8379eebd1068c0681921630256784d175`.
+- `geo-feature.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?detail=feature&dataformat=wkt&format=json`, HTTP 200, original SHA-256 `47fd1339341f2946015729bbffa0e55000ea3a5bcbdc00ee3e53303b9654db0f`.
+- `geo-gml.json`: GET `https://irmaservices.nps.gov/Unit/v2/api/ACAD/geography?detail=envelope&dataformat=gml&format=json`, HTTP 200, original SHA-256 `d1885021eacea9f988631d4477636ef009c8b6aa497649e3a924f4cbe4481c69`.

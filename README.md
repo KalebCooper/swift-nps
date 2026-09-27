@@ -117,7 +117,8 @@ let units = try await NPSUnitsClient().units(matching: "ACAD;YELL")
 ```
 
 The unreleased Unit products preserve administrative identifiers, nullable fields and provider order.
-Use the Unit DocC guides for linked units, collections, designations and subtypes.
+Use the Unit DocC guides for linked units, classifications, state/county hierarchies, points,
+selector groups and raw WKT/GML geography.
 
 ## Example
 

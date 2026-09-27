@@ -26,14 +26,28 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case speciesYellowstoneFull = "Species/yell-full.json"
   /// Original Unit acad response.
   case unitAcadia = "Units/acad.json"
+  /// Original Unit geography-acad response.
+  case unitAcadiaGeography = "Units/geography-acad.json"
   /// Original Unit collections response.
   case unitCollections = "Units/collections.json"
+  /// Original Unit county-hancock-full response.
+  case unitCountyHancock = "Units/county-hancock-full.json"
+  /// Original Unit county-park-full response.
+  case unitCountyPark = "Units/county-park-full.json"
   /// Original Unit designation-np response.
   case unitDesignation = "Units/designation-np.json"
   /// Original Unit designations response.
   case unitDesignations = "Units/designations.json"
   /// Original Unit unknown response.
   case unitEmpty = "Units/unknown.json"
+  /// Original Unit geography-unknown response.
+  case unitGeographyEmpty = "Units/geography-unknown.json"
+  /// Original Unit geo-envelope response.
+  case unitGeographyEnvelope = "Units/geo-envelope.json"
+  /// Original Unit geo-feature response.
+  case unitGeographyFeature = "Units/geo-feature.json"
+  /// Original Unit geo-gml response.
+  case unitGeographyGML = "Units/geo-gml.json"
   /// Original Unit designation-unknown response.
   case unitHTTPFailure = "Units/designation-unknown.bin"
   /// Original Unit netn-linked response.
@@ -48,8 +62,18 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case unitName = "Units/name.json"
   /// Original Unit nps response.
   case unitNational = "Units/nps.json"
+  /// Original Unit points response.
+  case unitPoints = "Units/points.json"
+  /// Original Unit selector response.
+  case unitSelector = "Units/selector.json"
   /// Original Unit semicolon response.
   case unitSemicolon = "Units/semicolon.json"
+  /// Original Unit state-me response.
+  case unitStateMaine = "Units/state-me.json"
+  /// Original Unit states response.
+  case unitStates = "Units/states.json"
+  /// Original Unit state-wy response.
+  case unitStateWyoming = "Units/state-wy.json"
   /// Original Unit subtype-op response.
   case unitSubtype = "Units/subtype-op.json"
   /// Original Unit subtypes response.

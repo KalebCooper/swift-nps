@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Unit geography as raw WKT/GML, state and county hierarchies, optional point coordinates, and
+  selector nodes with separate active/inactive direct/indirect leaves.
+
 - Key-free Unit profiles, linked units and classification catalogs, with administrative codes,
   nullable fields, independent request descriptions, recorded responses and demo browsing.
 
