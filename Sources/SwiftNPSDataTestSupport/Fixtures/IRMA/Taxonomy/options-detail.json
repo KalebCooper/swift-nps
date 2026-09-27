@@ -1,0 +1,1 @@
+[{"Value":"basic","Description":"Taxon records are returned with a set of basic, flattened attributes."},{"Value":"profile","Description":"Taxon records are returned with a full set of attributes and any subcollections, such as Hierarchy, Accepted, Synonyms, etc. This is the default if not otherwise specifed."}]

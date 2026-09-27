@@ -15,6 +15,8 @@ let package = Package(
     .library(name: "SwiftNPSLandmarksModels", targets: ["SwiftNPSLandmarksModels"]),
     .library(name: "SwiftNPSSpecies", targets: ["SwiftNPSSpecies"]),
     .library(name: "SwiftNPSSpeciesModels", targets: ["SwiftNPSSpeciesModels"]),
+    .library(name: "SwiftNPSTaxonomy", targets: ["SwiftNPSTaxonomy"]),
+    .library(name: "SwiftNPSTaxonomyModels", targets: ["SwiftNPSTaxonomyModels"]),
     .library(name: "SwiftNPSUnits", targets: ["SwiftNPSUnits"]),
     .library(name: "SwiftNPSUnitsModels", targets: ["SwiftNPSUnitsModels"]),
     .library(name: "SwiftNPSVisitation", targets: ["SwiftNPSVisitation"]),
@@ -148,6 +150,39 @@ let package = Package(
         "SwiftNPSDataTestSupport",
         "SwiftNPSSpecies",
         "SwiftNPSSpeciesModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(
+      name: "SwiftNPSTaxonomy",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(
+          name: "HTTPPortable", package: "swifty-networking",
+          condition: .when(traits: ["HTTPPortable"])),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        .product(
+          name: "HTTPURLSession", package: "swifty-networking",
+          condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS, .watchOS])),
+        "SwiftNPSTaxonomyModels",
+      ],
+      swiftSettings: swiftSettings
+    ),
+    .target(name: "SwiftNPSTaxonomyModels", swiftSettings: swiftSettings),
+    .testTarget(
+      name: "SwiftNPSTaxonomyModelsTests",
+      dependencies: ["SwiftNPSDataTestSupport", "SwiftNPSTaxonomyModels"],
+      swiftSettings: swiftSettings
+    ),
+    .testTarget(
+      name: "SwiftNPSTaxonomyTests",
+      dependencies: [
+        .product(name: "HTTPCore", package: "swifty-networking"),
+        .product(name: "HTTPTesting", package: "swifty-networking"),
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        "SwiftNPSDataTestSupport",
+        "SwiftNPSTaxonomy",
+        "SwiftNPSTaxonomyModels",
       ],
       swiftSettings: swiftSettings
     ),

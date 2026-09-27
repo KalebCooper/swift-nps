@@ -136,11 +136,22 @@ selector groups and raw WKT/GML geography.
 
 The [SwiftUI demo app](Examples/SwiftNPSDataDemo) lets you browse the supported endpoint groups,
 search, and load more results. The Data API tab keeps your entered key in memory.
-The IRMA tab offers Landmarks, Species, Units, and Visitation without a key.
+The IRMA tab offers Landmarks, Species, Taxonomy, Units, and Visitation without a key.
 
 Open [SwiftNPSDataDemo.xcodeproj](Examples/SwiftNPSDataDemo/SwiftNPSDataDemo.xcodeproj) in Xcode
 with the standalone package window closed, since Xcode opens a local package in only one window
 at a time.
+
+## Taxonomy (unreleased)
+
+```swift
+import SwiftNPSTaxonomy
+
+let taxon = try await NPSTaxonomyClient().taxonSummary(code: "81838", kind: .nps)
+```
+
+Choose NPS taxon code or ITIS TSN explicitly: the same number can identify different taxa.
+See the Taxonomy DocC catalogs for name searches and source/category/rank discovery.
 
 ## Products
 
@@ -152,6 +163,8 @@ at a time.
 | `SwiftNPSLandmarksModels` | Landmark records and independent request descriptions. |
 | `SwiftNPSSpecies` | Key-free checklist, full, and detailed species lists. |
 | `SwiftNPSSpeciesModels` | Portable list records, safe queries, and inspectable requests. |
+| `SwiftNPSTaxonomy` | Key-free explicit-namespace lookup, name search, and classification discovery. |
+| `SwiftNPSTaxonomyModels` | Distinct basic/profile records and independent request descriptions. |
 | `SwiftNPSUnits` | Key-free unit profiles, linked units, and classification catalogs. |
 | `SwiftNPSUnitsModels` | Administrative records and independent request descriptions. |
 | `SwiftNPSVisitation` | Key-free monthly unit and national visitation statistics. |
@@ -164,7 +177,7 @@ It describes published park information; it does not provide live campsite avail
 
 - Swift 6.2 or later.
 - iOS, macOS, tvOS, visionOS, or watchOS 26 or later; Linux and Android are also supported.
-- An NPS API key for Data API requests. IRMA Landmarks, Species, Units, and Visitation require no key.
+- An NPS API key for Data API requests. IRMA Landmarks, Species, Taxonomy, Units, and Visitation require no key.
 
 ## Installation
 

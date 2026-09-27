@@ -8,6 +8,9 @@ All notable changes are documented here. This project follows
 
 ### Added
 
+- Taxonomy SDK and dependency-free Models: explicit NPS/ITIS lookup, distinct basic/profile name
+  searches, source/category/rank discovery and query options. Key-free demo and recorded tests.
+
 - Landmark county relationships, flat state/landmark index, county-enriched records and open
   ownership classifications, with route-specific filters and preserved repeated membership.
 

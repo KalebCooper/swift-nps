@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12F4AB091271D1C20DD563AE /* SwiftNPSTaxonomyModels in Frameworks */ = {isa = PBXBuildFile; productRef = 7F7D4F0DE4B8BFB6B0CB4F2E /* SwiftNPSTaxonomyModels */; };
 		4E1DB1DFA4676451ABD64A89 /* SwiftNPSSpeciesModels in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB3817588343C414F88683A /* SwiftNPSSpeciesModels */; };
 		5675461B3561EC31B31AA70B /* SwiftNPSVisitation in Frameworks */ = {isa = PBXBuildFile; productRef = DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */; };
 		5DA0E8FC3A20856ABB0001C0 /* SwiftNPSSpecies in Frameworks */ = {isa = PBXBuildFile; productRef = FB00EE754C1ECEED855D181E /* SwiftNPSSpecies */; };
 		78AE2D2318CF666914C45CAE /* SwiftNPSUnits in Frameworks */ = {isa = PBXBuildFile; productRef = C58B1AA54DA0C3DB5CFB0F7B /* SwiftNPSUnits */; };
+		9D523D870C2B64E1A16B97A5 /* SwiftNPSTaxonomy in Frameworks */ = {isa = PBXBuildFile; productRef = DD0D658F02CC9B1A8699E02B /* SwiftNPSTaxonomy */; };
 		9D7F8EAC8DED5B7F11389E3F /* SwiftNPSVisitationModels in Frameworks */ = {isa = PBXBuildFile; productRef = 8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */; };
 		A00000000000000000000001 /* SwiftNPSData in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000003 /* SwiftNPSData */; };
 		A00000000000000000000002 /* SwiftNPSDataModels in Frameworks */ = {isa = PBXBuildFile; productRef = A00000000000000000000004 /* SwiftNPSDataModels */; };
@@ -44,6 +46,8 @@
 				B01BB20332C3A80D95631BAE /* SwiftNPSLandmarksModels in Frameworks */,
 				5DA0E8FC3A20856ABB0001C0 /* SwiftNPSSpecies in Frameworks */,
 				4E1DB1DFA4676451ABD64A89 /* SwiftNPSSpeciesModels in Frameworks */,
+				9D523D870C2B64E1A16B97A5 /* SwiftNPSTaxonomy in Frameworks */,
+				12F4AB091271D1C20DD563AE /* SwiftNPSTaxonomyModels in Frameworks */,
 				78AE2D2318CF666914C45CAE /* SwiftNPSUnits in Frameworks */,
 				E363B227889E00DB8DECA2BE /* SwiftNPSUnitsModels in Frameworks */,
 				5675461B3561EC31B31AA70B /* SwiftNPSVisitation in Frameworks */,
@@ -96,6 +100,8 @@
 				E9BE11C5FFAF121FCFE10BFF /* SwiftNPSLandmarksModels */,
 				FB00EE754C1ECEED855D181E /* SwiftNPSSpecies */,
 				8CB3817588343C414F88683A /* SwiftNPSSpeciesModels */,
+				DD0D658F02CC9B1A8699E02B /* SwiftNPSTaxonomy */,
+				7F7D4F0DE4B8BFB6B0CB4F2E /* SwiftNPSTaxonomyModels */,
 				C58B1AA54DA0C3DB5CFB0F7B /* SwiftNPSUnits */,
 				47F5A875E3A0104C6D58657B /* SwiftNPSUnitsModels */,
 				DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */,
@@ -404,6 +410,11 @@
 			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
 			productName = SwiftNPSUnitsModels;
 		};
+		7F7D4F0DE4B8BFB6B0CB4F2E /* SwiftNPSTaxonomyModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
+			productName = SwiftNPSTaxonomyModels;
+		};
 		8818355C0F8AD50EB5B9484A /* SwiftNPSVisitationModels */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
@@ -426,6 +437,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
 			productName = SwiftNPSUnits;
+		};
+		DD0D658F02CC9B1A8699E02B /* SwiftNPSTaxonomy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00000000000000000000005 /* XCLocalSwiftPackageReference ".." */;
+			productName = SwiftNPSTaxonomy;
 		};
 		DD5FBED3E6CDBC4E9254BDD9 /* SwiftNPSVisitation */ = {
 			isa = XCSwiftPackageProductDependency;

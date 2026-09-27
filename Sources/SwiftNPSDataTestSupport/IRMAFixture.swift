@@ -74,6 +74,80 @@ package enum IRMAFixture: String, CaseIterable, Sendable {
   case speciesYellowstoneDetails = "Species/yell-details.json"
   /// Recorded Species yell-full.json response.
   case speciesYellowstoneFull = "Species/yell-full.json"
+  /// Original taxonomy tsn-81838-profile response.
+  case taxonomy81838ITIS = "Taxonomy/tsn-81838-profile.json"
+  /// Original taxonomy taxoncode-81838-profile response.
+  case taxonomy81838NPS = "Taxonomy/taxoncode-81838-profile.json"
+  /// Original taxonomy tsn-81838-basic response.
+  case taxonomyBasicITIS = "Taxonomy/tsn-81838-basic.json"
+  /// Original taxonomy taxoncode-81838-basic response.
+  case taxonomyBasicNPS = "Taxonomy/taxoncode-81838-basic.json"
+  /// Original taxonomy categories response.
+  case taxonomyCategories = "Taxonomy/categories.json"
+  /// Original taxonomy category-bird response.
+  case taxonomyCategoryBird = "Taxonomy/category-bird.json"
+  /// Original taxonomy category-mammal response.
+  case taxonomyCategoryMammal = "Taxonomy/category-mammal.json"
+  /// Original taxonomy searchbycommonname-profile response.
+  case taxonomyCommonProfiles = "Taxonomy/searchbycommonname-profile.json"
+  /// Original taxonomy searchbycommonname-basic response.
+  case taxonomyCommonSummaries = "Taxonomy/searchbycommonname-basic.json"
+  /// Original taxonomy profile-derived response.
+  case taxonomyDerived = "Taxonomy/profile-derived.json"
+  /// Original taxonomy searchbycommonname-unknown response.
+  case taxonomyEmpty = "Taxonomy/searchbycommonname-unknown.json"
+  /// Original taxonomy searchbycommonname-filtered-profile response.
+  case taxonomyFilteredProfiles = "Taxonomy/searchbycommonname-filtered-profile.json"
+  /// Original taxonomy searchbycommonname-filtered-basic response.
+  case taxonomyFilteredSummaries = "Taxonomy/searchbycommonname-filtered-basic.json"
+  /// Original taxonomy taxon-unknown response.
+  case taxonomyHTTPFailure = "Taxonomy/taxon-unknown.json"
+  /// Original taxonomy irma-basic response.
+  case taxonomyIRMABasic = "Taxonomy/irma-basic.json"
+  /// Original taxonomy crosswalk-quercus-irma response.
+  case taxonomyIRMAProfiles = "Taxonomy/crosswalk-quercus-irma.json"
+  /// Original taxonomy options-category response.
+  case taxonomyOptionsCategory = "Taxonomy/options-category.json"
+  /// Original taxonomy options-codeType response.
+  case taxonomyOptionsCodeType = "Taxonomy/options-codeType.json"
+  /// Original taxonomy options-detail response.
+  case taxonomyOptionsDetail = "Taxonomy/options-detail.json"
+  /// Original taxonomy options-paging response.
+  case taxonomyOptionsPaging = "Taxonomy/options-paging.json"
+  /// Original taxonomy options-source response.
+  case taxonomyOptionsSource = "Taxonomy/options-source.json"
+  /// Original taxonomy rank-genus response.
+  case taxonomyRankGenus = "Taxonomy/rank-genus.json"
+  /// Original taxonomy rank-species response.
+  case taxonomyRankSpecies = "Taxonomy/rank-species.json"
+  /// Original taxonomy ranks response.
+  case taxonomyRanks = "Taxonomy/ranks.json"
+  /// Original taxonomy searchbyscientificname-profile response.
+  case taxonomyScientificProfiles = "Taxonomy/searchbyscientificname-profile.json"
+  /// Original taxonomy searchbyscientificname-basic response.
+  case taxonomyScientificSummaries = "Taxonomy/searchbyscientificname-basic.json"
+  /// Original taxonomy source-categories response.
+  case taxonomySourceCategories = "Taxonomy/source-categories.json"
+  /// Original taxonomy source-categories-irma response.
+  case taxonomySourceCategoriesIRMA = "Taxonomy/source-categories-irma.json"
+  /// Original taxonomy source-irma response.
+  case taxonomySourceIRMA = "Taxonomy/source-irma.json"
+  /// Original taxonomy source-itis response.
+  case taxonomySourceITIS = "Taxonomy/source-itis.json"
+  /// Original taxonomy sources-profile response.
+  case taxonomySourceProfiles = "Taxonomy/sources-profile.json"
+  /// Original taxonomy source-ranks response.
+  case taxonomySourceRanks = "Taxonomy/source-ranks.json"
+  /// Original taxonomy source-ranks-irma response.
+  case taxonomySourceRanksIRMA = "Taxonomy/source-ranks-irma.json"
+  /// Original taxonomy sources-basic response.
+  case taxonomySources = "Taxonomy/sources-basic.json"
+  /// Original taxonomy tree-irma response.
+  case taxonomyTreeIRMA = "Taxonomy/tree-irma.json"
+  /// Original taxonomy tree-itis response.
+  case taxonomyTreeITIS = "Taxonomy/tree-itis.json"
+  /// Original taxonomy trees response.
+  case taxonomyTrees = "Taxonomy/trees.json"
   /// Original Unit acad response.
   case unitAcadia = "Units/acad.json"
   /// Original Unit geography-acad response.

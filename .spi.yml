@@ -1,5 +1,5 @@
 version: 1
 builder:
   configs:
-    - documentation_targets: [SwiftNPSDataModels, SwiftNPSData, SwiftNPSLandmarksModels, SwiftNPSLandmarks, SwiftNPSSpeciesModels, SwiftNPSSpecies, SwiftNPSUnitsModels, SwiftNPSUnits, SwiftNPSVisitationModels, SwiftNPSVisitation]
+    - documentation_targets: [SwiftNPSDataModels, SwiftNPSData, SwiftNPSLandmarksModels, SwiftNPSLandmarks, SwiftNPSSpeciesModels, SwiftNPSSpecies, SwiftNPSTaxonomyModels, SwiftNPSTaxonomy, SwiftNPSUnitsModels, SwiftNPSUnits, SwiftNPSVisitationModels, SwiftNPSVisitation]
       platform: ios

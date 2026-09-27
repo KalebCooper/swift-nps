@@ -7,6 +7,7 @@ struct IRMAExplorerView: View {
         Section {
           NavigationLink("Landmarks") { LandmarksExplorerView() }
           NavigationLink("Species") { SpeciesExplorerView() }
+          NavigationLink("Taxonomy") { TaxonomyExplorerView() }
           NavigationLink("Units") { UnitsExplorerView() }
           NavigationLink("Visitation") { VisitationExplorerView() }
         } footer: {
