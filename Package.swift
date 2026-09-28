@@ -133,7 +133,9 @@ let package = Package(
           condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS, .watchOS])),
         "SwiftNPSSpeciesModels",
       ],
-      swiftSettings: swiftSettings
+      swiftSettings: swiftSettings,
+      // FoundationXML in the Android SDK omits its dependency on system zlib.
+      linkerSettings: [.linkedLibrary("z", .when(platforms: [.android]))]
     ),
     .target(name: "SwiftNPSSpeciesModels", swiftSettings: swiftSettings),
     .testTarget(
